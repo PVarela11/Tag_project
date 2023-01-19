@@ -21,7 +21,7 @@ namespace Tåg_project
         {
             InitializeComponent();
             buildComponents();
-            openChildForm("Home");
+            openChildForm("Start");
         }
 
         private void buildComponents()
@@ -38,10 +38,10 @@ namespace Tåg_project
             {
                 _currentChildForm = new Home(path);
             }
-            //else if (formName == "Start")
-            //{
-            //    _currentChildForm = new StartForm();
-            //}
+            else if (formName == "Start")
+            {
+                _currentChildForm = new StartForm();
+            }
         
             _currentChildForm.Owner = this;
             Utils.OpenChildForm(_currentChildForm, parentForm);

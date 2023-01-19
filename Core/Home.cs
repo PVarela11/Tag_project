@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using Tåg_project.FileManipulation;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Tåg_project.Core
@@ -44,29 +45,14 @@ namespace Tåg_project.Core
         private void importData()
         {
             TrainReport.FileManipulation.Import import = new TrainReport.FileManipulation.Import(path);
-            //txtSerialNum.Text = import.serialNum.ToString();
-            //cboxClean.Checked = import.isClean;
+            txtSerialNum.Text = import.serialNum.ToString();
+            cboxClean.Checked = import.isClean;
             imgCount = import.imgCount;
             serialNum = import.serialNum;
             clean = import.isClean;
-            //lblImage.Text = imgCount.ToString();
+            lblImages.Text = imgCount.ToString();
             imagesPath.Clear();
             imagesPath = import.imagesPath;
-        }
-
-        private bool chooseNewPath()
-        {
-            using (FolderBrowserDialog dialog = new FolderBrowserDialog())
-            {
-                //dialog.RootFolder = Environment.SpecialFolder.DesktopDirectory;
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    string path = dialog.SelectedPath;
-                    Console.WriteLine("You selected: " + path);
-                    return true;
-                }
-                else return false;
-            }
         }
         #endregion
 
@@ -84,7 +70,8 @@ namespace Tåg_project.Core
 
                 clean = cboxClean.Checked;
                 MessageBox.Show("First choose the directory where the files will be placed, note that a new folder will be created in there!");
-                if (chooseNewPath())
+                path = FolderDialogHelper.SelectedFolder();
+                if (path != null)
                 {
                     TrainReport.FileManipulation.Export export = new TrainReport.FileManipulation.Export(serialNum, clean, imagesPath, imgCount, false, path);
                     path = export.path;
