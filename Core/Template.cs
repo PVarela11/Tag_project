@@ -7,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tåg_project.Core;
 using Tåg_project.Properties;
+using TrainReport;
 
 namespace Tåg_project
 {
@@ -19,7 +21,7 @@ namespace Tåg_project
         {
             InitializeComponent();
             buildComponents();
-            //openChildForm("Start");
+            openChildForm("Home");
         }
 
         private void buildComponents()
@@ -28,22 +30,22 @@ namespace Tåg_project
             pboxLogo.Image = Resources.vov;
         }
 
-        //private void openChildForm(string formName)
-        //{
-        //    var parentForm = mainPanel;
-        //    _currentChildForm?.Close();
-        //    if (formName == "Home")
-        //    {
-        //        _currentChildForm = new Home(path);
-        //    }
-        //    else if (formName == "Start")
-        //    {
-        //        _currentChildForm = new StartForm();
-        //    }
-        //
-        //    _currentChildForm.Owner = this;
-        //    Utils.OpenChildForm(_currentChildForm, parentForm);
-        //}
+        private void openChildForm(string formName)
+        {
+            var parentForm = pnlMain;
+            _currentChildForm?.Close();
+            if (formName == "Home")
+            {
+                _currentChildForm = new Home(path);
+            }
+            //else if (formName == "Start")
+            //{
+            //    _currentChildForm = new StartForm();
+            //}
+        
+            _currentChildForm.Owner = this;
+            Utils.OpenChildForm(_currentChildForm, parentForm);
+        }
 
         private void btnQuit_Click(object sender, EventArgs e)
         {
