@@ -199,10 +199,7 @@
     <None Include="Resources\vovLogo.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\vov.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\vov.jpg" />
+    <None Include="Resources\vovLogo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

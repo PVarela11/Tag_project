@@ -27,7 +27,7 @@ namespace Tåg_project
         private void buildComponents()
         {
             this.Icon = Resources.vov_logo;
-            pboxLogo.Image = Resources.vov;
+            //pboxLogo.Image = Resources.vovLogo;
         }
 
         private void openChildForm(string formName)
@@ -52,6 +52,13 @@ namespace Tåg_project
             Application.Exit();
         }
 
-
+        private void btnWindow_Click(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Maximized)
+            {
+                this.WindowState = FormWindowState.Normal;
+            }
+            else this.WindowState = FormWindowState.Maximized;
+        }
     }
 }

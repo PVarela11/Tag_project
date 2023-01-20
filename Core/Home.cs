@@ -20,11 +20,11 @@ namespace Tåg_project.Core
         bool clean;
         int serialNum, imgCount;
         List<string> imagesPath = new List<string>();
-
+        int page = 0;
         public Home(string tempPath)
         {
             InitializeComponent();
-            btnPrev.Enabled= false;
+            InitialDesign();
             path = tempPath;
             if (tempPath != null)
             {
@@ -32,6 +32,15 @@ namespace Tåg_project.Core
                 //lbl_Dir.Text = "The current directory is: " + tempPath;
             }
             //else lbl_Dir.Text = "There is no directory selected";
+        }
+
+        private void InitialDesign()
+        {
+            btnPrev.Enabled = false;
+            lblComponents.Enabled = false;
+            lblComponents.Visible= false;
+            txtComponents.Enabled = false;
+            txtComponents.Visible= false;
         }
 
         private void UpdateDesign()
@@ -114,7 +123,7 @@ namespace Tåg_project.Core
             mydoc.Start();
             //browser.Dock = DockStyle.Fill;
             //browser.Visible = true;
-            //browser.Navigate("C:\\Users\\pedro\\OneDrive\\Ambiente de Trabalho\\teste");
+            //browser.Navigate("C:\\Users\\pedro\\OneDrive\\Ambiente de Trabalho\\teste\\oldReports\\Report_1010\\Report_1010.pdf");
         }
         private void btnClearImg_Click(object sender, EventArgs e)
         {
@@ -124,17 +133,35 @@ namespace Tåg_project.Core
 
         private void btnPrev_Click(object sender, EventArgs e)
         {
-
+            if (page == 1)
+            {
+                btnPrev.Enabled = false;
+                pnlFirst.Width = pnlMiddle.Width;
+                pnlMiddle.Width = pnlFinal.Width = 0;
+                page--;
+            }else if (page == 2)
+            {
+                pnlMiddle.Width = pnlFinal.Width;
+                pnlFirst.Width = pnlFinal.Width = 0;
+                page--;
+            }
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            //button1.ImageIndex = 2;
-            //button2.ImageIndex = 1;
-            pnlMiddle.Width = pnlFirst.Width;
-            pnlFinal.Width = pnlFirst.Width = 0;
-            //label1.BackColor = Color.Green;
-            btnPrev.Enabled = true;
+            if (page == 0)
+            {
+                page++;
+                btnPrev.Enabled = true;
+                pnlMiddle.Width = pnlFirst.Width;
+                pnlFinal.Width = pnlFirst.Width = 0;
+                btnPrev.Enabled = true;
+            }else if (page == 1)
+            {
+                page++;
+                pnlFinal.Width = pnlMiddle.Width;
+                pnlMiddle.Width = pnlFirst.Width = 0;
+            }
         }
 
         private void txtSerialNum_KeyPress(object sender, KeyPressEventArgs e)

@@ -28,167 +28,118 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pnlTop = new System.Windows.Forms.Panel();
-            this.btnQuit = new FontAwesome.Sharp.IconButton();
-            this.lblAppName = new System.Windows.Forms.Label();
             this.pnlSide = new System.Windows.Forms.Panel();
-            this.pboxLogo = new System.Windows.Forms.PictureBox();
+            this.iconButton3 = new FontAwesome.Sharp.IconButton();
+            this.iconButton2 = new FontAwesome.Sharp.IconButton();
+            this.iconButton1 = new FontAwesome.Sharp.IconButton();
             this.pnlMain = new System.Windows.Forms.Panel();
-            this.btnHelp = new FontAwesome.Sharp.IconButton();
-            this.btnSettings = new FontAwesome.Sharp.IconButton();
-            this.btnHome = new FontAwesome.Sharp.IconButton();
-            this.pnlTop.SuspendLayout();
+            this.iconButton4 = new FontAwesome.Sharp.IconButton();
             this.pnlSide.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pboxLogo)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pnlTop
-            // 
-            this.pnlTop.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.pnlTop.Controls.Add(this.btnQuit);
-            this.pnlTop.Controls.Add(this.lblAppName);
-            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTop.Location = new System.Drawing.Point(0, 0);
-            this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(1070, 28);
-            this.pnlTop.TabIndex = 0;
-            // 
-            // btnQuit
-            // 
-            this.btnQuit.BackColor = System.Drawing.Color.Red;
-            this.btnQuit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnQuit.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnQuit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnQuit.ForeColor = System.Drawing.Color.Red;
-            this.btnQuit.IconChar = FontAwesome.Sharp.IconChar.X;
-            this.btnQuit.IconColor = System.Drawing.Color.Black;
-            this.btnQuit.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnQuit.IconSize = 20;
-            this.btnQuit.Location = new System.Drawing.Point(995, 0);
-            this.btnQuit.Name = "btnQuit";
-            this.btnQuit.Size = new System.Drawing.Size(75, 28);
-            this.btnQuit.TabIndex = 1;
-            this.btnQuit.UseVisualStyleBackColor = false;
-            this.btnQuit.Click += new System.EventHandler(this.btnQuit_Click);
-            // 
-            // lblAppName
-            // 
-            this.lblAppName.AutoSize = true;
-            this.lblAppName.BackColor = System.Drawing.Color.Transparent;
-            this.lblAppName.Location = new System.Drawing.Point(1, 6);
-            this.lblAppName.Name = "lblAppName";
-            this.lblAppName.Size = new System.Drawing.Size(131, 16);
-            this.lblAppName.TabIndex = 0;
-            this.lblAppName.Text = "VOV Service Consult";
             // 
             // pnlSide
             // 
-            this.pnlSide.BackColor = System.Drawing.SystemColors.GrayText;
-            this.pnlSide.Controls.Add(this.btnHome);
-            this.pnlSide.Controls.Add(this.btnSettings);
-            this.pnlSide.Controls.Add(this.btnHelp);
-            this.pnlSide.Controls.Add(this.pboxLogo);
+            this.pnlSide.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(53)))), ((int)(((byte)(102)))));
+            this.pnlSide.Controls.Add(this.iconButton4);
+            this.pnlSide.Controls.Add(this.iconButton3);
+            this.pnlSide.Controls.Add(this.iconButton2);
+            this.pnlSide.Controls.Add(this.iconButton1);
             this.pnlSide.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlSide.Location = new System.Drawing.Point(0, 28);
+            this.pnlSide.Location = new System.Drawing.Point(0, 0);
             this.pnlSide.Name = "pnlSide";
-            this.pnlSide.Size = new System.Drawing.Size(149, 542);
+            this.pnlSide.Size = new System.Drawing.Size(130, 570);
             this.pnlSide.TabIndex = 1;
             // 
-            // pboxLogo
+            // iconButton3
             // 
-            this.pboxLogo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pboxLogo.Location = new System.Drawing.Point(0, 0);
-            this.pboxLogo.Name = "pboxLogo";
-            this.pboxLogo.Size = new System.Drawing.Size(149, 98);
-            this.pboxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pboxLogo.TabIndex = 0;
-            this.pboxLogo.TabStop = false;
+            this.iconButton3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.iconButton3.FlatAppearance.BorderSize = 0;
+            this.iconButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButton3.IconChar = FontAwesome.Sharp.IconChar.QuestionCircle;
+            this.iconButton3.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(214)))), ((int)(((byte)(10)))));
+            this.iconButton3.IconFont = FontAwesome.Sharp.IconFont.Solid;
+            this.iconButton3.Location = new System.Drawing.Point(0, 194);
+            this.iconButton3.Name = "iconButton3";
+            this.iconButton3.Size = new System.Drawing.Size(130, 97);
+            this.iconButton3.TabIndex = 2;
+            this.iconButton3.UseVisualStyleBackColor = true;
+            // 
+            // iconButton2
+            // 
+            this.iconButton2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.iconButton2.FlatAppearance.BorderSize = 0;
+            this.iconButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButton2.IconChar = FontAwesome.Sharp.IconChar.Gear;
+            this.iconButton2.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(214)))), ((int)(((byte)(10)))));
+            this.iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButton2.Location = new System.Drawing.Point(0, 97);
+            this.iconButton2.Name = "iconButton2";
+            this.iconButton2.Size = new System.Drawing.Size(130, 97);
+            this.iconButton2.TabIndex = 1;
+            this.iconButton2.UseVisualStyleBackColor = true;
+            // 
+            // iconButton1
+            // 
+            this.iconButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(53)))), ((int)(((byte)(102)))));
+            this.iconButton1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.iconButton1.FlatAppearance.BorderSize = 0;
+            this.iconButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.Home;
+            this.iconButton1.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(214)))), ((int)(((byte)(10)))));
+            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButton1.Location = new System.Drawing.Point(0, 0);
+            this.iconButton1.Name = "iconButton1";
+            this.iconButton1.Size = new System.Drawing.Size(130, 97);
+            this.iconButton1.TabIndex = 0;
+            this.iconButton1.UseVisualStyleBackColor = false;
             // 
             // pnlMain
             // 
+            this.pnlMain.BackColor = System.Drawing.Color.LightBlue;
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.Location = new System.Drawing.Point(149, 28);
+            this.pnlMain.Location = new System.Drawing.Point(130, 0);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(921, 542);
+            this.pnlMain.Size = new System.Drawing.Size(940, 570);
             this.pnlMain.TabIndex = 2;
             // 
-            // btnHelp
+            // iconButton4
             // 
-            this.btnHelp.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnHelp.FlatAppearance.BorderSize = 0;
-            this.btnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHelp.IconChar = FontAwesome.Sharp.IconChar.Question;
-            this.btnHelp.IconColor = System.Drawing.Color.Black;
-            this.btnHelp.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnHelp.IconSize = 60;
-            this.btnHelp.Location = new System.Drawing.Point(0, 462);
-            this.btnHelp.Name = "btnHelp";
-            this.btnHelp.Size = new System.Drawing.Size(149, 80);
-            this.btnHelp.TabIndex = 1;
-            this.btnHelp.UseVisualStyleBackColor = true;
-            // 
-            // btnSettings
-            // 
-            this.btnSettings.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnSettings.FlatAppearance.BorderSize = 0;
-            this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSettings.IconChar = FontAwesome.Sharp.IconChar.Gear;
-            this.btnSettings.IconColor = System.Drawing.Color.Black;
-            this.btnSettings.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnSettings.IconSize = 60;
-            this.btnSettings.Location = new System.Drawing.Point(0, 382);
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(149, 80);
-            this.btnSettings.TabIndex = 2;
-            this.btnSettings.UseVisualStyleBackColor = true;
-            // 
-            // btnHome
-            // 
-            this.btnHome.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnHome.FlatAppearance.BorderSize = 0;
-            this.btnHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHome.IconChar = FontAwesome.Sharp.IconChar.Home;
-            this.btnHome.IconColor = System.Drawing.Color.Black;
-            this.btnHome.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnHome.IconSize = 60;
-            this.btnHome.Location = new System.Drawing.Point(0, 98);
-            this.btnHome.Name = "btnHome";
-            this.btnHome.Size = new System.Drawing.Size(149, 80);
-            this.btnHome.TabIndex = 3;
-            this.btnHome.UseVisualStyleBackColor = true;
+            this.iconButton4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.iconButton4.FlatAppearance.BorderSize = 0;
+            this.iconButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButton4.IconChar = FontAwesome.Sharp.IconChar.CircleInfo;
+            this.iconButton4.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(214)))), ((int)(((byte)(10)))));
+            this.iconButton4.IconFont = FontAwesome.Sharp.IconFont.Solid;
+            this.iconButton4.Location = new System.Drawing.Point(0, 291);
+            this.iconButton4.Name = "iconButton4";
+            this.iconButton4.Size = new System.Drawing.Size(130, 97);
+            this.iconButton4.TabIndex = 3;
+            this.iconButton4.UseVisualStyleBackColor = true;
             // 
             // Template
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(1070, 570);
-            this.ControlBox = false;
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlSide);
-            this.Controls.Add(this.pnlTop);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Template";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.pnlTop.ResumeLayout(false);
-            this.pnlTop.PerformLayout();
+            this.Text = "Train PCB Report";
             this.pnlSide.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pboxLogo)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel pnlTop;
         private System.Windows.Forms.Panel pnlSide;
-        private System.Windows.Forms.PictureBox pboxLogo;
-        private System.Windows.Forms.Label lblAppName;
         private System.Windows.Forms.Panel pnlMain;
-        private FontAwesome.Sharp.IconButton btnQuit;
-        private FontAwesome.Sharp.IconButton btnSettings;
-        private FontAwesome.Sharp.IconButton btnHelp;
-        private FontAwesome.Sharp.IconButton btnHome;
+        private FontAwesome.Sharp.IconButton iconButton1;
+        private FontAwesome.Sharp.IconButton iconButton3;
+        private FontAwesome.Sharp.IconButton iconButton2;
+        private FontAwesome.Sharp.IconButton iconButton4;
     }
 }
 
