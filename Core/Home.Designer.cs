@@ -33,8 +33,20 @@
             this.btnPrev = new FontAwesome.Sharp.IconButton();
             this.label1 = new System.Windows.Forms.Label();
             this.pnlFinal = new System.Windows.Forms.Panel();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtFinalThoughts = new System.Windows.Forms.RichTextBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.btnImportFinalImg = new System.Windows.Forms.Button();
+            this.pboxFinalImages = new FontAwesome.Sharp.IconPictureBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cboxApproved = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnCreatePDF = new System.Windows.Forms.Button();
             this.pnlMiddle = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.lblComponents = new System.Windows.Forms.Label();
             this.txtComponents = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -52,11 +64,9 @@
             this.lblSerialNum = new System.Windows.Forms.Label();
             this.txtSerialNum = new System.Windows.Forms.TextBox();
             this.btnExport = new System.Windows.Forms.Button();
-            this.btnCreatePDF = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.pnlTop.SuspendLayout();
             this.pnlFinal.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pboxFinalImages)).BeginInit();
             this.pnlMiddle.SuspendLayout();
             this.pnlFirst.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxImages)).BeginInit();
@@ -124,22 +134,131 @@
             // pnlFinal
             // 
             this.pnlFinal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(155)))), ((int)(((byte)(231)))));
-            this.pnlFinal.Controls.Add(this.btnCreatePDF);
+            this.pnlFinal.Controls.Add(this.button5);
+            this.pnlFinal.Controls.Add(this.button6);
+            this.pnlFinal.Controls.Add(this.label6);
+            this.pnlFinal.Controls.Add(this.txtFinalThoughts);
+            this.pnlFinal.Controls.Add(this.button3);
+            this.pnlFinal.Controls.Add(this.btnImportFinalImg);
+            this.pnlFinal.Controls.Add(this.pboxFinalImages);
+            this.pnlFinal.Controls.Add(this.label5);
+            this.pnlFinal.Controls.Add(this.cboxApproved);
             this.pnlFinal.Controls.Add(this.label4);
+            this.pnlFinal.Controls.Add(this.btnCreatePDF);
             this.pnlFinal.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlFinal.Location = new System.Drawing.Point(930, 100);
+            this.pnlFinal.Location = new System.Drawing.Point(3, 100);
             this.pnlFinal.Name = "pnlFinal";
-            this.pnlFinal.Size = new System.Drawing.Size(10, 430);
+            this.pnlFinal.Size = new System.Drawing.Size(937, 430);
             this.pnlFinal.TabIndex = 1;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(817, 48);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(99, 23);
+            this.button5.TabIndex = 23;
+            this.button5.Text = "Instructions";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(817, 13);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(99, 23);
+            this.button6.TabIndex = 22;
+            this.button6.Text = "Save";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(374, 93);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(101, 16);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Final Thoughts :";
+            // 
+            // txtFinalThoughts
+            // 
+            this.txtFinalThoughts.Location = new System.Drawing.Point(377, 119);
+            this.txtFinalThoughts.Name = "txtFinalThoughts";
+            this.txtFinalThoughts.Size = new System.Drawing.Size(539, 250);
+            this.txtFinalThoughts.TabIndex = 20;
+            this.txtFinalThoughts.Text = "";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(250, 347);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 19;
+            this.button3.Text = "Clear";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // btnImportFinalImg
+            // 
+            this.btnImportFinalImg.Location = new System.Drawing.Point(162, 346);
+            this.btnImportFinalImg.Name = "btnImportFinalImg";
+            this.btnImportFinalImg.Size = new System.Drawing.Size(75, 23);
+            this.btnImportFinalImg.TabIndex = 18;
+            this.btnImportFinalImg.Text = "Import";
+            this.btnImportFinalImg.UseVisualStyleBackColor = true;
+            this.btnImportFinalImg.Click += new System.EventHandler(this.btnImportImage_Click);
+            // 
+            // pboxFinalImages
+            // 
+            this.pboxFinalImages.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(155)))), ((int)(((byte)(231)))));
+            this.pboxFinalImages.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(214)))), ((int)(((byte)(10)))));
+            this.pboxFinalImages.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
+            this.pboxFinalImages.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(214)))), ((int)(((byte)(10)))));
+            this.pboxFinalImages.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.pboxFinalImages.IconSize = 160;
+            this.pboxFinalImages.Location = new System.Drawing.Point(162, 173);
+            this.pboxFinalImages.Name = "pboxFinalImages";
+            this.pboxFinalImages.Size = new System.Drawing.Size(163, 160);
+            this.pboxFinalImages.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pboxFinalImages.TabIndex = 17;
+            this.pboxFinalImages.TabStop = false;
+            this.pboxFinalImages.Click += new System.EventHandler(this.pboxFinalImages_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(34, 173);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(122, 16);
+            this.label5.TabIndex = 16;
+            this.label5.Text = "Import PCB images";
+            // 
+            // cboxApproved
+            // 
+            this.cboxApproved.AutoSize = true;
+            this.cboxApproved.Location = new System.Drawing.Point(193, 92);
+            this.cboxApproved.Name = "cboxApproved";
+            this.cboxApproved.Size = new System.Drawing.Size(89, 20);
+            this.cboxApproved.TabIndex = 15;
+            this.cboxApproved.Text = "Approved";
+            this.cboxApproved.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(360, 167);
+            this.label4.Location = new System.Drawing.Point(34, 93);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(70, 16);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Last Panel";
+            this.label4.Size = new System.Drawing.Size(153, 16);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Final Eletrical Evaluation";
+            // 
+            // btnCreatePDF
+            // 
+            this.btnCreatePDF.Location = new System.Drawing.Point(746, 395);
+            this.btnCreatePDF.Name = "btnCreatePDF";
+            this.btnCreatePDF.Size = new System.Drawing.Size(170, 23);
+            this.btnCreatePDF.TabIndex = 13;
+            this.btnCreatePDF.Text = "Create PDF";
+            this.btnCreatePDF.UseVisualStyleBackColor = true;
+            this.btnCreatePDF.Click += new System.EventHandler(this.btnCreatePDF_Click);
             // 
             // pnlMiddle
             // 
@@ -155,10 +274,29 @@
             this.pnlMiddle.Controls.Add(this.lblClean);
             this.pnlMiddle.Controls.Add(this.cboxClean);
             this.pnlMiddle.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlMiddle.Location = new System.Drawing.Point(920, 100);
+            this.pnlMiddle.Location = new System.Drawing.Point(-915, 100);
             this.pnlMiddle.Name = "pnlMiddle";
-            this.pnlMiddle.Size = new System.Drawing.Size(10, 430);
+            this.pnlMiddle.Size = new System.Drawing.Size(918, 430);
             this.pnlMiddle.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(783, 48);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(99, 23);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "Instructions";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(783, 13);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(99, 23);
+            this.button2.TabIndex = 15;
+            this.button2.Text = "Save";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // lblComponents
             // 
@@ -247,7 +385,7 @@
             this.pnlFirst.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlFirst.Location = new System.Drawing.Point(0, 100);
             this.pnlFirst.Name = "pnlFirst";
-            this.pnlFirst.Size = new System.Drawing.Size(920, 430);
+            this.pnlFirst.Size = new System.Drawing.Size(0, 430);
             this.pnlFirst.TabIndex = 3;
             // 
             // btnInstructions
@@ -290,9 +428,11 @@
             this.pboxImages.IconSize = 160;
             this.pboxImages.Location = new System.Drawing.Point(343, 109);
             this.pboxImages.Name = "pboxImages";
-            this.pboxImages.Size = new System.Drawing.Size(163, 160);
+            this.pboxImages.Size = new System.Drawing.Size(160, 160);
+            this.pboxImages.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pboxImages.TabIndex = 9;
             this.pboxImages.TabStop = false;
+            this.pboxImages.Click += new System.EventHandler(this.pboxImages_Click);
             // 
             // lblImages
             // 
@@ -330,33 +470,6 @@
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
-            // btnCreatePDF
-            // 
-            this.btnCreatePDF.Location = new System.Drawing.Point(797, 395);
-            this.btnCreatePDF.Name = "btnCreatePDF";
-            this.btnCreatePDF.Size = new System.Drawing.Size(99, 23);
-            this.btnCreatePDF.TabIndex = 13;
-            this.btnCreatePDF.Text = "Create PDF";
-            this.btnCreatePDF.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(783, 48);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(99, 23);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "Instructions";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(783, 13);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(99, 23);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "Save";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -372,6 +485,7 @@
             this.pnlTop.PerformLayout();
             this.pnlFinal.ResumeLayout(false);
             this.pnlFinal.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pboxFinalImages)).EndInit();
             this.pnlMiddle.ResumeLayout(false);
             this.pnlMiddle.PerformLayout();
             this.pnlFirst.ResumeLayout(false);
@@ -386,7 +500,6 @@
         private System.Windows.Forms.Panel pnlTop;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel pnlFinal;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel pnlMiddle;
         private System.Windows.Forms.Panel pnlFirst;
         private System.Windows.Forms.Button btnExport;
@@ -410,5 +523,15 @@
         private System.Windows.Forms.Button btnCreatePDF;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.RichTextBox txtFinalThoughts;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnImportFinalImg;
+        private FontAwesome.Sharp.IconPictureBox pboxFinalImages;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox cboxApproved;
+        private System.Windows.Forms.Label label4;
     }
 }

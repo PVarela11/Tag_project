@@ -13,15 +13,24 @@ namespace TrainReport.FileManipulation
         List<Image> images;
         string imgName;
         public string path { get; set; }
+        public string initialImagesFolder { get; set; }
+        public string finalImagesFolder { get; set; }
 
-        public Export(int serialNum, bool clean, List<string> imagesPath, int imgCount, bool finish, string s) 
+        public Export(int serialNum, bool clean, bool isEvaluated, bool isComponentReplaced, string whichComponents, bool finalEvaluation, string finalText, List<string> initialImages, List<string> finalImages, int imgCount, bool finish, string s) 
         {
-            createImg(imagesPath, imgCount);
-            path = s + "/Report_" + serialNum;
+            string report = "\\Report_" + serialNum;
+            
+            if (!s.Contains(report))
+            {
+                path = s + report;
+            }
+            else path = s;
+            initialImagesFolder = path + "\\BeforeRepair";
+            finalImagesFolder = path + "\\AfterRepair";
             // Create a list of data to be converted to CSV
             List<string[]> data = new List<string[]>
             {
-                new string[] {serialNum.ToString(), clean.ToString(),imgCount.ToString()},
+                new string[] {serialNum.ToString(), imgCount.ToString(), clean.ToString(), isEvaluated.ToString(), isComponentReplaced.ToString(), whichComponents, finalEvaluation.ToString(), finalText},
             };
 
             // Specify the directory you want to manipulate.
@@ -36,8 +45,44 @@ namespace TrainReport.FileManipulation
                     Console.WriteLine("That path exists already.");
                     // Write the data to a CSV file
                     WriteCSV(filePath, data);
-                    //Write the image to the folder
-                    WriteImages(imgCount, imagesPath);
+                    if (Directory.Exists(initialImagesFolder))
+                    {
+                        //Write the image to the folder
+                        if (initialImages.Count > 0)
+                        {
+                            createImg(initialImages);
+                            WriteImages(initialImages, initialImagesFolder);
+                        }
+                    }
+                    else
+                    {
+                        // Try to create the directory.
+                        DirectoryInfo di = Directory.CreateDirectory(initialImagesFolder);
+                        //Write the image to the folder
+                        if (initialImages.Count > 0)
+                        {
+                            createImg(initialImages);
+                            WriteImages(initialImages, initialImagesFolder);
+                        }
+                    }
+
+                        if (Directory.Exists(finalImagesFolder))
+                    {
+                        if (finalImages.Count > 0)
+                        {
+                            createImg(finalImages);
+                            WriteImages(finalImages, finalImagesFolder);
+                        }
+                    }
+                    else {
+                        // Try to create the directory.
+                        DirectoryInfo di = Directory.CreateDirectory(finalImagesFolder);
+                        if (finalImages.Count > 0)
+                        {
+                            createImg(finalImages);
+                            WriteImages(finalImages, finalImagesFolder);
+                        }
+                    }   
                 }
                 else
                 {
@@ -47,7 +92,16 @@ namespace TrainReport.FileManipulation
                     // Write the data to a CSV file
                     WriteCSV(filePath, data);
                     //Write the image to the folder
-                    WriteImages(imgCount, imagesPath);
+                    if (initialImages.Count > 0)
+                    {
+                        createImg(initialImages);
+                        WriteImages(initialImages, initialImagesFolder);
+                    }
+                    if (finalImages.Count > 0)
+                    {
+                        createImg(finalImages);
+                        WriteImages(finalImages, finalImagesFolder);
+                    }
                 }
             }
             catch (Exception ex)
@@ -79,14 +133,14 @@ namespace TrainReport.FileManipulation
             return false;
         }
 
-        private void WriteImages(int imgCount, List<string> imagesPath)
+        private void WriteImages(List<string> imagesList, string newPath)
         {
-            if (imgCount == 1)
+            if (imagesList.Count == 1)
             {
-                imagesPath[0] = Path.Combine(path, imgName);
-                if (!CheckIfImageExists(path, imagesPath[0]))
+                imagesList[0] = Path.Combine(newPath, imgName);
+                if (!CheckIfImageExists(newPath, imagesList[0]))
                 {
-                    using (FileStream stream = new FileStream(imagesPath[0], FileMode.Create))
+                    using (FileStream stream = new FileStream(imagesList[0], FileMode.Create))
                     {
                         image.Save(stream, ImageFormat.Jpeg);
                     }
@@ -95,14 +149,14 @@ namespace TrainReport.FileManipulation
             }
             else
             {
-                for (int i = 0; i < imgCount; i++)
+                for (int i = 0; i < imagesList.Count; i++)
                 {
-                    imgName = Path.GetFileName(imagesPath[i]);
-                    imagesPath[i] = Path.Combine(path, imgName);
-                    if (!CheckIfImageExists(path, imagesPath[i]))
+                    imgName = Path.GetFileName(imagesList[i]);
+                    imagesList[i] = Path.Combine(newPath, imgName);
+                    if (!CheckIfImageExists(newPath, imagesList[i]))
                     {
-                        images[i].Save(imagesPath[i], ImageFormat.Jpeg);
-                        using (FileStream stream = new FileStream(imagesPath[i], FileMode.Create))
+                        images[i].Save(imagesList[i], ImageFormat.Jpeg);
+                        using (FileStream stream = new FileStream(imagesList[i], FileMode.Create))
                         {
                             images[i].Save(stream, ImageFormat.Jpeg);
                         }
@@ -124,9 +178,9 @@ namespace TrainReport.FileManipulation
             }
         }
 
-        private void createImg(List<string> imgPath, int imgCount)
+        private void createImg(List<string> imgPath)
         {
-            if(imgCount == 1)
+            if(imgPath.Count == 1)
             {
                 try
                 {
@@ -143,8 +197,9 @@ namespace TrainReport.FileManipulation
             {
                 try
                 {
+                    
                     images = new List<Image>();
-                    for (int i = 0; i < imgCount; i++)
+                    for (int i = 0; i < imgPath.Count; i++)
                     {
                         image = new Bitmap(imgPath[i]);
                         images.Add(image);

@@ -7,6 +7,7 @@ using Paragraph = iText.Layout.Element.Paragraph;
 using Image = iText.Layout.Element.Image;
 using System.Collections.Generic;
 using System.IO;
+using iText.StyledXmlParser.Jsoup.Safety;
 
 namespace TrainReport.FileManipulation
 {
@@ -15,7 +16,7 @@ namespace TrainReport.FileManipulation
         string path;
         int count = 0;
         iText.Layout.Element.Paragraph p;
-        public ExportPDF(string s, List<string> imagesPath, int serialNum)
+        public ExportPDF(string s, List<string> initialimagesPath, List<string> finalImagesPath, int serialNum, bool clean, bool eletricEval, bool replaced, string componentsReplaced, bool finalEval, string finalThoughts)
         {
             path = s;
             string outputPath = "Report_" + serialNum + ".pdf";
@@ -64,7 +65,7 @@ namespace TrainReport.FileManipulation
                         count++;
                     }
                     // Add an image to the 
-                    foreach (var img in imagesPath)
+                    foreach (var img in initialimagesPath)
                     {
                         // Add an image to the PDF
                         // Create an instance of the Image class

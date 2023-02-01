@@ -60,5 +60,10 @@ namespace Tåg_project
             }
             else this.WindowState = FormWindowState.Maximized;
         }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            openChildForm("Start");
+        }
     }
 }

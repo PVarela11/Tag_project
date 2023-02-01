@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Media;
 using Tåg_project.FileManipulation;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -16,10 +17,12 @@ namespace Tåg_project.Core
 {
     public partial class Home : Form
     {
-        string path;
-        bool clean;
-        int serialNum, imgCount;
-        List<string> imagesPath = new List<string>();
+        string path, whichComponents, finalText;
+        bool isClean, isEvaluated, isComponentReplaced, finalEvaluation;
+        int serialNum, initialImgCount = 0, aux = 0, finalImageCount = 0;
+        List<string> initialImagesPath = new List<string>();
+        List<string> finalImagesPath  = new List<string>();
+        List<string> listAux = new List<string>();
         int page = 0;
         public Home(string tempPath)
         {
@@ -36,6 +39,8 @@ namespace Tåg_project.Core
 
         private void InitialDesign()
         {
+            pboxImages.Enabled= false;
+            pboxFinalImages.Enabled = false;
             btnPrev.Enabled = false;
             lblComponents.Enabled = false;
             lblComponents.Visible= false;
@@ -45,7 +50,7 @@ namespace Tåg_project.Core
 
         private void UpdateDesign()
         {
-            lblImages.Text = imgCount.ToString() + "image(s)";
+            lblImages.Text = initialImgCount.ToString() + "image(s)";
             //lbl_Dir.Text = "The current directory is: " + path;
         }
 
@@ -55,65 +60,125 @@ namespace Tåg_project.Core
         {
             TrainReport.FileManipulation.Import import = new TrainReport.FileManipulation.Import(path);
             txtSerialNum.Text = import.serialNum.ToString();
-            cboxClean.Checked = import.isClean;
-            imgCount = import.imgCount;
+            cboxClean.Checked = import.isClean;;
             serialNum = import.serialNum;
-            clean = import.isClean;
-            lblImages.Text = imgCount.ToString();
-            imagesPath.Clear();
-            imagesPath = import.imagesPath;
+            isClean = import.isClean;
+            cboxEletricalEvaluation.Checked = import.isEvaluated;
+            cboxComponents.Checked = import.isComponentReplaced;
+            if (cboxComponents.Checked)
+            {
+                txtComponents.Enabled= true;
+                txtComponents.Visible= true;
+                txtComponents.Text = import.whichComponents.ToString();
+            }
+            txtFinalThoughts.Text = import.finalText;
+            cboxApproved.Checked = import.finalEvaluation;
+            lblImages.Text = initialImgCount.ToString();
+            initialImagesPath.Clear();
+            initialImagesPath = import.initialImagesPath;
+            initialImgCount = initialImagesPath.Count();
+            //finalImagesPath.Clear();
+            //finalImagesPath = import.finalImagesPath;
+
+            if (initialImagesPath.Count != 0)
+            {
+                pboxImages.Enabled = true;
+                pboxImages.ImageLocation = initialImagesPath[0];
+            }
+
+            //if (finalImagesPath.Count != 0)
+            //{
+            //    pboxFinalImages.Enabled = true;
+            //    pboxFinalImages.ImageLocation = finalImagesPath[0];
+            //}
+
         }
         #endregion
 
         #region Button clicks and textbox key press
         private void btnExport_Click(object sender, EventArgs e)
         {
-            if (imgCount > 0)
+            //if (initialImgCount > 0)
+            //{
+            //Checks if textbox has data and saves the string as int
+            if (txtSerialNum.Text != "")
             {
-                //Checks if textbox has data and saves the string as int
-                if (txtSerialNum.Text != "")
-                {
-                    serialNum = int.Parse(txtSerialNum.Text);
-                    Console.WriteLine(serialNum.ToString());
-                }
-
-                clean = cboxClean.Checked;
-                MessageBox.Show("First choose the directory where the files will be placed, note that a new folder will be created in there!");
-                path = FolderDialogHelper.SelectedFolder();
-                if (path != null)
-                {
-                    TrainReport.FileManipulation.Export export = new TrainReport.FileManipulation.Export(serialNum, clean, imagesPath, imgCount, false, path);
-                    path = export.path;
-                    UpdateDesign();
-                }
+                serialNum = int.Parse(txtSerialNum.Text);
+                Console.WriteLine(serialNum.ToString());
             }
-            else
+
+            isClean = cboxClean.Checked;
+            isEvaluated = cboxEletricalEvaluation.Checked;
+            isComponentReplaced = cboxComponents.Checked;
+            whichComponents = txtComponents.Text;
+            finalEvaluation = cboxApproved.Checked;
+            finalText = txtFinalThoughts.Text;
+
+            MessageBox.Show("Choose the directory where the files will be placed, note that a new folder will be created in there!");
+            path = FolderDialogHelper.SelectedFolder();
+            
+            if (path != null)
             {
-                MessageBox.Show("You need to import some images of the PCB first!", "Image not found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                TrainReport.FileManipulation.Export export = new TrainReport.FileManipulation.Export(serialNum, isClean, isEvaluated, isComponentReplaced, whichComponents, finalEvaluation, finalText, initialImagesPath, finalImagesPath, initialImgCount, false, path);
+                path = export.path;
+                UpdateDesign();
+            }else
+            {
+                MessageBox.Show("Select a valid path!");
             }
         }
 
+        //else
+        //{
+        //    MessageBox.Show("You need to import some images of the PCB first!", "Image not found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //}
+
         private void btnImportImage_Click(object sender, EventArgs e)
         {
+            listAux.Clear();
+            string name = (sender as Button).Name;
+            pboxImages.BackColor = System.Drawing.Color.FromArgb(119, 155, 230);
             OpenFileDialog dialog = new OpenFileDialog();
-            //imgCount = 0;
             dialog.Filter = "Select Valid Document(*.png; *.jpeg; *.jpg)|*.png; *.jpeg; *.jpg";
             dialog.Multiselect = true;
+            int imgCount = 0;
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 foreach (string fileName in dialog.FileNames)
                 {
                     // do something with path
-                    imagesPath.Add(fileName);
+                    //initialImagesPath.Add(fileName);
+                    listAux.Add(fileName);
                     imgCount++;
                 }
-                lblImages.Text = imgCount.ToString() + " images imported";
+                if(name == "btnImportFinalImg"){
+                    finalImagesPath.AddRange(listAux);
+                    finalImageCount += imgCount;
+                    pboxFinalImages.ImageLocation = finalImagesPath[0];
+                    pboxFinalImages.Enabled = true;
+                }
+                else if (name == "btnImportImage")
+                {
+                    initialImagesPath.AddRange(listAux);
+                    initialImgCount += imgCount;
+                    pboxImages.ImageLocation = initialImagesPath[0];
+                    lblImages.Text = initialImgCount.ToString() + " images imported";
+                    pboxImages.Enabled = true;
+                }
             }
+
             else return;
         }
         private void btnCreatePDF_Click(object sender, EventArgs e)
         {
-            TrainReport.FileManipulation.ExportPDF pdf = new TrainReport.FileManipulation.ExportPDF(path, imagesPath, serialNum);
+            isClean = cboxClean.Checked;
+            isEvaluated = cboxEletricalEvaluation.Checked;
+            isComponentReplaced = cboxComponents.Checked;
+            whichComponents = txtComponents.Text;
+            finalEvaluation = cboxApproved.Checked;
+            finalText = txtFinalThoughts.Text;
+            TrainReport.FileManipulation.ExportPDF pdf = new TrainReport.FileManipulation.ExportPDF(path, initialImagesPath, 
+                finalImagesPath, serialNum, isClean, isEvaluated, isComponentReplaced, whichComponents, finalEvaluation, finalText);
             return;
         }
         private void btnInstructions_Click(object sender, EventArgs e)
@@ -127,7 +192,11 @@ namespace Tåg_project.Core
         }
         private void btnClearImg_Click(object sender, EventArgs e)
         {
-            imagesPath.Clear();
+            initialImagesPath.Clear();
+            pboxImages.Enabled = false;
+            pboxImages.Image = null;
+            pboxImages.BackColor= System.Drawing.Color.FromArgb(119, 155, 230);
+            aux = 0;
             lblImages.Text = "";
         }
 
@@ -144,6 +213,36 @@ namespace Tåg_project.Core
                 pnlMiddle.Width = pnlFinal.Width;
                 pnlFirst.Width = pnlFinal.Width = 0;
                 page--;
+                btnNext.Enabled = true;
+            }
+        }
+
+        private void pboxImages_Click(object sender, EventArgs e)
+        {
+            if (aux < initialImgCount - 1)
+            {
+                aux++;
+                pboxImages.ImageLocation = initialImagesPath[aux];
+            }
+            else
+            {
+                aux = 0;
+                pboxImages.ImageLocation = initialImagesPath[aux];
+            }
+            
+        }
+
+        private void pboxFinalImages_Click(object sender, EventArgs e)
+        {
+            if (aux < finalImageCount - 1)
+            {
+                aux++;
+                pboxFinalImages.ImageLocation = finalImagesPath[aux];
+            }
+            else
+            {
+                aux = 0;
+                pboxFinalImages.ImageLocation = finalImagesPath[aux];
             }
         }
 
@@ -161,6 +260,7 @@ namespace Tåg_project.Core
                 page++;
                 pnlFinal.Width = pnlMiddle.Width;
                 pnlMiddle.Width = pnlFirst.Width = 0;
+                btnNext.Enabled = false;
             }
         }
 
