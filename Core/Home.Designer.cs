@@ -37,7 +37,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.txtFinalThoughts = new System.Windows.Forms.RichTextBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnClearFinalImg = new System.Windows.Forms.Button();
             this.btnImportFinalImg = new System.Windows.Forms.Button();
             this.pboxFinalImages = new FontAwesome.Sharp.IconPictureBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -138,7 +138,7 @@
             this.pnlFinal.Controls.Add(this.button6);
             this.pnlFinal.Controls.Add(this.label6);
             this.pnlFinal.Controls.Add(this.txtFinalThoughts);
-            this.pnlFinal.Controls.Add(this.button3);
+            this.pnlFinal.Controls.Add(this.btnClearFinalImg);
             this.pnlFinal.Controls.Add(this.btnImportFinalImg);
             this.pnlFinal.Controls.Add(this.pboxFinalImages);
             this.pnlFinal.Controls.Add(this.label5);
@@ -146,9 +146,9 @@
             this.pnlFinal.Controls.Add(this.label4);
             this.pnlFinal.Controls.Add(this.btnCreatePDF);
             this.pnlFinal.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlFinal.Location = new System.Drawing.Point(3, 100);
+            this.pnlFinal.Location = new System.Drawing.Point(930, 100);
             this.pnlFinal.Name = "pnlFinal";
-            this.pnlFinal.Size = new System.Drawing.Size(937, 430);
+            this.pnlFinal.Size = new System.Drawing.Size(10, 430);
             this.pnlFinal.TabIndex = 1;
             // 
             // button5
@@ -187,14 +187,15 @@
             this.txtFinalThoughts.TabIndex = 20;
             this.txtFinalThoughts.Text = "";
             // 
-            // button3
+            // btnClearFinalImg
             // 
-            this.button3.Location = new System.Drawing.Point(250, 347);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 19;
-            this.button3.Text = "Clear";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnClearFinalImg.Location = new System.Drawing.Point(250, 347);
+            this.btnClearFinalImg.Name = "btnClearFinalImg";
+            this.btnClearFinalImg.Size = new System.Drawing.Size(75, 23);
+            this.btnClearFinalImg.TabIndex = 19;
+            this.btnClearFinalImg.Text = "Clear";
+            this.btnClearFinalImg.UseVisualStyleBackColor = true;
+            this.btnClearFinalImg.Click += new System.EventHandler(this.btnClearImg_Click);
             // 
             // btnImportFinalImg
             // 
@@ -274,9 +275,9 @@
             this.pnlMiddle.Controls.Add(this.lblClean);
             this.pnlMiddle.Controls.Add(this.cboxClean);
             this.pnlMiddle.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlMiddle.Location = new System.Drawing.Point(-915, 100);
+            this.pnlMiddle.Location = new System.Drawing.Point(920, 100);
             this.pnlMiddle.Name = "pnlMiddle";
-            this.pnlMiddle.Size = new System.Drawing.Size(918, 430);
+            this.pnlMiddle.Size = new System.Drawing.Size(10, 430);
             this.pnlMiddle.TabIndex = 2;
             // 
             // button1
@@ -334,6 +335,7 @@
             this.cboxComponents.Size = new System.Drawing.Size(18, 17);
             this.cboxComponents.TabIndex = 11;
             this.cboxComponents.UseVisualStyleBackColor = true;
+            this.cboxComponents.CheckedChanged += new System.EventHandler(this.cboxComponents_CheckedChanged);
             // 
             // label2
             // 
@@ -385,7 +387,7 @@
             this.pnlFirst.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlFirst.Location = new System.Drawing.Point(0, 100);
             this.pnlFirst.Name = "pnlFirst";
-            this.pnlFirst.Size = new System.Drawing.Size(0, 430);
+            this.pnlFirst.Size = new System.Drawing.Size(920, 430);
             this.pnlFirst.TabIndex = 3;
             // 
             // btnInstructions
@@ -527,7 +529,7 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.RichTextBox txtFinalThoughts;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnClearFinalImg;
         private System.Windows.Forms.Button btnImportFinalImg;
         private FontAwesome.Sharp.IconPictureBox pboxFinalImages;
         private System.Windows.Forms.Label label5;

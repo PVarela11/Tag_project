@@ -23,6 +23,7 @@ namespace TrainReport.FileManipulation
         public Import(string path)
         {
             initialImagesPath = new List<string>();
+            finalImagesPath = new List<string>();
             int counter = 0;
             string[] files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
             foreach (string file in files)
@@ -70,7 +71,14 @@ namespace TrainReport.FileManipulation
                     }
                 }else if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".jpeg")
                 {
-                    initialImagesPath.Add(file);
+                    if (file.Contains("\\AfterRepair"))
+                    {
+                        finalImagesPath.Add(file);
+                    }
+                    else if (file.Contains("\\BeforeRepair"))
+                    {
+                        initialImagesPath.Add(file);
+                    }
                 }
             }
         }

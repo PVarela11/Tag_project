@@ -19,7 +19,7 @@ namespace Tåg_project.Core
     {
         string path, whichComponents, finalText;
         bool isClean, isEvaluated, isComponentReplaced, finalEvaluation;
-        int serialNum, initialImgCount = 0, aux = 0, finalImageCount = 0;
+        int serialNum, initialImagesCount = 0, aux = 0, finalImagesCount = 0;
         List<string> initialImagesPath = new List<string>();
         List<string> finalImagesPath  = new List<string>();
         List<string> listAux = new List<string>();
@@ -42,15 +42,11 @@ namespace Tåg_project.Core
             pboxImages.Enabled= false;
             pboxFinalImages.Enabled = false;
             btnPrev.Enabled = false;
-            lblComponents.Enabled = false;
-            lblComponents.Visible= false;
-            txtComponents.Enabled = false;
-            txtComponents.Visible= false;
         }
 
         private void UpdateDesign()
         {
-            lblImages.Text = initialImgCount.ToString() + "image(s)";
+            lblImages.Text = initialImagesCount.ToString() + "image(s)";
             //lbl_Dir.Text = "The current directory is: " + path;
         }
 
@@ -73,17 +69,23 @@ namespace Tåg_project.Core
             }
             txtFinalThoughts.Text = import.finalText;
             cboxApproved.Checked = import.finalEvaluation;
-            lblImages.Text = initialImgCount.ToString();
+            lblImages.Text = initialImagesCount.ToString();
             initialImagesPath.Clear();
             initialImagesPath = import.initialImagesPath;
-            initialImgCount = initialImagesPath.Count();
-            //finalImagesPath.Clear();
-            //finalImagesPath = import.finalImagesPath;
+            initialImagesCount = initialImagesPath.Count();
+            finalImagesPath.Clear();
+            finalImagesPath = import.finalImagesPath;
+            finalImagesCount= finalImagesPath.Count();
 
             if (initialImagesPath.Count != 0)
             {
                 pboxImages.Enabled = true;
                 pboxImages.ImageLocation = initialImagesPath[0];
+            }
+            if(finalImagesPath.Count != 0)
+            {
+                pboxFinalImages.Enabled = true;
+                pboxFinalImages.ImageLocation = finalImagesPath[0];
             }
 
             //if (finalImagesPath.Count != 0)
@@ -119,7 +121,18 @@ namespace Tåg_project.Core
             
             if (path != null)
             {
-                TrainReport.FileManipulation.Export export = new TrainReport.FileManipulation.Export(serialNum, isClean, isEvaluated, isComponentReplaced, whichComponents, finalEvaluation, finalText, initialImagesPath, finalImagesPath, initialImgCount, false, path);
+                TrainReport.FileManipulation.Export export = new TrainReport.FileManipulation.Export(
+                    serialNum,
+                    isClean,
+                    isEvaluated,
+                    isComponentReplaced,
+                    whichComponents,
+                    finalEvaluation,
+                    finalText,
+                    initialImagesPath,
+                    finalImagesPath,
+                    initialImagesCount,
+                    path);
                 path = export.path;
                 UpdateDesign();
             }else
@@ -153,22 +166,28 @@ namespace Tåg_project.Core
                 }
                 if(name == "btnImportFinalImg"){
                     finalImagesPath.AddRange(listAux);
-                    finalImageCount += imgCount;
+                    finalImagesCount += imgCount;
                     pboxFinalImages.ImageLocation = finalImagesPath[0];
                     pboxFinalImages.Enabled = true;
                 }
                 else if (name == "btnImportImage")
                 {
                     initialImagesPath.AddRange(listAux);
-                    initialImgCount += imgCount;
+                    initialImagesCount += imgCount;
                     pboxImages.ImageLocation = initialImagesPath[0];
-                    lblImages.Text = initialImgCount.ToString() + " images imported";
+                    lblImages.Text = initialImagesCount.ToString() + " images imported";
                     pboxImages.Enabled = true;
                 }
             }
 
             else return;
         }
+
+        private void cboxComponents_CheckedChanged(object sender, EventArgs e)
+        {
+            txtComponents.Enabled = cboxComponents.Checked;
+        }
+
         private void btnCreatePDF_Click(object sender, EventArgs e)
         {
             isClean = cboxClean.Checked;
@@ -177,8 +196,18 @@ namespace Tåg_project.Core
             whichComponents = txtComponents.Text;
             finalEvaluation = cboxApproved.Checked;
             finalText = txtFinalThoughts.Text;
-            TrainReport.FileManipulation.ExportPDF pdf = new TrainReport.FileManipulation.ExportPDF(path, initialImagesPath, 
-                finalImagesPath, serialNum, isClean, isEvaluated, isComponentReplaced, whichComponents, finalEvaluation, finalText);
+            TrainReport.FileManipulation.ExportPDF pdf = new TrainReport.FileManipulation.ExportPDF(
+                path, 
+                initialImagesPath, 
+                finalImagesPath, 
+                serialNum, 
+                isClean, 
+                isEvaluated, 
+                isComponentReplaced, 
+                whichComponents, 
+                finalEvaluation, 
+                finalText
+                );
             return;
         }
         private void btnInstructions_Click(object sender, EventArgs e)
@@ -192,12 +221,25 @@ namespace Tåg_project.Core
         }
         private void btnClearImg_Click(object sender, EventArgs e)
         {
-            initialImagesPath.Clear();
-            pboxImages.Enabled = false;
-            pboxImages.Image = null;
-            pboxImages.BackColor= System.Drawing.Color.FromArgb(119, 155, 230);
-            aux = 0;
-            lblImages.Text = "";
+            if((sender as Button).Name == "btnClearImg")
+            {
+                initialImagesPath.Clear();
+                pboxImages.Enabled = false;
+                pboxImages.Image = null;
+                pboxImages.BackColor = System.Drawing.Color.FromArgb(119, 155, 230);
+                aux = 0;
+                lblImages.Text = "";
+            }
+            else
+            {
+                finalImagesPath.Clear();
+                pboxFinalImages.Enabled = false;
+                pboxFinalImages.Image = null;
+                pboxFinalImages.BackColor = System.Drawing.Color.FromArgb(119, 155, 230);
+                //aux = 0;
+                //lblImages.Text = "";
+            }
+            
         }
 
         private void btnPrev_Click(object sender, EventArgs e)
@@ -219,7 +261,7 @@ namespace Tåg_project.Core
 
         private void pboxImages_Click(object sender, EventArgs e)
         {
-            if (aux < initialImgCount - 1)
+            if (aux < initialImagesCount - 1)
             {
                 aux++;
                 pboxImages.ImageLocation = initialImagesPath[aux];
@@ -234,7 +276,7 @@ namespace Tåg_project.Core
 
         private void pboxFinalImages_Click(object sender, EventArgs e)
         {
-            if (aux < finalImageCount - 1)
+            if (aux < finalImagesCount - 1)
             {
                 aux++;
                 pboxFinalImages.ImageLocation = finalImagesPath[aux];
