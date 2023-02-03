@@ -2,19 +2,35 @@
 using iText.IO.Font.Constants;
 using iText.IO.Image;
 using iText.Kernel.Font;
+using iText.Kernel.Geom;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.StyledXmlParser.Jsoup.Safety;
+using iText.Layout.Properties;
+
 using Document = iText.Layout.Document;
 using Paragraph = iText.Layout.Element.Paragraph;
 using Image = iText.Layout.Element.Image;
+
 using System.Collections.Generic;
 using System.IO;
-using iText.StyledXmlParser.Jsoup.Safety;
 using System;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using iText.Kernel.Events;
+using iText.Kernel.Colors;
+using iText.Kernel.Pdf.Canvas;
+using System.Drawing;
+using System.Windows.Media;
+using Rectangle = iText.Kernel.Geom.Rectangle;
 
 namespace TrainReport.FileManipulation
 {
     internal class ExportPDF
     {
         Document document;
+        PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
         public ExportPDF(string path, List<string> initialimagesPath, List<string> finalImagesPath,
             int serialNum, bool clean, bool eletricEval, bool replaced, string componentsReplaced,
             bool finalEval, string finalThoughts)
@@ -24,99 +40,143 @@ namespace TrainReport.FileManipulation
             // Create a new PDF document
             //PdfDocument pdf = new PdfDocument(new PdfWriter(new FileStream(outputPath, FileMode.Create)));
             // Create a new PDF document
-            PdfDocument pdf = new PdfDocument(new PdfWriter(outputPath));
+            PdfWriter writer = new PdfWriter(outputPath);
+            PdfDocument pdf = new PdfDocument(writer);
+            pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new MyEventHandler());
+
             // Add metadata to the document
             pdf.GetDocumentInfo().SetAuthor("VOV Service Consult");
             pdf.GetDocumentInfo().SetTitle("Report:" + serialNum);
             pdf.GetDocumentInfo().SetSubject("Report of the rebuild process of old PCBs");
             document = new Document(pdf);
 
+            //Edit Layout
+            document.SetMargins(20, 20, 20, 20);
+
             // Add a title to the document
-            PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
-            Paragraph title = new Paragraph("Report:" + serialNum)
-                .SetFontSize(24)
-                .SetFont(font);
-            document.Add(title);
+            document.Add(setTitle("Report:" + serialNum));
+
 
             // Add some data to the document
-            document.Add(new Paragraph("This is the automated report nº " + serialNum));
-            document.Add(new Paragraph("The PCB serial number: " + serialNum));
-            document.Add(new Paragraph("Was the PCB cleaned ? " + clean));
-            document.Add(new Paragraph("Was the eletrical evaluation done ? " + eletricEval));
-            document.Add(new Paragraph("Was any of the PCB Components Replaced ? " + replaced));
+            document.Add(new Paragraph("This is the automated report nº " + serialNum + ", created on " + System.DateTime.UtcNow + "."));
+            document.Add(new Paragraph("The PCB serial number is " + serialNum));
+            if (clean)
+            {
+                document.Add(new Paragraph("The PCB was cleaned as it is informed in the instructions manual."));
+            }else
+            {
+                document.Add(new Paragraph("The PCB was not cleaned as it is informed in the instructions manual."));
+            }
+
+            if (eletricEval)
+            {
+                document.Add(new Paragraph("The Eletrical evaluation was done as it is informed in the instructions manual"));
+            }
+            else
+            {
+                document.Add(new Paragraph("The Eletrical evaluation was not done as it is informed in the instructions manual"));
+            }
+
             if(replaced)
             {
-                document.Add(new Paragraph("The replaced components: " + componentsReplaced));
+                document.Add(new Paragraph("Some components on the PCB were replaced"));
+                if (componentsReplaced != null)
+                {
+                    document.Add(new Paragraph("The replaced components were: " + componentsReplaced));
+                }   
             }
-            document.Add(new Paragraph("Was the final eletrical evaluation done ? " + finalEval));
-            document.Add(new Paragraph("Final thoughts on this process " + finalThoughts));
+            else
+            {
+                document.Add(new Paragraph("No components on the PCB were replaced"));
+            }
 
+            if (finalEval)
+            {
+                document.Add(new Paragraph("The final eletrical evaluation was approved!"));
+            }
+            else
+            {
+                document.Add(new Paragraph("The final eletrical evaluation was not approved!"));
+            }
 
+            if (finalThoughts != null)
+            {
+                document.Add(new Paragraph("Final thoughts on this process " + finalThoughts));
+            }
+
+            document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            document.Add(setTitle("Before Repair"));
             foreach (var img in initialimagesPath)
             {
                 insertImg(img);
             }
 
+            document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            document.Add(setTitle("After Repair"));
             foreach (var img in finalImagesPath)
             {
                 insertImg(img);
             }
-            //string csvPath = path + "/data.csv";
-            //string[] csvData = File.ReadAllLines(csvPath);
-            //using (var reader = new StreamReader(csvPath))
-            //{
-            //    while (!reader.EndOfStream)
-            //    {
-                    //var line = reader.ReadLine();
-                    //var values = line.Split(',');
-                    //foreach (var value in values)
-                    //{
-                    //    switch (count)
-                    //    {
-                    //        case 0:
-                    //            p = new Paragraph("The PCB serial number: " + values[0]);
-                    //            break;
-                    //        case 1:
-                    //            p = new Paragraph("The PCB was cleaned: " + values[1]);
-                    //            break;
-                    //        case 2:
-                    //            p = new Paragraph("Number of images: " + values[2]);
-                    //            break;
-                    //    }
-                    //    //p.SetTextAlignment(TextAlignment.LEFT).SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA));
-                    //    document.Add(p);
-                    //    count++;
-                    //}
-                    // Add an image to the 
-                     //document.Add(new Paragraph().SetSpacingAfter(1));
-                    //}
-                //}
-            //}
-
-            // Close the document
             document.Close();
+        }
+
+        private Paragraph setTitle(string s)
+        {
+            Paragraph title = new Paragraph(s)
+                .SetTextAlignment(TextAlignment.CENTER)
+                .SetFontSize(24)
+                .SetFont(font);
+            title.SetTextAlignment(TextAlignment.CENTER);
+
+            return title;
         }
 
         private void insertImg(string img)
         {
             // Add an image to the PDF
-            // Create an instance of the Image class
-            //Image im = new Image(ImageDataFactory.Create(img));
             ImageData im = ImageDataFactory.Create(img);
-            //Resize image depend upon your need
-            //float width = im.GetWidth();
-            //float height = im.GetHeight();
-            //float scale = 140f / width;
-            //width *= scale;
-            //height *= scale;
-            //im.SetWidth(width);
-            //im.SetHeight(height);
-            //Give space before image
-            //document.Add(new Paragraph().SetSpacingBefore(10));
-            document.Add(new Paragraph("\n\n"));
+
+            Image image = new Image(im);
+            image.ScaleToFit(PageSize.A4.GetWidth() / 2, PageSize.A4.GetHeight() / 2);
+            document.Add(image);
+
+            ///im.SetWidth(100);
+            ///im.SetHeight(100);
+            // Add spacing
+            //document.Add(new Paragraph("\n\n"));
             //Add image
-            document.Add(new Image(im));
+            //document.Add(new Image(im));
             //Give some space after the image
         }
+
     }
+
+    internal class MyEventHandler : IEventHandler
+    {
+        public virtual void HandleEvent(Event @event)
+        {
+            PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
+            PdfDocumentEvent docEvent = (PdfDocumentEvent)@event;
+            PdfDocument pdfDoc = docEvent.GetDocument();
+            PdfPage page = docEvent.GetPage();
+            int pageNumber = pdfDoc.GetPageNumber(page);
+            Rectangle pageSize = page.GetPageSize();
+            PdfCanvas pdfCanvas = new PdfCanvas(page.NewContentStreamBefore(), page.GetResources(), pdfDoc);
+
+            pdfCanvas.BeginText()
+                        .SetFontAndSize(font, 9)
+                        .MoveText(pageSize.GetLeft() + 20, pageSize.GetBottom() + 20)
+                        .ShowText("This document is property of VOV Service Consult")
+                        .EndText();
+
+            pdfCanvas.BeginText()
+                        .SetFontAndSize(font, 9)
+                        .MoveText(pageSize.GetRight() - 20, pageSize.GetBottom() + 20)
+                        .ShowText(pageNumber.ToString())
+                        .EndText();
+
+            pdfCanvas.Release();
+        }
+    }
+
 }

@@ -221,7 +221,7 @@ namespace Tåg_project.Core
         }
         private void btnClearImg_Click(object sender, EventArgs e)
         {
-            if((sender as Button).Name == "btnClearImg")
+            if((sender as Button).Name == "btnClearImage")
             {
                 initialImagesPath.Clear();
                 pboxImages.Enabled = false;
@@ -229,6 +229,8 @@ namespace Tåg_project.Core
                 pboxImages.BackColor = System.Drawing.Color.FromArgb(119, 155, 230);
                 aux = 0;
                 lblImages.Text = "";
+                //TODO:
+                //deleteImg()
             }
             else
             {
@@ -276,7 +278,7 @@ namespace Tåg_project.Core
 
         private void pboxFinalImages_Click(object sender, EventArgs e)
         {
-            if (aux < finalImagesCount - 1)
+            if (aux < finalImagesPath.Count - 1)
             {
                 aux++;
                 pboxFinalImages.ImageLocation = finalImagesPath[aux];
