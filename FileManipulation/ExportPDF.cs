@@ -24,6 +24,7 @@ using iText.Kernel.Pdf.Canvas;
 using System.Drawing;
 using System.Windows.Media;
 using Rectangle = iText.Kernel.Geom.Rectangle;
+using System.Windows;
 
 namespace TrainReport.FileManipulation
 {
@@ -37,8 +38,6 @@ namespace TrainReport.FileManipulation
         {
             string outputPath = path + "\\FinalReport_" + serialNum + ".pdf";
 
-            // Create a new PDF document
-            //PdfDocument pdf = new PdfDocument(new PdfWriter(new FileStream(outputPath, FileMode.Create)));
             // Create a new PDF document
             PdfWriter writer = new PdfWriter(outputPath);
             PdfDocument pdf = new PdfDocument(writer);
@@ -118,15 +117,16 @@ namespace TrainReport.FileManipulation
                 insertImg(img);
             }
             document.Close();
+            MessageBox.Show("PDF Created at" + outputPath);
         }
 
         private Paragraph setTitle(string s)
         {
             Paragraph title = new Paragraph(s)
-                .SetTextAlignment(TextAlignment.CENTER)
+                .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
                 .SetFontSize(24)
                 .SetFont(font);
-            title.SetTextAlignment(TextAlignment.CENTER);
+            title.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
 
             return title;
         }
@@ -135,18 +135,9 @@ namespace TrainReport.FileManipulation
         {
             // Add an image to the PDF
             ImageData im = ImageDataFactory.Create(img);
-
             Image image = new Image(im);
             image.ScaleToFit(PageSize.A4.GetWidth() / 2, PageSize.A4.GetHeight() / 2);
             document.Add(image);
-
-            ///im.SetWidth(100);
-            ///im.SetHeight(100);
-            // Add spacing
-            //document.Add(new Paragraph("\n\n"));
-            //Add image
-            //document.Add(new Image(im));
-            //Give some space after the image
         }
 
     }
