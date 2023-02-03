@@ -27,6 +27,8 @@ namespace Tåg_project
         private void buildComponents()
         {
             this.Icon = Resources.vov_logo;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             //pboxLogo.Image = Resources.vovLogo;
         }
 
