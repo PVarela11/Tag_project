@@ -33,7 +33,7 @@ namespace TrainReport.FileManipulation
         Document document;
         PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
         public ExportPDF(string path, List<string> initialimagesPath, List<string> finalImagesPath,
-            int serialNum, bool clean, bool eletricEval, bool replaced, string componentsReplaced,
+            string serialNum, bool clean, bool eletricEval, bool replaced, string componentsReplaced,
             bool finalEval, string finalThoughts)
         {
             string outputPath = path + "\\FinalReport_" + serialNum + ".pdf";
@@ -45,7 +45,7 @@ namespace TrainReport.FileManipulation
 
             // Add metadata to the document
             pdf.GetDocumentInfo().SetAuthor("VOV Service Consult");
-            pdf.GetDocumentInfo().SetTitle("Report:" + serialNum);
+            pdf.GetDocumentInfo().SetTitle("Report nº" + serialNum);
             pdf.GetDocumentInfo().SetSubject("Report of the rebuild process of old PCBs");
             document = new Document(pdf);
 
@@ -100,7 +100,7 @@ namespace TrainReport.FileManipulation
 
             if (finalThoughts != null)
             {
-                document.Add(new Paragraph("Final thoughts on this process " + finalThoughts));
+                document.Add(new Paragraph("Final thoughts on this process:" + "\n" +finalThoughts));
             }
 
             document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));

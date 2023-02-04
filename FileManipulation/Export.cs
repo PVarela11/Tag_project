@@ -16,7 +16,7 @@ namespace TrainReport.FileManipulation
         public string initialImagesFolder { get; set; }
         public string finalImagesFolder { get; set; }
 
-        public Export(int serialNum, bool clean, bool isEvaluated,
+        public Export(string serialNum, bool clean, bool isEvaluated,
             bool isComponentReplaced, string whichComponents, bool finalEvaluation,
             string finalText, List<string> initialImages, List<string> finalImages, int imgCount, string s) 
         {
@@ -114,6 +114,7 @@ namespace TrainReport.FileManipulation
                         {
                             // Try to create the directory.
                             DirectoryInfo dn = Directory.CreateDirectory(initialImagesFolder);
+                            dn.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                             createImg(initialImages);
                             WriteImages(initialImages, initialImagesFolder);
                         }
@@ -133,6 +134,7 @@ namespace TrainReport.FileManipulation
                         {
                             // Try to create the directory.
                             DirectoryInfo dn = Directory.CreateDirectory(finalImagesFolder);
+                            dn.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                             createImg(finalImages);
                             WriteImages(finalImages, finalImagesFolder);
                         }

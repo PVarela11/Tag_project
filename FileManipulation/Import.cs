@@ -7,7 +7,7 @@ namespace TrainReport.FileManipulation
 {
     internal class Import
     {
-        public int serialNum { get; set; }
+        public string serialNum { get; set; }
         public bool isClean { get; set; }
         public bool isEvaluated { get; set; }
         public bool isComponentReplaced { get; set; }
@@ -41,7 +41,7 @@ namespace TrainReport.FileManipulation
                         {
                             switch(counter){
                                 case 0:
-                                    serialNum = int.Parse(column);
+                                    serialNum = column;
                                     break;
                                 case 1:
                                     imgCount = int.Parse(column);

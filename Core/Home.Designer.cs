@@ -56,7 +56,6 @@
             this.lblClean = new System.Windows.Forms.Label();
             this.cboxClean = new System.Windows.Forms.CheckBox();
             this.pnlFirst = new System.Windows.Forms.Panel();
-            this.btnInstructions = new System.Windows.Forms.Button();
             this.btnClearImage = new System.Windows.Forms.Button();
             this.btnImportImage = new System.Windows.Forms.Button();
             this.pboxImages = new FontAwesome.Sharp.IconPictureBox();
@@ -275,9 +274,9 @@
             this.pnlMiddle.Controls.Add(this.lblClean);
             this.pnlMiddle.Controls.Add(this.cboxClean);
             this.pnlMiddle.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlMiddle.Location = new System.Drawing.Point(920, 100);
+            this.pnlMiddle.Location = new System.Drawing.Point(122, 100);
             this.pnlMiddle.Name = "pnlMiddle";
-            this.pnlMiddle.Size = new System.Drawing.Size(10, 430);
+            this.pnlMiddle.Size = new System.Drawing.Size(808, 430);
             this.pnlMiddle.TabIndex = 2;
             // 
             // button1
@@ -376,7 +375,6 @@
             // pnlFirst
             // 
             this.pnlFirst.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(155)))), ((int)(((byte)(231)))));
-            this.pnlFirst.Controls.Add(this.btnInstructions);
             this.pnlFirst.Controls.Add(this.btnClearImage);
             this.pnlFirst.Controls.Add(this.btnImportImage);
             this.pnlFirst.Controls.Add(this.pboxImages);
@@ -387,18 +385,8 @@
             this.pnlFirst.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlFirst.Location = new System.Drawing.Point(0, 100);
             this.pnlFirst.Name = "pnlFirst";
-            this.pnlFirst.Size = new System.Drawing.Size(920, 430);
+            this.pnlFirst.Size = new System.Drawing.Size(122, 430);
             this.pnlFirst.TabIndex = 3;
-            // 
-            // btnInstructions
-            // 
-            this.btnInstructions.Location = new System.Drawing.Point(705, 72);
-            this.btnInstructions.Name = "btnInstructions";
-            this.btnInstructions.Size = new System.Drawing.Size(84, 23);
-            this.btnInstructions.TabIndex = 13;
-            this.btnInstructions.Text = "Instructions";
-            this.btnInstructions.UseVisualStyleBackColor = true;
-            this.btnInstructions.Click += new System.EventHandler(this.btnInstructions_Click);
             // 
             // btnClearImage
             // 
@@ -457,6 +445,7 @@
             // txtSerialNum
             // 
             this.txtSerialNum.Location = new System.Drawing.Point(343, 48);
+            this.txtSerialNum.MaxLength = 4;
             this.txtSerialNum.Name = "txtSerialNum";
             this.txtSerialNum.Size = new System.Drawing.Size(163, 22);
             this.txtSerialNum.TabIndex = 3;
@@ -464,7 +453,7 @@
             // 
             // btnExport
             // 
-            this.btnExport.Location = new System.Drawing.Point(705, 41);
+            this.btnExport.Location = new System.Drawing.Point(807, 41);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(84, 23);
             this.btnExport.TabIndex = 2;
@@ -511,7 +500,6 @@
         private System.Windows.Forms.Label lblImages;
         private System.Windows.Forms.Label lblSerialNum;
         private System.Windows.Forms.TextBox txtSerialNum;
-        private System.Windows.Forms.Button btnInstructions;
         private FontAwesome.Sharp.IconButton btnNext;
         private FontAwesome.Sharp.IconButton btnPrev;
         private System.Windows.Forms.Label lblComponents;

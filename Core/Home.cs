@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,13 +18,13 @@ namespace Tåg_project.Core
 {
     public partial class Home : Form
     {
-        string path, whichComponents, finalText;
+        TrainReport.FileManipulation.Import import;
+        string path, whichComponents, finalText, week, serialNum, lastTwoDigitsOfYear;
         bool isClean, isEvaluated, isComponentReplaced, finalEvaluation;
-        int serialNum, initialImagesCount = 0, aux = 0, finalImagesCount = 0;
+        int initialImagesCount = 0, aux = 0, finalImagesCount = 0, page = 0;
         List<string> initialImagesPath = new List<string>();
         List<string> finalImagesPath  = new List<string>();
         List<string> listAux = new List<string>();
-        int page = 0;
         public Home(string tempPath)
         {
             InitializeComponent();
@@ -39,25 +40,36 @@ namespace Tåg_project.Core
 
         private void InitialDesign()
         {
+            pnlFinal.Width = 0;
+            pnlMiddle.Width = 0;
+            DateTime date = DateTime.Now;
+            CultureInfo ci = CultureInfo.InvariantCulture;
+            int weekNumber = ci.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+            if (weekNumber < 10)
+            {
+                week = "0" + weekNumber;
+            }
+            lastTwoDigitsOfYear = date.ToString("yy");
+
             pboxImages.Enabled= false;
             pboxFinalImages.Enabled = false;
             btnPrev.Enabled = false;
+            txtComponents.Enabled = false;
         }
 
         private void UpdateDesign()
         {
             lblImages.Text = initialImagesCount.ToString() + "image(s)";
-            //lbl_Dir.Text = "The current directory is: " + path;
         }
 
         #region FileManipulation
         //TODO: import the values from .import to the local variables and create new funcion to update values on UI
         private void importData()
         {
-            TrainReport.FileManipulation.Import import = new TrainReport.FileManipulation.Import(path);
-            txtSerialNum.Text = import.serialNum.ToString();
-            cboxClean.Checked = import.isClean;;
+            import = new TrainReport.FileManipulation.Import(path);
             serialNum = import.serialNum;
+            txtSerialNum.Text = serialNum;
+            cboxClean.Checked = import.isClean;;
             isClean = import.isClean;
             cboxEletricalEvaluation.Checked = import.isEvaluated;
             cboxComponents.Checked = import.isComponentReplaced;
@@ -87,25 +99,16 @@ namespace Tåg_project.Core
                 pboxFinalImages.Enabled = true;
                 pboxFinalImages.ImageLocation = finalImagesPath[0];
             }
-
-            //if (finalImagesPath.Count != 0)
-            //{
-            //    pboxFinalImages.Enabled = true;
-            //    pboxFinalImages.ImageLocation = finalImagesPath[0];
-            //}
-
         }
         #endregion
 
         #region Button clicks and textbox key press
         private void btnExport_Click(object sender, EventArgs e)
         {
-            //if (initialImgCount > 0)
-            //{
             //Checks if textbox has data and saves the string as int
-            if (txtSerialNum.Text != "")
+            if (txtSerialNum.Text != "" && import == null)
             {
-                serialNum = int.Parse(txtSerialNum.Text);
+                serialNum = lastTwoDigitsOfYear + week + txtSerialNum.Text;
                 Console.WriteLine(serialNum.ToString());
             }
 
@@ -116,8 +119,11 @@ namespace Tåg_project.Core
             finalEvaluation = cboxApproved.Checked;
             finalText = txtFinalThoughts.Text;
 
-            MessageBox.Show("Choose the directory where the files will be placed, note that a new folder will be created in there!");
-            path = FolderDialogHelper.SelectedFolder();
+            if (path == null)
+            {
+                MessageBox.Show("Choose the directory where the files will be placed, note that a new folder will be created in there!");
+                path = FolderDialogHelper.SelectedFolder();
+            }
             
             if (path != null)
             {
@@ -141,11 +147,6 @@ namespace Tåg_project.Core
             }
         }
 
-        //else
-        //{
-        //    MessageBox.Show("You need to import some images of the PCB first!", "Image not found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //}
-
         private void btnImportImage_Click(object sender, EventArgs e)
         {
             listAux.Clear();
@@ -160,7 +161,6 @@ namespace Tåg_project.Core
                 foreach (string fileName in dialog.FileNames)
                 {
                     // do something with path
-                    //initialImagesPath.Add(fileName);
                     listAux.Add(fileName);
                     imgCount++;
                 }
@@ -190,25 +190,37 @@ namespace Tåg_project.Core
 
         private void btnCreatePDF_Click(object sender, EventArgs e)
         {
-            isClean = cboxClean.Checked;
-            isEvaluated = cboxEletricalEvaluation.Checked;
-            isComponentReplaced = cboxComponents.Checked;
-            whichComponents = txtComponents.Text;
-            finalEvaluation = cboxApproved.Checked;
-            finalText = txtFinalThoughts.Text;
-            TrainReport.FileManipulation.ExportPDF pdf = new TrainReport.FileManipulation.ExportPDF(
-                path, 
-                initialImagesPath, 
-                finalImagesPath, 
-                serialNum, 
-                isClean, 
-                isEvaluated, 
-                isComponentReplaced, 
-                whichComponents, 
-                finalEvaluation, 
-                finalText
-                );
-            return;
+            if(validateInputs(0) && validateInputs(2))
+            {
+                if (path == null)
+                {
+                   path = FileManipulation.FolderDialogHelper.SelectedFolder();
+                }
+
+                if (path != null)
+                {
+                    serialNum = lastTwoDigitsOfYear + week + txtSerialNum.Text;
+                    isClean = cboxClean.Checked;
+                    isEvaluated = cboxEletricalEvaluation.Checked;
+                    isComponentReplaced = cboxComponents.Checked;
+                    whichComponents = txtComponents.Text;
+                    finalEvaluation = cboxApproved.Checked;
+                    finalText = txtFinalThoughts.Text;
+                    TrainReport.FileManipulation.ExportPDF pdf = new TrainReport.FileManipulation.ExportPDF(
+                        path,
+                        initialImagesPath,
+                        finalImagesPath,
+                        serialNum,
+                        isClean,
+                        isEvaluated,
+                        isComponentReplaced,
+                        whichComponents,
+                        finalEvaluation,
+                        finalText
+                        );
+                    return;
+                }
+            } 
         }
         private void btnInstructions_Click(object sender, EventArgs e)
         {
@@ -292,13 +304,15 @@ namespace Tåg_project.Core
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if (page == 0)
+            if (page == 0 && validateInputs(page))
             {
+
                 page++;
                 btnPrev.Enabled = true;
                 pnlMiddle.Width = pnlFirst.Width;
                 pnlFinal.Width = pnlFirst.Width = 0;
                 btnPrev.Enabled = true;
+                
             }else if (page == 1)
             {
                 page++;
@@ -306,6 +320,35 @@ namespace Tåg_project.Core
                 pnlMiddle.Width = pnlFirst.Width = 0;
                 btnNext.Enabled = false;
             }
+        }
+
+        private bool validateInputs(int page)
+        {
+            if (page == 0)
+            {
+                if (txtSerialNum.TextLength < 4)
+                {
+                    MessageBox.Show("Serial Number should be 4 digits");
+                    return false;
+                }else if (initialImagesPath.Count == 0)
+                {
+                    MessageBox.Show("You should import some images of the PCB first");
+                    return false;
+                }
+            }else if(page==2)
+            {
+                if (txtFinalThoughts.TextLength < 4)
+                {
+                    MessageBox.Show("You should write something to conclude this report");
+                    return false;
+                }
+                else if (finalImagesPath.Count == 0)
+                {
+                    MessageBox.Show("You should import some images of the PCB first");
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void txtSerialNum_KeyPress(object sender, KeyPressEventArgs e)
