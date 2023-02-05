@@ -145,9 +145,9 @@
             this.pnlFinal.Controls.Add(this.label4);
             this.pnlFinal.Controls.Add(this.btnCreatePDF);
             this.pnlFinal.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlFinal.Location = new System.Drawing.Point(930, 100);
+            this.pnlFinal.Location = new System.Drawing.Point(12, 100);
             this.pnlFinal.Name = "pnlFinal";
-            this.pnlFinal.Size = new System.Drawing.Size(10, 430);
+            this.pnlFinal.Size = new System.Drawing.Size(928, 430);
             this.pnlFinal.TabIndex = 1;
             // 
             // button5
@@ -274,7 +274,7 @@
             this.pnlMiddle.Controls.Add(this.lblClean);
             this.pnlMiddle.Controls.Add(this.cboxClean);
             this.pnlMiddle.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlMiddle.Location = new System.Drawing.Point(122, 100);
+            this.pnlMiddle.Location = new System.Drawing.Point(-796, 100);
             this.pnlMiddle.Name = "pnlMiddle";
             this.pnlMiddle.Size = new System.Drawing.Size(808, 430);
             this.pnlMiddle.TabIndex = 2;
@@ -385,7 +385,7 @@
             this.pnlFirst.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlFirst.Location = new System.Drawing.Point(0, 100);
             this.pnlFirst.Name = "pnlFirst";
-            this.pnlFirst.Size = new System.Drawing.Size(122, 430);
+            this.pnlFirst.Size = new System.Drawing.Size(0, 430);
             this.pnlFirst.TabIndex = 3;
             // 
             // btnClearImage

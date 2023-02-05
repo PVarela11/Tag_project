@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Windows.Media;
 using Rectangle = iText.Kernel.Geom.Rectangle;
 using System.Windows;
+using Tåg_project.FileManipulation;
 
 namespace TrainReport.FileManipulation
 {
@@ -118,6 +119,7 @@ namespace TrainReport.FileManipulation
             }
             document.Close();
             MessageBox.Show("PDF Created at" + outputPath);
+            ShowFile.OpenFile(outputPath);
         }
 
         private Paragraph setTitle(string s)

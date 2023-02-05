@@ -6,12 +6,14 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
 using Tåg_project.FileManipulation;
+using TrainReport.FileManipulation;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Tåg_project.Core
@@ -19,7 +21,7 @@ namespace Tåg_project.Core
     public partial class Home : Form
     {
         TrainReport.FileManipulation.Import import;
-        string path, whichComponents, finalText, week, serialNum, lastTwoDigitsOfYear;
+        string path, whichComponents, finalText, week, serialNum, lastTwoDigitsOfYear, tempPath;
         bool isClean, isEvaluated, isComponentReplaced, finalEvaluation;
         int initialImagesCount = 0, aux = 0, finalImagesCount = 0, page = 0;
         List<string> initialImagesPath = new List<string>();
@@ -100,10 +102,8 @@ namespace Tåg_project.Core
                 pboxFinalImages.ImageLocation = finalImagesPath[0];
             }
         }
-        #endregion
 
-        #region Button clicks and textbox key press
-        private void btnExport_Click(object sender, EventArgs e)
+        private void Export()
         {
             //Checks if textbox has data and saves the string as int
             if (txtSerialNum.Text != "" && import == null)
@@ -124,7 +124,7 @@ namespace Tåg_project.Core
                 MessageBox.Show("Choose the directory where the files will be placed, note that a new folder will be created in there!");
                 path = FolderDialogHelper.SelectedFolder();
             }
-            
+
             if (path != null)
             {
                 TrainReport.FileManipulation.Export export = new TrainReport.FileManipulation.Export(
@@ -141,10 +141,73 @@ namespace Tåg_project.Core
                     path);
                 path = export.path;
                 UpdateDesign();
-            }else
+            }
+            else
             {
                 MessageBox.Show("Select a valid path!");
             }
+        }
+
+        private bool validateInputs(int page)
+        {
+            if (page == 0)
+            {
+                if (txtSerialNum.TextLength < 4)
+                {
+                    MessageBox.Show("Serial Number should be 4 digits");
+                    return false;
+                }
+                else if (initialImagesPath.Count == 0)
+                {
+                    MessageBox.Show("You should import some images of the PCB first");
+                    return false;
+                }
+            }
+            else if (page == 2)
+            {
+                if (txtFinalThoughts.TextLength == 0)
+                {
+                    MessageBox.Show("You should write something to conclude this report");
+                    return false;
+                }
+                else if (finalImagesPath.Count == 0)
+                {
+                    MessageBox.Show("You should import some images of the PCB first");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private void ExportPDF(string p)
+        {
+            serialNum = lastTwoDigitsOfYear + week + txtSerialNum.Text;
+            isClean = cboxClean.Checked;
+            isEvaluated = cboxEletricalEvaluation.Checked;
+            isComponentReplaced = cboxComponents.Checked;
+            whichComponents = txtComponents.Text;
+            finalEvaluation = cboxApproved.Checked;
+            finalText = txtFinalThoughts.Text;
+            TrainReport.FileManipulation.ExportPDF pdf = new TrainReport.FileManipulation.ExportPDF(
+                p,
+                initialImagesPath,
+                finalImagesPath,
+                serialNum,
+                isClean,
+                isEvaluated,
+                isComponentReplaced,
+                whichComponents,
+                finalEvaluation,
+                finalText
+                );
+            return;
+        }
+        #endregion
+
+        #region Design controls actions
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            Export();
         }
 
         private void btnImportImage_Click(object sender, EventArgs e)
@@ -194,43 +257,34 @@ namespace Tåg_project.Core
             {
                 if (path == null)
                 {
-                   path = FileManipulation.FolderDialogHelper.SelectedFolder();
+                    DialogResult result = MessageBox.Show("Would you like to save the report first ?", "Save Report", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        Export();
+                        if (path != null)
+                        {
+                            ExportPDF(path);
+                        }
+                    }
+                    else if (result == DialogResult.No)
+                    {
+                        tempPath = FileManipulation.FolderDialogHelper.SelectedFolder();
+                        if (tempPath != null)
+                        {
+                            ExportPDF(tempPath);
+                        }
+                    }
                 }
-
-                if (path != null)
-                {
-                    serialNum = lastTwoDigitsOfYear + week + txtSerialNum.Text;
-                    isClean = cboxClean.Checked;
-                    isEvaluated = cboxEletricalEvaluation.Checked;
-                    isComponentReplaced = cboxComponents.Checked;
-                    whichComponents = txtComponents.Text;
-                    finalEvaluation = cboxApproved.Checked;
-                    finalText = txtFinalThoughts.Text;
-                    TrainReport.FileManipulation.ExportPDF pdf = new TrainReport.FileManipulation.ExportPDF(
-                        path,
-                        initialImagesPath,
-                        finalImagesPath,
-                        serialNum,
-                        isClean,
-                        isEvaluated,
-                        isComponentReplaced,
-                        whichComponents,
-                        finalEvaluation,
-                        finalText
-                        );
-                    return;
-                }
+                else ExportPDF(path);
             } 
         }
+
         private void btnInstructions_Click(object sender, EventArgs e)
         {
-            Process mydoc = new Process();
-            mydoc.StartInfo.FileName = "C:\\Users\\pedro\\OneDrive\\Ambiente de Trabalho\\teste.docx";
-            mydoc.Start();
-            //browser.Dock = DockStyle.Fill;
-            //browser.Visible = true;
-            //browser.Navigate("C:\\Users\\pedro\\OneDrive\\Ambiente de Trabalho\\teste\\oldReports\\Report_1010\\Report_1010.pdf");
+            string filePath = "C:\\Users\\pedro\\OneDrive\\Ambiente de Trabalho\\teste.docx";
+            FileManipulation.ShowFile.OpenFile(filePath);
         }
+
         private void btnClearImg_Click(object sender, EventArgs e)
         {
             if((sender as Button).Name == "btnClearImage")
@@ -320,35 +374,6 @@ namespace Tåg_project.Core
                 pnlMiddle.Width = pnlFirst.Width = 0;
                 btnNext.Enabled = false;
             }
-        }
-
-        private bool validateInputs(int page)
-        {
-            if (page == 0)
-            {
-                if (txtSerialNum.TextLength < 4)
-                {
-                    MessageBox.Show("Serial Number should be 4 digits");
-                    return false;
-                }else if (initialImagesPath.Count == 0)
-                {
-                    MessageBox.Show("You should import some images of the PCB first");
-                    return false;
-                }
-            }else if(page==2)
-            {
-                if (txtFinalThoughts.TextLength < 4)
-                {
-                    MessageBox.Show("You should write something to conclude this report");
-                    return false;
-                }
-                else if (finalImagesPath.Count == 0)
-                {
-                    MessageBox.Show("You should import some images of the PCB first");
-                    return false;
-                }
-            }
-            return true;
         }
 
         private void txtSerialNum_KeyPress(object sender, KeyPressEventArgs e)
