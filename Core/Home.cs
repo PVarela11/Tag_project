@@ -13,15 +13,13 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
 using Tåg_project.FileManipulation;
-using TrainReport;
-using TrainReport.FileManipulation;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Tåg_project.Core
 {
     public partial class Home : Form
     {
-        TrainReport.FileManipulation.Import import;
+        Import import;
         string path, whichComponents, finalText, week, serialNum, lastTwoDigitsOfYear, tempPath;
         bool isClean, isEvaluated, isComponentReplaced, finalEvaluation;
         int initialImagesCount = 0, aux = 0, finalImagesCount = 0, page = 0;
@@ -36,6 +34,18 @@ namespace Tåg_project.Core
             if (tempPath != null)
             {
                 importData();
+                ExportPDF pdf = new ExportPDF(
+                path,
+                initialImagesPath,
+                finalImagesPath,
+                serialNum,
+                isClean,
+                isEvaluated,
+                isComponentReplaced,
+                whichComponents,
+                finalEvaluation,
+                finalText
+                );
                 //lbl_Dir.Text = "The current directory is: " + tempPath;
             }
             //else lbl_Dir.Text = "There is no directory selected";
@@ -69,7 +79,7 @@ namespace Tåg_project.Core
         //TODO: import the values from .import to the local variables and create new funcion to update values on UI
         private void importData()
         {
-            import = new TrainReport.FileManipulation.Import(path);
+            import = new Import(path);
             
             serialNum = import.serialNum;
             if (serialNum.Length == 8)
@@ -132,7 +142,7 @@ namespace Tåg_project.Core
 
             if (path != null)
             {
-                TrainReport.FileManipulation.Export export = new TrainReport.FileManipulation.Export(
+                Export export = new Export(
                     serialNum,
                     isClean,
                     isEvaluated,
@@ -193,7 +203,7 @@ namespace Tåg_project.Core
             whichComponents = txtComponents.Text;
             finalEvaluation = cboxApproved.Checked;
             finalText = txtFinalThoughts.Text;
-            TrainReport.FileManipulation.ExportPDF pdf = new TrainReport.FileManipulation.ExportPDF(
+            ExportPDF pdf = new ExportPDF(
                 p,
                 initialImagesPath,
                 finalImagesPath,

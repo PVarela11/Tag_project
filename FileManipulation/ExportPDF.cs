@@ -26,23 +26,29 @@ using System.Windows.Media;
 using Rectangle = iText.Kernel.Geom.Rectangle;
 using System.Windows;
 using Tåg_project.FileManipulation;
+using iText.Commons.Utils;
+using System.Reflection;
+using iText.StyledXmlParser.Jsoup.Nodes;
+using static System.Net.Mime.MediaTypeNames;
+using System.Xml;
 
-namespace TrainReport.FileManipulation
+namespace Tåg_project.FileManipulation
 {
     internal class ExportPDF
     {
+        public string serialNum { get; set; }
         Document document;
         PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
         public ExportPDF(string path, List<string> initialimagesPath, List<string> finalImagesPath,
-            string serialNum, bool clean, bool eletricEval, bool replaced, string componentsReplaced,
+            string sNum, bool clean, bool eletricEval, bool replaced, string componentsReplaced,
             bool finalEval, string finalThoughts)
         {
             string outputPath = path + "\\FinalReport_" + serialNum + ".pdf";
-
+            serialNum = sNum;
             // Create a new PDF document
             PdfWriter writer = new PdfWriter(outputPath);
             PdfDocument pdf = new PdfDocument(writer);
-            pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new MyEventHandler());
+            pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new MyEventHandler(this));
 
             // Add metadata to the document
             pdf.GetDocumentInfo().SetAuthor("VOV Service Consult");
@@ -51,10 +57,10 @@ namespace TrainReport.FileManipulation
             document = new Document(pdf);
 
             //Edit Layout
-            document.SetMargins(20, 20, 20, 20);
+            document.SetMargins(80, 20, 20, 20);
 
             // Add a title to the document
-            document.Add(setTitle("Report:" + serialNum));
+            //document.Add(setTitle("Report:" + serialNum));
 
 
             // Add some data to the document
@@ -146,6 +152,13 @@ namespace TrainReport.FileManipulation
 
     internal class MyEventHandler : IEventHandler
     {
+        private ExportPDF _anotherClassInstance;
+
+        public MyEventHandler(ExportPDF anotherClassInstance)
+        {
+            _anotherClassInstance = anotherClassInstance;
+        }
+
         public virtual void HandleEvent(Event @event)
         {
             PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
@@ -156,12 +169,55 @@ namespace TrainReport.FileManipulation
             Rectangle pageSize = page.GetPageSize();
             PdfCanvas pdfCanvas = new PdfCanvas(page.NewContentStreamBefore(), page.GetResources(), pdfDoc);
 
-            pdfCanvas.BeginText()
-                        .SetFontAndSize(font, 9)
-                        .MoveText(pageSize.GetLeft() + 20, pageSize.GetBottom() + 20)
-                        .ShowText("This document is property of VOV Service Consult")
-                        .EndText();
+            //Header
+            // Load the image
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                using (Bitmap original = new Bitmap(Properties.Resources.mcLogo__2_))
+                {
+                    using (Bitmap resized = new Bitmap(original))
+                    {
+                        resized.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                        byte[] imageBytes = memoryStream.ToArray();
+                        ImageData image = ImageDataFactory.Create(imageBytes);
+                        pdfCanvas.AddImageAt(image, pageSize.GetLeft() + 20, pageSize.GetTop() - 50, false);
 
+                        // Add the text to the middle
+                        float textW = font.GetWidth("Report " + _anotherClassInstance.serialNum, 9);
+                        float tx = (pageSize.GetWidth() - textW) / 2;
+                        float textY = (pageSize.GetTop() - 50) + image.GetHeight() / 2;
+                        pdfCanvas.BeginText()
+                            .SetFontAndSize(font, 9)
+                            .MoveText(tx, textY)
+                            .SetLeading(12)
+                            .ShowText("Report " + "\n" + _anotherClassInstance.serialNum)
+                            .EndText();
+
+
+                        // Add the date to the right
+                        float dateX = pageSize.GetRight() - 60;
+                        pdfCanvas.BeginText()
+                            .SetFontAndSize(font, 9)
+                            .MoveText(dateX, textY)
+                            .ShowText(DateTime.Now.ToString("yyyy-MM-dd"))
+                            .EndText();
+                    }
+                }
+            }
+
+            //Footer
+            pdfCanvas.MoveTo(pageSize.GetLeft() + 20, pageSize.GetBottom() + 31)
+                .LineTo(pageSize.GetRight() - 17, pageSize.GetBottom() + 31)
+                .Stroke();
+
+            float textWidth = font.GetWidth("© Motion Control i Västerås AB", 9);
+            float textX = (pageSize.GetRight() - pageSize.GetLeft() - textWidth) / 2 + pageSize.GetLeft();
+
+            pdfCanvas.BeginText()
+                .SetFontAndSize(font, 9)
+                .MoveText(textX, pageSize.GetBottom() + 20)
+                .ShowText("© Motion Control i Västerås AB")
+                .EndText();
             pdfCanvas.BeginText()
                         .SetFontAndSize(font, 9)
                         .MoveText(pageSize.GetRight() - 20, pageSize.GetBottom() + 20)
@@ -169,6 +225,14 @@ namespace TrainReport.FileManipulation
                         .EndText();
 
             pdfCanvas.Release();
+        }
+        public static byte[] ReadFully(Stream input)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                input.CopyTo(ms);
+                return ms.ToArray();
+            }
         }
     }
 

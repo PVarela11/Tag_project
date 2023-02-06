@@ -91,6 +91,7 @@
             this.iconButton2.Size = new System.Drawing.Size(130, 97);
             this.iconButton2.TabIndex = 1;
             this.iconButton2.UseVisualStyleBackColor = true;
+            this.iconButton2.Click += new System.EventHandler(this.iconButton2_Click);
             // 
             // iconButton1
             // 

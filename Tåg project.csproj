@@ -7,7 +7,7 @@
     <ProjectGuid>{E99F27D6-CE19-4E27-ADDF-2D0A09EAA0FF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Tåg_project</RootNamespace>
-    <AssemblyName>Tåg project</AssemblyName>
+    <AssemblyName>Tåg_project</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -242,6 +242,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mcLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mcLogo %282%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

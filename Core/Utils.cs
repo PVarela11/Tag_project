@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace TrainReport
+namespace Tåg_project
 {
     public static class Utils
     {

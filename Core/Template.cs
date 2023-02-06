@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tåg_project.Core;
 using Tåg_project.Properties;
-using TrainReport;
 
 namespace Tåg_project
 {
@@ -66,6 +65,11 @@ namespace Tåg_project
         private void iconButton1_Click(object sender, EventArgs e)
         {
             openChildForm("Start");
+        }
+
+        private void iconButton2_Click(object sender, EventArgs e)
+        {
+            _currentChildForm = new Home(path);
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 using System.IO;
 
 
-namespace TrainReport.FileManipulation
+namespace Tåg_project.FileManipulation
 {
     internal class Export
     {

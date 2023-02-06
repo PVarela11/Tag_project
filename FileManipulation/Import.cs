@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Windows;
 
-namespace TrainReport.FileManipulation
+namespace Tåg_project.FileManipulation
 {
     internal class Import
     {

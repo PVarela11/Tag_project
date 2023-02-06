@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace TrainReport.FileManipulation
+namespace Tåg_project.FileManipulation
 {
     internal class ChoosePath
     {
