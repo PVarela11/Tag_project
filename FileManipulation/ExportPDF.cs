@@ -207,7 +207,7 @@ namespace Tåg_project.FileManipulation
 
             //Footer
             pdfCanvas.MoveTo(pageSize.GetLeft() + 20, pageSize.GetBottom() + 31)
-                .LineTo(pageSize.GetRight() - 17, pageSize.GetBottom() + 31)
+                .LineTo(pageSize.GetRight() - 18, pageSize.GetBottom() + 31)
                 .Stroke();
 
             float textWidth = font.GetWidth("© Motion Control i Västerås AB", 9);
