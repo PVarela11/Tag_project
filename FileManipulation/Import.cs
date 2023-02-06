@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Windows;
 
 namespace TrainReport.FileManipulation
 {
@@ -31,55 +32,67 @@ namespace TrainReport.FileManipulation
                 Console.WriteLine(file);
                 // Do something with the file
                 string fileExtension = Path.GetExtension(file);
-                if(fileExtension == ".csv")
+                try
                 {
-                    string[] lines = File.ReadAllLines(file, Encoding.GetEncoding("iso-8859-1"));
-                    foreach(var line in lines)
+                    if (fileExtension == ".csv")
                     {
-                        var columns = line.Split(',');
-                        foreach (var column in columns)
+                        string[] lines = File.ReadAllLines(file, Encoding.GetEncoding("iso-8859-1"));
+                        foreach (var line in lines)
                         {
-                            switch(counter){
-                                case 0:
-                                    serialNum = column;
-                                    break;
-                                case 1:
-                                    imgCount = int.Parse(column);
-                                    break;
-                                case 2:
-                                    isClean = bool.Parse(column);
-                                    break;
-                                case 3:
-                                    isEvaluated = bool.Parse(column);
-                                    break;
-                                case 4:
-                                    isComponentReplaced = bool.Parse(column);
-                                    break;
-                                case 5:
-                                    whichComponents = column;
-                                    break;
-                                case 6:
-                                    finalEvaluation = bool.Parse(column);
-                                    break;
-                                case 7:
-                                    finalText = column;
-                                    break;
+                            var columns = line.Split('|');
+                            foreach (var column in columns)
+                            {
+                                switch (counter)
+                                {
+                                    case 0:
+                                        serialNum = column;
+                                        break;
+                                    case 1:
+                                        imgCount = int.Parse(column);
+                                        break;
+                                    case 2:
+                                        isClean = bool.Parse(column);
+                                        break;
+                                    case 3:
+                                        isEvaluated = bool.Parse(column);
+                                        break;
+                                    case 4:
+                                        isComponentReplaced = bool.Parse(column);
+                                        break;
+                                    case 5:
+                                        whichComponents = column;
+                                        break;
+                                    case 6:
+                                        finalEvaluation = bool.Parse(column);
+                                        break;
+                                    case 7:
+                                        finalText = column;
+                                        break;
+                                }
+                                counter++;
                             }
-                            counter++;
-                        }
 
+                        }
                     }
-                }else if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".jpeg")
-                {
-                    if (file.Contains("\\AfterRepair"))
+                    else if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".jpeg")
                     {
-                        finalImagesPath.Add(file);
-                    }
-                    else if (file.Contains("\\BeforeRepair"))
-                    {
-                        initialImagesPath.Add(file);
+                        if (file.Contains("\\AfterRepair"))
+                        {
+                            finalImagesPath.Add(file);
+                        }
+                        else if (file.Contains("\\BeforeRepair"))
+                        {
+                            initialImagesPath.Add(file);
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                    MessageBox.Show("There was an error with the import of the file: " + file);
+                    break;
+                }
+
             }
         }
     }

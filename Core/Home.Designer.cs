@@ -145,9 +145,9 @@
             this.pnlFinal.Controls.Add(this.label4);
             this.pnlFinal.Controls.Add(this.btnCreatePDF);
             this.pnlFinal.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlFinal.Location = new System.Drawing.Point(12, 100);
+            this.pnlFinal.Location = new System.Drawing.Point(584, 100);
             this.pnlFinal.Name = "pnlFinal";
-            this.pnlFinal.Size = new System.Drawing.Size(928, 430);
+            this.pnlFinal.Size = new System.Drawing.Size(356, 430);
             this.pnlFinal.TabIndex = 1;
             // 
             // button5
@@ -185,6 +185,7 @@
             this.txtFinalThoughts.Size = new System.Drawing.Size(539, 250);
             this.txtFinalThoughts.TabIndex = 20;
             this.txtFinalThoughts.Text = "";
+            this.txtFinalThoughts.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPreventSeparator);
             // 
             // btnClearFinalImg
             // 
@@ -274,7 +275,7 @@
             this.pnlMiddle.Controls.Add(this.lblClean);
             this.pnlMiddle.Controls.Add(this.cboxClean);
             this.pnlMiddle.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlMiddle.Location = new System.Drawing.Point(-796, 100);
+            this.pnlMiddle.Location = new System.Drawing.Point(-224, 100);
             this.pnlMiddle.Name = "pnlMiddle";
             this.pnlMiddle.Size = new System.Drawing.Size(808, 430);
             this.pnlMiddle.TabIndex = 2;
@@ -316,6 +317,7 @@
             this.txtComponents.Name = "txtComponents";
             this.txtComponents.Size = new System.Drawing.Size(322, 146);
             this.txtComponents.TabIndex = 13;
+            this.txtComponents.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPreventSeparator);
             // 
             // label3
             // 

@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
 using Tåg_project.FileManipulation;
+using TrainReport;
 using TrainReport.FileManipulation;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -69,37 +70,41 @@ namespace Tåg_project.Core
         private void importData()
         {
             import = new TrainReport.FileManipulation.Import(path);
+            
             serialNum = import.serialNum;
-            txtSerialNum.Text = serialNum;
-            cboxClean.Checked = import.isClean;;
-            isClean = import.isClean;
-            cboxEletricalEvaluation.Checked = import.isEvaluated;
-            cboxComponents.Checked = import.isComponentReplaced;
-            if (cboxComponents.Checked)
+            if (serialNum.Length == 8)
             {
-                txtComponents.Enabled= true;
-                txtComponents.Visible= true;
-                txtComponents.Text = import.whichComponents.ToString();
-            }
-            txtFinalThoughts.Text = import.finalText;
-            cboxApproved.Checked = import.finalEvaluation;
-            lblImages.Text = initialImagesCount.ToString();
-            initialImagesPath.Clear();
-            initialImagesPath = import.initialImagesPath;
-            initialImagesCount = initialImagesPath.Count();
-            finalImagesPath.Clear();
-            finalImagesPath = import.finalImagesPath;
-            finalImagesCount= finalImagesPath.Count();
+                txtSerialNum.Text = serialNum;
+                cboxClean.Checked = import.isClean; ;
+                isClean = import.isClean;
+                cboxEletricalEvaluation.Checked = import.isEvaluated;
+                cboxComponents.Checked = import.isComponentReplaced;
+                if (cboxComponents.Checked)
+                {
+                    txtComponents.Enabled = true;
+                    txtComponents.Visible = true;
+                    txtComponents.Text = import.whichComponents.ToString();
+                }
+                txtFinalThoughts.Text = import.finalText;
+                cboxApproved.Checked = import.finalEvaluation;
+                lblImages.Text = initialImagesCount.ToString();
+                initialImagesPath.Clear();
+                initialImagesPath = import.initialImagesPath;
+                initialImagesCount = initialImagesPath.Count();
+                finalImagesPath.Clear();
+                finalImagesPath = import.finalImagesPath;
+                finalImagesCount = finalImagesPath.Count();
 
-            if (initialImagesPath.Count != 0)
-            {
-                pboxImages.Enabled = true;
-                pboxImages.ImageLocation = initialImagesPath[0];
-            }
-            if(finalImagesPath.Count != 0)
-            {
-                pboxFinalImages.Enabled = true;
-                pboxFinalImages.ImageLocation = finalImagesPath[0];
+                if (initialImagesPath.Count != 0)
+                {
+                    pboxImages.Enabled = true;
+                    pboxImages.ImageLocation = initialImagesPath[0];
+                }
+                if (finalImagesPath.Count != 0)
+                {
+                    pboxFinalImages.Enabled = true;
+                    pboxFinalImages.ImageLocation = finalImagesPath[0];
+                }
             }
         }
 
@@ -379,6 +384,14 @@ namespace Tåg_project.Core
         private void txtSerialNum_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtPreventSeparator(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '|')
             {
                 e.Handled = true;
             }

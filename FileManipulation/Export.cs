@@ -209,7 +209,7 @@ namespace TrainReport.FileManipulation
             {
                 foreach (string[] row in data)
                 {
-                    sw.WriteLine(string.Join(",", row));
+                    sw.WriteLine(string.Join("|", row));
                 }
                 sw.Close();
             }
