@@ -57,7 +57,7 @@ namespace Tåg_project.FileManipulation
             document = new Document(pdf);
 
             //Edit Layout
-            document.SetMargins(80, 20, 20, 20);
+            document.SetMargins(80, 80, 80, 80);
 
             // Add a title to the document
             //document.Add(setTitle("Report:" + serialNum));
@@ -173,35 +173,38 @@ namespace Tåg_project.FileManipulation
             // Load the image
             using (MemoryStream memoryStream = new MemoryStream())
             {
-                using (Bitmap original = new Bitmap(Properties.Resources.mcLogo__2_))
+                using (Bitmap original = new Bitmap(Properties.Resources.teste))
                 {
-                    using (Bitmap resized = new Bitmap(original))
-                    {
-                        resized.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
-                        byte[] imageBytes = memoryStream.ToArray();
-                        ImageData image = ImageDataFactory.Create(imageBytes);
-                        pdfCanvas.AddImageAt(image, pageSize.GetLeft() + 20, pageSize.GetTop() - 50, false);
+                    original.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                    byte[] imageBytes = memoryStream.ToArray();
+                    ImageData image = ImageDataFactory.Create(imageBytes);
+                    pdfCanvas.AddImageAt(image, pageSize.GetLeft() + 80, pageSize.GetTop() - 50, false);
 
-                        // Add the text to the middle
-                        float textW = font.GetWidth("Report " + _anotherClassInstance.serialNum, 9);
-                        float tx = (pageSize.GetWidth() - textW) / 2;
-                        float textY = (pageSize.GetTop() - 50) + image.GetHeight() / 2;
-                        pdfCanvas.BeginText()
-                            .SetFontAndSize(font, 9)
-                            .MoveText(tx, textY)
-                            .SetLeading(12)
-                            .ShowText("Report " + "\n" + _anotherClassInstance.serialNum)
-                            .EndText();
+                    // Add the text to the middle
+                    float textW = font.GetWidth("Report ",9);
+                    float tx = ((pageSize.GetWidth() - textW) / 2);
+                    float textY = (pageSize.GetTop() - 50) + image.GetHeight() / 2;
+                    pdfCanvas.BeginText()
+                        .SetFontAndSize(font, 9)
+                        .MoveText(tx, textY)
+                        .ShowText("REPORT")
+                        .EndText();
+
+                    textW = font.GetWidth(_anotherClassInstance.serialNum, 9);
+                    pdfCanvas.BeginText()
+                        .SetFontAndSize(font, 9)
+                        .MoveText(tx-1.5, textY - 9)
+                        .ShowText(_anotherClassInstance.serialNum)
+                        .EndText();
 
 
-                        // Add the date to the right
-                        float dateX = pageSize.GetRight() - 60;
-                        pdfCanvas.BeginText()
-                            .SetFontAndSize(font, 9)
-                            .MoveText(dateX, textY)
-                            .ShowText(DateTime.Now.ToString("yyyy-MM-dd"))
-                            .EndText();
-                    }
+                    // Add the date to the right
+                    float dateX = pageSize.GetRight() - 140;
+                    pdfCanvas.BeginText()
+                        .SetFontAndSize(font, 9)
+                        .MoveText(dateX, textY)
+                        .ShowText(DateTime.Now.ToString("yyyy-MM-dd"))
+                        .EndText();
                 }
             }
 

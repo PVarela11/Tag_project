@@ -63,19 +63,9 @@ namespace Tåg_project.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap mcLogo {
+        internal static System.Drawing.Bitmap teste {
             get {
-                object obj = ResourceManager.GetObject("mcLogo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap mcLogo__2_ {
-            get {
-                object obj = ResourceManager.GetObject("mcLogo__2_", resourceCulture);
+                object obj = ResourceManager.GetObject("teste", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

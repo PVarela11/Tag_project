@@ -244,10 +244,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\mcLogo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\mcLogo %282%29.png" />
+    <None Include="Resources\teste.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
