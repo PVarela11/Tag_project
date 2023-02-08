@@ -51,7 +51,7 @@ namespace Tåg_project.FileManipulation
         PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
         public ExportPDF(string path, List<string> initialimagesPath, List<string> finalImagesPath,
             string sNum, bool clean, bool eletricEval, bool replaced, string componentsReplaced,
-            bool finalEval, string finalThoughts)
+            bool finalEval, string finalThoughts, string observations, string process, string comments)
         {
             #region init vars
             if (clean)
@@ -95,9 +95,11 @@ namespace Tåg_project.FileManipulation
                 observationsText = new Text("Final thoughts on this process:" + "\n" + finalThoughts);
             }
             
+
             string outputPath = path + "\\FinalReport_" + serialNum + ".pdf";
             serialNum = sNum;
             #endregion
+
             // Create a new PDF document
             PdfWriter writer = new PdfWriter(outputPath);
             PdfDocument pdf = new PdfDocument(writer);
@@ -137,16 +139,29 @@ namespace Tåg_project.FileManipulation
             dateParagraph.Add(label).Add(value);
             document.Add(dateParagraph);
 
-            document.Add(new Paragraph("Work Description:"));
             // Create a rectangle with the specified dimensions and add it to the pdf
-            Rectangle rectangle = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540, PageSize.A4.GetRight() - 140, 75);
-            canvas.Rectangle(rectangle);
+            document.Add(new Paragraph("Work Description:"));
+            Rectangle rectangle0 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540, PageSize.A4.GetRight() - 140, 75);
+            canvas.Rectangle(rectangle0);
             canvas.Stroke();
 
             repairText = new Text("TESTEEE");
             texts.Add(cleanText);
             texts.Add(troublesootingText);
             texts.Add(repairText);
+            addTextRectangle(canvas, rectangle0, texts);
+            texts.Clear();
+
+            Paragraph newParagraph = new Paragraph("What was done:");
+            newParagraph.SetMarginTop(rectangle0.GetHeight() + 9);
+            document.Add(newParagraph);
+            float height0 = rectangle0.GetHeight() + 30;
+            Rectangle rectangle = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height0, PageSize.A4.GetRight() - 140, 75);
+            canvas.Rectangle(rectangle);
+            canvas.Stroke();
+
+            Text newT = new Text(process);
+            texts.Add(newT);
             addTextRectangle(canvas, rectangle, texts);
             texts.Clear();
 
@@ -154,26 +169,41 @@ namespace Tåg_project.FileManipulation
             observationParagraph.SetMarginTop(rectangle.GetHeight()+9);
             document.Add(observationParagraph);
             float height = rectangle.GetHeight() + 30;
-            Rectangle rectangle2 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height, PageSize.A4.GetRight() - 140, 75);
+            Rectangle rectangle2 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height - height0, PageSize.A4.GetRight() - 140, 75);
             canvas.Rectangle(rectangle2);
             canvas.Stroke();
+
+            newT = new Text(observations);
+            texts.Add(newT);
+            addTextRectangle(canvas, rectangle2, texts);
+            texts.Clear();
 
             Paragraph commentsParagraph = new Paragraph("Comments:");
             commentsParagraph.SetMarginTop(rectangle2.GetHeight() + 8);
             document.Add(commentsParagraph);
             float height2 = rectangle2.GetHeight() + 30;
-            Rectangle rectangle3 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height - height2, PageSize.A4.GetRight() - 140, 75);
+            Rectangle rectangle3 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height0 - height - height2, PageSize.A4.GetRight() - 140, 75);
             canvas.Rectangle(rectangle3);
             canvas.Stroke();
+
+            newT = new Text(comments);
+            texts.Add(newT);
+            addTextRectangle(canvas, rectangle3, texts);
+            texts.Clear();
 
             //Checkboxes and last rectangle of the first page
             Paragraph resultsParagraph = new Paragraph("Results:");
             resultsParagraph.SetMarginTop(rectangle3.GetHeight() + 8);
             document.Add(resultsParagraph);
-            float height3 = rectangle3.GetHeight() + 30 + height + height2;
+            float height3 = rectangle3.GetHeight() + 30 + + height0 + height + height2;
             Rectangle rectangle4 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height3, PageSize.A4.GetRight() - 140, 75);
             canvas.Rectangle(rectangle4);
             canvas.Stroke();
+
+            newT = new Text(observations);
+            texts.Add(newT);
+            addTextRectangle(canvas, rectangle2, texts);
+            texts.Clear();
 
             // Create an appearance stream for the checkbox
             Rectangle rect = new Rectangle(rectangle4.GetLeft() + 15,

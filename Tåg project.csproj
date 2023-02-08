@@ -220,6 +220,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\CleaningOuter.pdf" />
+    <None Include="Resources\Troubleshooting.pdf" />
     <None Include="Tåg project_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

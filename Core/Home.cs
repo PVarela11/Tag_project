@@ -6,9 +6,11 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
@@ -20,7 +22,7 @@ namespace Tåg_project.Core
     public partial class Home : Form
     {
         Import import;
-        string path, whichComponents, finalText, week, serialNum, lastTwoDigitsOfYear, tempPath;
+        string path, whichComponents, finalText, week, serialNum, lastTwoDigitsOfYear, tempPath, observations, comments, process;
         bool isClean, isEvaluated, isComponentReplaced, finalEvaluation;
         int initialImagesCount = 0, aux = 0, finalImagesCount = 0, page = 0;
         List<string> initialImagesPath = new List<string>();
@@ -34,18 +36,6 @@ namespace Tåg_project.Core
             if (tempPath != null)
             {
                 importData();
-                ExportPDF pdf = new ExportPDF(
-                path,
-                initialImagesPath,
-                finalImagesPath,
-                serialNum,
-                isClean,
-                isEvaluated,
-                isComponentReplaced,
-                whichComponents,
-                finalEvaluation,
-                finalText
-                );
                 //lbl_Dir.Text = "The current directory is: " + tempPath;
             }
             //else lbl_Dir.Text = "There is no directory selected";
@@ -55,6 +45,10 @@ namespace Tåg_project.Core
         {
             pnlFinal.Width = 0;
             pnlMiddle.Width = 0;
+            pnlMiddle.Enabled = false;
+            pnlMiddle.Visible = false;
+            pnlBoxes.Width = 0;
+            lblTopPanel.Text = "Identification";
             DateTime date = DateTime.Now;
             CultureInfo ci = CultureInfo.InvariantCulture;
             int weekNumber = ci.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
@@ -203,6 +197,9 @@ namespace Tåg_project.Core
             whichComponents = txtComponents.Text;
             finalEvaluation = cboxApproved.Checked;
             finalText = txtFinalThoughts.Text;
+            observations = txtObservations.Text;
+            comments = txtComments.Text;
+            process = txtProcess.Text;
             ExportPDF pdf = new ExportPDF(
                 p,
                 initialImagesPath,
@@ -213,13 +210,42 @@ namespace Tåg_project.Core
                 isComponentReplaced,
                 whichComponents,
                 finalEvaluation,
-                finalText
+                finalText,
+                observations,
+                process,
+                comments
                 );
             return;
+        }
+
+        private void openInstructions(string fileName)
+        {
+            string currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string projectDirectory = Directory.GetParent(currentDirectory).Parent.FullName;
+            string resourcePath = Path.Combine(projectDirectory, "Resources", fileName);
+            if (File.Exists(resourcePath))
+            {
+                Process.Start(resourcePath);
+            }
+            else
+            {
+                MessageBox.Show("The file does not exist.");
+            }
+            //var file = Properties.Resources.CleaningOuter;
+            //FileManipulation.ShowFile.OpenFile(filePath);
         }
         #endregion
 
         #region Design controls actions
+        private void lblTroubleshoot_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            openInstructions("Troubleshooting.pdf");
+        }
+        private void lblClean_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            openInstructions("CleaningOuter.pdf");
+        }
+
         private void btnExport_Click(object sender, EventArgs e)
         {
             Export();
@@ -296,8 +322,7 @@ namespace Tåg_project.Core
 
         private void btnInstructions_Click(object sender, EventArgs e)
         {
-            string filePath = "C:\\Users\\pedro\\OneDrive\\Ambiente de Trabalho\\teste.docx";
-            FileManipulation.ShowFile.OpenFile(filePath);
+            openInstructions("C:\\Users\\pedro\\OneDrive\\Ambiente de Trabalho\\teste.docx");
         }
 
         private void btnClearImg_Click(object sender, EventArgs e)
@@ -329,13 +354,18 @@ namespace Tåg_project.Core
         {
             if (page == 1)
             {
+                lblTopPanel.Text = "Identification";
                 btnPrev.Enabled = false;
-                pnlFirst.Width = pnlMiddle.Width;
-                pnlMiddle.Width = pnlFinal.Width = 0;
+                //pnlFirst.Width = pnlMiddle.Width;
+                pnlFirst.Width = pnlBoxes.Width;
+                //pnlMiddle.Width = pnlFinal.Width = 0;
+                pnlBoxes.Width = pnlFinal.Width = 0;
                 page--;
             }else if (page == 2)
             {
-                pnlMiddle.Width = pnlFinal.Width;
+                lblTopPanel.Text = "PCB Process";
+                //pnlMiddle.Width = pnlFinal.Width;
+                pnlBoxes.Width = pnlFinal.Width;
                 pnlFirst.Width = pnlFinal.Width = 0;
                 page--;
                 btnNext.Enabled = true;
@@ -373,20 +403,25 @@ namespace Tåg_project.Core
 
         private void btnNext_Click(object sender, EventArgs e)
         {
+            lblClean.Visible=true;
             if (page == 0 && validateInputs(page))
             {
-
+                lblTopPanel.Text = "PCB Process";
                 page++;
                 btnPrev.Enabled = true;
-                pnlMiddle.Width = pnlFirst.Width;
+                pnlBoxes.Width= pnlFirst.Width;
+                //pnlMiddle.Width = pnlFirst.Width;
                 pnlFinal.Width = pnlFirst.Width = 0;
                 btnPrev.Enabled = true;
                 
             }else if (page == 1)
             {
+                lblTopPanel.Text = "Results";
                 page++;
-                pnlFinal.Width = pnlMiddle.Width;
-                pnlMiddle.Width = pnlFirst.Width = 0;
+                pnlFinal.Width = pnlBoxes.Width;
+                pnlBoxes.Width = pnlFirst.Width = 0;
+                //pnlFinal.Width = pnlMiddle.Width;
+                //pnlMiddle.Width = pnlFirst.Width = 0;
                 btnNext.Enabled = false;
             }
         }

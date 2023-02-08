@@ -46,8 +46,9 @@
             this.pnlSide.Controls.Add(this.iconButton1);
             this.pnlSide.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlSide.Location = new System.Drawing.Point(0, 0);
+            this.pnlSide.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pnlSide.Name = "pnlSide";
-            this.pnlSide.Size = new System.Drawing.Size(130, 570);
+            this.pnlSide.Size = new System.Drawing.Size(98, 596);
             this.pnlSide.TabIndex = 1;
             // 
             // iconButton4
@@ -58,9 +59,10 @@
             this.iconButton4.IconChar = FontAwesome.Sharp.IconChar.CircleInfo;
             this.iconButton4.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(214)))), ((int)(((byte)(10)))));
             this.iconButton4.IconFont = FontAwesome.Sharp.IconFont.Solid;
-            this.iconButton4.Location = new System.Drawing.Point(0, 291);
+            this.iconButton4.Location = new System.Drawing.Point(0, 237);
+            this.iconButton4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.iconButton4.Name = "iconButton4";
-            this.iconButton4.Size = new System.Drawing.Size(130, 97);
+            this.iconButton4.Size = new System.Drawing.Size(98, 79);
             this.iconButton4.TabIndex = 3;
             this.iconButton4.UseVisualStyleBackColor = true;
             // 
@@ -72,9 +74,10 @@
             this.iconButton3.IconChar = FontAwesome.Sharp.IconChar.QuestionCircle;
             this.iconButton3.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(214)))), ((int)(((byte)(10)))));
             this.iconButton3.IconFont = FontAwesome.Sharp.IconFont.Solid;
-            this.iconButton3.Location = new System.Drawing.Point(0, 194);
+            this.iconButton3.Location = new System.Drawing.Point(0, 158);
+            this.iconButton3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.iconButton3.Name = "iconButton3";
-            this.iconButton3.Size = new System.Drawing.Size(130, 97);
+            this.iconButton3.Size = new System.Drawing.Size(98, 79);
             this.iconButton3.TabIndex = 2;
             this.iconButton3.UseVisualStyleBackColor = true;
             // 
@@ -86,9 +89,10 @@
             this.iconButton2.IconChar = FontAwesome.Sharp.IconChar.Gear;
             this.iconButton2.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(214)))), ((int)(((byte)(10)))));
             this.iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton2.Location = new System.Drawing.Point(0, 97);
+            this.iconButton2.Location = new System.Drawing.Point(0, 79);
+            this.iconButton2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.iconButton2.Name = "iconButton2";
-            this.iconButton2.Size = new System.Drawing.Size(130, 97);
+            this.iconButton2.Size = new System.Drawing.Size(98, 79);
             this.iconButton2.TabIndex = 1;
             this.iconButton2.UseVisualStyleBackColor = true;
             this.iconButton2.Click += new System.EventHandler(this.iconButton2_Click);
@@ -103,8 +107,9 @@
             this.iconButton1.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(214)))), ((int)(((byte)(10)))));
             this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.iconButton1.Location = new System.Drawing.Point(0, 0);
+            this.iconButton1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.iconButton1.Name = "iconButton1";
-            this.iconButton1.Size = new System.Drawing.Size(130, 97);
+            this.iconButton1.Size = new System.Drawing.Size(98, 79);
             this.iconButton1.TabIndex = 0;
             this.iconButton1.UseVisualStyleBackColor = false;
             this.iconButton1.Click += new System.EventHandler(this.iconButton1_Click);
@@ -113,20 +118,22 @@
             // 
             this.pnlMain.BackColor = System.Drawing.Color.LightBlue;
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.Location = new System.Drawing.Point(130, 0);
+            this.pnlMain.Location = new System.Drawing.Point(98, 0);
+            this.pnlMain.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(940, 570);
+            this.pnlMain.Size = new System.Drawing.Size(948, 596);
             this.pnlMain.TabIndex = 2;
             // 
             // Template
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(1070, 570);
+            this.ClientSize = new System.Drawing.Size(1046, 596);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlSide);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Template";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Train PCB Report";

@@ -61,12 +61,32 @@ namespace Tåg_project.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] CleaningOuter {
+            get {
+                object obj = ResourceManager.GetObject("CleaningOuter", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap teste {
             get {
                 object obj = ResourceManager.GetObject("teste", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Troubleshooting {
+            get {
+                object obj = ResourceManager.GetObject("Troubleshooting", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
