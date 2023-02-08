@@ -3,10 +3,10 @@ using iText.IO.Font.Constants;
 using iText.IO.Image;
 using iText.Kernel.Font;
 using iText.Kernel.Geom;
-using iText.Layout;
 using iText.Layout.Element;
-using iText.StyledXmlParser.Jsoup.Safety;
 using iText.Layout.Properties;
+using iText.Forms;
+using iText.Forms.Fields;
 
 using Document = iText.Layout.Document;
 using Paragraph = iText.Layout.Element.Paragraph;
@@ -15,100 +15,219 @@ using Image = iText.Layout.Element.Image;
 using System.Collections.Generic;
 using System.IO;
 using System;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using iText.Kernel.Events;
-using iText.Kernel.Colors;
 using iText.Kernel.Pdf.Canvas;
 using System.Drawing;
-using System.Windows.Media;
-using Rectangle = iText.Kernel.Geom.Rectangle;
 using System.Windows;
-using Tåg_project.FileManipulation;
-using iText.Commons.Utils;
-using System.Reflection;
+using System.Windows.Documents.DocumentStructures;
+using Rectangle = iText.Kernel.Geom.Rectangle;
+using iText.Kernel.Pdf.Annot;
+using System.Windows.Controls;
+using iText.Layout;
+using Canvas = iText.Layout.Canvas;
+using iText.Kernel.Colors;
+using System.Windows.Media.Media3D;
+using iText.StyledXmlParser.Node;
+using iText.Kernel.Pdf.Canvas.Draw;
 using iText.StyledXmlParser.Jsoup.Nodes;
-using static System.Net.Mime.MediaTypeNames;
-using System.Xml;
+using TextAlignment = iText.Layout.Properties.TextAlignment;
+using Newtonsoft.Json.Linq;
+using System.Drawing.Printing;
+using System.Windows.Shapes;
+using static System.Net.WebRequestMethods;
+using System.Text;
+using System.Windows.Forms;
+using MessageBox = System.Windows.MessageBox;
 
 namespace Tåg_project.FileManipulation
 {
     internal class ExportPDF
     {
+        Text label,value,cleanText, troublesootingText, componentsText, whichComponentsText, 
+            finalEvaluationText, repairText, observationsText, commentsText, resultsText1, resultsText2, resultsText3;
+        List<Text> texts= new List<Text>();
         public string serialNum { get; set; }
         Document document;
-        PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
+        PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
         public ExportPDF(string path, List<string> initialimagesPath, List<string> finalImagesPath,
             string sNum, bool clean, bool eletricEval, bool replaced, string componentsReplaced,
             bool finalEval, string finalThoughts)
         {
+            #region init vars
+            if (clean)
+            {
+                cleanText = new Text("The PCB was cleaned as it is informed in the instructions manual.");
+            }
+            else
+            {
+                cleanText = new Text("The PCB was not cleaned as it is informed in the instructions manual.");
+            }
+            if (eletricEval)
+            {
+                troublesootingText = new Text("The Eletrical evaluation was done as it is informed in the instructions manual");
+            }
+            else
+            {
+                troublesootingText = new Text("The Eletrical evaluation was not done as it is informed in the instructions manual");
+            }
+            if (replaced)
+            {
+                componentsText = new Text("Some components on the PCB were replaced");
+                if (componentsReplaced != null)
+                {
+                    whichComponentsText = new Text("The replaced components were: " + componentsReplaced);
+                }
+            }
+            else
+            {
+                componentsText = new Text("No components on the PCB were replaced");
+            }
+            if (finalEval)
+            {
+                finalEvaluationText = new Text("The final eletrical evaluation was approved!");
+            }
+            else
+            {
+                finalEvaluationText = new Text("The final eletrical evaluation was not approved!");
+            }
+            if (finalThoughts != null)
+            {
+                observationsText = new Text("Final thoughts on this process:" + "\n" + finalThoughts);
+            }
+            
             string outputPath = path + "\\FinalReport_" + serialNum + ".pdf";
             serialNum = sNum;
+            #endregion
             // Create a new PDF document
             PdfWriter writer = new PdfWriter(outputPath);
             PdfDocument pdf = new PdfDocument(writer);
+            pdf.AddNewPage();
+            var page = pdf.GetPage(1);
+            var canvas = new PdfCanvas(page);
             pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new MyEventHandler(this));
 
             // Add metadata to the document
-            pdf.GetDocumentInfo().SetAuthor("VOV Service Consult");
+            pdf.GetDocumentInfo().SetAuthor("© Motion Control i Västerås AB");
             pdf.GetDocumentInfo().SetTitle("Report nº" + serialNum);
-            pdf.GetDocumentInfo().SetSubject("Report of the rebuild process of old PCBs");
+            pdf.GetDocumentInfo().SetSubject("Report of the rebuild process of PCBs");
             document = new Document(pdf);
 
             //Edit Layout
             document.SetMargins(80, 80, 80, 80);
 
             // Add a title to the document
-            //document.Add(setTitle("Report:" + serialNum));
+            document.Add(setTitle("CIRCUIT BOARD REPAIR REPORT"));
+            document.Add(new Paragraph("\n"));
 
 
             // Add some data to the document
-            document.Add(new Paragraph("This is the automated report nº " + serialNum + ", created on " + System.DateTime.UtcNow + "."));
-            document.Add(new Paragraph("The PCB serial number is " + serialNum));
-            if (clean)
-            {
-                document.Add(new Paragraph("The PCB was cleaned as it is informed in the instructions manual."));
-            }else
-            {
-                document.Add(new Paragraph("The PCB was not cleaned as it is informed in the instructions manual."));
-            }
+            //document.Add(new Paragraph("This is the automated report nº " + serialNum + ", created on " + System.DateTime.UtcNow + "."));
+            //document.Add(new Paragraph("The PCB serial number is " + serialNum));
 
-            if (eletricEval)
-            {
-                document.Add(new Paragraph("The Eletrical evaluation was done as it is informed in the instructions manual"));
-            }
-            else
-            {
-                document.Add(new Paragraph("The Eletrical evaluation was not done as it is informed in the instructions manual"));
-            }
+            //First fields
+            label = new Text("Serial Number: ").SetFont(font);
+            value = new Text(serialNum).SetFont(font).SetUnderline().SetBold();
+            Paragraph serialNumParagraph = new Paragraph();
+            serialNumParagraph.Add(label).Add(value);
+            document.Add(serialNumParagraph);
 
-            if(replaced)
-            {
-                document.Add(new Paragraph("Some components on the PCB were replaced"));
-                if (componentsReplaced != null)
-                {
-                    document.Add(new Paragraph("The replaced components were: " + componentsReplaced));
-                }   
-            }
-            else
-            {
-                document.Add(new Paragraph("No components on the PCB were replaced"));
-            }
+            label = new Text("Date: ").SetFont(font);
+            value = new Text(DateTime.Now.ToString("yyyy-MM-dd")).SetFont(font).SetUnderline().SetBold();
+            Paragraph dateParagraph = new Paragraph();
+            dateParagraph.Add(label).Add(value);
+            document.Add(dateParagraph);
 
-            if (finalEval)
-            {
-                document.Add(new Paragraph("The final eletrical evaluation was approved!"));
-            }
-            else
-            {
-                document.Add(new Paragraph("The final eletrical evaluation was not approved!"));
-            }
+            document.Add(new Paragraph("Work Description:"));
+            // Create a rectangle with the specified dimensions and add it to the pdf
+            Rectangle rectangle = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540, PageSize.A4.GetRight() - 140, 75);
+            canvas.Rectangle(rectangle);
+            canvas.Stroke();
 
-            if (finalThoughts != null)
+            repairText = new Text("TESTEEE");
+            texts.Add(cleanText);
+            texts.Add(troublesootingText);
+            texts.Add(repairText);
+            addTextRectangle(canvas, rectangle, texts);
+            texts.Clear();
+
+            Paragraph observationParagraph = new Paragraph("Other Observations:");
+            observationParagraph.SetMarginTop(rectangle.GetHeight()+9);
+            document.Add(observationParagraph);
+            float height = rectangle.GetHeight() + 30;
+            Rectangle rectangle2 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height, PageSize.A4.GetRight() - 140, 75);
+            canvas.Rectangle(rectangle2);
+            canvas.Stroke();
+
+            Paragraph commentsParagraph = new Paragraph("Comments:");
+            commentsParagraph.SetMarginTop(rectangle2.GetHeight() + 8);
+            document.Add(commentsParagraph);
+            float height2 = rectangle2.GetHeight() + 30;
+            Rectangle rectangle3 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height - height2, PageSize.A4.GetRight() - 140, 75);
+            canvas.Rectangle(rectangle3);
+            canvas.Stroke();
+
+            //Checkboxes and last rectangle of the first page
+            Paragraph resultsParagraph = new Paragraph("Results:");
+            resultsParagraph.SetMarginTop(rectangle3.GetHeight() + 8);
+            document.Add(resultsParagraph);
+            float height3 = rectangle3.GetHeight() + 30 + height + height2;
+            Rectangle rectangle4 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height3, PageSize.A4.GetRight() - 140, 75);
+            canvas.Rectangle(rectangle4);
+            canvas.Stroke();
+
+            // Create an appearance stream for the checkbox
+            Rectangle rect = new Rectangle(rectangle4.GetLeft() + 15,
+                rectangle4.GetBottom() + 55, 10, 10);
+            canvas.Rectangle(rect);
+            if (true)
             {
-                document.Add(new Paragraph("Final thoughts on this process:" + "\n" +finalThoughts));
+                drawCross(canvas, rect);
             }
+            canvas.Stroke();
+            canvas.Stroke();
+            canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12)
+            .MoveText(rect.GetLeft()+25, rect.GetBottom())
+            .ShowText("Repair made without the guarantie that the board works")
+            .EndText();
+            //canvas.Release();
+
+            Rectangle rect1 = new Rectangle(rect.SetY(rect.GetBottom()-20));
+            canvas.Rectangle(rect1);
+            // Draw a cross
+            if (true)
+            {
+                drawCross(canvas, rect1);
+            }
+            canvas.Stroke();
+            canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12)
+            .MoveText(rect1.GetLeft() + 25, rect1.GetBottom())
+            .ShowText("No errors were found")
+            .EndText();
+            //canvas.Release();
+
+            Rectangle rect2 = new Rectangle(rect1.SetY(rect1.GetBottom() - 20));
+            canvas.Rectangle(rect2);
+            // Draw a cross
+            if (true)
+            {
+                drawCross(canvas, rect2);
+            }
+            canvas.Stroke();
+            canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12)
+            .MoveText(rect2.GetLeft() + 25, rect2.GetBottom())
+            .ShowText("Repair was done but problem still exists")
+            .EndText();
+            canvas.Release();
+
+
+
+
+            //PdfAcroForm form = PdfAcroForm.GetAcroForm(pdf, true);
+            //PdfButtonFormField checkField = PdfFormField.CreateCheckBox(pdf, new Rectangle(524, 600, 16, 16),
+            //    "UsersNo", "Off", PdfFormField.TYPE_CHECK);
+            //form.AddField(checkField);
+
+
 
             document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
             document.Add(setTitle("Before Repair"));
@@ -124,9 +243,44 @@ namespace Tåg_project.FileManipulation
                 insertImg(img);
             }
             document.Close();
-            MessageBox.Show("PDF Created at" + outputPath);
+            MessageBox.Show("PDF Created on" + outputPath);
             ShowFile.OpenFile(outputPath);
         }
+
+        private void addTextRectangle(PdfCanvas canvas, Rectangle rectangle, List<Text> texts)
+        {
+            var canvas1 = new Canvas(canvas, rectangle);
+            foreach(Text text in texts)
+            {
+                canvas1.Add(new Paragraph(text).SetFontSize(9));
+            }
+            //canvas.Rectangle(rectangle);
+            canvas.Stroke();
+        }
+
+        private void drawCross(PdfCanvas canvas, Rectangle rect)
+        {
+            canvas.Rectangle(rect);
+            canvas.MoveTo(rect.GetLeft() + 2, rect.GetBottom() + 2);
+            canvas.LineTo(rect.GetRight() - 2, rect.GetTop() - 2);
+            canvas.MoveTo(rect.GetLeft() + 2, rect.GetTop() - 2);
+            canvas.LineTo(rect.GetRight() - 2, rect.GetBottom() + 2);
+        }
+
+        //public Cell getCell(String text, TextAlignment alignment, bool underline)
+        //{
+        //    PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
+        //    var paragraph = new Paragraph(text);
+        //    if (underline)
+        //    {
+        //        paragraph.SetFont(font).SetUnderline().SetBold();
+        //    }
+        //    Cell cell = new Cell().Add(new Paragraph(text));
+        //    cell.SetPadding(0);
+        //    cell.SetTextAlignment(alignment);
+        //    cell.SetBorder(iText.Layout.Borders.Border.NO_BORDER);
+        //    return cell;
+        //}
 
         private Paragraph setTitle(string s)
         {
@@ -166,7 +320,7 @@ namespace Tåg_project.FileManipulation
             PdfDocument pdfDoc = docEvent.GetDocument();
             PdfPage page = docEvent.GetPage();
             int pageNumber = pdfDoc.GetPageNumber(page);
-            Rectangle pageSize = page.GetPageSize();
+            iText.Kernel.Geom.Rectangle pageSize = page.GetPageSize();
             PdfCanvas pdfCanvas = new PdfCanvas(page.NewContentStreamBefore(), page.GetResources(), pdfDoc);
 
             //Header
