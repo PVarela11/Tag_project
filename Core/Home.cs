@@ -220,7 +220,7 @@ namespace Tåg_project.Core
                     return false;
                 }
             }
-            return false;
+            return true;
         }
 
         private void ExportPDF(string p)
