@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
+using System.Text;
 
 
 namespace Tåg_project.FileManipulation
@@ -18,9 +20,11 @@ namespace Tåg_project.FileManipulation
 
         public Export(string serialNum, bool clean, bool isEvaluated,
             bool isComponentReplaced, string whichComponents, bool finalEvaluation,
-            string finalText, List<string> initialImages, List<string> finalImages, int imgCount, string s) 
+            string finalText, List<string> initialImages, List<string> finalImages,
+            int imgCount, string s, string observations, string comments, string process, 
+            bool troubleshoot, bool repair, bool result1, bool result2, bool result3) 
         {
-            string report = "\\Report_" + serialNum;
+            string report = "\\" + serialNum;
             
             if (!s.Contains(report))
             {
@@ -32,9 +36,43 @@ namespace Tåg_project.FileManipulation
             // Create a list of data to be converted to CSV
             List<string[]> data = new List<string[]>
             {
-                new string[] {serialNum.ToString(), imgCount.ToString(), clean.ToString(), isEvaluated.ToString(), isComponentReplaced.ToString(), whichComponents, finalEvaluation.ToString(), finalText},
+                new string[] 
+                {
+                    serialNum.ToString(), 
+                    imgCount.ToString(), 
+                    clean.ToString(), 
+                    isEvaluated.ToString(), 
+                    isComponentReplaced.ToString(), 
+                    whichComponents, 
+                    finalEvaluation.ToString(), 
+                    finalText,
+                    observations,
+                    comments,
+                    process,
+                    troubleshoot.ToString(),
+                    repair.ToString(),
+                    result1.ToString(),
+                    result2.ToString(),
+                    result3.ToString()
+                },
             };
-
+            List<string> data1 = new List<string>();
+            data1.Add(serialNum.ToString());
+            data1.Add(imgCount.ToString());
+            data1.Add(clean.ToString());
+            data1.Add(isEvaluated.ToString());
+            data1.Add(isComponentReplaced.ToString());
+            data1.Add(whichComponents);
+            data1.Add(finalEvaluation.ToString());
+            data1.Add(finalText);
+            data1.Add(observations);
+            data1.Add(comments);
+            data1.Add(process);
+            data1.Add(troubleshoot.ToString());
+            data1.Add(repair.ToString());
+            data1.Add(result1.ToString());
+            data1.Add(result2.ToString());
+            data1.Add(result3.ToString());
             // Specify the directory you want to manipulate.
             string filePath = path + "/data.csv";
 
@@ -63,7 +101,7 @@ namespace Tåg_project.FileManipulation
                         {
                             // Try to create the directory.
                             DirectoryInfo di = Directory.CreateDirectory(initialImagesFolder);
-                            di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                            //di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                             //di.Attributes = FileAttributes.Directory | FileAttributes.Normal;
                             createImg(initialImages);
                             WriteImages(initialImages, initialImagesFolder);
@@ -84,7 +122,7 @@ namespace Tåg_project.FileManipulation
                         {
                             // Try to create the directory.
                             DirectoryInfo di = Directory.CreateDirectory(finalImagesFolder);
-                            di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                            //di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                             //di.Attributes = FileAttributes.Directory | FileAttributes.Normal;
                             createImg(finalImages);
                             WriteImages(finalImages, finalImagesFolder);
@@ -114,7 +152,7 @@ namespace Tåg_project.FileManipulation
                         {
                             // Try to create the directory.
                             DirectoryInfo dn = Directory.CreateDirectory(initialImagesFolder);
-                            dn.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                            //dn.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                             createImg(initialImages);
                             WriteImages(initialImages, initialImagesFolder);
                         }
@@ -134,7 +172,7 @@ namespace Tåg_project.FileManipulation
                         {
                             // Try to create the directory.
                             DirectoryInfo dn = Directory.CreateDirectory(finalImagesFolder);
-                            dn.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                            //dn.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                             createImg(finalImages);
                             WriteImages(finalImages, finalImagesFolder);
                         }
@@ -205,10 +243,14 @@ namespace Tåg_project.FileManipulation
         
         private void WriteCSV(string filePath, List<string[]> data)
         {
-            using (StreamWriter sw = new StreamWriter(filePath))
+            using (StreamWriter sw = new StreamWriter(filePath, false, Encoding.GetEncoding("ISO-8859-1")))
             {
                 foreach (string[] row in data)
                 {
+                    for(int i=0; i < row.Length; i++)
+                    {
+                        row[i] = row[i].Replace("\r\n", "!r!n");
+                    }
                     sw.WriteLine(string.Join("|", row));
                 }
                 sw.Close();

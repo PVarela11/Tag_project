@@ -19,6 +19,14 @@ namespace Tåg_project.FileManipulation
         public int imgCount { get; set; }
         public List<string> initialImagesPath { get; set; }
         public List<string> finalImagesPath { get; set; }
+        public bool result1 { get; set; }
+        public bool result2 { get; set; }
+        public bool result3 { get; set; }
+        public string comments { get; set; }
+        public  string observations { get; set; }
+        public string process { get; set; }
+        public bool repair { get; set; }
+        public bool troubleshoot { get; set; }
 
 
         public Import(string path)
@@ -53,20 +61,44 @@ namespace Tåg_project.FileManipulation
                                     case 2:
                                         isClean = bool.Parse(column);
                                         break;
-                                    case 3:
-                                        isEvaluated = bool.Parse(column);
+                                    //case 3:
+                                    //    isEvaluated = bool.Parse(column);
+                                    //    break;
+                                    //case 4:
+                                    //    isComponentReplaced = bool.Parse(column);
+                                    //    break;
+                                    //case 5:
+                                    //    whichComponents = column;
+                                    //    break;
+                                    //case 6:
+                                    //    finalEvaluation = bool.Parse(column);
+                                    //    break;
+                                    //case 7:
+                                    //    finalText = column;
+                                    //    break;
+                                    case 8:
+                                        observations = column.Replace("!r!n", "\r\n");
                                         break;
-                                    case 4:
-                                        isComponentReplaced = bool.Parse(column);
+                                    case 9:
+                                        comments = column.Replace("!r!n", "\r\n"); ;
                                         break;
-                                    case 5:
-                                        whichComponents = column;
+                                    case 10:
+                                        process = column.Replace("!r!n", "\r\n"); ;
                                         break;
-                                    case 6:
-                                        finalEvaluation = bool.Parse(column);
+                                    case 11:
+                                        troubleshoot = bool.Parse(column);
                                         break;
-                                    case 7:
-                                        finalText = column;
+                                    case 12:
+                                        repair = bool.Parse(column);
+                                        break;
+                                    case 13:
+                                        result1 = bool.Parse(column);
+                                        break;
+                                    case 14:
+                                        result2 = bool.Parse(column);
+                                        break;
+                                    case 15:
+                                        result3 = bool.Parse(column);
                                         break;
                                 }
                                 counter++;

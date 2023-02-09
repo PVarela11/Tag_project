@@ -34,17 +34,10 @@
             this.btnPrev = new FontAwesome.Sharp.IconButton();
             this.lblTopPanel = new System.Windows.Forms.Label();
             this.pnlFinal = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtFinalThoughts = new System.Windows.Forms.RichTextBox();
             this.btnClearFinalImg = new System.Windows.Forms.Button();
             this.btnImportFinalImg = new System.Windows.Forms.Button();
             this.pboxFinalImages = new FontAwesome.Sharp.IconPictureBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.cboxApproved = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btnCreatePDF = new System.Windows.Forms.Button();
             this.pnlMiddle = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -65,7 +58,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtProcess = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.cboxRepair = new System.Windows.Forms.CheckBox();
             this.cboxTroubleshoot = new System.Windows.Forms.CheckBox();
             this.cboxClean = new System.Windows.Forms.CheckBox();
             this.btnClearImage = new System.Windows.Forms.Button();
@@ -75,6 +68,16 @@
             this.lblSerialNum = new System.Windows.Forms.Label();
             this.txtSerialNum = new System.Windows.Forms.TextBox();
             this.btnExport = new System.Windows.Forms.Button();
+            this.cboxApproved = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtFinalThoughts = new System.Windows.Forms.RichTextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cboxResult3 = new System.Windows.Forms.CheckBox();
+            this.cboxResult1 = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.cboxResult2 = new System.Windows.Forms.CheckBox();
             this.pnlTop.SuspendLayout();
             this.pnlFinal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxFinalImages)).BeginInit();
@@ -162,7 +165,7 @@
             this.lblTopPanel.AutoSize = true;
             this.lblTopPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTopPanel.ForeColor = System.Drawing.Color.White;
-            this.lblTopPanel.Location = new System.Drawing.Point(312, 31);
+            this.lblTopPanel.Location = new System.Drawing.Point(430, 31);
             this.lblTopPanel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTopPanel.Name = "lblTopPanel";
             this.lblTopPanel.Size = new System.Drawing.Size(88, 20);
@@ -172,68 +175,26 @@
             // pnlFinal
             // 
             this.pnlFinal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(155)))), ((int)(((byte)(231)))));
-            this.pnlFinal.Controls.Add(this.button5);
-            this.pnlFinal.Controls.Add(this.button6);
-            this.pnlFinal.Controls.Add(this.label6);
-            this.pnlFinal.Controls.Add(this.txtFinalThoughts);
+            this.pnlFinal.Controls.Add(this.cboxResult2);
+            this.pnlFinal.Controls.Add(this.label12);
+            this.pnlFinal.Controls.Add(this.label11);
+            this.pnlFinal.Controls.Add(this.label9);
+            this.pnlFinal.Controls.Add(this.cboxResult3);
+            this.pnlFinal.Controls.Add(this.cboxResult1);
             this.pnlFinal.Controls.Add(this.btnClearFinalImg);
             this.pnlFinal.Controls.Add(this.btnImportFinalImg);
             this.pnlFinal.Controls.Add(this.pboxFinalImages);
             this.pnlFinal.Controls.Add(this.label5);
-            this.pnlFinal.Controls.Add(this.cboxApproved);
-            this.pnlFinal.Controls.Add(this.label4);
-            this.pnlFinal.Controls.Add(this.btnCreatePDF);
             this.pnlFinal.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlFinal.Location = new System.Drawing.Point(940, 81);
+            this.pnlFinal.Location = new System.Drawing.Point(938, 81);
             this.pnlFinal.Margin = new System.Windows.Forms.Padding(2);
             this.pnlFinal.Name = "pnlFinal";
-            this.pnlFinal.Size = new System.Drawing.Size(8, 515);
+            this.pnlFinal.Size = new System.Drawing.Size(10, 515);
             this.pnlFinal.TabIndex = 1;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(613, 39);
-            this.button5.Margin = new System.Windows.Forms.Padding(2);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(74, 19);
-            this.button5.TabIndex = 23;
-            this.button5.Text = "Instructions";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(613, 11);
-            this.button6.Margin = new System.Windows.Forms.Padding(2);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(74, 19);
-            this.button6.TabIndex = 22;
-            this.button6.Text = "Save";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.btnExport_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(280, 76);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(83, 13);
-            this.label6.TabIndex = 21;
-            this.label6.Text = "Final Thoughts :";
-            // 
-            // txtFinalThoughts
-            // 
-            this.txtFinalThoughts.Location = new System.Drawing.Point(283, 97);
-            this.txtFinalThoughts.Margin = new System.Windows.Forms.Padding(2);
-            this.txtFinalThoughts.Name = "txtFinalThoughts";
-            this.txtFinalThoughts.Size = new System.Drawing.Size(405, 204);
-            this.txtFinalThoughts.TabIndex = 20;
-            this.txtFinalThoughts.Text = "";
-            this.txtFinalThoughts.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPreventSeparator);
             // 
             // btnClearFinalImg
             // 
-            this.btnClearFinalImg.Location = new System.Drawing.Point(188, 282);
+            this.btnClearFinalImg.Location = new System.Drawing.Point(473, 370);
             this.btnClearFinalImg.Margin = new System.Windows.Forms.Padding(2);
             this.btnClearFinalImg.Name = "btnClearFinalImg";
             this.btnClearFinalImg.Size = new System.Drawing.Size(56, 19);
@@ -244,7 +205,7 @@
             // 
             // btnImportFinalImg
             // 
-            this.btnImportFinalImg.Location = new System.Drawing.Point(122, 281);
+            this.btnImportFinalImg.Location = new System.Drawing.Point(407, 369);
             this.btnImportFinalImg.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportFinalImg.Name = "btnImportFinalImg";
             this.btnImportFinalImg.Size = new System.Drawing.Size(56, 19);
@@ -261,7 +222,7 @@
             this.pboxFinalImages.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(214)))), ((int)(((byte)(10)))));
             this.pboxFinalImages.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.pboxFinalImages.IconSize = 122;
-            this.pboxFinalImages.Location = new System.Drawing.Point(122, 141);
+            this.pboxFinalImages.Location = new System.Drawing.Point(407, 229);
             this.pboxFinalImages.Margin = new System.Windows.Forms.Padding(2);
             this.pboxFinalImages.Name = "pboxFinalImages";
             this.pboxFinalImages.Size = new System.Drawing.Size(122, 130);
@@ -273,48 +234,20 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(26, 141);
+            this.label5.Location = new System.Drawing.Point(420, 208);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(96, 13);
             this.label5.TabIndex = 16;
             this.label5.Text = "Import PCB images";
             // 
-            // cboxApproved
-            // 
-            this.cboxApproved.AutoSize = true;
-            this.cboxApproved.Location = new System.Drawing.Point(145, 75);
-            this.cboxApproved.Margin = new System.Windows.Forms.Padding(2);
-            this.cboxApproved.Name = "cboxApproved";
-            this.cboxApproved.Size = new System.Drawing.Size(72, 17);
-            this.cboxApproved.TabIndex = 15;
-            this.cboxApproved.Text = "Approved";
-            this.cboxApproved.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(26, 76);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(122, 13);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Final Eletrical Evaluation";
-            // 
-            // btnCreatePDF
-            // 
-            this.btnCreatePDF.Location = new System.Drawing.Point(560, 321);
-            this.btnCreatePDF.Margin = new System.Windows.Forms.Padding(2);
-            this.btnCreatePDF.Name = "btnCreatePDF";
-            this.btnCreatePDF.Size = new System.Drawing.Size(128, 19);
-            this.btnCreatePDF.TabIndex = 13;
-            this.btnCreatePDF.Text = "Create PDF";
-            this.btnCreatePDF.UseVisualStyleBackColor = true;
-            this.btnCreatePDF.Click += new System.EventHandler(this.btnCreatePDF_Click);
-            // 
             // pnlMiddle
             // 
             this.pnlMiddle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(155)))), ((int)(((byte)(231)))));
+            this.pnlMiddle.Controls.Add(this.label6);
+            this.pnlMiddle.Controls.Add(this.txtFinalThoughts);
+            this.pnlMiddle.Controls.Add(this.cboxApproved);
+            this.pnlMiddle.Controls.Add(this.label4);
             this.pnlMiddle.Controls.Add(this.button1);
             this.pnlMiddle.Controls.Add(this.button2);
             this.pnlMiddle.Controls.Add(this.lblComponents);
@@ -324,7 +257,7 @@
             this.pnlMiddle.Controls.Add(this.label2);
             this.pnlMiddle.Controls.Add(this.cboxEletricalEvaluation);
             this.pnlMiddle.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlMiddle.Location = new System.Drawing.Point(930, 81);
+            this.pnlMiddle.Location = new System.Drawing.Point(928, 81);
             this.pnlMiddle.Margin = new System.Windows.Forms.Padding(2);
             this.pnlMiddle.Name = "pnlMiddle";
             this.pnlMiddle.Size = new System.Drawing.Size(10, 515);
@@ -429,7 +362,7 @@
             this.pnlFirst.Location = new System.Drawing.Point(0, 81);
             this.pnlFirst.Margin = new System.Windows.Forms.Padding(2);
             this.pnlFirst.Name = "pnlFirst";
-            this.pnlFirst.Size = new System.Drawing.Size(930, 515);
+            this.pnlFirst.Size = new System.Drawing.Size(928, 515);
             this.pnlFirst.TabIndex = 3;
             // 
             // pnlBoxes
@@ -444,11 +377,11 @@
             this.pnlBoxes.Controls.Add(this.label7);
             this.pnlBoxes.Controls.Add(this.txtProcess);
             this.pnlBoxes.Controls.Add(this.label8);
-            this.pnlBoxes.Controls.Add(this.checkBox1);
+            this.pnlBoxes.Controls.Add(this.cboxRepair);
             this.pnlBoxes.Controls.Add(this.cboxTroubleshoot);
             this.pnlBoxes.Controls.Add(this.cboxClean);
             this.pnlBoxes.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlBoxes.Location = new System.Drawing.Point(11, 0);
+            this.pnlBoxes.Location = new System.Drawing.Point(9, 0);
             this.pnlBoxes.Margin = new System.Windows.Forms.Padding(2);
             this.pnlBoxes.Name = "pnlBoxes";
             this.pnlBoxes.Size = new System.Drawing.Size(919, 515);
@@ -551,15 +484,15 @@
             this.label8.TabIndex = 12;
             this.label8.Text = "Has any repairs been made to the PCB ?";
             // 
-            // checkBox1
+            // cboxRepair
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(226, 101);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox1.TabIndex = 11;
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cboxRepair.AutoSize = true;
+            this.cboxRepair.Location = new System.Drawing.Point(226, 101);
+            this.cboxRepair.Margin = new System.Windows.Forms.Padding(2);
+            this.cboxRepair.Name = "cboxRepair";
+            this.cboxRepair.Size = new System.Drawing.Size(15, 14);
+            this.cboxRepair.TabIndex = 11;
+            this.cboxRepair.UseVisualStyleBackColor = true;
             // 
             // cboxTroubleshoot
             // 
@@ -661,6 +594,106 @@
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
+            // cboxApproved
+            // 
+            this.cboxApproved.AutoSize = true;
+            this.cboxApproved.Location = new System.Drawing.Point(488, 249);
+            this.cboxApproved.Margin = new System.Windows.Forms.Padding(2);
+            this.cboxApproved.Name = "cboxApproved";
+            this.cboxApproved.Size = new System.Drawing.Size(72, 17);
+            this.cboxApproved.TabIndex = 19;
+            this.cboxApproved.Text = "Approved";
+            this.cboxApproved.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(369, 250);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(122, 13);
+            this.label4.TabIndex = 18;
+            this.label4.Text = "Final Eletrical Evaluation";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(259, 274);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(83, 13);
+            this.label6.TabIndex = 23;
+            this.label6.Text = "Final Thoughts :";
+            // 
+            // txtFinalThoughts
+            // 
+            this.txtFinalThoughts.Location = new System.Drawing.Point(262, 295);
+            this.txtFinalThoughts.Margin = new System.Windows.Forms.Padding(2);
+            this.txtFinalThoughts.Name = "txtFinalThoughts";
+            this.txtFinalThoughts.Size = new System.Drawing.Size(513, 70);
+            this.txtFinalThoughts.TabIndex = 22;
+            this.txtFinalThoughts.Text = "";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(337, 134);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(216, 13);
+            this.label9.TabIndex = 24;
+            this.label9.Text = "Work was done but the problem wasn\'t fixed";
+            // 
+            // cboxResult3
+            // 
+            this.cboxResult3.AutoSize = true;
+            this.cboxResult3.Location = new System.Drawing.Point(560, 134);
+            this.cboxResult3.Margin = new System.Windows.Forms.Padding(2);
+            this.cboxResult3.Name = "cboxResult3";
+            this.cboxResult3.Size = new System.Drawing.Size(15, 14);
+            this.cboxResult3.TabIndex = 23;
+            this.cboxResult3.UseVisualStyleBackColor = true;
+            // 
+            // cboxResult1
+            // 
+            this.cboxResult1.AutoSize = true;
+            this.cboxResult1.Location = new System.Drawing.Point(585, 46);
+            this.cboxResult1.Margin = new System.Windows.Forms.Padding(2);
+            this.cboxResult1.Name = "cboxResult1";
+            this.cboxResult1.Size = new System.Drawing.Size(15, 14);
+            this.cboxResult1.TabIndex = 22;
+            this.cboxResult1.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(337, 46);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(238, 13);
+            this.label11.TabIndex = 25;
+            this.label11.Text = "Repair done without the gurantee the PCB works";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(337, 89);
+            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(80, 13);
+            this.label12.TabIndex = 26;
+            this.label12.Text = "No errors found";
+            // 
+            // cboxResult2
+            // 
+            this.cboxResult2.AutoSize = true;
+            this.cboxResult2.Location = new System.Drawing.Point(423, 89);
+            this.cboxResult2.Margin = new System.Windows.Forms.Padding(2);
+            this.cboxResult2.Name = "cboxResult2";
+            this.cboxResult2.Size = new System.Drawing.Size(15, 14);
+            this.cboxResult2.TabIndex = 27;
+            this.cboxResult2.UseVisualStyleBackColor = true;
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -711,24 +744,17 @@
         private System.Windows.Forms.CheckBox cboxComponents;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox cboxEletricalEvaluation;
-        private System.Windows.Forms.Button btnCreatePDF;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.RichTextBox txtFinalThoughts;
         private System.Windows.Forms.Button btnClearFinalImg;
         private System.Windows.Forms.Button btnImportFinalImg;
         private FontAwesome.Sharp.IconPictureBox pboxFinalImages;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox cboxApproved;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel pnlBoxes;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtProcess;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox cboxRepair;
         private System.Windows.Forms.CheckBox cboxTroubleshoot;
         private System.Windows.Forms.CheckBox cboxClean;
         private System.Windows.Forms.LinkLabel lblClean;
@@ -738,5 +764,15 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtObservations;
         private FontAwesome.Sharp.IconButton iconButton1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.RichTextBox txtFinalThoughts;
+        private System.Windows.Forms.CheckBox cboxApproved;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckBox cboxResult3;
+        private System.Windows.Forms.CheckBox cboxResult1;
+        private System.Windows.Forms.CheckBox cboxResult2;
     }
 }

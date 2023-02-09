@@ -23,7 +23,7 @@ namespace Tåg_project.Core
     {
         Import import;
         string path, whichComponents, finalText, week, serialNum, lastTwoDigitsOfYear, tempPath, observations, comments, process;
-        bool isClean, isEvaluated, isComponentReplaced, finalEvaluation;
+        bool isClean, isEvaluated, troubleshoot, repair,isComponentReplaced, finalEvaluation, result1, result2, result3;
         int initialImagesCount = 0, aux = 0, finalImagesCount = 0, page = 0;
         List<string> initialImagesPath = new List<string>();
         List<string> finalImagesPath  = new List<string>();
@@ -83,6 +83,14 @@ namespace Tåg_project.Core
                 isClean = import.isClean;
                 cboxEletricalEvaluation.Checked = import.isEvaluated;
                 cboxComponents.Checked = import.isComponentReplaced;
+                cboxTroubleshoot.Checked = import.troubleshoot;
+                cboxRepair.Checked = import.repair;
+                txtProcess.Text = import.process;
+                txtComments.Text = import.comments;
+                txtObservations.Text = import.observations;
+                cboxResult1.Checked = import.result1;
+                cboxResult2.Checked = import.result2;
+                cboxResult3.Checked = import.result3;
                 if (cboxComponents.Checked)
                 {
                     txtComponents.Enabled = true;
@@ -127,6 +135,14 @@ namespace Tåg_project.Core
             whichComponents = txtComponents.Text;
             finalEvaluation = cboxApproved.Checked;
             finalText = txtFinalThoughts.Text;
+            observations = txtObservations.Text;
+            comments = txtComments.Text;
+            process = txtProcess.Text;
+            troubleshoot = cboxTroubleshoot.Checked;
+            repair = cboxRepair.Checked;
+            result1 = cboxResult1.Checked;
+            result2 = cboxResult2.Checked;
+            result3= cboxResult3.Checked;
 
             if (path == null)
             {
@@ -147,7 +163,16 @@ namespace Tåg_project.Core
                     initialImagesPath,
                     finalImagesPath,
                     initialImagesCount,
-                    path);
+                    path,
+                    observations,
+                    comments,
+                    process,
+                    troubleshoot,
+                    repair,
+                    result1,
+                    result2,
+                    result3);
+
                 path = export.path;
                 UpdateDesign();
             }
@@ -174,12 +199,12 @@ namespace Tåg_project.Core
             }
             else if (page == 2)
             {
-                if (txtFinalThoughts.TextLength == 0)
-                {
-                    MessageBox.Show("You should write something to conclude this report");
-                    return false;
-                }
-                else if (finalImagesPath.Count == 0)
+                //if (txtFinalThoughts.TextLength == 0)
+                //{
+                //MessageBox.Show("You should write something to conclude this report");
+                 return false;
+                //}
+               if (finalImagesPath.Count == 0)
                 {
                     MessageBox.Show("You should import some images of the PCB first");
                     return false;
@@ -200,6 +225,10 @@ namespace Tåg_project.Core
             observations = txtObservations.Text;
             comments = txtComments.Text;
             process = txtProcess.Text;
+            result1 = cboxResult1.Checked;
+            result2 = cboxResult2.Checked;
+            result3= cboxResult3.Checked;
+
             ExportPDF pdf = new ExportPDF(
                 p,
                 initialImagesPath,
@@ -213,7 +242,10 @@ namespace Tåg_project.Core
                 finalText,
                 observations,
                 process,
-                comments
+                comments,
+                result1,
+                result2,
+                result3
                 );
             return;
         }
@@ -363,6 +395,9 @@ namespace Tåg_project.Core
                 page--;
             }else if (page == 2)
             {
+                iconButton1.IconChar = FontAwesome.Sharp.IconChar.Save;
+                iconButton1.Click -= btnCreatePDF_Click;
+                iconButton1.Click += new EventHandler(btnExport_Click);
                 lblTopPanel.Text = "PCB Process";
                 //pnlMiddle.Width = pnlFinal.Width;
                 pnlBoxes.Width = pnlFinal.Width;
@@ -418,6 +453,9 @@ namespace Tåg_project.Core
             {
                 lblTopPanel.Text = "Results";
                 page++;
+                iconButton1.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
+                iconButton1.Click -= btnExport_Click;
+                iconButton1.Click += new EventHandler(btnCreatePDF_Click);
                 pnlFinal.Width = pnlBoxes.Width;
                 pnlBoxes.Width = pnlFirst.Width = 0;
                 //pnlFinal.Width = pnlMiddle.Width;

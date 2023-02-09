@@ -44,14 +44,14 @@ namespace Tåg_project.FileManipulation
     internal class ExportPDF
     {
         Text label,value,cleanText, troublesootingText, componentsText, whichComponentsText, 
-            finalEvaluationText, repairText, observationsText, commentsText, resultsText1, resultsText2, resultsText3;
+            finalEvaluationText, repairText, observationsText;
         List<Text> texts= new List<Text>();
         public string serialNum { get; set; }
         Document document;
         PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
         public ExportPDF(string path, List<string> initialimagesPath, List<string> finalImagesPath,
             string sNum, bool clean, bool eletricEval, bool replaced, string componentsReplaced,
-            bool finalEval, string finalThoughts, string observations, string process, string comments)
+            bool finalEval, string finalThoughts, string observations, string process, string comments, bool result1, bool result2, bool result3)
         {
             #region init vars
             if (clean)
@@ -94,10 +94,8 @@ namespace Tåg_project.FileManipulation
             {
                 observationsText = new Text("Final thoughts on this process:" + "\n" + finalThoughts);
             }
-            
-
-            string outputPath = path + "\\FinalReport_" + serialNum + ".pdf";
             serialNum = sNum;
+            string outputPath = path + "\\Report_" + serialNum + ".pdf";
             #endregion
 
             // Create a new PDF document
@@ -209,7 +207,7 @@ namespace Tåg_project.FileManipulation
             Rectangle rect = new Rectangle(rectangle4.GetLeft() + 15,
                 rectangle4.GetBottom() + 55, 10, 10);
             canvas.Rectangle(rect);
-            if (true)
+            if (result1)
             {
                 drawCross(canvas, rect);
             }
@@ -224,7 +222,7 @@ namespace Tåg_project.FileManipulation
             Rectangle rect1 = new Rectangle(rect.SetY(rect.GetBottom()-20));
             canvas.Rectangle(rect1);
             // Draw a cross
-            if (true)
+            if (result2)
             {
                 drawCross(canvas, rect1);
             }
@@ -238,7 +236,7 @@ namespace Tåg_project.FileManipulation
             Rectangle rect2 = new Rectangle(rect1.SetY(rect1.GetBottom() - 20));
             canvas.Rectangle(rect2);
             // Draw a cross
-            if (true)
+            if (result3)
             {
                 drawCross(canvas, rect2);
             }
@@ -248,16 +246,6 @@ namespace Tåg_project.FileManipulation
             .ShowText("Repair was done but problem still exists")
             .EndText();
             canvas.Release();
-
-
-
-
-            //PdfAcroForm form = PdfAcroForm.GetAcroForm(pdf, true);
-            //PdfButtonFormField checkField = PdfFormField.CreateCheckBox(pdf, new Rectangle(524, 600, 16, 16),
-            //    "UsersNo", "Off", PdfFormField.TYPE_CHECK);
-            //form.AddField(checkField);
-
-
 
             document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
             document.Add(setTitle("Before Repair"));
