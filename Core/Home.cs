@@ -76,48 +76,53 @@ namespace Tåg_project.Core
             import = new Import(path);
             
             serialNum = import.serialNum;
-            if (serialNum.Length == 8)
+            if (serialNum != null)
             {
-                txtSerialNum.Text = serialNum;
-                cboxClean.Checked = import.isClean; ;
-                isClean = import.isClean;
-                cboxEletricalEvaluation.Checked = import.isEvaluated;
-                cboxComponents.Checked = import.isComponentReplaced;
-                cboxTroubleshoot.Checked = import.troubleshoot;
-                cboxRepair.Checked = import.repair;
-                txtProcess.Text = import.process;
-                txtComments.Text = import.comments;
-                txtObservations.Text = import.observations;
-                cboxResult1.Checked = import.result1;
-                cboxResult2.Checked = import.result2;
-                cboxResult3.Checked = import.result3;
-                if (cboxComponents.Checked)
+                if (serialNum.Length == 8)
                 {
-                    txtComponents.Enabled = true;
-                    txtComponents.Visible = true;
-                    txtComponents.Text = import.whichComponents.ToString();
-                }
-                txtFinalThoughts.Text = import.finalText;
-                cboxApproved.Checked = import.finalEvaluation;
-                lblImages.Text = initialImagesCount.ToString();
-                initialImagesPath.Clear();
-                initialImagesPath = import.initialImagesPath;
-                initialImagesCount = initialImagesPath.Count();
-                finalImagesPath.Clear();
-                finalImagesPath = import.finalImagesPath;
-                finalImagesCount = finalImagesPath.Count();
+                    txtSerialNum.Text = serialNum;
+                    cboxClean.Checked = import.isClean; ;
+                    isClean = import.isClean;
+                    cboxEletricalEvaluation.Checked = import.isEvaluated;
+                    cboxComponents.Checked = import.isComponentReplaced;
+                    cboxTroubleshoot.Checked = import.troubleshoot;
+                    cboxRepair.Checked = import.repair;
+                    txtProcess.Text = import.process;
+                    txtComments.Text = import.comments;
+                    txtObservations.Text = import.observations;
+                    cboxResult1.Checked = import.result1;
+                    cboxResult2.Checked = import.result2;
+                    cboxResult3.Checked = import.result3;
+                    if (cboxComponents.Checked)
+                    {
+                        txtComponents.Enabled = true;
+                        txtComponents.Visible = true;
+                        txtComponents.Text = import.whichComponents.ToString();
+                    }
+                    txtFinalThoughts.Text = import.finalText;
+                    cboxApproved.Checked = import.finalEvaluation;
+                    lblImages.Text = initialImagesCount.ToString();
+                    initialImagesPath.Clear();
+                    initialImagesPath = import.initialImagesPath;
+                    initialImagesCount = initialImagesPath.Count();
+                    finalImagesPath.Clear();
+                    finalImagesPath = import.finalImagesPath;
+                    finalImagesCount = finalImagesPath.Count();
 
-                if (initialImagesPath.Count != 0)
-                {
-                    pboxImages.Enabled = true;
-                    pboxImages.ImageLocation = initialImagesPath[0];
+                    if (initialImagesPath.Count != 0)
+                    {
+                        pboxImages.Enabled = true;
+                        pboxImages.ImageLocation = initialImagesPath[0];
+                    }
+                    if (finalImagesPath.Count != 0)
+                    {
+                        pboxFinalImages.Enabled = true;
+                        pboxFinalImages.ImageLocation = finalImagesPath[0];
+                    }
                 }
-                if (finalImagesPath.Count != 0)
-                {
-                    pboxFinalImages.Enabled = true;
-                    pboxFinalImages.ImageLocation = finalImagesPath[0];
-                }
+                else MessageBox.Show("Corrupted data inside the file.");
             }
+            else MessageBox.Show("No report data found.");
         }
 
         private void Export()
@@ -128,57 +133,59 @@ namespace Tåg_project.Core
                 serialNum = lastTwoDigitsOfYear + week + txtSerialNum.Text;
                 Console.WriteLine(serialNum.ToString());
             }
-
-            isClean = cboxClean.Checked;
-            isEvaluated = cboxEletricalEvaluation.Checked;
-            isComponentReplaced = cboxComponents.Checked;
-            whichComponents = txtComponents.Text;
-            finalEvaluation = cboxApproved.Checked;
-            finalText = txtFinalThoughts.Text;
-            observations = txtObservations.Text;
-            comments = txtComments.Text;
-            process = txtProcess.Text;
-            troubleshoot = cboxTroubleshoot.Checked;
-            repair = cboxRepair.Checked;
-            result1 = cboxResult1.Checked;
-            result2 = cboxResult2.Checked;
-            result3= cboxResult3.Checked;
-
-            if (path == null)
+            if (validateInputs(0))
             {
-                MessageBox.Show("Choose the directory where the files will be placed, note that a new folder will be created in there!");
-                path = FolderDialogHelper.SelectedFolder();
-            }
+                isClean = cboxClean.Checked;
+                isEvaluated = cboxEletricalEvaluation.Checked;
+                isComponentReplaced = cboxComponents.Checked;
+                whichComponents = txtComponents.Text;
+                finalEvaluation = cboxApproved.Checked;
+                finalText = txtFinalThoughts.Text;
+                observations = txtObservations.Text;
+                comments = txtComments.Text;
+                process = txtProcess.Text;
+                troubleshoot = cboxTroubleshoot.Checked;
+                repair = cboxRepair.Checked;
+                result1 = cboxResult1.Checked;
+                result2 = cboxResult2.Checked;
+                result3 = cboxResult3.Checked;
 
-            if (path != null)
-            {
-                Export export = new Export(
-                    serialNum,
-                    isClean,
-                    isEvaluated,
-                    isComponentReplaced,
-                    whichComponents,
-                    finalEvaluation,
-                    finalText,
-                    initialImagesPath,
-                    finalImagesPath,
-                    initialImagesCount,
-                    path,
-                    observations,
-                    comments,
-                    process,
-                    troubleshoot,
-                    repair,
-                    result1,
-                    result2,
-                    result3);
+                if (path == null)
+                {
+                    MessageBox.Show("Choose the directory where the files will be placed, note that a new folder will be created in there!");
+                    path = FolderDialogHelper.SelectedFolder();
+                }
 
-                path = export.path;
-                UpdateDesign();
-            }
-            else
-            {
-                MessageBox.Show("Select a valid path!");
+                if (path != null)
+                {
+                    Export export = new Export(
+                        serialNum,
+                        isClean,
+                        isEvaluated,
+                        isComponentReplaced,
+                        whichComponents,
+                        finalEvaluation,
+                        finalText,
+                        initialImagesPath,
+                        finalImagesPath,
+                        initialImagesCount,
+                        path,
+                        observations,
+                        comments,
+                        process,
+                        troubleshoot,
+                        repair,
+                        result1,
+                        result2,
+                        result3);
+
+                    path = export.path;
+                    UpdateDesign();
+                }
+                else
+                {
+                    MessageBox.Show("Select a valid path!");
+                }
             }
         }
 
@@ -202,7 +209,7 @@ namespace Tåg_project.Core
                 //if (txtFinalThoughts.TextLength == 0)
                 //{
                 //MessageBox.Show("You should write something to conclude this report");
-                 return false;
+                 //return false;
                 //}
                if (finalImagesPath.Count == 0)
                 {
@@ -215,6 +222,7 @@ namespace Tåg_project.Core
 
         private void ExportPDF(string p)
         {
+            Export();
             serialNum = lastTwoDigitsOfYear + week + txtSerialNum.Text;
             isClean = cboxClean.Checked;
             isEvaluated = cboxEletricalEvaluation.Checked;

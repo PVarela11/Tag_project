@@ -101,7 +101,7 @@ namespace Tåg_project.FileManipulation
                         {
                             // Try to create the directory.
                             DirectoryInfo di = Directory.CreateDirectory(initialImagesFolder);
-                            //di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                            di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                             //di.Attributes = FileAttributes.Directory | FileAttributes.Normal;
                             createImg(initialImages);
                             WriteImages(initialImages, initialImagesFolder);
@@ -122,7 +122,7 @@ namespace Tåg_project.FileManipulation
                         {
                             // Try to create the directory.
                             DirectoryInfo di = Directory.CreateDirectory(finalImagesFolder);
-                            //di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                            di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                             //di.Attributes = FileAttributes.Directory | FileAttributes.Normal;
                             createImg(finalImages);
                             WriteImages(finalImages, finalImagesFolder);
@@ -152,7 +152,7 @@ namespace Tåg_project.FileManipulation
                         {
                             // Try to create the directory.
                             DirectoryInfo dn = Directory.CreateDirectory(initialImagesFolder);
-                            //dn.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                            dn.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                             createImg(initialImages);
                             WriteImages(initialImages, initialImagesFolder);
                         }
@@ -172,7 +172,7 @@ namespace Tåg_project.FileManipulation
                         {
                             // Try to create the directory.
                             DirectoryInfo dn = Directory.CreateDirectory(finalImagesFolder);
-                            //dn.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                            dn.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                             createImg(finalImages);
                             WriteImages(finalImages, finalImagesFolder);
                         }
@@ -254,6 +254,8 @@ namespace Tåg_project.FileManipulation
                     sw.WriteLine(string.Join("|", row));
                 }
                 sw.Close();
+                FileInfo file = new FileInfo(filePath);
+                file.Attributes |= FileAttributes.Hidden;
             }
         }
 
