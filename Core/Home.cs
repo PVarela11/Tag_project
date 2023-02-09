@@ -204,20 +204,23 @@ namespace Tåg_project.Core
                     return false;
                 }
             }
+            else if (page == 1)
+            {
+                if (txtProcess.TextLength == 0)
+                {
+                    MessageBox.Show("You should write something about the work done");
+                    return false;
+                }
+            }
             else if (page == 2)
             {
-                //if (txtFinalThoughts.TextLength == 0)
-                //{
-                //MessageBox.Show("You should write something to conclude this report");
-                 //return false;
-                //}
-               if (finalImagesPath.Count == 0)
+                if (finalImagesPath.Count == 0)
                 {
                     MessageBox.Show("You should import some images of the PCB first");
                     return false;
                 }
             }
-            return true;
+            return false;
         }
 
         private void ExportPDF(string p)
