@@ -7,7 +7,7 @@ namespace Tåg_project
         public static void OpenChildForm(Form childForm, Control parentForm)
         {
             childForm.TopLevel = false;
-            childForm.FormBorderStyle = FormBorderStyle.None;
+            //childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;
             parentForm.Controls.Add(childForm);
             parentForm.Tag = childForm;

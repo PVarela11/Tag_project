@@ -28,6 +28,12 @@ namespace Tåg_project
             this.Icon = Resources.vov_logo;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            // Set the minimum size of the form.
+            //this.MinimumSize = new Size(1200, 700);
+
+            // Set the maximum size of the form.
+            //this.MaximumSize = new Size(this.Width+100, this.Height+50);
+            
             //pboxLogo.Image = Resources.vovLogo;
         }
 
@@ -43,7 +49,6 @@ namespace Tåg_project
             {
                 _currentChildForm = new StartForm();
             }
-        
             _currentChildForm.Owner = this;
             Utils.OpenChildForm(_currentChildForm, parentForm);
         }
@@ -70,6 +75,11 @@ namespace Tåg_project
         private void iconButton2_Click(object sender, EventArgs e)
         {
             _currentChildForm = new Home(path);
+        }
+
+        private void iconButton3_Click(object sender, EventArgs e)
+        {
+            FileManipulation.ShowFile.OpenFile("Instructions.txt");
         }
     }
 }

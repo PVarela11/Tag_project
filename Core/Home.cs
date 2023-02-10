@@ -43,6 +43,8 @@ namespace Tåg_project.Core
 
         private void InitialDesign()
         {
+            //int x = lblClean.Location.X + lblClean.Text.Length + 5;
+            //cboxClean.Location = new System.Drawing.Point(x, cboxClean.Location.Y);
             pnlFinal.Width = 0;
             pnlMiddle.Width = 0;
             pnlMiddle.Enabled = false;
@@ -260,33 +262,16 @@ namespace Tåg_project.Core
                 );
             return;
         }
-
-        private void openInstructions(string fileName)
-        {
-            string currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string projectDirectory = Directory.GetParent(currentDirectory).Parent.FullName;
-            string resourcePath = Path.Combine(projectDirectory, "Resources", fileName);
-            if (File.Exists(resourcePath))
-            {
-                Process.Start(resourcePath);
-            }
-            else
-            {
-                MessageBox.Show("The file does not exist.");
-            }
-            //var file = Properties.Resources.CleaningOuter;
-            //FileManipulation.ShowFile.OpenFile(filePath);
-        }
         #endregion
 
         #region Design controls actions
         private void lblTroubleshoot_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            openInstructions("Troubleshooting.pdf");
+            ShowFile.OpenFile("Troubleshooting.pdf");
         }
         private void lblClean_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            openInstructions("CleaningOuter.pdf");
+            ShowFile.OpenFile("CleaningOuter.pdf");
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -363,11 +348,6 @@ namespace Tåg_project.Core
             } 
         }
 
-        private void btnInstructions_Click(object sender, EventArgs e)
-        {
-            openInstructions("C:\\Users\\pedro\\OneDrive\\Ambiente de Trabalho\\teste.docx");
-        }
-
         private void btnClearImg_Click(object sender, EventArgs e)
         {
             if((sender as Button).Name == "btnClearImage")
@@ -397,6 +377,7 @@ namespace Tåg_project.Core
         {
             if (page == 1)
             {
+                lblTitle.Visible= true;
                 lblTopPanel.Text = "Identification";
                 btnPrev.Enabled = false;
                 //pnlFirst.Width = pnlMiddle.Width;
@@ -452,12 +433,15 @@ namespace Tåg_project.Core
             lblClean.Visible=true;
             if (page == 0 && validateInputs(page))
             {
+                lblTitle.Visible=false;
                 lblTopPanel.Text = "PCB Process";
                 page++;
                 btnPrev.Enabled = true;
                 pnlBoxes.Width= pnlFirst.Width;
                 //pnlMiddle.Width = pnlFirst.Width;
-                pnlFinal.Width = pnlFirst.Width = 0;
+                pnlFinal.Width = 0;
+                pnlFirst.Width = 0;
+                pnlMiddle.Width = 0;
                 btnPrev.Enabled = true;
                 
             }else if (page == 1)
@@ -468,7 +452,9 @@ namespace Tåg_project.Core
                 iconButton1.Click -= btnExport_Click;
                 iconButton1.Click += new EventHandler(btnCreatePDF_Click);
                 pnlFinal.Width = pnlBoxes.Width;
-                pnlBoxes.Width = pnlFirst.Width = 0;
+                pnlBoxes.Width = 0;
+                pnlFirst.Width = 0;
+                pnlMiddle.Width = 0;
                 //pnlFinal.Width = pnlMiddle.Width;
                 //pnlMiddle.Width = pnlFirst.Width = 0;
                 btnNext.Enabled = false;

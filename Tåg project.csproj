@@ -197,6 +197,9 @@
     <EmbeddedResource Include="Core\StartForm.resx">
       <DependentUpon>StartForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Core\Template.en.resx">
+      <DependentUpon>Template.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Core\Template.resx">
       <DependentUpon>Template.cs</DependentUpon>
     </EmbeddedResource>
@@ -247,6 +250,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\teste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Instructions.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
