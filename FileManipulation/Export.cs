@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 
@@ -21,11 +20,11 @@ namespace Tåg_project.FileManipulation
         public Export(string serialNum, bool clean, bool isEvaluated,
             bool isComponentReplaced, string whichComponents, bool finalEvaluation,
             string finalText, List<string> initialImages, List<string> finalImages,
-            int imgCount, string s, string observations, string comments, string process, 
-            bool troubleshoot, bool repair, bool result1, bool result2, bool result3) 
+            int imgCount, string s, string observations, string comments, string process,
+            bool troubleshoot, bool repair, bool result1, bool result2, bool result3)
         {
             string report = "\\" + serialNum;
-            
+
             if (!s.Contains(report))
             {
                 path = s + report;
@@ -36,15 +35,15 @@ namespace Tåg_project.FileManipulation
             // Create a list of data to be converted to CSV
             List<string[]> data = new List<string[]>
             {
-                new string[] 
+                new string[]
                 {
-                    serialNum.ToString(), 
-                    imgCount.ToString(), 
-                    clean.ToString(), 
-                    isEvaluated.ToString(), 
-                    isComponentReplaced.ToString(), 
-                    whichComponents, 
-                    finalEvaluation.ToString(), 
+                    serialNum.ToString(),
+                    imgCount.ToString(),
+                    clean.ToString(),
+                    isEvaluated.ToString(),
+                    isComponentReplaced.ToString(),
+                    whichComponents,
+                    finalEvaluation.ToString(),
                     finalText,
                     observations,
                     comments,
@@ -116,7 +115,7 @@ namespace Tåg_project.FileManipulation
                             WriteImages(finalImages, finalImagesFolder);
                         }
                     }
-                    else 
+                    else
                     {
                         if (finalImages.Count > 0)
                         {
@@ -127,7 +126,7 @@ namespace Tåg_project.FileManipulation
                             createImg(finalImages);
                             WriteImages(finalImages, finalImagesFolder);
                         }
-                    }   
+                    }
                 }
                 else
                 {
@@ -236,18 +235,18 @@ namespace Tåg_project.FileManipulation
                             images[i].Save(stream, ImageFormat.Jpeg);
                         }
                     }
-                }   
+                }
             }
         }
 
-        
+
         private void WriteCSV(string filePath, List<string[]> data)
         {
             using (StreamWriter sw = new StreamWriter(filePath, false, Encoding.GetEncoding("ISO-8859-1")))
             {
                 foreach (string[] row in data)
                 {
-                    for(int i=0; i < row.Length; i++)
+                    for (int i = 0; i < row.Length; i++)
                     {
                         row[i] = row[i].Replace("\r\n", "!r!n");
                     }
@@ -261,7 +260,7 @@ namespace Tåg_project.FileManipulation
 
         private void createImg(List<string> imgPath)
         {
-            if(imgPath.Count == 1)
+            if (imgPath.Count == 1)
             {
                 try
                 {
@@ -278,7 +277,7 @@ namespace Tåg_project.FileManipulation
             {
                 try
                 {
-                    
+
                     images = new List<Image>();
                     for (int i = 0; i < imgPath.Count; i++)
                     {
@@ -292,7 +291,7 @@ namespace Tåg_project.FileManipulation
                 }
 
                 finally { }
-            }  
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Tåg_project.FileManipulation
 {
     internal class ChoosePath
     {
-        public static string NewPath() 
+        public static string NewPath()
         {
             //serialNum = num;
             using (FolderBrowserDialog dialog = new FolderBrowserDialog())

@@ -1,51 +1,30 @@
-﻿using iText.Kernel.Pdf;
-using iText.IO.Font.Constants;
+﻿using iText.IO.Font.Constants;
 using iText.IO.Image;
+using iText.Kernel.Events;
 using iText.Kernel.Font;
 using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas;
 using iText.Layout.Element;
 using iText.Layout.Properties;
-using iText.Forms;
-using iText.Forms.Fields;
-
-using Document = iText.Layout.Document;
-using Paragraph = iText.Layout.Element.Paragraph;
-using Image = iText.Layout.Element.Image;
-
-using System.Collections.Generic;
-using System.IO;
 using System;
-using iText.Kernel.Events;
-using iText.Kernel.Pdf.Canvas;
+using System.Collections.Generic;
 using System.Drawing;
-using System.Windows;
-using System.Windows.Documents.DocumentStructures;
-using Rectangle = iText.Kernel.Geom.Rectangle;
-using iText.Kernel.Pdf.Annot;
-using System.Windows.Controls;
-using iText.Layout;
+using System.IO;
 using Canvas = iText.Layout.Canvas;
-using iText.Kernel.Colors;
-using System.Windows.Media.Media3D;
-using iText.StyledXmlParser.Node;
-using iText.Kernel.Pdf.Canvas.Draw;
-using iText.StyledXmlParser.Jsoup.Nodes;
-using TextAlignment = iText.Layout.Properties.TextAlignment;
-using Newtonsoft.Json.Linq;
-using System.Drawing.Printing;
-using System.Windows.Shapes;
-using static System.Net.WebRequestMethods;
-using System.Text;
-using System.Windows.Forms;
+using Document = iText.Layout.Document;
+using Image = iText.Layout.Element.Image;
 using MessageBox = System.Windows.MessageBox;
+using Paragraph = iText.Layout.Element.Paragraph;
+using Rectangle = iText.Kernel.Geom.Rectangle;
 
 namespace Tåg_project.FileManipulation
 {
     internal class ExportPDF
     {
-        Text label,value,cleanText, troublesootingText, componentsText, whichComponentsText, 
+        Text label, value, cleanText, troublesootingText, componentsText, whichComponentsText,
             finalEvaluationText, repairText, observationsText;
-        List<Text> texts= new List<Text>();
+        List<Text> texts = new List<Text>();
         public string serialNum { get; set; }
         Document document;
         PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
@@ -119,11 +98,6 @@ namespace Tåg_project.FileManipulation
             document.Add(setTitle("CIRCUIT BOARD REPAIR REPORT"));
             document.Add(new Paragraph("\n"));
 
-
-            // Add some data to the document
-            //document.Add(new Paragraph("This is the automated report nº " + serialNum + ", created on " + System.DateTime.UtcNow + "."));
-            //document.Add(new Paragraph("The PCB serial number is " + serialNum));
-
             //First fields
             label = new Text("Serial Number: ").SetFont(font);
             value = new Text(serialNum).SetFont(font).SetUnderline().SetBold();
@@ -164,7 +138,7 @@ namespace Tåg_project.FileManipulation
             texts.Clear();
 
             Paragraph observationParagraph = new Paragraph("Other Observations:");
-            observationParagraph.SetMarginTop(rectangle.GetHeight()+9);
+            observationParagraph.SetMarginTop(rectangle.GetHeight() + 9);
             document.Add(observationParagraph);
             float height = rectangle.GetHeight() + 30;
             Rectangle rectangle2 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height - height0, PageSize.A4.GetRight() - 140, 75);
@@ -193,7 +167,7 @@ namespace Tåg_project.FileManipulation
             Paragraph resultsParagraph = new Paragraph("Results:");
             resultsParagraph.SetMarginTop(rectangle3.GetHeight() + 8);
             document.Add(resultsParagraph);
-            float height3 = rectangle3.GetHeight() + 30 + + height0 + height + height2;
+            float height3 = rectangle3.GetHeight() + 30 + +height0 + height + height2;
             Rectangle rectangle4 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height3, PageSize.A4.GetRight() - 140, 75);
             canvas.Rectangle(rectangle4);
             canvas.Stroke();
@@ -214,12 +188,12 @@ namespace Tåg_project.FileManipulation
             canvas.Stroke();
             canvas.Stroke();
             canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12)
-            .MoveText(rect.GetLeft()+25, rect.GetBottom())
+            .MoveText(rect.GetLeft() + 25, rect.GetBottom())
             .ShowText("Repair made without the guarantie that the board works")
             .EndText();
             //canvas.Release();
 
-            Rectangle rect1 = new Rectangle(rect.SetY(rect.GetBottom()-20));
+            Rectangle rect1 = new Rectangle(rect.SetY(rect.GetBottom() - 20));
             canvas.Rectangle(rect1);
             // Draw a cross
             if (result2)
@@ -268,7 +242,7 @@ namespace Tåg_project.FileManipulation
         private void addTextRectangle(PdfCanvas canvas, Rectangle rectangle, List<Text> texts)
         {
             var canvas1 = new Canvas(canvas, rectangle);
-            foreach(Text text in texts)
+            foreach (Text text in texts)
             {
                 canvas1.Add(new Paragraph(text).SetFontSize(9));
             }
@@ -284,21 +258,6 @@ namespace Tåg_project.FileManipulation
             canvas.MoveTo(rect.GetLeft() + 2, rect.GetTop() - 2);
             canvas.LineTo(rect.GetRight() - 2, rect.GetBottom() + 2);
         }
-
-        //public Cell getCell(String text, TextAlignment alignment, bool underline)
-        //{
-        //    PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
-        //    var paragraph = new Paragraph(text);
-        //    if (underline)
-        //    {
-        //        paragraph.SetFont(font).SetUnderline().SetBold();
-        //    }
-        //    Cell cell = new Cell().Add(new Paragraph(text));
-        //    cell.SetPadding(0);
-        //    cell.SetTextAlignment(alignment);
-        //    cell.SetBorder(iText.Layout.Borders.Border.NO_BORDER);
-        //    return cell;
-        //}
 
         private Paragraph setTitle(string s)
         {
@@ -353,7 +312,7 @@ namespace Tåg_project.FileManipulation
                     pdfCanvas.AddImageAt(image, pageSize.GetLeft() + 80, pageSize.GetTop() - 50, false);
 
                     // Add the text to the middle
-                    float textW = font.GetWidth("Report ",9);
+                    float textW = font.GetWidth("Report ", 9);
                     float tx = ((pageSize.GetWidth() - textW) / 2);
                     float textY = (pageSize.GetTop() - 50) + image.GetHeight() / 2;
                     pdfCanvas.BeginText()
@@ -365,7 +324,7 @@ namespace Tåg_project.FileManipulation
                     textW = font.GetWidth(_anotherClassInstance.serialNum, 9);
                     pdfCanvas.BeginText()
                         .SetFontAndSize(font, 9)
-                        .MoveText(tx-1.5, textY - 9)
+                        .MoveText(tx - 1.5, textY - 9)
                         .ShowText(_anotherClassInstance.serialNum)
                         .EndText();
 

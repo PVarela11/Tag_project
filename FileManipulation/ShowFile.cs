@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Tåg_project.FileManipulation
 {
     internal class ShowFile
     {
-        public static void OpenFile(string path) 
+        public static void OpenFile(string path)
         {
             string currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string projectDirectory = Directory.GetParent(currentDirectory).Parent.FullName;

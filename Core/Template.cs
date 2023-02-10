@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tåg_project.Core;
 using Tåg_project.Properties;
@@ -28,13 +21,6 @@ namespace Tåg_project
             this.Icon = Resources.vov_logo;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            // Set the minimum size of the form.
-            //this.MinimumSize = new Size(1200, 700);
-
-            // Set the maximum size of the form.
-            //this.MaximumSize = new Size(this.Width+100, this.Height+50);
-            
-            //pboxLogo.Image = Resources.vovLogo;
         }
 
         private void openChildForm(string formName)

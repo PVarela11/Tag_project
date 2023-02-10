@@ -1,19 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Media;
 using Tåg_project.FileManipulation;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -23,10 +12,10 @@ namespace Tåg_project.Core
     {
         Import import;
         string path, whichComponents, finalText, week, serialNum, lastTwoDigitsOfYear, tempPath, observations, comments, process;
-        bool isClean, isEvaluated, troubleshoot, repair,isComponentReplaced, finalEvaluation, result1, result2, result3;
+        bool isClean, isEvaluated, troubleshoot, repair, isComponentReplaced, finalEvaluation, result1, result2, result3;
         int initialImagesCount = 0, aux = 0, finalImagesCount = 0, page = 0;
         List<string> initialImagesPath = new List<string>();
-        List<string> finalImagesPath  = new List<string>();
+        List<string> finalImagesPath = new List<string>();
         List<string> listAux = new List<string>();
         public Home(string tempPath)
         {
@@ -36,15 +25,11 @@ namespace Tåg_project.Core
             if (tempPath != null)
             {
                 importData();
-                //lbl_Dir.Text = "The current directory is: " + tempPath;
             }
-            //else lbl_Dir.Text = "There is no directory selected";
         }
 
         private void InitialDesign()
         {
-            //int x = lblClean.Location.X + lblClean.Text.Length + 5;
-            //cboxClean.Location = new System.Drawing.Point(x, cboxClean.Location.Y);
             pnlFinal.Width = 0;
             pnlMiddle.Width = 0;
             pnlMiddle.Enabled = false;
@@ -60,7 +45,7 @@ namespace Tåg_project.Core
             }
             lastTwoDigitsOfYear = date.ToString("yy");
 
-            pboxImages.Enabled= false;
+            pboxImages.Enabled = false;
             pboxFinalImages.Enabled = false;
             btnPrev.Enabled = false;
             txtComponents.Enabled = false;
@@ -68,7 +53,7 @@ namespace Tåg_project.Core
 
         private void UpdateDesign()
         {
-            lblImages.Text = initialImagesCount.ToString() + "image(s)";
+            lblImages.Text = initialImagesCount.ToString() + "image(s) imported" ;
         }
 
         #region FileManipulation
@@ -76,7 +61,7 @@ namespace Tåg_project.Core
         private void importData()
         {
             import = new Import(path);
-            
+
             serialNum = import.serialNum;
             if (serialNum != null)
             {
@@ -240,7 +225,7 @@ namespace Tåg_project.Core
             process = txtProcess.Text;
             result1 = cboxResult1.Checked;
             result2 = cboxResult2.Checked;
-            result3= cboxResult3.Checked;
+            result3 = cboxResult3.Checked;
 
             ExportPDF pdf = new ExportPDF(
                 p,
@@ -296,7 +281,8 @@ namespace Tåg_project.Core
                     listAux.Add(fileName);
                     imgCount++;
                 }
-                if(name == "btnImportFinalImg"){
+                if (name == "btnImportFinalImg")
+                {
                     finalImagesPath.AddRange(listAux);
                     finalImagesCount += imgCount;
                     pboxFinalImages.ImageLocation = finalImagesPath[0];
@@ -322,7 +308,7 @@ namespace Tåg_project.Core
 
         private void btnCreatePDF_Click(object sender, EventArgs e)
         {
-            if(validateInputs(0) && validateInputs(2))
+            if (validateInputs(0) && validateInputs(2))
             {
                 if (path == null)
                 {
@@ -345,12 +331,12 @@ namespace Tåg_project.Core
                     }
                 }
                 else ExportPDF(path);
-            } 
+            }
         }
 
         private void btnClearImg_Click(object sender, EventArgs e)
         {
-            if((sender as Button).Name == "btnClearImage")
+            if ((sender as Button).Name == "btnClearImage")
             {
                 initialImagesPath.Clear();
                 pboxImages.Enabled = false;
@@ -370,28 +356,26 @@ namespace Tåg_project.Core
                 //aux = 0;
                 //lblImages.Text = "";
             }
-            
+
         }
 
         private void btnPrev_Click(object sender, EventArgs e)
         {
             if (page == 1)
             {
-                lblTitle.Visible= true;
+                lblTitle.Visible = true;
                 lblTopPanel.Text = "Identification";
                 btnPrev.Enabled = false;
-                //pnlFirst.Width = pnlMiddle.Width;
                 pnlFirst.Width = pnlBoxes.Width;
-                //pnlMiddle.Width = pnlFinal.Width = 0;
                 pnlBoxes.Width = pnlFinal.Width = 0;
                 page--;
-            }else if (page == 2)
+            }
+            else if (page == 2)
             {
                 iconButton1.IconChar = FontAwesome.Sharp.IconChar.Save;
                 iconButton1.Click -= btnCreatePDF_Click;
                 iconButton1.Click += new EventHandler(btnExport_Click);
                 lblTopPanel.Text = "PCB Process";
-                //pnlMiddle.Width = pnlFinal.Width;
                 pnlBoxes.Width = pnlFinal.Width;
                 pnlFirst.Width = pnlFinal.Width = 0;
                 page--;
@@ -411,7 +395,7 @@ namespace Tåg_project.Core
                 aux = 0;
                 pboxImages.ImageLocation = initialImagesPath[aux];
             }
-            
+
         }
 
         private void pboxFinalImages_Click(object sender, EventArgs e)
@@ -430,21 +414,22 @@ namespace Tåg_project.Core
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            lblClean.Visible=true;
+            lblClean.Visible = true;
             if (page == 0 && validateInputs(page))
             {
-                lblTitle.Visible=false;
+                lblTitle.Visible = false;
                 lblTopPanel.Text = "PCB Process";
                 page++;
                 btnPrev.Enabled = true;
-                pnlBoxes.Width= pnlFirst.Width;
+                pnlBoxes.Width = pnlFirst.Width;
                 //pnlMiddle.Width = pnlFirst.Width;
                 pnlFinal.Width = 0;
                 pnlFirst.Width = 0;
                 pnlMiddle.Width = 0;
                 btnPrev.Enabled = true;
-                
-            }else if (page == 1)
+
+            }
+            else if (page == 1)
             {
                 lblTopPanel.Text = "Results";
                 page++;
@@ -455,8 +440,6 @@ namespace Tåg_project.Core
                 pnlBoxes.Width = 0;
                 pnlFirst.Width = 0;
                 pnlMiddle.Width = 0;
-                //pnlFinal.Width = pnlMiddle.Width;
-                //pnlMiddle.Width = pnlFirst.Width = 0;
                 btnNext.Enabled = false;
             }
         }

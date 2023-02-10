@@ -23,7 +23,7 @@ namespace Tåg_project.FileManipulation
         public bool result2 { get; set; }
         public bool result3 { get; set; }
         public string comments { get; set; }
-        public  string observations { get; set; }
+        public string observations { get; set; }
         public string process { get; set; }
         public bool repair { get; set; }
         public bool troubleshoot { get; set; }
