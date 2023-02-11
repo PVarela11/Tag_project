@@ -76,167 +76,175 @@ namespace Tåg_project.FileManipulation
             serialNum = sNum;
             string outputPath = path + "\\Report_" + serialNum + ".pdf";
             #endregion
-
-            // Create a new PDF document
-            PdfWriter writer = new PdfWriter(outputPath);
-            PdfDocument pdf = new PdfDocument(writer);
-            pdf.AddNewPage();
-            var page = pdf.GetPage(1);
-            var canvas = new PdfCanvas(page);
-            pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new MyEventHandler(this));
-
-            // Add metadata to the document
-            pdf.GetDocumentInfo().SetAuthor("© Motion Control i Västerås AB");
-            pdf.GetDocumentInfo().SetTitle("Report nº" + serialNum);
-            pdf.GetDocumentInfo().SetSubject("Report of the rebuild process of PCBs");
-            document = new Document(pdf);
-
-            //Edit Layout
-            document.SetMargins(80, 80, 80, 80);
-
-            // Add a title to the document
-            document.Add(setTitle("CIRCUIT BOARD REPAIR REPORT"));
-            document.Add(new Paragraph("\n"));
-
-            //First fields
-            label = new Text("Serial Number: ").SetFont(font);
-            value = new Text(serialNum).SetFont(font).SetUnderline().SetBold();
-            Paragraph serialNumParagraph = new Paragraph();
-            serialNumParagraph.Add(label).Add(value);
-            document.Add(serialNumParagraph);
-
-            label = new Text("Date: ").SetFont(font);
-            value = new Text(DateTime.Now.ToString("yyyy-MM-dd")).SetFont(font).SetUnderline().SetBold();
-            Paragraph dateParagraph = new Paragraph();
-            dateParagraph.Add(label).Add(value);
-            document.Add(dateParagraph);
-
-            // Create a rectangle with the specified dimensions and add it to the pdf
-            document.Add(new Paragraph("Work Description:"));
-            Rectangle rectangle0 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540, PageSize.A4.GetRight() - 140, 75);
-            canvas.Rectangle(rectangle0);
-            canvas.Stroke();
-
-            repairText = new Text("TESTEEE");
-            texts.Add(cleanText);
-            texts.Add(troublesootingText);
-            texts.Add(repairText);
-            addTextRectangle(canvas, rectangle0, texts);
-            texts.Clear();
-
-            Paragraph newParagraph = new Paragraph("What was done:");
-            newParagraph.SetMarginTop(rectangle0.GetHeight() + 9);
-            document.Add(newParagraph);
-            float height0 = rectangle0.GetHeight() + 30;
-            Rectangle rectangle = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height0, PageSize.A4.GetRight() - 140, 75);
-            canvas.Rectangle(rectangle);
-            canvas.Stroke();
-
-            Text newT = new Text(process);
-            texts.Add(newT);
-            addTextRectangle(canvas, rectangle, texts);
-            texts.Clear();
-
-            Paragraph observationParagraph = new Paragraph("Other Observations:");
-            observationParagraph.SetMarginTop(rectangle.GetHeight() + 9);
-            document.Add(observationParagraph);
-            float height = rectangle.GetHeight() + 30;
-            Rectangle rectangle2 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height - height0, PageSize.A4.GetRight() - 140, 75);
-            canvas.Rectangle(rectangle2);
-            canvas.Stroke();
-
-            newT = new Text(observations);
-            texts.Add(newT);
-            addTextRectangle(canvas, rectangle2, texts);
-            texts.Clear();
-
-            Paragraph commentsParagraph = new Paragraph("Comments:");
-            commentsParagraph.SetMarginTop(rectangle2.GetHeight() + 8);
-            document.Add(commentsParagraph);
-            float height2 = rectangle2.GetHeight() + 30;
-            Rectangle rectangle3 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height0 - height - height2, PageSize.A4.GetRight() - 140, 75);
-            canvas.Rectangle(rectangle3);
-            canvas.Stroke();
-
-            newT = new Text(comments);
-            texts.Add(newT);
-            addTextRectangle(canvas, rectangle3, texts);
-            texts.Clear();
-
-            //Checkboxes and last rectangle of the first page
-            Paragraph resultsParagraph = new Paragraph("Results:");
-            resultsParagraph.SetMarginTop(rectangle3.GetHeight() + 8);
-            document.Add(resultsParagraph);
-            float height3 = rectangle3.GetHeight() + 30 + +height0 + height + height2;
-            Rectangle rectangle4 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height3, PageSize.A4.GetRight() - 140, 75);
-            canvas.Rectangle(rectangle4);
-            canvas.Stroke();
-
-            newT = new Text(observations);
-            texts.Add(newT);
-            addTextRectangle(canvas, rectangle2, texts);
-            texts.Clear();
-
-            // Create an appearance stream for the checkbox
-            Rectangle rect = new Rectangle(rectangle4.GetLeft() + 15,
-                rectangle4.GetBottom() + 55, 10, 10);
-            canvas.Rectangle(rect);
-            if (result1)
+            try
             {
-                drawCross(canvas, rect);
-            }
-            canvas.Stroke();
-            canvas.Stroke();
-            canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12)
-            .MoveText(rect.GetLeft() + 25, rect.GetBottom())
-            .ShowText("Repair made without the guarantie that the board works")
-            .EndText();
-            //canvas.Release();
+                // Create a new PDF document
+                PdfWriter writer = new PdfWriter(outputPath);
+                PdfDocument pdf = new PdfDocument(writer);
+                pdf.AddNewPage();
+                var page = pdf.GetPage(1);
+                var canvas = new PdfCanvas(page);
+                pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new MyEventHandler(this));
 
-            Rectangle rect1 = new Rectangle(rect.SetY(rect.GetBottom() - 20));
-            canvas.Rectangle(rect1);
-            // Draw a cross
-            if (result2)
-            {
-                drawCross(canvas, rect1);
-            }
-            canvas.Stroke();
-            canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12)
-            .MoveText(rect1.GetLeft() + 25, rect1.GetBottom())
-            .ShowText("No errors were found")
-            .EndText();
-            //canvas.Release();
+                // Add metadata to the document
+                pdf.GetDocumentInfo().SetAuthor("© Motion Control i Västerås AB");
+                pdf.GetDocumentInfo().SetTitle("Report nº" + serialNum);
+                pdf.GetDocumentInfo().SetSubject("Report of the rebuild process of PCBs");
+                document = new Document(pdf);
 
-            Rectangle rect2 = new Rectangle(rect1.SetY(rect1.GetBottom() - 20));
-            canvas.Rectangle(rect2);
-            // Draw a cross
-            if (result3)
-            {
-                drawCross(canvas, rect2);
-            }
-            canvas.Stroke();
-            canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12)
-            .MoveText(rect2.GetLeft() + 25, rect2.GetBottom())
-            .ShowText("Repair was done but problem still exists")
-            .EndText();
-            canvas.Release();
+                //Edit Layout
+                document.SetMargins(80, 80, 80, 80);
 
-            document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-            document.Add(setTitle("Before Repair"));
-            foreach (var img in initialimagesPath)
-            {
-                insertImg(img);
-            }
+                // Add a title to the document
+                document.Add(setTitle("CIRCUIT BOARD REPAIR REPORT"));
+                document.Add(new Paragraph("\n"));
 
-            document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-            document.Add(setTitle("After Repair"));
-            foreach (var img in finalImagesPath)
-            {
-                insertImg(img);
+                //First fields
+                label = new Text("Serial Number: ").SetFont(font);
+                value = new Text(serialNum).SetFont(font).SetUnderline().SetBold();
+                Paragraph serialNumParagraph = new Paragraph();
+                serialNumParagraph.Add(label).Add(value);
+                document.Add(serialNumParagraph);
+
+                label = new Text("Date: ").SetFont(font);
+                value = new Text(DateTime.Now.ToString("yyyy-MM-dd")).SetFont(font).SetUnderline().SetBold();
+                Paragraph dateParagraph = new Paragraph();
+                dateParagraph.Add(label).Add(value);
+                document.Add(dateParagraph);
+
+                // Create a rectangle with the specified dimensions and add it to the pdf
+                document.Add(new Paragraph("Work Description:"));
+                Rectangle rectangle0 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540, PageSize.A4.GetRight() - 140, 75);
+                canvas.Rectangle(rectangle0);
+                canvas.Stroke();
+
+                repairText = new Text("TESTEEE");
+                texts.Add(cleanText);
+                texts.Add(troublesootingText);
+                texts.Add(repairText);
+                addTextRectangle(canvas, rectangle0, texts);
+                texts.Clear();
+
+                Paragraph newParagraph = new Paragraph("What was done:");
+                newParagraph.SetMarginTop(rectangle0.GetHeight() + 9);
+                document.Add(newParagraph);
+                float height0 = rectangle0.GetHeight() + 30;
+                Rectangle rectangle = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height0, PageSize.A4.GetRight() - 140, 75);
+                canvas.Rectangle(rectangle);
+                canvas.Stroke();
+
+                Text newT = new Text(process);
+                texts.Add(newT);
+                addTextRectangle(canvas, rectangle, texts);
+                texts.Clear();
+
+                Paragraph observationParagraph = new Paragraph("Other Observations:");
+                observationParagraph.SetMarginTop(rectangle.GetHeight() + 9);
+                document.Add(observationParagraph);
+                float height = rectangle.GetHeight() + 30;
+                Rectangle rectangle2 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height - height0, PageSize.A4.GetRight() - 140, 75);
+                canvas.Rectangle(rectangle2);
+                canvas.Stroke();
+
+                newT = new Text(observations);
+                texts.Add(newT);
+                addTextRectangle(canvas, rectangle2, texts);
+                texts.Clear();
+
+                Paragraph commentsParagraph = new Paragraph("Comments:");
+                commentsParagraph.SetMarginTop(rectangle2.GetHeight() + 8);
+                document.Add(commentsParagraph);
+                float height2 = rectangle2.GetHeight() + 30;
+                Rectangle rectangle3 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height0 - height - height2, PageSize.A4.GetRight() - 140, 75);
+                canvas.Rectangle(rectangle3);
+                canvas.Stroke();
+
+                newT = new Text(comments);
+                texts.Add(newT);
+                addTextRectangle(canvas, rectangle3, texts);
+                texts.Clear();
+
+                //Checkboxes and last rectangle of the first page
+                Paragraph resultsParagraph = new Paragraph("Results:");
+                resultsParagraph.SetMarginTop(rectangle3.GetHeight() + 8);
+                document.Add(resultsParagraph);
+                float height3 = rectangle3.GetHeight() + 30 + +height0 + height + height2;
+                Rectangle rectangle4 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height3, PageSize.A4.GetRight() - 140, 75);
+                canvas.Rectangle(rectangle4);
+                canvas.Stroke();
+
+                newT = new Text(observations);
+                texts.Add(newT);
+                addTextRectangle(canvas, rectangle2, texts);
+                texts.Clear();
+
+                // Create an appearance stream for the checkbox
+                Rectangle rect = new Rectangle(rectangle4.GetLeft() + 15,
+                    rectangle4.GetBottom() + 55, 10, 10);
+                canvas.Rectangle(rect);
+                if (result1)
+                {
+                    drawCross(canvas, rect);
+                }
+                canvas.Stroke();
+                canvas.Stroke();
+                canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12)
+                .MoveText(rect.GetLeft() + 25, rect.GetBottom())
+                .ShowText("Repair made without the guarantie that the board works")
+                .EndText();
+                //canvas.Release();
+
+                Rectangle rect1 = new Rectangle(rect.SetY(rect.GetBottom() - 20));
+                canvas.Rectangle(rect1);
+                // Draw a cross
+                if (result2)
+                {
+                    drawCross(canvas, rect1);
+                }
+                canvas.Stroke();
+                canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12)
+                .MoveText(rect1.GetLeft() + 25, rect1.GetBottom())
+                .ShowText("No errors were found")
+                .EndText();
+                //canvas.Release();
+
+                Rectangle rect2 = new Rectangle(rect1.SetY(rect1.GetBottom() - 20));
+                canvas.Rectangle(rect2);
+                // Draw a cross
+                if (result3)
+                {
+                    drawCross(canvas, rect2);
+                }
+                canvas.Stroke();
+                canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12)
+                .MoveText(rect2.GetLeft() + 25, rect2.GetBottom())
+                .ShowText("Repair was done but problem still exists")
+                .EndText();
+                canvas.Release();
+
+                document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                document.Add(setTitle("Before Repair"));
+                foreach (var img in initialimagesPath)
+                {
+                    insertImg(img);
+                }
+
+                document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                document.Add(setTitle("After Repair"));
+                foreach (var img in finalImagesPath)
+                {
+                    insertImg(img);
+                }
+                document.Close();
+                MessageBox.Show("PDF Created on" + outputPath);
+                ShowFile.OpenFile(outputPath);
             }
-            document.Close();
-            MessageBox.Show("PDF Created on" + outputPath);
-            ShowFile.OpenFile(outputPath);
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Console.WriteLine("The process failed: {0}", ex.ToString());
+            }
+            finally { }
         }
 
         private void addTextRectangle(PdfCanvas canvas, Rectangle rectangle, List<Text> texts)

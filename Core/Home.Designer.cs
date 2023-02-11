@@ -63,10 +63,10 @@
             this.cboxTroubleshoot = new System.Windows.Forms.CheckBox();
             this.cboxClean = new System.Windows.Forms.CheckBox();
             this.pnlFinal = new System.Windows.Forms.Panel();
-            this.btnClearFinalImg = new System.Windows.Forms.Button();
+            this.btnClearFinalImage = new System.Windows.Forms.Button();
             this.btnImportFinalImg = new System.Windows.Forms.Button();
             this.pboxFinalImages = new FontAwesome.Sharp.IconPictureBox();
-            this.label13 = new System.Windows.Forms.Label();
+            this.lblFinalImages = new System.Windows.Forms.Label();
             this.cboxResult2 = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -519,10 +519,10 @@
             // 
             // pnlFinal
             // 
-            this.pnlFinal.Controls.Add(this.btnClearFinalImg);
+            this.pnlFinal.Controls.Add(this.btnClearFinalImage);
             this.pnlFinal.Controls.Add(this.btnImportFinalImg);
             this.pnlFinal.Controls.Add(this.pboxFinalImages);
-            this.pnlFinal.Controls.Add(this.label13);
+            this.pnlFinal.Controls.Add(this.lblFinalImages);
             this.pnlFinal.Controls.Add(this.cboxResult2);
             this.pnlFinal.Controls.Add(this.label12);
             this.pnlFinal.Controls.Add(this.label11);
@@ -535,17 +535,18 @@
             this.pnlFinal.Size = new System.Drawing.Size(1080, 572);
             this.pnlFinal.TabIndex = 17;
             // 
-            // btnClearFinalImg
+            // btnClearFinalImage
             // 
-            this.btnClearFinalImg.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnClearFinalImg.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearFinalImg.Location = new System.Drawing.Point(450, 463);
-            this.btnClearFinalImg.Margin = new System.Windows.Forms.Padding(2);
-            this.btnClearFinalImg.Name = "btnClearFinalImg";
-            this.btnClearFinalImg.Size = new System.Drawing.Size(158, 37);
-            this.btnClearFinalImg.TabIndex = 41;
-            this.btnClearFinalImg.Text = "Clear";
-            this.btnClearFinalImg.UseVisualStyleBackColor = true;
+            this.btnClearFinalImage.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnClearFinalImage.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearFinalImage.Location = new System.Drawing.Point(450, 463);
+            this.btnClearFinalImage.Margin = new System.Windows.Forms.Padding(2);
+            this.btnClearFinalImage.Name = "btnClearFinalImage";
+            this.btnClearFinalImage.Size = new System.Drawing.Size(158, 37);
+            this.btnClearFinalImage.TabIndex = 41;
+            this.btnClearFinalImage.Text = "Clear";
+            this.btnClearFinalImage.UseVisualStyleBackColor = true;
+            this.btnClearFinalImage.Click += new System.EventHandler(this.btnClearImg_Click);
             // 
             // btnImportFinalImg
             // 
@@ -558,6 +559,7 @@
             this.btnImportFinalImg.TabIndex = 40;
             this.btnImportFinalImg.Text = "Import";
             this.btnImportFinalImg.UseVisualStyleBackColor = true;
+            this.btnImportFinalImg.Click += new System.EventHandler(this.btnImportImage_Click);
             // 
             // pboxFinalImages
             // 
@@ -576,17 +578,17 @@
             this.pboxFinalImages.TabIndex = 39;
             this.pboxFinalImages.TabStop = false;
             // 
-            // label13
+            // lblFinalImages
             // 
-            this.label13.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label13.Location = new System.Drawing.Point(451, 242);
-            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(157, 23);
-            this.label13.TabIndex = 38;
-            this.label13.Text = "Import PCB images";
+            this.lblFinalImages.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblFinalImages.AutoSize = true;
+            this.lblFinalImages.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblFinalImages.Location = new System.Drawing.Point(451, 242);
+            this.lblFinalImages.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFinalImages.Name = "lblFinalImages";
+            this.lblFinalImages.Size = new System.Drawing.Size(157, 23);
+            this.lblFinalImages.TabIndex = 38;
+            this.lblFinalImages.Text = "Import PCB images";
             // 
             // cboxResult2
             // 
@@ -805,10 +807,10 @@
         private System.Windows.Forms.CheckBox cboxTroubleshoot;
         private System.Windows.Forms.CheckBox cboxClean;
         private System.Windows.Forms.Panel pnlFinal;
-        private System.Windows.Forms.Button btnClearFinalImg;
+        private System.Windows.Forms.Button btnClearFinalImage;
         private System.Windows.Forms.Button btnImportFinalImg;
         private FontAwesome.Sharp.IconPictureBox pboxFinalImages;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lblFinalImages;
         private System.Windows.Forms.CheckBox cboxResult2;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;

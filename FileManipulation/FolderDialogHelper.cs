@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace Tåg_project.FileManipulation
 {
@@ -14,6 +15,7 @@ namespace Tåg_project.FileManipulation
                 if (folderDialog.ShowDialog() == DialogResult.OK)
                 {
                     SelectedPath = folderDialog.SelectedPath;
+                    folderDialog.Description = "Select a folder";
                     Console.WriteLine("You selected: " + SelectedPath);
                     return SelectedPath;
                 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,7 +14,8 @@ namespace Tåg_project.Core
         Import import;
         string path, whichComponents, finalText, week, serialNum, lastTwoDigitsOfYear, tempPath, observations, comments, process;
         bool isClean, isEvaluated, troubleshoot, repair, isComponentReplaced, finalEvaluation, result1, result2, result3;
-        int initialImagesCount = 0, aux = 0, finalImagesCount = 0, page = 0;
+        bool isImported = false;
+        int aux = 0, aux1 = 0, page = 0;
         List<string> initialImagesPath = new List<string>();
         List<string> finalImagesPath = new List<string>();
         List<string> listAux = new List<string>();
@@ -53,7 +55,10 @@ namespace Tåg_project.Core
 
         private void UpdateDesign()
         {
-            lblImages.Text = initialImagesCount.ToString() + "image(s) imported" ;
+            if(initialImagesPath.Count>0)
+            lblImages.Text = initialImagesPath.Count.ToString() + "image(s) imported" ;
+            if(finalImagesPath.Count>0)
+            lblFinalImages.Text = finalImagesPath.Count.ToString() + "image(s) imported";
         }
 
         #region FileManipulation
@@ -67,7 +72,9 @@ namespace Tåg_project.Core
             {
                 if (serialNum.Length == 8)
                 {
-                    txtSerialNum.Text = serialNum;
+                    isImported = true;
+                    txtSerialNum.Enabled = false;
+                    txtSerialNum.Text = serialNum.Substring(4);
                     cboxClean.Checked = import.isClean; ;
                     isClean = import.isClean;
                     cboxEletricalEvaluation.Checked = import.isEvaluated;
@@ -88,28 +95,30 @@ namespace Tåg_project.Core
                     }
                     txtFinalThoughts.Text = import.finalText;
                     cboxApproved.Checked = import.finalEvaluation;
-                    lblImages.Text = initialImagesCount.ToString();
+                    lblImages.Text = initialImagesPath.Count.ToString();
                     initialImagesPath.Clear();
                     initialImagesPath = import.initialImagesPath;
-                    initialImagesCount = initialImagesPath.Count();
+                    //initialImagesCount = initialImagesPath.Count();
                     finalImagesPath.Clear();
                     finalImagesPath = import.finalImagesPath;
-                    finalImagesCount = finalImagesPath.Count();
+                    //finalImagesCount = finalImagesPath.Count();
 
-                    if (initialImagesPath.Count != 0)
+                    if (initialImagesPath.Count > 0)
                     {
                         pboxImages.Enabled = true;
                         pboxImages.ImageLocation = initialImagesPath[0];
+                        lblImages.Text = initialImagesPath.Count.ToString() + "image(s) imported";
                     }
-                    if (finalImagesPath.Count != 0)
+                    if (finalImagesPath.Count > 0)
                     {
                         pboxFinalImages.Enabled = true;
+                        lblFinalImages.Text = finalImagesPath.Count.ToString() + "image(s) imported";
                         pboxFinalImages.ImageLocation = finalImagesPath[0];
                     }
                 }
-                else MessageBox.Show("Corrupted data inside the file.");
+                else MessageBox.Show("Corrupted data inside the file."); path = null;
             }
-            else MessageBox.Show("No report data found.");
+            else MessageBox.Show("No report data found."); path= null;
         }
 
         private void Export()
@@ -155,7 +164,7 @@ namespace Tåg_project.Core
                         finalText,
                         initialImagesPath,
                         finalImagesPath,
-                        initialImagesCount,
+                        initialImagesPath.Count,
                         path,
                         observations,
                         comments,
@@ -212,7 +221,7 @@ namespace Tåg_project.Core
 
         private void ExportPDF(string p)
         {
-            Export();
+            //Export();
             serialNum = lastTwoDigitsOfYear + week + txtSerialNum.Text;
             isClean = cboxClean.Checked;
             isEvaluated = cboxEletricalEvaluation.Checked;
@@ -268,7 +277,6 @@ namespace Tåg_project.Core
         {
             listAux.Clear();
             string name = (sender as Button).Name;
-            pboxImages.BackColor = System.Drawing.Color.FromArgb(119, 155, 230);
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Select Valid Document(*.png; *.jpeg; *.jpg)|*.png; *.jpeg; *.jpg";
             dialog.Multiselect = true;
@@ -283,17 +291,20 @@ namespace Tåg_project.Core
                 }
                 if (name == "btnImportFinalImg")
                 {
+                    //pboxFinalImages.BackColor = System.Drawing.Color.FromArgb(119, 156, 230);
                     finalImagesPath.AddRange(listAux);
-                    finalImagesCount += imgCount;
+                    //finalImagesCount += imgCount;
                     pboxFinalImages.ImageLocation = finalImagesPath[0];
                     pboxFinalImages.Enabled = true;
+                    lblFinalImages.Text = finalImagesPath.Count.ToString() + " images imported";
                 }
                 else if (name == "btnImportImage")
                 {
+                    //pboxImages.BackColor = System.Drawing.Color.FromArgb(119, 155, 230);
                     initialImagesPath.AddRange(listAux);
-                    initialImagesCount += imgCount;
+                    //initialImagesCount += imgCount;
                     pboxImages.ImageLocation = initialImagesPath[0];
-                    lblImages.Text = initialImagesCount.ToString() + " images imported";
+                    lblImages.Text = initialImagesPath.Count.ToString() + " images imported";
                     pboxImages.Enabled = true;
                 }
             }
@@ -310,7 +321,7 @@ namespace Tåg_project.Core
         {
             if (validateInputs(0) && validateInputs(2))
             {
-                if (path == null)
+                if (path == null || !isImported)
                 {
                     DialogResult result = MessageBox.Show("Would you like to save the report first ?", "Save Report", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
@@ -341,20 +352,25 @@ namespace Tåg_project.Core
                 initialImagesPath.Clear();
                 pboxImages.Enabled = false;
                 pboxImages.Image = null;
+                pboxImages.BackColor = Color.Transparent;
+                pboxImages.Enabled = false;
                 pboxImages.BackColor = System.Drawing.Color.FromArgb(119, 155, 230);
+                pboxImages.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
                 aux = 0;
-                lblImages.Text = "";
+                lblImages.Text = "Import PCB Image";
                 //TODO:
                 //deleteImg()
             }
-            else
+            else if ((sender as Button).Name == "btnClearFinalImage")
             {
                 finalImagesPath.Clear();
                 pboxFinalImages.Enabled = false;
                 pboxFinalImages.Image = null;
-                pboxFinalImages.BackColor = System.Drawing.Color.FromArgb(119, 155, 230);
-                //aux = 0;
-                //lblImages.Text = "";
+                pboxFinalImages.BackColor = System.Drawing.Color.FromArgb(119, 156, 230);
+                pboxFinalImages.BackColor = Color.Transparent;
+                pboxFinalImages.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
+                aux1 = 0;
+                lblFinalImages.Text = "Import PCB Image";
             }
 
         }
@@ -385,7 +401,7 @@ namespace Tåg_project.Core
 
         private void pboxImages_Click(object sender, EventArgs e)
         {
-            if (aux < initialImagesCount - 1)
+            if (aux < initialImagesPath.Count - 1)
             {
                 aux++;
                 pboxImages.ImageLocation = initialImagesPath[aux];
@@ -400,15 +416,15 @@ namespace Tåg_project.Core
 
         private void pboxFinalImages_Click(object sender, EventArgs e)
         {
-            if (aux < finalImagesPath.Count - 1)
+            if (aux1 < finalImagesPath.Count - 1)
             {
-                aux++;
-                pboxFinalImages.ImageLocation = finalImagesPath[aux];
+                aux1++;
+                pboxFinalImages.ImageLocation = finalImagesPath[aux1];
             }
             else
             {
-                aux = 0;
-                pboxFinalImages.ImageLocation = finalImagesPath[aux];
+                aux1 = 0;
+                pboxFinalImages.ImageLocation = finalImagesPath[aux1];
             }
         }
 

@@ -23,13 +23,27 @@ namespace Tåg_project.FileManipulation
             int imgCount, string s, string observations, string comments, string process,
             bool troubleshoot, bool repair, bool result1, bool result2, bool result3)
         {
+            string tempPath = "";
+            string tempSerialNum = serialNum.Substring(4);
+            string subPath = s.Substring(s.Length - 4);
+            //bool isNumeric = true;
+            if (tempSerialNum != subPath && isNumeric(subPath))
+            {
+                tempPath = s.Replace(subPath, tempSerialNum);
+            }
+            else tempPath = s;
+            Console.WriteLine(tempPath);
+            if(serialNum.Length > 8)
+            {
+                serialNum = serialNum.Substring(4);
+            }
             string report = "\\" + serialNum;
 
-            if (!s.Contains(report))
+            if (!tempPath.Contains(report))
             {
-                path = s + report;
+                path = tempPath + report;
             }
-            else path = s;
+            else path = tempPath;
             initialImagesFolder = path + "\\BeforeRepair";
             finalImagesFolder = path + "\\AfterRepair";
             // Create a list of data to be converted to CSV
@@ -55,26 +69,8 @@ namespace Tåg_project.FileManipulation
                     result3.ToString()
                 },
             };
-            List<string> data1 = new List<string>();
-            data1.Add(serialNum.ToString());
-            data1.Add(imgCount.ToString());
-            data1.Add(clean.ToString());
-            data1.Add(isEvaluated.ToString());
-            data1.Add(isComponentReplaced.ToString());
-            data1.Add(whichComponents);
-            data1.Add(finalEvaluation.ToString());
-            data1.Add(finalText);
-            data1.Add(observations);
-            data1.Add(comments);
-            data1.Add(process);
-            data1.Add(troubleshoot.ToString());
-            data1.Add(repair.ToString());
-            data1.Add(result1.ToString());
-            data1.Add(result2.ToString());
-            data1.Add(result3.ToString());
             // Specify the directory you want to manipulate.
             string filePath = path + "/data.csv";
-
 
             try
             {
@@ -186,6 +182,20 @@ namespace Tåg_project.FileManipulation
             System.Windows.MessageBox.Show("File Exported Succesfully!");
         }
 
+        private bool isNumeric(string subPath)
+        {
+            bool aux = true;
+            foreach (char c in subPath)
+            {
+                if (!Char.IsDigit(c))
+                {
+                    aux = false;
+                    break;
+                }
+            }
+            return aux;
+        }
+
         bool CheckIfImageExists(string directory, string imageName)
         {
             // Check if the directory exists
@@ -253,8 +263,6 @@ namespace Tåg_project.FileManipulation
                     sw.WriteLine(string.Join("|", row));
                 }
                 sw.Close();
-                FileInfo file = new FileInfo(filePath);
-                file.Attributes |= FileAttributes.Hidden;
             }
         }
 

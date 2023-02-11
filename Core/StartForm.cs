@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using Tåg_project.FileManipulation;
 
@@ -31,10 +32,31 @@ namespace Tåg_project.Core
         private void btnImport_Click(object sender, EventArgs e)
         {
             path = FolderDialogHelper.SelectedFolder();
-            if (path != null)
+            if (path != null && HasDesiredProperty(path))
             {
                 openForm();
             }
+            else
+            {
+                MessageBox.Show("Select a valid Path", "Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+        }
+
+        private bool HasDesiredProperty(string folder)
+        {
+            // Get the name of the folder without the full path.
+            string folderName = Path.GetFileName(folder);
+
+            // Check if the folder name consists of only numbers.
+            foreach (char c in folderName)
+            {
+                if (!char.IsDigit(c))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }
