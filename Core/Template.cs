@@ -18,7 +18,7 @@ namespace Tåg_project
 
         private void buildComponents()
         {
-            this.Icon = Resources.vov_logo;
+            this.Icon = Resources.MotionControlIcon;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
         }
