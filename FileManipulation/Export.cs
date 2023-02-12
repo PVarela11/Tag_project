@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Text;
-
+using System.Windows;
+using System.Windows.Forms;
 
 namespace Tåg_project.FileManipulation
 {
@@ -21,7 +23,7 @@ namespace Tåg_project.FileManipulation
             bool isComponentReplaced, string whichComponents, bool finalEvaluation,
             string finalText, List<string> initialImages, List<string> finalImages,
             int imgCount, string s, string observations, string comments, string process,
-            bool troubleshoot, bool repair, bool result1, bool result2, bool result3)
+            bool troubleshoot, bool repair, bool result1, bool result2, bool result3, bool isImported)
         {
             string tempPath = "";
             string tempSerialNum = serialNum.Substring(4);
@@ -78,11 +80,20 @@ namespace Tåg_project.FileManipulation
                 if (Directory.Exists(path))
                 {
                     Console.WriteLine("That path exists already.");
+                    if(!isImported)
+                    {
+                        DialogResult cancel = System.Windows.Forms.MessageBox.Show(
+                            "The report you are creating already exists, if you continue the old one will be overrided." +
+                            "\nDo you wish to continue ?", "Override", (MessageBoxButtons)MessageBoxButton.YesNo, (MessageBoxIcon)MessageBoxImage.Warning);
+                        if (cancel== DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
                     // Write the data to a CSV file
                     WriteCSV(filePath, data);
                     if (Directory.Exists(initialImagesFolder))
                     {
-                        //Write the image to the folder
                         if (initialImages.Count > 0)
                         {
                             createImg(initialImages);
@@ -91,18 +102,16 @@ namespace Tåg_project.FileManipulation
                     }
                     else
                     {
-                        //Write the image to the folder
-                        if (initialImages.Count > 0)
+                        if (finalImages.Count > 0)
                         {
                             // Try to create the directory.
-                            DirectoryInfo di = Directory.CreateDirectory(initialImagesFolder);
+                            DirectoryInfo di = Directory.CreateDirectory(finalImagesFolder);
                             di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
                             //di.Attributes = FileAttributes.Directory | FileAttributes.Normal;
-                            createImg(initialImages);
-                            WriteImages(initialImages, initialImagesFolder);
+                            createImg(finalImages);
+                            WriteImages(finalImages, finalImagesFolder);
                         }
                     }
-
                     if (Directory.Exists(finalImagesFolder))
                     {
                         if (finalImages.Count > 0)
@@ -182,6 +191,7 @@ namespace Tåg_project.FileManipulation
             System.Windows.MessageBox.Show("File Exported Succesfully!");
         }
 
+
         private bool isNumeric(string subPath)
         {
             bool aux = true;
@@ -217,8 +227,26 @@ namespace Tåg_project.FileManipulation
             return false;
         }
 
+        private void deleteOldImages(string folder, List<String> list)
+        {
+            if (Directory.Exists(folder))
+            {
+                string[] files = Directory.GetFiles(folder);
+                foreach (string file in files)
+                {
+                    if (list.Any(a => a.Contains(file)))
+                    {
+                        Console.WriteLine("The file is present in the list.");
+                    }
+                    else { File.Delete(file); }
+                    
+                }
+            }
+        }
+
         private void WriteImages(List<string> imagesList, string newPath)
         {
+            deleteOldImages(newPath, imagesList);
             if (imagesList.Count == 1)
             {
                 imagesList[0] = Path.Combine(newPath, imgName);

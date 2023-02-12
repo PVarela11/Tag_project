@@ -34,14 +34,14 @@ namespace Tåg_project.FileManipulation
             initialImagesPath = new List<string>();
             finalImagesPath = new List<string>();
             int counter = 0;
-            string[] files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
-            foreach (string file in files)
+            try
             {
-                Console.WriteLine(file);
-                // Do something with the file
-                string fileExtension = Path.GetExtension(file);
-                try
+                string[] files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
+                foreach (string file in files)
                 {
+                    Console.WriteLine(file);
+                    // Do something with the file
+                    string fileExtension = Path.GetExtension(file);
                     if (fileExtension == ".csv")
                     {
                         string[] lines = File.ReadAllLines(file, Encoding.GetEncoding("iso-8859-1"));
@@ -118,14 +118,16 @@ namespace Tåg_project.FileManipulation
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error: " + ex.Message);
-                    MessageBox.Show("There was an error with the import of the file: " + file);
-                    break;
-                }
-
             }
+            catch (Exception ex)
+            {
+                //Console.WriteLine("The process failed: {0}", ex.ToString());
+                Console.WriteLine("Error: " + ex.Message);
+                MessageBox.Show("There was an error with the import of the file");
+                serialNum = null;
+               // break;
+            }
+            finally { }
         }
     }
 }

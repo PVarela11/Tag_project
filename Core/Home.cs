@@ -116,9 +116,17 @@ namespace Tåg_project.Core
                         pboxFinalImages.ImageLocation = finalImagesPath[0];
                     }
                 }
-                else MessageBox.Show("Corrupted data inside the file."); path = null;
+                else
+                {
+                    MessageBox.Show("Corrupted data inside the file.");
+                    path = null;
+                }
             }
-            else MessageBox.Show("No report data found."); path= null;
+            else
+            {
+                MessageBox.Show("No report data found."); 
+                path = null;
+            }
         }
 
         private void Export()
@@ -173,7 +181,8 @@ namespace Tåg_project.Core
                         repair,
                         result1,
                         result2,
-                        result3);
+                        result3,
+                        isImported);
 
                     path = export.path;
                     UpdateDesign();
@@ -235,6 +244,7 @@ namespace Tåg_project.Core
             result1 = cboxResult1.Checked;
             result2 = cboxResult2.Checked;
             result3 = cboxResult3.Checked;
+            repair = cboxRepair.Checked;
 
             ExportPDF pdf = new ExportPDF(
                 p,
@@ -252,7 +262,8 @@ namespace Tåg_project.Core
                 comments,
                 result1,
                 result2,
-                result3
+                result3,
+                repair
                 );
             return;
         }
@@ -341,7 +352,11 @@ namespace Tåg_project.Core
                         }
                     }
                 }
-                else ExportPDF(path);
+                else
+                {
+                    Export();
+                    ExportPDF(path);
+                }
             }
         }
 

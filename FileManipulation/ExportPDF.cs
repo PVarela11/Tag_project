@@ -30,7 +30,7 @@ namespace Tåg_project.FileManipulation
         PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
         public ExportPDF(string path, List<string> initialimagesPath, List<string> finalImagesPath,
             string sNum, bool clean, bool eletricEval, bool replaced, string componentsReplaced,
-            bool finalEval, string finalThoughts, string observations, string process, string comments, bool result1, bool result2, bool result3)
+            bool finalEval, string finalThoughts, string observations, string process, string comments, bool result1, bool result2, bool result3, bool repair)
         {
             #region init vars
             if (clean)
@@ -73,6 +73,11 @@ namespace Tåg_project.FileManipulation
             {
                 observationsText = new Text("Final thoughts on this process:" + "\n" + finalThoughts);
             }
+            if (repair)
+            {
+                repairText = new Text("The PCB was repaired.");
+            }
+            else repairText = new Text("The PCB wasn't repaired");
             serialNum = sNum;
             string outputPath = path + "\\Report_" + serialNum + ".pdf";
             #endregion
@@ -118,7 +123,6 @@ namespace Tåg_project.FileManipulation
                 canvas.Rectangle(rectangle0);
                 canvas.Stroke();
 
-                repairText = new Text("TESTEEE");
                 texts.Add(cleanText);
                 texts.Add(troublesootingText);
                 texts.Add(repairText);
@@ -179,7 +183,7 @@ namespace Tåg_project.FileManipulation
                 texts.Clear();
 
                 // Create an appearance stream for the checkbox
-                Rectangle rect = new Rectangle(rectangle4.GetLeft() + 15,
+                Rectangle rect = new Rectangle(rectangle4.GetLeft() + 10,
                     rectangle4.GetBottom() + 55, 10, 10);
                 canvas.Rectangle(rect);
                 if (result1)
@@ -188,7 +192,7 @@ namespace Tåg_project.FileManipulation
                 }
                 canvas.Stroke();
                 canvas.Stroke();
-                canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12)
+                canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 9)
                 .MoveText(rect.GetLeft() + 25, rect.GetBottom())
                 .ShowText("Repair made without the guarantie that the board works")
                 .EndText();
@@ -202,7 +206,7 @@ namespace Tåg_project.FileManipulation
                     drawCross(canvas, rect1);
                 }
                 canvas.Stroke();
-                canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12)
+                canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 9)
                 .MoveText(rect1.GetLeft() + 25, rect1.GetBottom())
                 .ShowText("No errors were found")
                 .EndText();
@@ -216,7 +220,7 @@ namespace Tåg_project.FileManipulation
                     drawCross(canvas, rect2);
                 }
                 canvas.Stroke();
-                canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 12)
+                canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 9)
                 .MoveText(rect2.GetLeft() + 25, rect2.GetBottom())
                 .ShowText("Repair was done but problem still exists")
                 .EndText();
@@ -250,9 +254,13 @@ namespace Tåg_project.FileManipulation
         private void addTextRectangle(PdfCanvas canvas, Rectangle rectangle, List<Text> texts)
         {
             var canvas1 = new Canvas(canvas, rectangle);
+            float x = rectangle.GetLeft() + 10;
+            float y = rectangle.GetTop() - 20;
             foreach (Text text in texts)
             {
-                canvas1.Add(new Paragraph(text).SetFontSize(9));
+                float width = text.GetText().Length;
+                canvas1.Add(new Paragraph(text).SetFontSize(9).SetFixedPosition(x,y,rectangle.GetWidth()));
+                y -= 22;
             }
             //canvas.Rectangle(rectangle);
             canvas.Stroke();

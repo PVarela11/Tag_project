@@ -48,13 +48,18 @@ namespace Tåg_project.Core
             string folderName = Path.GetFileName(folder);
 
             // Check if the folder name consists of only numbers.
-            foreach (char c in folderName)
+            if (folderName != "")
             {
-                if (!char.IsDigit(c))
+                foreach (char c in folderName)
                 {
-                    return false;
+                    if (!char.IsDigit(c))
+                    {
+                        return false;
+                    }
                 }
             }
+            else return false;
+            
 
             return true;
         }
