@@ -10,8 +10,8 @@ namespace Tåg_project.FileManipulation
         public static void OpenFile(string path)
         {
             string currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string projectDirectory = Directory.GetParent(currentDirectory).Parent.FullName;
-            string resourcePath = Path.Combine(projectDirectory, "Resources", path);
+            //string projectDirectory = Directory.GetParent(currentDirectory).Parent.FullName;
+            string resourcePath = Path.Combine(currentDirectory, "Resources", path);
             if (File.Exists(resourcePath))
             {
                 Process.Start(resourcePath);
