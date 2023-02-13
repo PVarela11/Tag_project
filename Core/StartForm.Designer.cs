@@ -46,7 +46,7 @@
             this.btnNew.IconChar = FontAwesome.Sharp.IconChar.Plus;
             this.btnNew.IconColor = System.Drawing.Color.Black;
             this.btnNew.IconFont = FontAwesome.Sharp.IconFont.Solid;
-            this.btnNew.Location = new System.Drawing.Point(236, 288);
+            this.btnNew.Location = new System.Drawing.Point(158, 279);
             this.btnNew.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(160, 135);
@@ -66,7 +66,7 @@
             this.btnImport.IconChar = FontAwesome.Sharp.IconChar.FileEdit;
             this.btnImport.IconColor = System.Drawing.Color.Black;
             this.btnImport.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnImport.Location = new System.Drawing.Point(710, 288);
+            this.btnImport.Location = new System.Drawing.Point(750, 279);
             this.btnImport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(160, 135);
@@ -84,7 +84,7 @@
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
             this.pnlTop.Margin = new System.Windows.Forms.Padding(2);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(1099, 81);
+            this.pnlTop.Size = new System.Drawing.Size(1099, 126);
             this.pnlTop.TabIndex = 3;
             // 
             // lblTopPanel
@@ -93,7 +93,7 @@
             this.lblTopPanel.AutoSize = true;
             this.lblTopPanel.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold);
             this.lblTopPanel.ForeColor = System.Drawing.Color.White;
-            this.lblTopPanel.Location = new System.Drawing.Point(192, 15);
+            this.lblTopPanel.Location = new System.Drawing.Point(192, 38);
             this.lblTopPanel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTopPanel.Name = "lblTopPanel";
             this.lblTopPanel.Size = new System.Drawing.Size(715, 50);
@@ -102,10 +102,9 @@
             // 
             // lblHeader
             // 
-            this.lblHeader.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblHeader.AutoSize = true;
             this.lblHeader.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHeader.Location = new System.Drawing.Point(69, 122);
+            this.lblHeader.Location = new System.Drawing.Point(59, 136);
             this.lblHeader.Name = "lblHeader";
             this.lblHeader.Size = new System.Drawing.Size(961, 37);
             this.lblHeader.TabIndex = 2;

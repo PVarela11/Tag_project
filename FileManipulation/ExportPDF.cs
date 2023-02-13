@@ -226,19 +226,15 @@ namespace Tåg_project.FileManipulation
                 .EndText();
                 canvas.Release();
 
+
                 document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                 document.Add(setTitle("Before Repair"));
-                foreach (var img in initialimagesPath)
-                {
-                    insertImg(img);
-                }
+                insertImg(initialimagesPath);
 
                 document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                 document.Add(setTitle("After Repair"));
-                foreach (var img in finalImagesPath)
-                {
-                    insertImg(img);
-                }
+                insertImg(finalImagesPath);
+
                 document.Close();
                 MessageBox.Show("PDF Created on" + outputPath);
                 ShowFile.OpenFile(outputPath);
@@ -286,13 +282,20 @@ namespace Tåg_project.FileManipulation
             return title;
         }
 
-        private void insertImg(string img)
+        private void insertImg(List<string> images)
         {
-            // Add an image to the PDF
-            ImageData im = ImageDataFactory.Create(img);
-            Image image = new Image(im);
-            image.ScaleToFit(PageSize.A4.GetWidth() / 2, PageSize.A4.GetHeight() / 2);
-            document.Add(image);
+
+            foreach (var img in images)
+            {
+                // Add an image to the PDF
+                ImageData im = ImageDataFactory.Create(img);
+                Image image = new Image(im);
+                //image.ScaleToFit(PageSize.A4.GetWidth() / 3, PageSize.A4.GetHeight() / 3);
+                image.ScaleToFit(200, 200);
+                document.Add(image);
+                document.Add(new Paragraph("\n"));
+            }
+            
         }
 
     }
