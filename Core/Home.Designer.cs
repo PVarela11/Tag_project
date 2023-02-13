@@ -383,6 +383,7 @@
             this.lblTroubleshoot.TabIndex = 48;
             this.lblTroubleshoot.TabStop = true;
             this.lblTroubleshoot.Text = "Was the board troubleshooting following the instructions ?";
+            this.lblTroubleshoot.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblTroubleshoot_LinkClicked);
             // 
             // label10
             // 
@@ -446,6 +447,7 @@
             this.lblClean.TabIndex = 49;
             this.lblClean.TabStop = true;
             this.lblClean.Text = "Was the board clean following the instructions ?";
+            this.lblClean.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblClean_LinkClicked);
             // 
             // label7
             // 

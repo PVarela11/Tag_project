@@ -71,21 +71,22 @@ namespace Tåg_project.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string Instructions {
-            get {
-                return ResourceManager.GetString("Instructions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon MotionControlIcon {
             get {
                 object obj = ResourceManager.GetObject("MotionControlIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] PCB_Report_Creator_User_Manual {
+            get {
+                object obj = ResourceManager.GetObject("PCB_Report_Creator_User_Manual", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

@@ -65,7 +65,7 @@ namespace Tåg_project
 
         private void iconButton3_Click(object sender, EventArgs e)
         {
-            FileManipulation.ShowFile.OpenFile("Instructions.txt");
+            FileManipulation.ShowFile.OpenFile("PCB Report Creator User Manual.pdf");
         }
     }
 }

@@ -1,7 +1,0 @@
-Welcome!
-
-With the Tåg Project application you can:
--Write a new report
--Save a report
--Import an existing report
--Export the report to pdf
