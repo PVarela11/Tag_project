@@ -26,12 +26,12 @@ namespace Tåg_project.FileManipulation
             bool troubleshoot, bool repair, bool result1, bool result2, bool result3, bool isImported)
         {
             string tempPath = "";
-            string tempSerialNum = serialNum.Substring(4);
-            string subPath = s.Substring(s.Length - 4);
+            string tempReportNum = serialNum.Substring(8);
+            string subPath = s.Substring(s.Length - 8);
             //bool isNumeric = true;
-            if (tempSerialNum != subPath && isNumeric(subPath))
+            if (tempReportNum != subPath && isNumeric(subPath))
             {
-                tempPath = s.Replace(subPath, tempSerialNum);
+                tempPath = s.Replace(subPath, tempReportNum);
             }
             else tempPath = s;
             Console.WriteLine(tempPath);

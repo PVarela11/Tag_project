@@ -347,7 +347,7 @@
             this.lblTitle.Location = new System.Drawing.Point(0, 0);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Padding = new System.Windows.Forms.Padding(0, 20, 0, 0);
-            this.lblTitle.Size = new System.Drawing.Size(0, 124);
+            this.lblTitle.Size = new System.Drawing.Size(1, 124);
             this.lblTitle.TabIndex = 20;
             this.lblTitle.Text = resources.GetString("lblTitle.Text");
             // 
@@ -366,7 +366,7 @@
             this.pnlBoxes.Controls.Add(this.cboxTroubleshoot);
             this.pnlBoxes.Controls.Add(this.cboxClean);
             this.pnlBoxes.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlBoxes.Location = new System.Drawing.Point(-1064, 0);
+            this.pnlBoxes.Location = new System.Drawing.Point(1, 0);
             this.pnlBoxes.Name = "pnlBoxes";
             this.pnlBoxes.Size = new System.Drawing.Size(1076, 572);
             this.pnlBoxes.TabIndex = 19;
@@ -532,16 +532,16 @@
             this.pnlFinal.Controls.Add(this.cboxResult3);
             this.pnlFinal.Controls.Add(this.cboxResult1);
             this.pnlFinal.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlFinal.Location = new System.Drawing.Point(12, 0);
+            this.pnlFinal.Location = new System.Drawing.Point(1077, 0);
             this.pnlFinal.Name = "pnlFinal";
-            this.pnlFinal.Size = new System.Drawing.Size(1077, 572);
+            this.pnlFinal.Size = new System.Drawing.Size(12, 572);
             this.pnlFinal.TabIndex = 17;
             // 
             // btnClearFinalImage
             // 
             this.btnClearFinalImage.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnClearFinalImage.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearFinalImage.Location = new System.Drawing.Point(448, 463);
+            this.btnClearFinalImage.Location = new System.Drawing.Point(-84, 463);
             this.btnClearFinalImage.Margin = new System.Windows.Forms.Padding(2);
             this.btnClearFinalImage.Name = "btnClearFinalImage";
             this.btnClearFinalImage.Size = new System.Drawing.Size(158, 37);
@@ -554,7 +554,7 @@
             // 
             this.btnImportFinalImg.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportFinalImg.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportFinalImg.Location = new System.Drawing.Point(448, 422);
+            this.btnImportFinalImg.Location = new System.Drawing.Point(-84, 422);
             this.btnImportFinalImg.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportFinalImg.Name = "btnImportFinalImg";
             this.btnImportFinalImg.Size = new System.Drawing.Size(158, 37);
@@ -572,7 +572,7 @@
             this.pboxFinalImages.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(214)))), ((int)(((byte)(10)))));
             this.pboxFinalImages.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.pboxFinalImages.IconSize = 154;
-            this.pboxFinalImages.Location = new System.Drawing.Point(448, 264);
+            this.pboxFinalImages.Location = new System.Drawing.Point(-84, 264);
             this.pboxFinalImages.Margin = new System.Windows.Forms.Padding(2);
             this.pboxFinalImages.Name = "pboxFinalImages";
             this.pboxFinalImages.Size = new System.Drawing.Size(158, 154);
@@ -586,7 +586,7 @@
             this.lblFinalImages.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblFinalImages.AutoSize = true;
             this.lblFinalImages.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblFinalImages.Location = new System.Drawing.Point(449, 242);
+            this.lblFinalImages.Location = new System.Drawing.Point(-83, 242);
             this.lblFinalImages.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFinalImages.Name = "lblFinalImages";
             this.lblFinalImages.Size = new System.Drawing.Size(157, 23);
@@ -597,7 +597,7 @@
             // 
             this.cboxResult2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cboxResult2.AutoSize = true;
-            this.cboxResult2.Location = new System.Drawing.Point(746, 122);
+            this.cboxResult2.Location = new System.Drawing.Point(243, 122);
             this.cboxResult2.Margin = new System.Windows.Forms.Padding(2);
             this.cboxResult2.Name = "cboxResult2";
             this.cboxResult2.Size = new System.Drawing.Size(18, 17);
@@ -609,7 +609,7 @@
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label12.Location = new System.Drawing.Point(312, 117);
+            this.label12.Location = new System.Drawing.Point(-248, 117);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(132, 23);
@@ -621,19 +621,20 @@
             this.label11.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label11.Location = new System.Drawing.Point(312, 73);
+            this.label11.Location = new System.Drawing.Point(-248, 73);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(383, 23);
+            this.label11.Size = new System.Drawing.Size(440, 23);
             this.label11.TabIndex = 33;
-            this.label11.Text = "Repair done without the gurantee the PCB works";
+            this.label11.Text = "Repair done without the gurantee the components work";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label9
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label9.Location = new System.Drawing.Point(314, 157);
+            this.label9.Location = new System.Drawing.Point(-246, 157);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(350, 23);
@@ -644,7 +645,7 @@
             // 
             this.cboxResult3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cboxResult3.AutoSize = true;
-            this.cboxResult3.Location = new System.Drawing.Point(746, 162);
+            this.cboxResult3.Location = new System.Drawing.Point(243, 162);
             this.cboxResult3.Margin = new System.Windows.Forms.Padding(2);
             this.cboxResult3.Name = "cboxResult3";
             this.cboxResult3.Size = new System.Drawing.Size(18, 17);
@@ -655,7 +656,7 @@
             // 
             this.cboxResult1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cboxResult1.AutoSize = true;
-            this.cboxResult1.Location = new System.Drawing.Point(746, 78);
+            this.cboxResult1.Location = new System.Drawing.Point(243, 78);
             this.cboxResult1.Margin = new System.Windows.Forms.Padding(2);
             this.cboxResult1.Name = "cboxResult1";
             this.cboxResult1.Size = new System.Drawing.Size(18, 17);

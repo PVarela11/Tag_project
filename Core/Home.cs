@@ -231,7 +231,7 @@ namespace Tåg_project.Core
         private void ExportPDF(string p)
         {
             //Export();
-            serialNum = lastTwoDigitsOfYear + week + txtSerialNum.Text;
+            //serialNum = lastTwoDigitsOfYear + week + txtSerialNum.Text;
             isClean = cboxClean.Checked;
             isEvaluated = cboxEletricalEvaluation.Checked;
             isComponentReplaced = cboxComponents.Checked;
@@ -340,6 +340,7 @@ namespace Tåg_project.Core
                         Export();
                         if (path != null)
                         {
+                            isImported= true;
                             ExportPDF(path);
                         }
                     }

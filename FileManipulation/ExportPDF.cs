@@ -23,7 +23,7 @@ namespace Tåg_project.FileManipulation
     internal class ExportPDF
     {
         Text label, value, cleanText, troublesootingText, componentsText, whichComponentsText,
-            finalEvaluationText, repairText, observationsText;
+            finalEvaluationText, repairText, observationsText, newT;
         List<Text> texts = new List<Text>();
         public string serialNum { get; set; }
         Document document;
@@ -137,8 +137,13 @@ namespace Tåg_project.FileManipulation
                 canvas.Rectangle(rectangle);
                 canvas.Stroke();
 
-                Text newT = new Text(process);
-                texts.Add(newT);
+                string[] items = process.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                foreach (string item in items)
+                {
+                    newT = new Text(item);
+                    texts.Add(newT);
+                }
+                items = null;
                 addTextRectangle(canvas, rectangle, texts);
                 texts.Clear();
 
@@ -150,8 +155,14 @@ namespace Tåg_project.FileManipulation
                 canvas.Rectangle(rectangle2);
                 canvas.Stroke();
 
-                newT = new Text(observations);
-                texts.Add(newT);
+
+                items = observations.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                foreach (string item in items)
+                {
+                    newT = new Text(item);
+                    texts.Add(newT);
+                }
+                items = null;
                 addTextRectangle(canvas, rectangle2, texts);
                 texts.Clear();
 
@@ -163,8 +174,13 @@ namespace Tåg_project.FileManipulation
                 canvas.Rectangle(rectangle3);
                 canvas.Stroke();
 
-                newT = new Text(comments);
-                texts.Add(newT);
+                items = comments.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                foreach (string item in items)
+                {
+                    newT = new Text(item);
+                    texts.Add(newT);
+                }
+                items = null;
                 addTextRectangle(canvas, rectangle3, texts);
                 texts.Clear();
 
@@ -177,10 +193,10 @@ namespace Tåg_project.FileManipulation
                 canvas.Rectangle(rectangle4);
                 canvas.Stroke();
 
-                newT = new Text(observations);
-                texts.Add(newT);
-                addTextRectangle(canvas, rectangle2, texts);
-                texts.Clear();
+                //newT = new Text(observations);
+                //texts.Add(newT);
+                //addTextRectangle(canvas, rectangle2, texts);
+                //texts.Clear();
 
                 // Create an appearance stream for the checkbox
                 Rectangle rect = new Rectangle(rectangle4.GetLeft() + 10,
@@ -193,7 +209,7 @@ namespace Tåg_project.FileManipulation
                 canvas.Stroke();
                 canvas.Stroke();
                 canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 9)
-                .MoveText(rect.GetLeft() + 25, rect.GetBottom())
+                .MoveText(rect.GetLeft() + 25, rect.GetBottom()+2)
                 .ShowText("Repair made without the guarantie that the board works")
                 .EndText();
                 //canvas.Release();
@@ -207,7 +223,7 @@ namespace Tåg_project.FileManipulation
                 }
                 canvas.Stroke();
                 canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 9)
-                .MoveText(rect1.GetLeft() + 25, rect1.GetBottom())
+                .MoveText(rect1.GetLeft() + 25, rect1.GetBottom()+2)
                 .ShowText("No errors were found")
                 .EndText();
                 //canvas.Release();
@@ -221,18 +237,18 @@ namespace Tåg_project.FileManipulation
                 }
                 canvas.Stroke();
                 canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 9)
-                .MoveText(rect2.GetLeft() + 25, rect2.GetBottom())
+                .MoveText(rect2.GetLeft() + 25, rect2.GetBottom()+2)
                 .ShowText("Repair was done but problem still exists")
                 .EndText();
                 canvas.Release();
 
 
                 document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                document.Add(setTitle("Before Repair"));
+                document.Add(setTitle("Before Cleaning"));
                 insertImg(initialimagesPath);
 
                 document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                document.Add(setTitle("After Repair"));
+                document.Add(setTitle("After Cleaning"));
                 insertImg(finalImagesPath);
 
                 document.Close();
@@ -256,7 +272,7 @@ namespace Tåg_project.FileManipulation
             {
                 float width = text.GetText().Length;
                 canvas1.Add(new Paragraph(text).SetFontSize(9).SetFixedPosition(x,y,rectangle.GetWidth()));
-                y -= 22;
+                y -= 12;
             }
             //canvas.Rectangle(rectangle);
             canvas.Stroke();
