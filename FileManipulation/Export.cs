@@ -18,17 +18,36 @@ namespace Tåg_project.FileManipulation
         public string path { get; set; }
         public string initialImagesFolder { get; set; }
         public string finalImagesFolder { get; set; }
-
-        public Export(string serialNum, bool clean, bool isEvaluated,
-            bool isComponentReplaced, string whichComponents, bool finalEvaluation,
-            string finalText, List<string> initialImages, List<string> finalImages,
-            int imgCount, string s, string observations, string comments, string process,
-            bool troubleshoot, bool repair, bool result1, bool result2, bool result3, bool isImported)
+        public string labelImagesFolder { get; set; }
+        public List<string> labelList { get; set; }
+        DirectoryInfo di;
+        public Export(
+            string serialNum,
+            bool clean,
+            List<string> initialImages,
+            List<string> finalImages,
+            string s,
+            string observations,
+            string comments,
+            string process,
+            bool troubleshoot,
+            bool repair,
+            bool result1,
+            bool result2,
+            bool result3,
+            bool isImported,
+            string summary,
+            string labelPath
+            )
         {
+            if (labelPath != null)
+            {
+                labelList = new List<string>();
+                labelList.Add(labelPath);
+            }
             string tempPath = "";
             string tempReportNum = serialNum.Substring(8);
             string subPath = s.Substring(s.Length - 8);
-            //bool isNumeric = true;
             if (tempReportNum != subPath && isNumeric(subPath))
             {
                 tempPath = s.Replace(subPath, tempReportNum);
@@ -46,21 +65,17 @@ namespace Tåg_project.FileManipulation
                 path = tempPath + report;
             }
             else path = tempPath;
-            initialImagesFolder = path + "\\BeforeRepair";
-            finalImagesFolder = path + "\\AfterRepair";
+            initialImagesFolder = path + "\\BeforeClean";
+            finalImagesFolder = path + "\\AfterClean";
+            labelImagesFolder = path + "\\Label";
+
             // Create a list of data to be converted to CSV
             List<string[]> data = new List<string[]>
             {
                 new string[]
                 {
                     serialNum.ToString(),
-                    imgCount.ToString(),
                     clean.ToString(),
-                    isEvaluated.ToString(),
-                    isComponentReplaced.ToString(),
-                    whichComponents,
-                    finalEvaluation.ToString(),
-                    finalText,
                     observations,
                     comments,
                     process,
@@ -68,7 +83,8 @@ namespace Tåg_project.FileManipulation
                     repair.ToString(),
                     result1.ToString(),
                     result2.ToString(),
-                    result3.ToString()
+                    result3.ToString(),
+                    summary,
                 },
             };
             // Specify the directory you want to manipulate.
@@ -92,94 +108,98 @@ namespace Tåg_project.FileManipulation
                     }
                     // Write the data to a CSV file
                     WriteCSV(filePath, data);
-                    if (Directory.Exists(initialImagesFolder))
+                    if (Directory.Exists(initialImagesFolder) && (initialImages.Count > 0))
                     {
-                        if (initialImages.Count > 0)
-                        {
-                            createImg(initialImages);
-                            WriteImages(initialImages, initialImagesFolder);
-                        }
+                        createImg(initialImages);
+                        WriteImages(initialImages, initialImagesFolder);
                     }
-                    else
+                    else if (finalImages.Count > 0)
                     {
-                        if (finalImages.Count > 0)
-                        {
-                            // Try to create the directory.
-                            DirectoryInfo di = Directory.CreateDirectory(finalImagesFolder);
-                            di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-                            //di.Attributes = FileAttributes.Directory | FileAttributes.Normal;
-                            createImg(finalImages);
-                            WriteImages(finalImages, finalImagesFolder);
-                        }
+                        // Try to create the directory.
+                        di = Directory.CreateDirectory(finalImagesFolder);
+                        di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                        //di.Attributes = FileAttributes.Directory | FileAttributes.Normal;
+                        createImg(finalImages);
+                        WriteImages(finalImages, finalImagesFolder);
                     }
-                    if (Directory.Exists(finalImagesFolder))
+                    if (Directory.Exists(finalImagesFolder) && (finalImages.Count > 0))
                     {
-                        if (finalImages.Count > 0)
-                        {
-                            createImg(finalImages);
-                            WriteImages(finalImages, finalImagesFolder);
-                        }
+                        createImg(finalImages);
+                        WriteImages(finalImages, finalImagesFolder);
                     }
-                    else
+                    else if (finalImages.Count > 0)
                     {
-                        if (finalImages.Count > 0)
-                        {
-                            // Try to create the directory.
-                            DirectoryInfo di = Directory.CreateDirectory(finalImagesFolder);
-                            di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-                            //di.Attributes = FileAttributes.Directory | FileAttributes.Normal;
-                            createImg(finalImages);
-                            WriteImages(finalImages, finalImagesFolder);
-                        }
+                        // Try to create the directory.
+                        di = Directory.CreateDirectory(finalImagesFolder);
+                        di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                        //di.Attributes = FileAttributes.Directory | FileAttributes.Normal;
+                        createImg(finalImages);
+                        WriteImages(finalImages, finalImagesFolder);
+                    }
+                    if (Directory.Exists(labelImagesFolder) && (labelPath != null))
+                    {
+                            createImg(labelList);
+                            WriteImages(labelList, labelImagesFolder);
+                    }
+                    else if (labelPath != null)
+                    {
+                        // Try to create the directory.
+                        di = Directory.CreateDirectory(finalImagesFolder);
+                        di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                        //di.Attributes = FileAttributes.Directory | FileAttributes.Normal;
+                        createImg(labelList);
+                        WriteImages(labelList, labelImagesFolder);
                     }
                 }
                 else
                 {
                     // Try to create the directory.
-                    DirectoryInfo di = Directory.CreateDirectory(path);
+                    di = Directory.CreateDirectory(path);
                     Console.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(path));
                     // Write the data to a CSV file
                     WriteCSV(filePath, data);
-                    if (Directory.Exists(initialImagesFolder))
+                    if (Directory.Exists(initialImagesFolder) && (initialImages.Count > 0))
                     {
                         //Write the image to the folder
-                        if (initialImages.Count > 0)
-                        {
-                            createImg(initialImages);
-                            WriteImages(initialImages, initialImagesFolder);
-                        }
+                        createImg(initialImages);
+                        WriteImages(initialImages, initialImagesFolder);
                     }
-                    else
+                    else if (initialImages.Count > 0)
                     {
                         //Write the image to the folder
-                        if (initialImages.Count > 0)
-                        {
-                            // Try to create the directory.
-                            DirectoryInfo dn = Directory.CreateDirectory(initialImagesFolder);
-                            dn.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-                            createImg(initialImages);
-                            WriteImages(initialImages, initialImagesFolder);
-                        }
+                        // Try to create the directory.
+                        di = Directory.CreateDirectory(initialImagesFolder);
+                        di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                        createImg(initialImages);
+                        WriteImages(initialImages, initialImagesFolder);
                     }
 
-                    if (Directory.Exists(finalImagesFolder))
+                    if (Directory.Exists(finalImagesFolder) && (finalImages.Count > 0))
                     {
-                        if (finalImages.Count > 0)
-                        {
-                            createImg(finalImages);
-                            WriteImages(finalImages, finalImagesFolder);
-                        }
+                        createImg(finalImages);
+                        WriteImages(finalImages, finalImagesFolder);
                     }
-                    else
+                    else if (finalImages.Count > 0)
                     {
-                        if (finalImages.Count > 0)
-                        {
-                            // Try to create the directory.
-                            DirectoryInfo dn = Directory.CreateDirectory(finalImagesFolder);
-                            dn.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-                            createImg(finalImages);
-                            WriteImages(finalImages, finalImagesFolder);
-                        }
+                        // Try to create the directory.
+                        di = Directory.CreateDirectory(finalImagesFolder);
+                        di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                        createImg(finalImages);
+                        WriteImages(finalImages, finalImagesFolder);
+                    }
+                    if (Directory.Exists(labelImagesFolder) && (labelPath != null))
+                    {
+                        createImg(labelList);
+                        WriteImages(labelList, labelImagesFolder);
+                    }
+                    else if (labelPath != null)
+                    {
+                        // Try to create the directory.
+                        di = Directory.CreateDirectory(labelImagesFolder);
+                        di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                        //di.Attributes = FileAttributes.Directory | FileAttributes.Normal;
+                        createImg(labelList);
+                        WriteImages(labelList, labelImagesFolder);
                     }
                 }
             }

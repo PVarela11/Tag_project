@@ -10,13 +10,6 @@ namespace Tåg_project.FileManipulation
     {
         public string serialNum { get; set; }
         public bool isClean { get; set; }
-        public bool isEvaluated { get; set; }
-        public bool isComponentReplaced { get; set; }
-        public string whichComponents { get; set; }
-        public bool finalEvaluation { get; set; }
-        public bool approved { get; set; }
-        public string finalText { get; set; }
-        public int imgCount { get; set; }
         public List<string> initialImagesPath { get; set; }
         public List<string> finalImagesPath { get; set; }
         public bool result1 { get; set; }
@@ -27,7 +20,8 @@ namespace Tåg_project.FileManipulation
         public string process { get; set; }
         public bool repair { get; set; }
         public bool troubleshoot { get; set; }
-
+        public string summary { get; set; }
+        public string labelPath { get; set; }
 
         public Import(string path)
         {
@@ -56,50 +50,36 @@ namespace Tåg_project.FileManipulation
                                         serialNum = column;
                                         break;
                                     case 1:
-                                        imgCount = int.Parse(column);
-                                        break;
-                                    case 2:
                                         isClean = bool.Parse(column);
                                         break;
-                                    //case 3:
-                                    //    isEvaluated = bool.Parse(column);
-                                    //    break;
-                                    //case 4:
-                                    //    isComponentReplaced = bool.Parse(column);
-                                    //    break;
-                                    //case 5:
-                                    //    whichComponents = column;
-                                    //    break;
-                                    //case 6:
-                                    //    finalEvaluation = bool.Parse(column);
-                                    //    break;
-                                    //case 7:
-                                    //    finalText = column;
-                                    //    break;
-                                    case 8:
+                                    case 2:
                                         observations = column.Replace("!r!n", "\r\n");
                                         break;
-                                    case 9:
+                                    case 3:
                                         comments = column.Replace("!r!n", "\r\n"); ;
                                         break;
-                                    case 10:
+                                    case 4:
                                         process = column.Replace("!r!n", "\r\n"); ;
                                         break;
-                                    case 11:
+                                    case 5:
                                         troubleshoot = bool.Parse(column);
                                         break;
-                                    case 12:
+                                    case 6:
                                         repair = bool.Parse(column);
                                         break;
-                                    case 13:
+                                    case 7:
                                         result1 = bool.Parse(column);
                                         break;
-                                    case 14:
+                                    case 8:
                                         result2 = bool.Parse(column);
                                         break;
-                                    case 15:
+                                    case 9:
                                         result3 = bool.Parse(column);
                                         break;
+                                    case 10:
+                                        summary = column.Replace("!r!n", "\r\n"); ;
+                                        break;
+
                                 }
                                 counter++;
                             }
@@ -108,13 +88,17 @@ namespace Tåg_project.FileManipulation
                     }
                     else if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".jpeg")
                     {
-                        if (file.Contains("\\AfterRepair"))
+                        if (file.Contains("\\AfterClean"))
                         {
                             finalImagesPath.Add(file);
                         }
-                        else if (file.Contains("\\BeforeRepair"))
+                        else if (file.Contains("\\BeforeClean"))
                         {
                             initialImagesPath.Add(file);
+                        }
+                        else if (file.Contains("\\Label"))
+                        {
+                            labelPath = file;
                         }
                     }
                 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Tåg_project.FileManipulation;
@@ -12,13 +13,11 @@ namespace Tåg_project.Core
     public partial class Home : Form
     {
         Import import;
-        string path, whichComponents, finalText, week, serialNum, lastTwoDigitsOfYear, tempPath, observations, comments, process;
-        bool isClean, isEvaluated, troubleshoot, repair, isComponentReplaced, finalEvaluation, result1, result2, result3;
+        string path, week, serialNum, lastTwoDigitsOfYear, tempPath, observations, comments, process, labelPath, summary;
+        bool isClean, troubleshoot, repair, result1, result2, result3;
         bool isImported = false;
         int aux = 0, aux1 = 0, page = 0;
-        List<string> initialImagesPath = new List<string>();
-        List<string> finalImagesPath = new List<string>();
-        List<string> listAux = new List<string>();
+        List<string> initialImagesPath = new List<string>(), listAux = new List<string>(), finalImagesPath = new List<string>();
         public Home(string tempPath)
         {
             InitializeComponent();
@@ -33,9 +32,6 @@ namespace Tåg_project.Core
         private void InitialDesign()
         {
             pnlFinal.Width = 0;
-            pnlMiddle.Width = 0;
-            pnlMiddle.Enabled = false;
-            pnlMiddle.Visible = false;
             pnlBoxes.Width = 0;
             lblTopPanel.Text = "Identification";
             DateTime date = DateTime.Now;
@@ -50,7 +46,6 @@ namespace Tåg_project.Core
             pboxImages.Enabled = false;
             pboxFinalImages.Enabled = false;
             btnPrev.Enabled = false;
-            txtComponents.Enabled = false;
         }
 
         private void UpdateDesign()
@@ -77,8 +72,6 @@ namespace Tåg_project.Core
                     txtSerialNum.Text = serialNum.Substring(4);
                     cboxClean.Checked = import.isClean; ;
                     isClean = import.isClean;
-                    cboxEletricalEvaluation.Checked = import.isEvaluated;
-                    cboxComponents.Checked = import.isComponentReplaced;
                     cboxTroubleshoot.Checked = import.troubleshoot;
                     cboxRepair.Checked = import.repair;
                     txtProcess.Text = import.process;
@@ -87,22 +80,15 @@ namespace Tåg_project.Core
                     cboxResult1.Checked = import.result1;
                     cboxResult2.Checked = import.result2;
                     cboxResult3.Checked = import.result3;
-                    if (cboxComponents.Checked)
-                    {
-                        txtComponents.Enabled = true;
-                        txtComponents.Visible = true;
-                        txtComponents.Text = import.whichComponents.ToString();
-                    }
-                    txtFinalThoughts.Text = import.finalText;
-                    cboxApproved.Checked = import.finalEvaluation;
                     lblImages.Text = initialImagesPath.Count.ToString();
                     initialImagesPath.Clear();
                     initialImagesPath = import.initialImagesPath;
-                    //initialImagesCount = initialImagesPath.Count();
                     finalImagesPath.Clear();
                     finalImagesPath = import.finalImagesPath;
-                    //finalImagesCount = finalImagesPath.Count();
-
+                    labelPath = import.labelPath;
+                    lblCaminho.Text = "Imported " + Path.GetFileName(labelPath);
+                    summary = import.summary;
+                    txtSummary.Text = summary;
                     if (initialImagesPath.Count > 0)
                     {
                         pboxImages.Enabled = true;
@@ -140,11 +126,6 @@ namespace Tåg_project.Core
             if (validateInputs(0))
             {
                 isClean = cboxClean.Checked;
-                isEvaluated = cboxEletricalEvaluation.Checked;
-                isComponentReplaced = cboxComponents.Checked;
-                whichComponents = txtComponents.Text;
-                finalEvaluation = cboxApproved.Checked;
-                finalText = txtFinalThoughts.Text;
                 observations = txtObservations.Text;
                 comments = txtComments.Text;
                 process = txtProcess.Text;
@@ -153,6 +134,7 @@ namespace Tåg_project.Core
                 result1 = cboxResult1.Checked;
                 result2 = cboxResult2.Checked;
                 result3 = cboxResult3.Checked;
+                summary = txtSummary.Text;
 
                 if (path == null)
                 {
@@ -165,14 +147,8 @@ namespace Tåg_project.Core
                     Export export = new Export(
                         serialNum,
                         isClean,
-                        isEvaluated,
-                        isComponentReplaced,
-                        whichComponents,
-                        finalEvaluation,
-                        finalText,
                         initialImagesPath,
                         finalImagesPath,
-                        initialImagesPath.Count,
                         path,
                         observations,
                         comments,
@@ -182,7 +158,10 @@ namespace Tåg_project.Core
                         result1,
                         result2,
                         result3,
-                        isImported);
+                        isImported,
+                        summary,
+                        labelPath
+                        );
 
                     path = export.path;
                     UpdateDesign();
@@ -206,6 +185,10 @@ namespace Tåg_project.Core
                 else if (initialImagesPath.Count == 0)
                 {
                     MessageBox.Show("You should import some images of the PCB first");
+                    return false;
+                }else if (labelPath==null)
+                {
+                    MessageBox.Show("You should import the label of PCB first");
                     return false;
                 }
             }
@@ -233,18 +216,15 @@ namespace Tåg_project.Core
             //Export();
             //serialNum = lastTwoDigitsOfYear + week + txtSerialNum.Text;
             isClean = cboxClean.Checked;
-            isEvaluated = cboxEletricalEvaluation.Checked;
-            isComponentReplaced = cboxComponents.Checked;
-            whichComponents = txtComponents.Text;
-            finalEvaluation = cboxApproved.Checked;
-            finalText = txtFinalThoughts.Text;
+            troubleshoot = cboxTroubleshoot.Checked;
+            repair = cboxRepair.Checked;
             observations = txtObservations.Text;
             comments = txtComments.Text;
             process = txtProcess.Text;
             result1 = cboxResult1.Checked;
             result2 = cboxResult2.Checked;
             result3 = cboxResult3.Checked;
-            repair = cboxRepair.Checked;
+            summary = txtSummary.Text;
 
             ExportPDF pdf = new ExportPDF(
                 p,
@@ -252,18 +232,16 @@ namespace Tåg_project.Core
                 finalImagesPath,
                 serialNum,
                 isClean,
-                isEvaluated,
-                isComponentReplaced,
-                whichComponents,
-                finalEvaluation,
-                finalText,
+                troubleshoot,
                 observations,
                 process,
                 comments,
                 result1,
                 result2,
                 result3,
-                repair
+                repair,
+                summary,
+                labelPath
                 );
             return;
         }
@@ -282,6 +260,19 @@ namespace Tåg_project.Core
         private void btnExport_Click(object sender, EventArgs e)
         {
             Export();
+        }
+
+        private void btnImportLabel_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Select Valid Document(*.png; *.jpeg; *.jpg)|*.png; *.jpeg; *.jpg";
+            dialog.Multiselect = false;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                lblCaminho.Text = "Imported " + dialog.FileName;
+                labelPath = dialog.FileName;
+            }
+            else return;
         }
 
         private void btnImportImage_Click(object sender, EventArgs e)
@@ -323,10 +314,10 @@ namespace Tåg_project.Core
             else return;
         }
 
-        private void cboxComponents_CheckedChanged(object sender, EventArgs e)
-        {
-            txtComponents.Enabled = cboxComponents.Checked;
-        }
+        //private void cboxComponents_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    txtComponents.Enabled = cboxComponents.Checked;
+        //}
 
         private void btnCreatePDF_Click(object sender, EventArgs e)
         {
@@ -457,7 +448,7 @@ namespace Tåg_project.Core
                 //pnlMiddle.Width = pnlFirst.Width;
                 pnlFinal.Width = 0;
                 pnlFirst.Width = 0;
-                pnlMiddle.Width = 0;
+                //pnlMiddle.Width = 0;
                 btnPrev.Enabled = true;
 
             }
@@ -471,7 +462,7 @@ namespace Tåg_project.Core
                 pnlFinal.Width = pnlBoxes.Width;
                 pnlBoxes.Width = 0;
                 pnlFirst.Width = 0;
-                pnlMiddle.Width = 0;
+                //pnlMiddle.Width = 0;
                 btnNext.Enabled = false;
             }
         }

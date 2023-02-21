@@ -27,7 +27,7 @@
     <InstallUrl>http://www.vovservice.com/Tåg_project/</InstallUrl>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -176,6 +176,12 @@
     <Compile Include="Core\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Component.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\Component.Designer.cs">
+      <DependentUpon>Component.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\StartForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,6 +205,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Core\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Core\Component.resx">
+      <DependentUpon>Component.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Core\StartForm.resx">
       <DependentUpon>StartForm.cs</DependentUpon>

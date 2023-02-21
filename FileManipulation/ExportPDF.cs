@@ -22,15 +22,28 @@ namespace Tåg_project.FileManipulation
 {
     internal class ExportPDF
     {
-        Text label, value, cleanText, troublesootingText, componentsText, whichComponentsText,
-            finalEvaluationText, repairText, observationsText, newT;
+        Text label, value, cleanText, troublesootingText, repairText, newT;
         List<Text> texts = new List<Text>();
         public string serialNum { get; set; }
         Document document;
         PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
-        public ExportPDF(string path, List<string> initialimagesPath, List<string> finalImagesPath,
-            string sNum, bool clean, bool eletricEval, bool replaced, string componentsReplaced,
-            bool finalEval, string finalThoughts, string observations, string process, string comments, bool result1, bool result2, bool result3, bool repair)
+        public ExportPDF(
+            string path,
+            List<string> initialimagesPath,
+            List<string> finalImagesPath,
+            string sNum,
+            bool clean,
+            bool troubleshoot,
+            string observations,
+            string process,
+            string comments,
+            bool result1,
+            bool result2,
+            bool result3,
+            bool repair,
+            string summary,
+            string labelPath
+            )
         {
             #region init vars
             if (clean)
@@ -41,53 +54,35 @@ namespace Tåg_project.FileManipulation
             {
                 cleanText = new Text("The PCB was not cleaned as it is informed in the instructions manual.");
             }
-            if (eletricEval)
+            if (troubleshoot)
             {
-                troublesootingText = new Text("The Eletrical evaluation was done as it is informed in the instructions manual");
+                troublesootingText = new Text("The Troubleshooting was done as it is informed in the instructions manual");
             }
             else
             {
-                troublesootingText = new Text("The Eletrical evaluation was not done as it is informed in the instructions manual");
-            }
-            if (replaced)
-            {
-                componentsText = new Text("Some components on the PCB were replaced");
-                if (componentsReplaced != null)
-                {
-                    whichComponentsText = new Text("The replaced components were: " + componentsReplaced);
-                }
-            }
-            else
-            {
-                componentsText = new Text("No components on the PCB were replaced");
-            }
-            if (finalEval)
-            {
-                finalEvaluationText = new Text("The final eletrical evaluation was approved!");
-            }
-            else
-            {
-                finalEvaluationText = new Text("The final eletrical evaluation was not approved!");
-            }
-            if (finalThoughts != null)
-            {
-                observationsText = new Text("Final thoughts on this process:" + "\n" + finalThoughts);
+                troublesootingText = new Text("The Troubleshooting was not done as it is informed in the instructions manual");
             }
             if (repair)
             {
-                repairText = new Text("The PCB was repaired.");
+                repairText = new Text("The PCB was repaired");
             }
-            else repairText = new Text("The PCB wasn't repaired");
+            else
+            {
+                repairText = new Text("The PCB wasn't repaired");
+            }
+
             serialNum = sNum;
             string outputPath = path + "\\Report_" + serialNum + ".pdf";
             #endregion
+
             try
             {
                 // Create a new PDF document
                 PdfWriter writer = new PdfWriter(outputPath);
                 PdfDocument pdf = new PdfDocument(writer);
                 pdf.AddNewPage();
-                var page = pdf.GetPage(1);
+                pdf.AddNewPage();
+                var page = pdf.GetPage(2);
                 var canvas = new PdfCanvas(page);
                 pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new MyEventHandler(this));
 
@@ -100,8 +95,20 @@ namespace Tåg_project.FileManipulation
                 //Edit Layout
                 document.SetMargins(80, 80, 80, 80);
 
-                // Add a title to the document
+                //Add label and title to first page
                 document.Add(setTitle("CIRCUIT BOARD REPAIR REPORT"));
+                ImageData im = ImageDataFactory.Create(labelPath);
+                Image image = new Image(im);
+                //image.ScaleToFit(PageSize.A4.GetWidth() / 3, PageSize.A4.GetHeight() / 3);
+                //image.ScaleToFit(200, 200);
+                document.Add(image);
+                document.Add(new Paragraph("\n"));
+                document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+                
+
+                // Add a title to the document
+                
                 document.Add(new Paragraph("\n"));
 
                 //First fields
