@@ -22,7 +22,7 @@ namespace Tåg_project.FileManipulation
 {
     internal class ExportPDF
     {
-        Text label, value, cleanText, troublesootingText, repairText, newT;
+        Text label, value, cleanText, troublesootingText, repairText, newT, summaryText;
         List<Text> texts = new List<Text>();
         public string serialNum { get; set; }
         Document document;
@@ -46,6 +46,10 @@ namespace Tåg_project.FileManipulation
             )
         {
             #region init vars
+            if(summary!= null)
+            {
+                summaryText = new Text(summary);
+            }
             if (clean)
             {
                 cleanText = new Text("The PCB was cleaned as it is informed in the instructions manual.");
@@ -80,11 +84,6 @@ namespace Tåg_project.FileManipulation
                 // Create a new PDF document
                 PdfWriter writer = new PdfWriter(outputPath);
                 PdfDocument pdf = new PdfDocument(writer);
-                pdf.AddNewPage();
-                pdf.AddNewPage();
-                var page = pdf.GetPage(2);
-                var canvas = new PdfCanvas(page);
-                pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new MyEventHandler(this));
 
                 // Add metadata to the document
                 pdf.GetDocumentInfo().SetAuthor("© Motion Control i Västerås AB");
@@ -95,6 +94,11 @@ namespace Tåg_project.FileManipulation
                 //Edit Layout
                 document.SetMargins(80, 80, 80, 80);
 
+                pdf.AddNewPage();
+                var page1 = pdf.GetPage(1);
+                var canvas1 = new PdfCanvas(page1);
+                pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new MyEventHandler(this));
+
                 //Add label and title to first page
                 document.Add(setTitle("CIRCUIT BOARD REPAIR REPORT"));
                 ImageData im = ImageDataFactory.Create(labelPath);
@@ -103,12 +107,27 @@ namespace Tåg_project.FileManipulation
                 //image.ScaleToFit(200, 200);
                 document.Add(image);
                 document.Add(new Paragraph("\n"));
+
+                //Draw rectangle in first page for the summary
+                document.Add(new Paragraph("Summary:"));
+                var newY = image.GetImageHeight();
+                Rectangle summaryRectangle = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 400, PageSize.A4.GetRight() - 140, 75);
+                canvas1.Rectangle(summaryRectangle);
+                canvas1.Stroke();
+
+                texts.Add(summaryText);
+                texts.Add(troublesootingText);
+                texts.Add(repairText);
+                addTextRectangle(canvas1, summaryRectangle, texts);
+                texts.Clear();
+
                 document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 
-                
+                pdf.AddNewPage();
+                var page2 = pdf.GetPage(2);
+                var canvas = new PdfCanvas(page2);
 
                 // Add a title to the document
-                
                 document.Add(new Paragraph("\n"));
 
                 //First fields
@@ -334,7 +353,7 @@ namespace Tåg_project.FileManipulation
 
         public virtual void HandleEvent(Event @event)
         {
-            PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
+            PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
             PdfDocumentEvent docEvent = (PdfDocumentEvent)@event;
             PdfDocument pdfDoc = docEvent.GetDocument();
             PdfPage page = docEvent.GetPage();
