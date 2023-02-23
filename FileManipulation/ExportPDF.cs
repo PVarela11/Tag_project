@@ -27,6 +27,7 @@ namespace Tåg_project.FileManipulation
         public string serialNum { get; set; }
         Document document;
         PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
+        float x; float y;
         public ExportPDF(
             string path,
             List<string> initialimagesPath,
@@ -100,7 +101,7 @@ namespace Tåg_project.FileManipulation
                 pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new MyEventHandler(this));
 
                 //Add label and title to first page
-                document.Add(setTitle("CIRCUIT BOARD REPAIR REPORT"));
+                document.Add(setTitle("REPORT CONCERNING CLEANING AND DISASSEMBLY OF PCB "+serialNum + "\n"));
                 ImageData im = ImageDataFactory.Create(labelPath);
                 Image image = new Image(im);
                 //image.ScaleToFit(PageSize.A4.GetWidth() / 3, PageSize.A4.GetHeight() / 3);
@@ -109,15 +110,15 @@ namespace Tåg_project.FileManipulation
                 document.Add(new Paragraph("\n"));
 
                 //Draw rectangle in first page for the summary
-                document.Add(new Paragraph("Summary:"));
+                document.Add(new Paragraph("Summary:").SetBold());
                 var newY = image.GetImageHeight();
-                Rectangle summaryRectangle = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 400, PageSize.A4.GetRight() - 140, 75);
+                Rectangle summaryRectangle = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 308, PageSize.A4.GetRight() - 160, 100);
                 canvas1.Rectangle(summaryRectangle);
                 canvas1.Stroke();
 
                 texts.Add(summaryText);
-                texts.Add(troublesootingText);
-                texts.Add(repairText);
+                //texts.Add(troublesootingText);
+                //texts.Add(repairText);
                 addTextRectangle(canvas1, summaryRectangle, texts);
                 texts.Clear();
 
@@ -127,25 +128,24 @@ namespace Tåg_project.FileManipulation
                 var page2 = pdf.GetPage(2);
                 var canvas = new PdfCanvas(page2);
 
-                // Add a title to the document
-                document.Add(new Paragraph("\n"));
-
                 //First fields
-                label = new Text("Serial Number: ").SetFont(font);
-                value = new Text(serialNum).SetFont(font).SetUnderline().SetBold();
+                label = new Text("Serial Number: ").SetFont(font).SetBold();
+                value = new Text(serialNum).SetFont(font).SetUnderline();
                 Paragraph serialNumParagraph = new Paragraph();
                 serialNumParagraph.Add(label).Add(value);
                 document.Add(serialNumParagraph);
 
-                label = new Text("Date: ").SetFont(font);
-                value = new Text(DateTime.Now.ToString("yyyy-MM-dd")).SetFont(font).SetUnderline().SetBold();
+                label = new Text("Date: ").SetFont(font).SetBold();
+                value = new Text(DateTime.Now.ToString("yyyy-MM-dd")).SetFont(font).SetUnderline();
                 Paragraph dateParagraph = new Paragraph();
                 dateParagraph.Add(label).Add(value);
                 document.Add(dateParagraph);
 
                 // Create a rectangle with the specified dimensions and add it to the pdf
-                document.Add(new Paragraph("Work Description:"));
-                Rectangle rectangle0 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540, PageSize.A4.GetRight() - 140, 75);
+                x = PageSize.A4.GetLeft() + 80;
+                y = PageSize.A4.GetBottom() + 612;
+                document.Add(new Paragraph("Work Description:").SetBold());
+                Rectangle rectangle0 = new Rectangle(x, y, PageSize.A4.GetRight() - 140, 75);
                 canvas.Rectangle(rectangle0);
                 canvas.Stroke();
 
@@ -155,11 +155,11 @@ namespace Tåg_project.FileManipulation
                 addTextRectangle(canvas, rectangle0, texts);
                 texts.Clear();
 
-                Paragraph newParagraph = new Paragraph("What was done:");
+                Paragraph newParagraph = new Paragraph("What was done:").SetBold();
                 newParagraph.SetMarginTop(rectangle0.GetHeight() + 9);
                 document.Add(newParagraph);
                 float height0 = rectangle0.GetHeight() + 30;
-                Rectangle rectangle = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height0, PageSize.A4.GetRight() - 140, 75);
+                Rectangle rectangle = new Rectangle(x, y - height0, PageSize.A4.GetRight() - 140, 75);
                 canvas.Rectangle(rectangle);
                 canvas.Stroke();
 
@@ -173,11 +173,11 @@ namespace Tåg_project.FileManipulation
                 addTextRectangle(canvas, rectangle, texts);
                 texts.Clear();
 
-                Paragraph observationParagraph = new Paragraph("Other Observations:");
+                Paragraph observationParagraph = new Paragraph("Other Observations:").SetBold();
                 observationParagraph.SetMarginTop(rectangle.GetHeight() + 9);
                 document.Add(observationParagraph);
                 float height = rectangle.GetHeight() + 30;
-                Rectangle rectangle2 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height - height0, PageSize.A4.GetRight() - 140, 75);
+                Rectangle rectangle2 = new Rectangle(x, y - height - height0, PageSize.A4.GetRight() - 140, 75);
                 canvas.Rectangle(rectangle2);
                 canvas.Stroke();
 
@@ -192,11 +192,11 @@ namespace Tåg_project.FileManipulation
                 addTextRectangle(canvas, rectangle2, texts);
                 texts.Clear();
 
-                Paragraph commentsParagraph = new Paragraph("Comments:");
+                Paragraph commentsParagraph = new Paragraph("Comments:").SetBold();
                 commentsParagraph.SetMarginTop(rectangle2.GetHeight() + 8);
                 document.Add(commentsParagraph);
                 float height2 = rectangle2.GetHeight() + 30;
-                Rectangle rectangle3 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height0 - height - height2, PageSize.A4.GetRight() - 140, 75);
+                Rectangle rectangle3 = new Rectangle(x, y - height0 - height - height2, PageSize.A4.GetRight() - 140, 75);
                 canvas.Rectangle(rectangle3);
                 canvas.Stroke();
 
@@ -211,11 +211,11 @@ namespace Tåg_project.FileManipulation
                 texts.Clear();
 
                 //Checkboxes and last rectangle of the first page
-                Paragraph resultsParagraph = new Paragraph("Results:");
+                Paragraph resultsParagraph = new Paragraph("Results:").SetBold();
                 resultsParagraph.SetMarginTop(rectangle3.GetHeight() + 8);
                 document.Add(resultsParagraph);
                 float height3 = rectangle3.GetHeight() + 30 + +height0 + height + height2;
-                Rectangle rectangle4 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 540 - height3, PageSize.A4.GetRight() - 140, 75);
+                Rectangle rectangle4 = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 612 - height3, PageSize.A4.GetRight() - 140, 75);
                 canvas.Rectangle(rectangle4);
                 canvas.Stroke();
 
@@ -401,8 +401,8 @@ namespace Tåg_project.FileManipulation
             }
 
             //Footer
-            pdfCanvas.MoveTo(pageSize.GetLeft() + 20, pageSize.GetBottom() + 31)
-                .LineTo(pageSize.GetRight() - 18, pageSize.GetBottom() + 31)
+            pdfCanvas.MoveTo(pageSize.GetLeft() + 65, pageSize.GetBottom() + 40)
+                .LineTo(pageSize.GetRight() - 65, pageSize.GetBottom() + 40)
                 .Stroke();
 
             float textWidth = font.GetWidth("© Motion Control i Västerås AB", 9);
@@ -410,12 +410,12 @@ namespace Tåg_project.FileManipulation
 
             pdfCanvas.BeginText()
                 .SetFontAndSize(font, 9)
-                .MoveText(textX, pageSize.GetBottom() + 20)
+                .MoveText(textX, pageSize.GetBottom() + 29)
                 .ShowText("© Motion Control i Västerås AB")
                 .EndText();
             pdfCanvas.BeginText()
                         .SetFontAndSize(font, 9)
-                        .MoveText(pageSize.GetRight() - 20, pageSize.GetBottom() + 20)
+                        .MoveText(pageSize.GetRight() - 72, pageSize.GetBottom() + 29)
                         .ShowText(pageNumber.ToString())
                         .EndText();
 
