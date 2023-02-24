@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using Canvas = iText.Layout.Canvas;
 using Document = iText.Layout.Document;
 using Image = iText.Layout.Element.Image;
@@ -271,11 +272,35 @@ namespace Tåg_project.FileManipulation
 
                 document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                 document.Add(setTitle("Before Cleaning"));
-                insertImg(initialimagesPath);
+                if(initialimagesPath.Count > 6)
+                {
+                    insertImg(initialimagesPath.Take(6).ToList());
+                    initialimagesPath.RemoveRange(0, 6);
+                }else insertImg(initialimagesPath);
+
 
                 document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                 document.Add(setTitle("After Cleaning"));
-                insertImg(finalImagesPath);
+                if (finalImagesPath.Count > 6)
+                {
+                    insertImg(finalImagesPath.Take(6).ToList());
+                    finalImagesPath.RemoveRange(0, 6);
+                }
+                else insertImg(finalImagesPath);
+
+                if (initialimagesPath.Count > 0)
+                {
+                    document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                    document.Add(setTitle("More before cleaning images"));
+                    insertImg(initialimagesPath);
+                }
+
+                if (finalImagesPath.Count > 0)
+                {
+                    document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                    document.Add(setTitle("More after cleaning images"));
+                    insertImg(finalImagesPath);
+                }
 
                 document.Close();
                 MessageBox.Show("PDF Created on" + outputPath);
