@@ -102,18 +102,18 @@ namespace Tåg_project.FileManipulation
                 pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new MyEventHandler(this));
 
                 //Add label and title to first page
-                document.Add(setTitle("REPORT CONCERNING CLEANING AND DISASSEMBLY OF PCB "+serialNum + "\n"));
+                document.Add(setTitle("\n"+"REPORT CONCERNING CLEANING AND DISASSEMBLY OF PCB "+serialNum + "\n"));
                 ImageData im = ImageDataFactory.Create(labelPath);
                 Image image = new Image(im);
                 //image.ScaleToFit(PageSize.A4.GetWidth() / 3, PageSize.A4.GetHeight() / 3);
                 //image.ScaleToFit(200, 200);
                 document.Add(image);
-                document.Add(new Paragraph("\n"));
+                document.Add(new Paragraph("\n\n\n\n"));
 
                 //Draw rectangle in first page for the summary
                 document.Add(new Paragraph("Summary:").SetBold());
                 var newY = image.GetImageHeight();
-                Rectangle summaryRectangle = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 308, PageSize.A4.GetRight() - 160, 100);
+                Rectangle summaryRectangle = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 220, PageSize.A4.GetRight() - 160, 100);
                 canvas1.Rectangle(summaryRectangle);
                 canvas1.Stroke();
 

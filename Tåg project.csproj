@@ -170,17 +170,18 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Component.cs" />
+    <Compile Include="Core\ComponentsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\ComponentsForm.Designer.cs">
+      <DependentUpon>ComponentsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Home.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Core\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Core\Component.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Core\Component.Designer.cs">
-      <DependentUpon>Component.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\StartForm.cs">
       <SubType>Form</SubType>
@@ -203,11 +204,11 @@
     <Compile Include="FileManipulation\ShowFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Core\ComponentsForm.resx">
+      <DependentUpon>ComponentsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Core\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Core\Component.resx">
-      <DependentUpon>Component.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Core\StartForm.resx">
       <DependentUpon>StartForm.cs</DependentUpon>

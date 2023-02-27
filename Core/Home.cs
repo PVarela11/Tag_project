@@ -17,6 +17,7 @@ namespace Tåg_project.Core
         bool isClean, troubleshoot, repair, result1, result2, result3;
         bool isImported = false;
         int aux = 0, aux1 = 0, page = 0;
+        List<Component> listaComponentes;
         List<string> initialImagesPath = new List<string>(), listAux = new List<string>(), finalImagesPath = new List<string>();
         public Home(string tempPath)
         {
@@ -46,6 +47,31 @@ namespace Tåg_project.Core
             pboxImages.Enabled = false;
             pboxFinalImages.Enabled = false;
             btnPrev.Enabled = false;
+        }
+
+        private void btnAddComponent_Click(object sender, EventArgs e)
+        {
+            //Form formComponent = new ComponentsForm();
+            //
+            ////this.Hide();
+            //formComponent.ShowDialog();
+            using (ComponentsForm formComponent = new ComponentsForm())
+            {
+                if (formComponent.ShowDialog() == DialogResult.OK)
+                {
+                    listaComponentes = formComponent.componentsList;
+                    lblComponent.Text = listaComponentes.Count.ToString() + " components imported";
+                }
+            }
+        }
+
+        private void btnClearComponents_Click(object sender, EventArgs e)
+        {
+            if (listaComponentes != null)
+            {
+                listaComponentes.Clear();
+                lblComponent.Text = "No components added yet";
+            }
         }
 
         private void UpdateDesign()
