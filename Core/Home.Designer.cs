@@ -60,6 +60,7 @@
             this.cboxTroubleshoot = new System.Windows.Forms.CheckBox();
             this.cboxClean = new System.Windows.Forms.CheckBox();
             this.pnlFinal = new System.Windows.Forms.Panel();
+            this.btnClearComponents = new System.Windows.Forms.Button();
             this.lblComponent = new System.Windows.Forms.Label();
             this.btnAddComponent = new System.Windows.Forms.Button();
             this.btnClearFinalImage = new System.Windows.Forms.Button();
@@ -72,7 +73,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.cboxResult3 = new System.Windows.Forms.CheckBox();
             this.cboxResult1 = new System.Windows.Forms.CheckBox();
-            this.btnClearComponents = new System.Windows.Forms.Button();
             this.pnlTop.SuspendLayout();
             this.pnlFirst.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxImages)).BeginInit();
@@ -522,6 +522,19 @@
             this.pnlFinal.Size = new System.Drawing.Size(822, 437);
             this.pnlFinal.TabIndex = 17;
             // 
+            // btnClearComponents
+            // 
+            this.btnClearComponents.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnClearComponents.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearComponents.Location = new System.Drawing.Point(409, 53);
+            this.btnClearComponents.Margin = new System.Windows.Forms.Padding(2);
+            this.btnClearComponents.Name = "btnClearComponents";
+            this.btnClearComponents.Size = new System.Drawing.Size(118, 28);
+            this.btnClearComponents.TabIndex = 44;
+            this.btnClearComponents.Text = "Clear";
+            this.btnClearComponents.UseVisualStyleBackColor = true;
+            this.btnClearComponents.Click += new System.EventHandler(this.btnClearComponents_Click);
+            // 
             // lblComponent
             // 
             this.lblComponent.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -673,19 +686,6 @@
             this.cboxResult1.Size = new System.Drawing.Size(15, 14);
             this.cboxResult1.TabIndex = 35;
             this.cboxResult1.UseVisualStyleBackColor = true;
-            // 
-            // btnClearComponents
-            // 
-            this.btnClearComponents.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnClearComponents.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearComponents.Location = new System.Drawing.Point(409, 53);
-            this.btnClearComponents.Margin = new System.Windows.Forms.Padding(2);
-            this.btnClearComponents.Name = "btnClearComponents";
-            this.btnClearComponents.Size = new System.Drawing.Size(118, 28);
-            this.btnClearComponents.TabIndex = 44;
-            this.btnClearComponents.Text = "Clear";
-            this.btnClearComponents.UseVisualStyleBackColor = true;
-            this.btnClearComponents.Click += new System.EventHandler(this.btnClearComponents_Click);
             // 
             // Home
             // 

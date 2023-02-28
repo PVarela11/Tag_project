@@ -10,13 +10,17 @@ namespace Tåg_project
     public class Component
     {
         public string name { get; set; }
-        public List<string> images { get; set; }
+        public string componentImg { get; set; }
+        public string componentBeforeImg { get; set; }
+        public string componentAfterImg { get; set; }
         public string description { get; set; }
 
-        public Component(string name, List<string> images, string description)
+        public Component(string name, string componentImg, string componentBeforeImg, string componentAfterImg, string description)
         {
             this.name = name;
-            this.images = images;
+            this.componentAfterImg = componentAfterImg;
+            this.componentBeforeImg = componentBeforeImg;
+            this.componentImg= componentImg;
             this.description = description;
         }
     }

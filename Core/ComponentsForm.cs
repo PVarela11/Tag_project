@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace Tåg_project.Core
 {
@@ -17,112 +12,114 @@ namespace Tåg_project.Core
         {
             get { return txtComponent.Text; }
         }
-        List<string> listAux = new List<string>();
-        int imgCount = 0, aux=0;
+        string componentImg, componentBeforeImg, componentAfterImg, name;
         public List<Component> componentsList = new List<Component>();
         public ComponentsForm()
         {
             InitializeComponent();
             this.Icon = Properties.Resources.MotionControlIcon;
+            btnFinish.DialogResult = DialogResult.None;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            
             this.Close();
         }
 
         private void btnNewComponent_Click(object sender, EventArgs e)
         {
+            btnFinish.DialogResult = DialogResult.None;
             if (validate())
             {
                 //Save and add another
-                Component x = new Component(txtComponent.Text, listAux, txtDescription.Text);
+                Component x = new Component(txtComponent.Text, componentImg, componentBeforeImg, componentAfterImg, txtDescription.Text);
                 componentsList.Add(x);
+                componentImg = null;
+                componentBeforeImg = null;
+                componentAfterImg = null;
                 txtComponent.Clear();
                 txtDescription.Clear();
-                //initialImagesPath.Clear();
-                pboxImage.Enabled = false;
-                pboxImage.Image = null;
-                pboxImage.BackColor = Color.Transparent;
-                pboxImage.Enabled = false;
-                pboxImage.BackColor = System.Drawing.Color.FromArgb(119, 155, 230);
-                pboxImage.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
-                //aux = 0;
                 lblImage.Text = "Import component image";
-            }else MessageBox.Show("You should insert all the data before saving this component!");
+                lblImportAfterImage.Text = "Import component image";
+                lblImportBeforeImage.Text = "Import component image";
+            }
         }
 
         private void btnFinish_Click(object sender, EventArgs e)
         {
+            if(txtComponent.Text == "" && txtDescription.Text == "" && componentAfterImg == null && componentBeforeImg == null && componentImg == null)
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+                return;
+            }
             //Save and close
             if (validate())
             {
-                Component x = new Component(txtComponent.Text, listAux, txtDescription.Text);
+                this.DialogResult = DialogResult.OK;
+                Component x = new Component(txtComponent.Text, componentImg, componentBeforeImg, componentAfterImg, txtDescription.Text);
                 componentsList.Add(x);
                 this.Close();
             }
-            else MessageBox.Show("You should insert all the data before saving this component!");
-            
         }
 
         private void btnImportImage_Click(object sender, EventArgs e)
         {
+            name = (sender as Button).Name;
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Select Valid Document(*.png; *.jpeg; *.jpg)|*.png; *.jpeg; *.jpg";
-            dialog.Multiselect = true;
+            dialog.Multiselect = false;
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                foreach (string fileName in dialog.FileNames)
+                if (name == "btnImportImage")
                 {
-                    // do something with path
-                    listAux.Add(fileName);
-                    imgCount++;
+                    componentImg = dialog.FileName;
+                    lblImage.Text = "Image imported";
                 }
-                pboxImage.ImageLocation = listAux[0];
-                pboxImage.Enabled = true;
-                lblImage.Text = listAux.Count.ToString() + " images imported";
+                else if (name == "btnImportBeforeImage")
+                {
+                    componentBeforeImg = dialog.FileName;
+                    lblImportBeforeImage.Text = "Image imported";
+                }
+                else if (name == "btnImportAfterImage")
+                {
+                    componentAfterImg= dialog.FileName;
+                    lblImportAfterImage.Text = "Image imported";
+                }
+                
             }
         }
 
         private void btnClearImage_Click(object sender, EventArgs e)
         {
-            aux = 0;
-            listAux.Clear();
-            pboxImage.Enabled = false;
-            pboxImage.Image = null;
-            pboxImage.BackColor = Color.Transparent;
-            pboxImage.Enabled = false;
-            pboxImage.BackColor = System.Drawing.Color.FromArgb(119, 155, 230);
-            pboxImage.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
-            aux = 0;
-            lblImage.Text = "Import component image";
-        }
-
-        private void pboxImage_Click(object sender, EventArgs e)
-        {
-            if (aux < listAux.Count - 1)
+            name = (sender as Button).Name;
+            if (name == "btnClearImage")
             {
-                aux++;
-                pboxImage.ImageLocation = listAux[aux];
+                componentImg = null;
+                lblImage.Text = "Component Image";
             }
-            else
+            else if (name == "btnClearBeforeImage")
             {
-                aux = 0;
-                pboxImage.ImageLocation = listAux[aux];
+                componentBeforeImg = null;
+                lblImportBeforeImage.Text = "Component image\r\nbefore cleaning";
+            }
+            else if (name == "btnClearAfterImage")
+            {
+                componentAfterImg = null;
+                lblImportAfterImage.Text = "Component image\r\nafter cleaning";
             }
         }
 
         private bool validate()
         {
-            if (txtComponent.TextLength < 4)
+            if (txtComponent.Text == null)
             {
-                MessageBox.Show("Component name should be bigger than that");
+                MessageBox.Show("What is the name of the component ?");
                 return false;
             }
-            else if (listAux.Count == 0)
+            else if (componentAfterImg == null || componentBeforeImg == null || componentImg == null)
             {
-                MessageBox.Show("You should import some images of the component first");
+                MessageBox.Show("You should import all the images of the component");
                 return false;
             }
             else if (txtDescription.TextLength < 20)

@@ -33,14 +33,18 @@
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.btnClearImage = new System.Windows.Forms.Button();
             this.btnImportImage = new System.Windows.Forms.Button();
-            this.pboxImage = new FontAwesome.Sharp.IconPictureBox();
             this.lblImage = new System.Windows.Forms.Label();
             this.btnNewComponent = new System.Windows.Forms.Button();
             this.btnFinish = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.txtComponent = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pboxImage)).BeginInit();
+            this.btnClearBeforeImage = new System.Windows.Forms.Button();
+            this.btnImportBeforeImage = new System.Windows.Forms.Button();
+            this.lblImportBeforeImage = new System.Windows.Forms.Label();
+            this.btnClearAfterImage = new System.Windows.Forms.Button();
+            this.btnImportAfterImage = new System.Windows.Forms.Button();
+            this.lblImportAfterImage = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label2
@@ -80,7 +84,7 @@
             // 
             this.btnClearImage.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnClearImage.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearImage.Location = new System.Drawing.Point(338, 282);
+            this.btnClearImage.Location = new System.Drawing.Point(81, 245);
             this.btnClearImage.Margin = new System.Windows.Forms.Padding(2);
             this.btnClearImage.Name = "btnClearImage";
             this.btnClearImage.Size = new System.Drawing.Size(118, 28);
@@ -93,7 +97,7 @@
             // 
             this.btnImportImage.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportImage.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportImage.Location = new System.Drawing.Point(338, 251);
+            this.btnImportImage.Location = new System.Drawing.Point(81, 213);
             this.btnImportImage.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportImage.Name = "btnImportImage";
             this.btnImportImage.Size = new System.Drawing.Size(118, 28);
@@ -102,35 +106,17 @@
             this.btnImportImage.UseVisualStyleBackColor = true;
             this.btnImportImage.Click += new System.EventHandler(this.btnImportImage_Click);
             // 
-            // pboxImage
-            // 
-            this.pboxImage.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pboxImage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(155)))), ((int)(((byte)(231)))));
-            this.pboxImage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(214)))), ((int)(((byte)(10)))));
-            this.pboxImage.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
-            this.pboxImage.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(214)))), ((int)(((byte)(10)))));
-            this.pboxImage.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.pboxImage.IconSize = 118;
-            this.pboxImage.Location = new System.Drawing.Point(338, 130);
-            this.pboxImage.Margin = new System.Windows.Forms.Padding(2);
-            this.pboxImage.Name = "pboxImage";
-            this.pboxImage.Size = new System.Drawing.Size(118, 118);
-            this.pboxImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pboxImage.TabIndex = 54;
-            this.pboxImage.TabStop = false;
-            this.pboxImage.Click += new System.EventHandler(this.pboxImage_Click);
-            // 
             // lblImage
             // 
             this.lblImage.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblImage.AutoSize = true;
             this.lblImage.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblImage.Location = new System.Drawing.Point(314, 109);
+            this.lblImage.Location = new System.Drawing.Point(58, 182);
             this.lblImage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblImage.Name = "lblImage";
-            this.lblImage.Size = new System.Drawing.Size(166, 19);
+            this.lblImage.Size = new System.Drawing.Size(124, 19);
             this.lblImage.TabIndex = 53;
-            this.lblImage.Text = "Import component image";
+            this.lblImage.Text = "Component Image";
             // 
             // btnNewComponent
             // 
@@ -148,7 +134,6 @@
             // btnFinish
             // 
             this.btnFinish.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnFinish.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnFinish.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFinish.Location = new System.Drawing.Point(341, 498);
             this.btnFinish.Margin = new System.Windows.Forms.Padding(2);
@@ -192,12 +177,94 @@
             this.label1.TabIndex = 61;
             this.label1.Text = "Component Name:";
             // 
+            // btnClearBeforeImage
+            // 
+            this.btnClearBeforeImage.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnClearBeforeImage.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearBeforeImage.Location = new System.Drawing.Point(301, 245);
+            this.btnClearBeforeImage.Margin = new System.Windows.Forms.Padding(2);
+            this.btnClearBeforeImage.Name = "btnClearBeforeImage";
+            this.btnClearBeforeImage.Size = new System.Drawing.Size(118, 28);
+            this.btnClearBeforeImage.TabIndex = 64;
+            this.btnClearBeforeImage.Text = "Clear";
+            this.btnClearBeforeImage.UseVisualStyleBackColor = true;
+            this.btnClearBeforeImage.Click += new System.EventHandler(this.btnClearImage_Click);
+            // 
+            // btnImportBeforeImage
+            // 
+            this.btnImportBeforeImage.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnImportBeforeImage.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImportBeforeImage.Location = new System.Drawing.Point(301, 213);
+            this.btnImportBeforeImage.Margin = new System.Windows.Forms.Padding(2);
+            this.btnImportBeforeImage.Name = "btnImportBeforeImage";
+            this.btnImportBeforeImage.Size = new System.Drawing.Size(118, 28);
+            this.btnImportBeforeImage.TabIndex = 63;
+            this.btnImportBeforeImage.Text = "Import";
+            this.btnImportBeforeImage.UseVisualStyleBackColor = true;
+            this.btnImportBeforeImage.Click += new System.EventHandler(this.btnImportImage_Click);
+            // 
+            // lblImportBeforeImage
+            // 
+            this.lblImportBeforeImage.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblImportBeforeImage.AutoSize = true;
+            this.lblImportBeforeImage.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblImportBeforeImage.Location = new System.Drawing.Point(293, 163);
+            this.lblImportBeforeImage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblImportBeforeImage.Name = "lblImportBeforeImage";
+            this.lblImportBeforeImage.Size = new System.Drawing.Size(123, 38);
+            this.lblImportBeforeImage.TabIndex = 62;
+            this.lblImportBeforeImage.Text = "Component image\r\nbefore cleaning";
+            // 
+            // btnClearAfterImage
+            // 
+            this.btnClearAfterImage.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnClearAfterImage.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearAfterImage.Location = new System.Drawing.Point(550, 245);
+            this.btnClearAfterImage.Margin = new System.Windows.Forms.Padding(2);
+            this.btnClearAfterImage.Name = "btnClearAfterImage";
+            this.btnClearAfterImage.Size = new System.Drawing.Size(118, 28);
+            this.btnClearAfterImage.TabIndex = 67;
+            this.btnClearAfterImage.Text = "Clear";
+            this.btnClearAfterImage.UseVisualStyleBackColor = true;
+            this.btnClearAfterImage.Click += new System.EventHandler(this.btnClearImage_Click);
+            // 
+            // btnImportAfterImage
+            // 
+            this.btnImportAfterImage.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnImportAfterImage.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImportAfterImage.Location = new System.Drawing.Point(550, 213);
+            this.btnImportAfterImage.Margin = new System.Windows.Forms.Padding(2);
+            this.btnImportAfterImage.Name = "btnImportAfterImage";
+            this.btnImportAfterImage.Size = new System.Drawing.Size(118, 28);
+            this.btnImportAfterImage.TabIndex = 66;
+            this.btnImportAfterImage.Text = "Import";
+            this.btnImportAfterImage.UseVisualStyleBackColor = true;
+            this.btnImportAfterImage.Click += new System.EventHandler(this.btnImportImage_Click);
+            // 
+            // lblImportAfterImage
+            // 
+            this.lblImportAfterImage.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblImportAfterImage.AutoSize = true;
+            this.lblImportAfterImage.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblImportAfterImage.Location = new System.Drawing.Point(546, 173);
+            this.lblImportAfterImage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblImportAfterImage.Name = "lblImportAfterImage";
+            this.lblImportAfterImage.Size = new System.Drawing.Size(123, 38);
+            this.lblImportAfterImage.TabIndex = 65;
+            this.lblImportAfterImage.Text = "Component image\r\nafter cleaning";
+            // 
             // ComponentsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(155)))), ((int)(((byte)(231)))));
             this.ClientSize = new System.Drawing.Size(800, 580);
+            this.Controls.Add(this.btnClearAfterImage);
+            this.Controls.Add(this.btnImportAfterImage);
+            this.Controls.Add(this.lblImportAfterImage);
+            this.Controls.Add(this.btnClearBeforeImage);
+            this.Controls.Add(this.btnImportBeforeImage);
+            this.Controls.Add(this.lblImportBeforeImage);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtComponent);
             this.Controls.Add(this.btnCancel);
@@ -205,17 +272,15 @@
             this.Controls.Add(this.btnNewComponent);
             this.Controls.Add(this.btnClearImage);
             this.Controls.Add(this.btnImportImage);
-            this.Controls.Add(this.pboxImage);
             this.Controls.Add(this.lblImage);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.lblDescription);
             this.Controls.Add(this.label2);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ComponentsForm";
             this.Text = "Add Component";
-            ((System.ComponentModel.ISupportInitialize)(this.pboxImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -228,12 +293,17 @@
         private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.Button btnClearImage;
         private System.Windows.Forms.Button btnImportImage;
-        private FontAwesome.Sharp.IconPictureBox pboxImage;
         private System.Windows.Forms.Label lblImage;
         private System.Windows.Forms.Button btnNewComponent;
         private System.Windows.Forms.Button btnFinish;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.TextBox txtComponent;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnClearBeforeImage;
+        private System.Windows.Forms.Button btnImportBeforeImage;
+        private System.Windows.Forms.Label lblImportBeforeImage;
+        private System.Windows.Forms.Button btnClearAfterImage;
+        private System.Windows.Forms.Button btnImportAfterImage;
+        private System.Windows.Forms.Label lblImportAfterImage;
     }
 }

@@ -15,12 +15,19 @@ namespace Tåg_project.FileManipulation
         Bitmap image;
         List<Image> images;
         string imgName;
+        DirectoryInfo di;
+        List<string[]> componentsData = new List<string[]>();
         public string path { get; set; }
         public string initialImagesFolder { get; set; }
         public string finalImagesFolder { get; set; }
         public string labelImagesFolder { get; set; }
+
+        public string componentsFolder { get; set; }
+        public string componentsImagesFolder { get; set; }
+        public string componentsBeforeImagesFolder { get; set; }
+        public string componentsAfterImagesFolder { get; set; }
         public List<string> labelList { get; set; }
-        DirectoryInfo di;
+        public List<Component> components { get; set; }
         public Export(
             string serialNum,
             bool clean,
@@ -37,7 +44,8 @@ namespace Tåg_project.FileManipulation
             bool result3,
             bool isImported,
             string summary,
-            string labelPath
+            string labelPath,
+            List<Component> listaComponentes
             )
         {
             if (labelPath != null)
@@ -68,6 +76,10 @@ namespace Tåg_project.FileManipulation
             initialImagesFolder = path + "\\BeforeClean";
             finalImagesFolder = path + "\\AfterClean";
             labelImagesFolder = path + "\\Label";
+            componentsFolder = path + "\\Components";
+            componentsImagesFolder = "\\Component";
+            componentsBeforeImagesFolder = "\\ComponentBeforeClean";
+            componentsAfterImagesFolder = "\\ComponentAfterClean";
 
             // Create a list of data to be converted to CSV
             List<string[]> data = new List<string[]>
@@ -87,8 +99,22 @@ namespace Tåg_project.FileManipulation
                     summary,
                 },
             };
+
+            if (listaComponentes.Count > 0)
+            {
+                foreach (Component comp in listaComponentes)
+                {
+                    var x = new string[]
+                    {
+                        comp.name,
+                        comp.description,
+                    };
+                    componentsData.Add(x);
+                }
+            }
             // Specify the directory you want to manipulate.
             string filePath = path + "/data.csv";
+            string componentsFilePath = path + "/components.csv";
 
             try
             {
@@ -108,6 +134,10 @@ namespace Tåg_project.FileManipulation
                     }
                     // Write the data to a CSV file
                     WriteCSV(filePath, data);
+                    if (listaComponentes.Count > 0)
+                    {
+                        WriteCSV(componentsFilePath, componentsData);
+                    }
                     if (Directory.Exists(initialImagesFolder) && (initialImages.Count > 0))
                     {
                         createImg(initialImages);

@@ -51,16 +51,24 @@ namespace Tåg_project.Core
 
         private void btnAddComponent_Click(object sender, EventArgs e)
         {
-            //Form formComponent = new ComponentsForm();
-            //
-            ////this.Hide();
-            //formComponent.ShowDialog();
             using (ComponentsForm formComponent = new ComponentsForm())
             {
                 if (formComponent.ShowDialog() == DialogResult.OK)
                 {
-                    listaComponentes = formComponent.componentsList;
-                    lblComponent.Text = listaComponentes.Count.ToString() + " components imported";
+                    if (listaComponentes == null)
+                    {
+                        listaComponentes = formComponent.componentsList;
+                        if(!(listaComponentes.Count == 0))
+                        {
+                            lblComponent.Text = listaComponentes.Count.ToString() + " components imported";
+                        }
+                    }
+                    else
+                    {
+                        listaComponentes.AddRange(formComponent.componentsList);
+                        lblComponent.Text = listaComponentes.Count.ToString() + " components imported";
+                    }
+                    
                 }
             }
         }
@@ -186,7 +194,8 @@ namespace Tåg_project.Core
                         result3,
                         isImported,
                         summary,
-                        labelPath
+                        labelPath,
+                        listaComponentes
                         );
 
                     path = export.path;
