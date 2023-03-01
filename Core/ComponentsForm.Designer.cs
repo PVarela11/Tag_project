@@ -280,6 +280,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ComponentsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add Component";
             this.ResumeLayout(false);
             this.PerformLayout();
