@@ -198,6 +198,7 @@
     </Compile>
     <Compile Include="Core\Utils.cs" />
     <Compile Include="FileManipulation\ChoosePath.cs" />
+    <Compile Include="FileManipulation\DeleteFile.cs" />
     <Compile Include="FileManipulation\Export.cs" />
     <Compile Include="FileManipulation\ExportPDF.cs" />
     <Compile Include="FileManipulation\FolderDialogHelper.cs" />

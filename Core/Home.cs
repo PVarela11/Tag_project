@@ -1,4 +1,5 @@
-﻿using System;
+﻿using iText.Layout.Element;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
@@ -15,7 +16,7 @@ namespace Tåg_project.Core
         Import import;
         string path, week, serialNum, lastTwoDigitsOfYear, tempPath, observations, comments, process, labelPath, summary;
         bool isClean, troubleshoot, repair, result1, result2, result3;
-        bool isImported = false;
+        bool isImported = false, isExported = false;
         int aux = 0, aux1 = 0, page = 0;
         List<Component> listaComponentes;
         List<string> initialImagesPath = new List<string>(), listAux = new List<string>(), finalImagesPath = new List<string>();
@@ -75,11 +76,35 @@ namespace Tåg_project.Core
 
         private void btnClearComponents_Click(object sender, EventArgs e)
         {
-            if (listaComponentes != null)
+            string folder = path + "\\Components";
+            DirectoryInfo dir;
+            if (isImported)
+            {
+                if(listaComponentes.Count > 0)
+                {
+                    dir = new DirectoryInfo(folder);
+                    dir.Attributes = dir.Attributes & ~FileAttributes.ReadOnly;
+                    dir.Delete(true);
+                    listaComponentes.Clear();
+                    lblComponent.Text = "No components added yet";
+                }
+            }else if (isExported)
+            {
+                if (listaComponentes.Count > 0)
+                {
+                    dir = new DirectoryInfo(folder);
+                    dir.Attributes = dir.Attributes & ~FileAttributes.ReadOnly;
+                    dir.Delete(true);
+                    listaComponentes.Clear();
+                    lblComponent.Text = "No components added yet";
+                }
+            }
+            else
             {
                 listaComponentes.Clear();
                 lblComponent.Text = "No components added yet";
             }
+                
         }
 
         private void UpdateDesign()
@@ -95,7 +120,6 @@ namespace Tåg_project.Core
         private void importData()
         {
             import = new Import(path);
-
             serialNum = import.serialNum;
             if (serialNum != null)
             {
@@ -134,6 +158,11 @@ namespace Tåg_project.Core
                         pboxFinalImages.Enabled = true;
                         lblFinalImages.Text = finalImagesPath.Count.ToString() + "image(s) imported";
                         pboxFinalImages.ImageLocation = finalImagesPath[0];
+                    }
+                    if (import.components != null)
+                    {
+                        listaComponentes = import.components;
+                        lblComponent.Text  = listaComponentes.Count.ToString() + " components imported";
                     }
                 }
                 else
@@ -200,6 +229,7 @@ namespace Tåg_project.Core
 
                     path = export.path;
                     UpdateDesign();
+                    isExported = true;
                 }
                 else
                 {

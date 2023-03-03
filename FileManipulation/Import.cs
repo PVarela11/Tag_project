@@ -22,9 +22,12 @@ namespace Tåg_project.FileManipulation
         public bool troubleshoot { get; set; }
         public string summary { get; set; }
         public string labelPath { get; set; }
+        public List<Component> components { get; set; }
 
         public Import(string path)
         {
+            string name, description;
+            string[] lines;
             initialImagesPath = new List<string>();
             finalImagesPath = new List<string>();
             int counter = 0;
@@ -38,7 +41,7 @@ namespace Tåg_project.FileManipulation
                     string fileExtension = Path.GetExtension(file);
                     if (fileExtension == ".csv")
                     {
-                        string[] lines = File.ReadAllLines(file, Encoding.GetEncoding("iso-8859-1"));
+                        lines = File.ReadAllLines(file, Encoding.GetEncoding("iso-8859-1"));
                         foreach (var line in lines)
                         {
                             var columns = line.Split('|');
@@ -112,6 +115,82 @@ namespace Tåg_project.FileManipulation
                // break;
             }
             finally { }
+
+            try
+            {
+                components = new List<Component>();
+                counter = 0;
+                string teste = path + "\\Components\\components.csv";
+                string newPath = path + "\\Components";
+                //string[] files = Directory.GetFiles(newPath, "*.*", SearchOption.AllDirectories);
+                //foreach (string file in files)
+                //{
+                //    string fileExtension = Path.GetExtension(file);
+                //    if (fileExtension == ".csv")
+                //    {
+                if (File.Exists(teste))
+                {
+                    lines = File.ReadAllLines(teste, Encoding.GetEncoding("iso-8859-1"));
+                    foreach (var line in lines)
+                    {
+                        Component component = new Component();
+                        var columns = line.Split('|');
+                        foreach (var column in columns)
+                        {
+                            switch (counter)
+                            {
+                                case 0:
+                                    component.name = column;
+                                    name = column.ToString().Replace("!r!n", "\r\n"); ;
+                                    break;
+
+                                case 1:
+                                    component.description = column;
+                                    description = column.Replace("!r!n", "\r\n");
+                                    break;
+                            }
+                            counter++;
+                        }
+                        GetImages(component, newPath);
+                        //components.Add(new Component(name, description))
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //Console.WriteLine("The process failed: {0}", ex.ToString());
+                Console.WriteLine("Error: " + ex.Message);
+                MessageBox.Show("There was an error with the import of the file");
+                serialNum = null;
+                // break;
+            }
+            finally { }
+        }
+
+        private void GetImages(Component component, string newPath)
+        {
+            string newPath2 = newPath + "\\" + component.name;
+            string[] files = Directory.GetFiles(newPath2, "*.*", SearchOption.AllDirectories);
+            foreach (string file in files)
+            {
+                string fileExtension = Path.GetExtension(file);
+                if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".jpeg")
+                {
+                    if (file.Contains("ComponentAfterIMG"))
+                    {
+                        component.componentAfterImg = file;
+                    }
+                    else if (file.Contains("ComponentBeforeIMG"))
+                    {
+                        component.componentBeforeImg = file;
+                    }
+                    else if (file.Contains("ComponentIMG"))
+                    {
+                        component.componentImg = file;
+                    }
+                }
+            }
+            components.Add(component);
         }
     }
 }

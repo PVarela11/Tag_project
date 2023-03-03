@@ -23,5 +23,9 @@ namespace Tåg_project
             this.componentImg= componentImg;
             this.description = description;
         }
+
+        public Component()
+        {
+        }
     }
 }
