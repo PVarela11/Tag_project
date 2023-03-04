@@ -159,7 +159,7 @@ namespace Tåg_project.Core
                         lblFinalImages.Text = finalImagesPath.Count.ToString() + "image(s) imported";
                         pboxFinalImages.ImageLocation = finalImagesPath[0];
                     }
-                    if (import.components != null)
+                    if (import.components.Count > 0)
                     {
                         listaComponentes = import.components;
                         lblComponent.Text  = listaComponentes.Count.ToString() + " components imported";
