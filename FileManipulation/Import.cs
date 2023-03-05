@@ -39,7 +39,7 @@ namespace Tåg_project.FileManipulation
                     Console.WriteLine(file);
                     // Do something with the file
                     string fileExtension = Path.GetExtension(file);
-                    if (fileExtension == ".csv")
+                    if (fileExtension == ".csv" && file.Contains("data"))
                     {
                         lines = File.ReadAllLines(file, Encoding.GetEncoding("iso-8859-1"));
                         foreach (var line in lines)
@@ -152,6 +152,7 @@ namespace Tåg_project.FileManipulation
                             counter++;
                         }
                         GetImages(component, newPath);
+                        counter = 0;
                         //components.Add(new Component(name, description))
                     }
                 }

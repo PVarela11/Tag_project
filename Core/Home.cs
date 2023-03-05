@@ -306,7 +306,8 @@ namespace Tåg_project.Core
                 result3,
                 repair,
                 summary,
-                labelPath
+                labelPath,
+                listaComponentes
                 );
             return;
         }
@@ -410,7 +411,7 @@ namespace Tåg_project.Core
                     }
                 }
                 else
-                {
+                {   
                     Export();
                     ExportPDF(path);
                 }

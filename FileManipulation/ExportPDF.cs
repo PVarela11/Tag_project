@@ -44,37 +44,38 @@ namespace Tåg_project.FileManipulation
             bool result3,
             bool repair,
             string summary,
-            string labelPath
+            string labelPath,
+            List<Component> listaComponentes
             )
         {
             #region init vars
             if(summary!= null)
             {
-                summaryText = new Text(summary);
+                summaryText = new Text(summary).SetFont(font);
             }
             if (clean)
             {
-                cleanText = new Text("The PCB was cleaned as it is informed in the instructions manual.");
+                cleanText = new Text("The PCB was cleaned as it is informed in the instructions manual.").SetFont(font);
             }
             else
             {
-                cleanText = new Text("The PCB was not cleaned as it is informed in the instructions manual.");
+                cleanText = new Text("The PCB was not cleaned as it is informed in the instructions manual.").SetFont(font);
             }
             if (troubleshoot)
             {
-                troublesootingText = new Text("The Troubleshooting was done as it is informed in the instructions manual");
+                troublesootingText = new Text("The Troubleshooting was done as it is informed in the instructions manual").SetFont(font);
             }
             else
             {
-                troublesootingText = new Text("The Troubleshooting was not done as it is informed in the instructions manual");
+                troublesootingText = new Text("The Troubleshooting was not done as it is informed in the instructions manual").SetFont(font);
             }
             if (repair)
             {
-                repairText = new Text("The PCB was repaired");
+                repairText = new Text("The PCB was repaired").SetFont(font);
             }
             else
             {
-                repairText = new Text("The PCB wasn't repaired");
+                repairText = new Text("The PCB wasn't repaired").SetFont(font);
             }
 
             serialNum = sNum;
@@ -102,7 +103,7 @@ namespace Tåg_project.FileManipulation
                 pdf.AddEventHandler(PdfDocumentEvent.END_PAGE, new MyEventHandler(this));
 
                 //Add label and title to first page
-                document.Add(setTitle("\n"+"REPORT CONCERNING CLEANING AND DISASSEMBLY OF PCB "+serialNum + "\n"));
+                document.Add(setTitle(("\n" + "REPORT CONCERNING CLEANING AND DISASSEMBLY OF PCB " + serialNum + "\n")).SetFontSize(24).SetFont(font));
                 ImageData im = ImageDataFactory.Create(labelPath);
                 Image image = new Image(im);
                 //image.ScaleToFit(PageSize.A4.GetWidth() / 3, PageSize.A4.GetHeight() / 3);
@@ -220,11 +221,6 @@ namespace Tåg_project.FileManipulation
                 canvas.Rectangle(rectangle4);
                 canvas.Stroke();
 
-                //newT = new Text(observations);
-                //texts.Add(newT);
-                //addTextRectangle(canvas, rectangle2, texts);
-                //texts.Clear();
-
                 // Create an appearance stream for the checkbox
                 Rectangle rect = new Rectangle(rectangle4.GetLeft() + 10,
                     rectangle4.GetBottom() + 55, 10, 10);
@@ -269,14 +265,26 @@ namespace Tåg_project.FileManipulation
                 .EndText();
                 canvas.Release();
 
+                #region Components
+                document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                document.Add(setTitle("Components"));
+                
+                InsertComponent(pdf, listaComponentes);
+                #endregion
 
+                #region after and before clean
                 document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                 document.Add(setTitle("Before Cleaning"));
-                if(initialimagesPath.Count > 6)
+                if (initialimagesPath.Count > 6)
                 {
                     insertImg(initialimagesPath.Take(6).ToList());
                     initialimagesPath.RemoveRange(0, 6);
-                }else insertImg(initialimagesPath);
+                }
+                else
+                {
+                    insertImg(initialimagesPath);
+                    initialimagesPath.Clear();
+                }
 
 
                 document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
@@ -286,7 +294,11 @@ namespace Tåg_project.FileManipulation
                     insertImg(finalImagesPath.Take(6).ToList());
                     finalImagesPath.RemoveRange(0, 6);
                 }
-                else insertImg(finalImagesPath);
+                else
+                {
+                    insertImg(finalImagesPath);
+                    finalImagesPath.Clear();
+                }
 
                 if (initialimagesPath.Count > 0)
                 {
@@ -301,6 +313,7 @@ namespace Tåg_project.FileManipulation
                     document.Add(setTitle("More after cleaning images"));
                     insertImg(finalImagesPath);
                 }
+                #endregion
 
                 document.Close();
                 MessageBox.Show("PDF Created on" + outputPath);
@@ -314,6 +327,48 @@ namespace Tåg_project.FileManipulation
             finally { }
         }
 
+        private void InsertComponent(PdfDocument pdf, List<Component> listaComponentes)
+        {
+            int i = 0;
+            int j = 0;
+            
+            Paragraph text;
+            for(i=0; i<=2; i++)
+            {
+                if (listaComponentes.Count < 3)
+                {
+                    foreach(Component comp in listaComponentes)
+                    {
+                        text = new Paragraph(comp.name);
+                        document.Add(text.SetFontSize(9).SetFont(font).SetBold());
+                        text = new Paragraph(comp.description);
+                        document.Add(text.SetFontSize(8).SetFont(font));
+                        ImageData ima = ImageDataFactory.Create(listaComponentes[i].componentImg);
+                        Image image1 = new Image(ima);
+                        image1.ScaleToFit(200, 200);
+                        document.Add(image1);
+                        document.Add(new Paragraph("\n"));
+                    }
+                    return;
+                }
+                else
+                {
+                    //var page = pdf.GetPage(j);
+                    //var canvas = new PdfCanvas(page);
+                    // Add an image to the PDF
+                    text = new Paragraph(listaComponentes[i].name);
+                    document.Add(text.SetFontSize(9).SetFont(font).SetBold());
+                    text = new Paragraph(listaComponentes[i].description);
+                    document.Add(text.SetFontSize(8).SetFont(font));
+                    ImageData im = ImageDataFactory.Create(listaComponentes[i].componentImg);
+                    Image image = new Image(im);
+                    image.ScaleToFit(200, 200);
+                    document.Add(image);
+                    document.Add(new Paragraph("\n"));
+                }
+            }
+        }
+
         private void addTextRectangle(PdfCanvas canvas, Rectangle rectangle, List<Text> texts)
         {
             var canvas1 = new Canvas(canvas, rectangle);
@@ -322,7 +377,7 @@ namespace Tåg_project.FileManipulation
             foreach (Text text in texts)
             {
                 float width = text.GetText().Length;
-                canvas1.Add(new Paragraph(text).SetFontSize(9).SetFixedPosition(x,y,rectangle.GetWidth()));
+                canvas1.Add(new Paragraph(text).SetFontSize(9).SetFont(font).SetFixedPosition(x,y,rectangle.GetWidth()));
                 y -= 12;
             }
             //canvas.Rectangle(rectangle);
