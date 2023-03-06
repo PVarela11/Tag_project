@@ -25,6 +25,7 @@ namespace Tåg_project.FileManipulation
     {
         Text label, value, cleanText, troublesootingText, repairText, newT, summaryText;
         List<Text> texts = new List<Text>();
+        int componentCounter = 1, titleCounter = 1, subtitleCounter = 1, imageCounter;
         public string serialNum { get; set; }
         Document document;
         PdfFont font = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
@@ -97,6 +98,7 @@ namespace Tåg_project.FileManipulation
                 //Edit Layout
                 document.SetMargins(80, 80, 80, 80);
 
+                #region First page "Label"
                 pdf.AddNewPage();
                 var page1 = pdf.GetPage(1);
                 var canvas1 = new PdfCanvas(page1);
@@ -125,7 +127,9 @@ namespace Tåg_project.FileManipulation
                 texts.Clear();
 
                 document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                #endregion
 
+                #region Second page "Info"
                 pdf.AddNewPage();
                 var page2 = pdf.GetPage(2);
                 var canvas = new PdfCanvas(page2);
@@ -264,11 +268,11 @@ namespace Tåg_project.FileManipulation
                 .ShowText("Repair was done but problem still exists")
                 .EndText();
                 canvas.Release();
+                #endregion
 
-                #region Components
+                #region Third page "Components"
                 document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                document.Add(setTitle("Components"));
-                
+                document.Add(setTitle(titleCounter + "  Components"));
                 InsertComponent(pdf, listaComponentes);
                 #endregion
 
@@ -339,7 +343,7 @@ namespace Tåg_project.FileManipulation
                 {
                     foreach(Component comp in listaComponentes)
                     {
-                        text = new Paragraph(comp.name);
+                        text = new Paragraph(titleCounter + "." + subtitleCounter + "." + componentCounter + "  " + comp.name);
                         document.Add(text.SetFontSize(9).SetFont(font).SetBold());
                         text = new Paragraph(comp.description);
                         document.Add(text.SetFontSize(8).SetFont(font));
@@ -347,6 +351,8 @@ namespace Tåg_project.FileManipulation
                         Image image1 = new Image(ima);
                         image1.ScaleToFit(200, 200);
                         document.Add(image1);
+                        text = new Paragraph("Figure " + imageCounter + ".  " + comp.name);
+                        document.Add(text.SetFontSize(9).SetFont(font).SetBold());
                         document.Add(new Paragraph("\n"));
                     }
                     return;

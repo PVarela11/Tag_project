@@ -326,7 +326,7 @@ namespace Tåg_project.FileManipulation
                 else if (i == 2)
                 {
                     fileExtension = Path.GetExtension(comp.componentAfterImg);
-                    imgPath = folder + "ComponentAfterIMG" + fileExtension;
+                    imgPath = folder + "/ComponentAfterIMG" + fileExtension;
                     if (!CheckIfImageExists(folder, "ComponentAfterIMG" + fileExtension))
                     {
                         using (FileStream stream = new FileStream(imgPath, FileMode.Create))
