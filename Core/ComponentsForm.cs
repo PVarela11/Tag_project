@@ -129,5 +129,26 @@ namespace Tåg_project.Core
             }
             return true;
         }
+
+        private void txtDescription_TextChanged(object sender, EventArgs e)
+        {
+            // Limit the number of lines to 3
+            int maxLines = 3;
+
+            // Get the current number of lines
+            int numLines = txtDescription.GetLineFromCharIndex(txtDescription.TextLength) + 1;
+
+            // If the number of lines exceeds the limit, delete the extra lines
+            if (numLines > maxLines)
+            {
+                int firstCharIndex = txtDescription.GetFirstCharIndexFromLine(maxLines);
+                // Make sure the start index is valid
+                if (firstCharIndex >= 0 && firstCharIndex < txtDescription.TextLength)
+                {
+                    txtDescription.Text = txtDescription.Text.Remove(firstCharIndex);
+                    txtDescription.SelectionStart = txtDescription.TextLength;
+                }
+            }
+        }
     }
 }

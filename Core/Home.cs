@@ -50,63 +50,6 @@ namespace Tåg_project.Core
             btnPrev.Enabled = false;
         }
 
-        private void btnAddComponent_Click(object sender, EventArgs e)
-        {
-            using (ComponentsForm formComponent = new ComponentsForm())
-            {
-                if (formComponent.ShowDialog() == DialogResult.OK)
-                {
-                    if (listaComponentes == null)
-                    {
-                        listaComponentes = formComponent.componentsList;
-                        if(!(listaComponentes.Count == 0))
-                        {
-                            lblComponent.Text = listaComponentes.Count.ToString() + " components imported";
-                        }
-                    }
-                    else
-                    {
-                        listaComponentes.AddRange(formComponent.componentsList);
-                        lblComponent.Text = listaComponentes.Count.ToString() + " components imported";
-                    }
-                    
-                }
-            }
-        }
-
-        private void btnClearComponents_Click(object sender, EventArgs e)
-        {
-            string folder = path + "\\Components";
-            DirectoryInfo dir;
-            if (isImported)
-            {
-                if(listaComponentes.Count > 0)
-                {
-                    dir = new DirectoryInfo(folder);
-                    dir.Attributes = dir.Attributes & ~FileAttributes.ReadOnly;
-                    dir.Delete(true);
-                    listaComponentes.Clear();
-                    lblComponent.Text = "No components added yet";
-                }
-            }else if (isExported)
-            {
-                if (listaComponentes.Count > 0)
-                {
-                    dir = new DirectoryInfo(folder);
-                    dir.Attributes = dir.Attributes & ~FileAttributes.ReadOnly;
-                    dir.Delete(true);
-                    listaComponentes.Clear();
-                    lblComponent.Text = "No components added yet";
-                }
-            }
-            else
-            {
-                listaComponentes.Clear();
-                lblComponent.Text = "No components added yet";
-            }
-                
-        }
-
         private void UpdateDesign()
         {
             if(initialImagesPath.Count>0)
@@ -314,6 +257,63 @@ namespace Tåg_project.Core
         #endregion
 
         #region Design controls actions
+        private void btnAddComponent_Click(object sender, EventArgs e)
+        {
+            using (ComponentsForm formComponent = new ComponentsForm())
+            {
+                if (formComponent.ShowDialog() == DialogResult.OK)
+                {
+                    if (listaComponentes == null)
+                    {
+                        listaComponentes = formComponent.componentsList;
+                        if (!(listaComponentes.Count == 0))
+                        {
+                            lblComponent.Text = listaComponentes.Count.ToString() + " components imported";
+                        }
+                    }
+                    else
+                    {
+                        listaComponentes.AddRange(formComponent.componentsList);
+                        lblComponent.Text = listaComponentes.Count.ToString() + " components imported";
+                    }
+
+                }
+            }
+        }
+
+        private void btnClearComponents_Click(object sender, EventArgs e)
+        {
+            string folder = path + "\\Components";
+            DirectoryInfo dir;
+            if (isImported)
+            {
+                if (listaComponentes.Count > 0)
+                {
+                    dir = new DirectoryInfo(folder);
+                    dir.Attributes = dir.Attributes & ~FileAttributes.ReadOnly;
+                    dir.Delete(true);
+                    listaComponentes.Clear();
+                    lblComponent.Text = "No components added yet";
+                }
+            }
+            else if (isExported)
+            {
+                if (listaComponentes.Count > 0)
+                {
+                    dir = new DirectoryInfo(folder);
+                    dir.Attributes = dir.Attributes & ~FileAttributes.ReadOnly;
+                    dir.Delete(true);
+                    listaComponentes.Clear();
+                    lblComponent.Text = "No components added yet";
+                }
+            }
+            else
+            {
+                listaComponentes.Clear();
+                lblComponent.Text = "No components added yet";
+            }
+
+        }
         private void lblTroubleshoot_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ShowFile.OpenFile("Troubleshooting.pdf");

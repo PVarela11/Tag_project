@@ -61,7 +61,7 @@
             // 
             this.lblDescription.AutoSize = true;
             this.lblDescription.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblDescription.Location = new System.Drawing.Point(25, 302);
+            this.lblDescription.Location = new System.Drawing.Point(25, 320);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(78, 19);
             this.lblDescription.TabIndex = 5;
@@ -73,12 +73,13 @@
             this.txtDescription.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDescription.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtDescription.Location = new System.Drawing.Point(28, 335);
+            this.txtDescription.Location = new System.Drawing.Point(29, 355);
             this.txtDescription.Margin = new System.Windows.Forms.Padding(2);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(742, 104);
+            this.txtDescription.Size = new System.Drawing.Size(742, 84);
             this.txtDescription.TabIndex = 52;
+            this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
             // 
             // btnClearImage
             // 
@@ -122,7 +123,7 @@
             // 
             this.btnNewComponent.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnNewComponent.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNewComponent.Location = new System.Drawing.Point(341, 457);
+            this.btnNewComponent.Location = new System.Drawing.Point(81, 498);
             this.btnNewComponent.Margin = new System.Windows.Forms.Padding(2);
             this.btnNewComponent.Name = "btnNewComponent";
             this.btnNewComponent.Size = new System.Drawing.Size(118, 28);
@@ -135,7 +136,7 @@
             // 
             this.btnFinish.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnFinish.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFinish.Location = new System.Drawing.Point(341, 498);
+            this.btnFinish.Location = new System.Drawing.Point(301, 498);
             this.btnFinish.Margin = new System.Windows.Forms.Padding(2);
             this.btnFinish.Name = "btnFinish";
             this.btnFinish.Size = new System.Drawing.Size(118, 28);
@@ -149,7 +150,7 @@
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(341, 539);
+            this.btnCancel.Location = new System.Drawing.Point(550, 498);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(118, 28);
