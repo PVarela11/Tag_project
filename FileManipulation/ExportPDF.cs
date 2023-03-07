@@ -277,7 +277,7 @@ namespace Tåg_project.FileManipulation
                 #region Third page "Components"
                 titleCounter++;
                 document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                document.Add(new Paragraph((titleCounter + ".   Components")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
+                document.Add(new Paragraph((titleCounter + ".   Components\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
                 InsertComponent(pdf, listaComponentes);
                 #endregion
 
