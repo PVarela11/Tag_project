@@ -243,6 +243,8 @@
     <Content Include="Resources\CleaningOuter.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\MotionControlLogo.png" />
+    <None Include="Resources\mc.png" />
     <Content Include="Resources\PCB Report Creator User Manual.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

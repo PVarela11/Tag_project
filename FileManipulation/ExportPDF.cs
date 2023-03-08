@@ -29,6 +29,7 @@ namespace Tåg_project.FileManipulation
         List<Text> texts = new List<Text>();
         int componentCounter = 1, titleCounter = 1, subtitleCounter = 1, imageCounter = 1, pages = 1;
         Image imageBefore, imageAfter;
+        Paragraph title;
         public string serialNum { get; set; }
         Document document;
         PdfFont font = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
@@ -281,9 +282,10 @@ namespace Tåg_project.FileManipulation
                 #region Third page "Components"
                 titleCounter++;
                 document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                document.Add(new Paragraph(("\n" + titleCounter + ".   Components\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
+                document.Add(new Paragraph((titleCounter + ".   Components\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
                 InsertComponent(pdf, listaComponentes);
                 //Cleaning
+                document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                 titleCounter++;
                 document.Add(new Paragraph((titleCounter + ".   Components Cleaning\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
                 var pageX = pdf.GetPage(pages);
@@ -295,31 +297,41 @@ namespace Tåg_project.FileManipulation
                 var table = new iText.Layout.Element.Table(new float[] { 1, 1 }).UseAllAvailableWidth();
                 table.SetFixedLayout();
                 var emptyCell = new Cell().SetBorder(Border.NO_BORDER);
-                var resto = listaComponentes.Count() % 3;
-                int h = 140;
-                int w = 140;
+                //var resto = listaComponentes.Count() % 3;
+                var compCounter = 0;
+
                 foreach (Component comp in listaComponentes)
                 {
-                    
-                    //if(resto != 0)
-                    //{
-                    // Create two Paragraph objects for the descriptions
-                    var title = new Paragraph((titleCounter + "." + subtitleCounter + " " + comp.name + " Cleaning\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold();
+                    if (compCounter == 1 || compCounter == 2)
+                    {
+                        title = new Paragraph(("\n\n" + titleCounter + "." + subtitleCounter + " " + comp.name + " Cleaning\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold();
+                    }
+                    else title = new Paragraph((titleCounter + "." + subtitleCounter + " " + comp.name + " Cleaning\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold();
                         
                     // Create two new cells for the descriptions
                     var titleCell = new Cell().Add(title).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(5).SetTextAlignment(TextAlignment.LEFT);
 
                     // Create two Image objects
-                    imageBefore = new Image(ImageDataFactory.Create(comp.componentBeforeImg)).SetAutoScale(true).SetMaxHeight(200).SetMaxWidth(200);
-                    imageAfter = new Image(ImageDataFactory.Create(comp.componentAfterImg)).SetAutoScale(true).SetMaxHeight(200).SetMaxWidth(200);
+                    ImageData im1 = ImageDataFactory.Create(comp.componentBeforeImg);
+                    ImageData im2 = ImageDataFactory.Create(comp.componentAfterImg);
+                    
+                    imageBefore = new Image(im1);
+                    imageAfter = new Image(im2);
+                    //image.ScaleToFit(175,175);
+                    imageBefore.SetMaxHeight(140);
+                    imageBefore.SetMaxWidth(175);
+                    imageAfter.SetMaxHeight(140);
+                    imageAfter.SetMaxWidth(175);
                     imageAfter.SetHorizontalAlignment(HorizontalAlignment.RIGHT);
 
                     Cell cell1 = new Cell().Add(imageBefore).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(10);
                     Cell cell2 = new Cell().Add(imageAfter).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(10);
 
                     // Create two Paragraph objects for the descriptions
-                    var description1 = new Paragraph("Description of image 1").SetFontSize(9).SetFont(font);
-                    var description2 = new Paragraph("Description of image 2").SetFontSize(9).SetFont(font).SetTextAlignment(TextAlignment.RIGHT);
+                    var description1 = new Paragraph("Figure." + imageCounter + " " + comp.name +" before cleaning").SetFontSize(9).SetFont(font);
+                    imageCounter++;
+                    var description2 = new Paragraph("Figure." + imageCounter + " " + comp.name + " after cleaning").SetFontSize(9).SetFont(font).SetTextAlignment(TextAlignment.RIGHT);
+                    imageCounter++;
 
                     // Create two new cells for the descriptions
                     var descriptionCell1 = new Cell().Add(description1).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(5).SetTextAlignment(TextAlignment.LEFT);
@@ -333,63 +345,17 @@ namespace Tåg_project.FileManipulation
                     // Add the description cells to the second row of the table
                     table.AddCell(descriptionCell1);
                     table.AddCell(descriptionCell2);
-                    resto++;
+                    compCounter++;
                     subtitleCounter++;
-                    document.Add(new Paragraph("\n\n"));
-                    if (resto == 2)
+                    if (compCounter == 3)
                     {
                         // If the combined height is greater than the available height, add a new page
                         document.Add(table);
                         document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                         table = new iText.Layout.Element.Table(new float[] { 1, 1 }).UseAllAvailableWidth();
                         table.SetFixedLayout();
-                        resto = 0;
+                        compCounter = 0;
                     }
-                    //}
-                    //else
-                    //{
-                    //    // Create two Paragraph objects for the descriptions
-                    //    var title = new Paragraph((titleCounter + "." + subtitleCounter + " " + comp.name + " Cleaning\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold();
-                    //
-                    //    // Create two new cells for the descriptions
-                    //    var titleCell = new Cell().Add(title).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(5).SetTextAlignment(TextAlignment.LEFT);
-                    //
-                    //    // Create two Image objects
-                    //    imageBefore = new Image(ImageDataFactory.Create(comp.componentBeforeImg)).SetHeight(125);
-                    //    imageAfter = new Image(ImageDataFactory.Create(comp.componentAfterImg)).SetHeight(125);
-                    //
-                    //    Cell cell1 = new Cell().Add(imageBefore).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(2);
-                    //    Cell cell2 = new Cell().Add(imageAfter).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(2);
-                    //
-                    //    // Create two Paragraph objects for the descriptions
-                    //    var description1 = new Paragraph("Description of image 1").SetFontSize(9).SetFont(font);
-                    //    var description2 = new Paragraph("Description of image 2").SetFontSize(9).SetFont(font);
-                    //    // Create a new Div to wrap the description
-                    //    Div descriptionDiv1 = new Div().Add(description1);
-                    //
-                    //    // Set the border of the descriptionDiv
-                    //    descriptionDiv1.SetBorder(new SolidBorder(1));
-                    //
-                    //    // Create a new Div to wrap the description
-                    //    Div descriptionDiv2 = new Div().Add(description2);
-                    //
-                    //    // Set the border of the descriptionDiv
-                    //    descriptionDiv2.SetBorder(new SolidBorder(1));
-                    //
-                    //    // Create two new cells for the descriptions
-                    //    var descriptionCell1 = new Cell().Add(description1).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(5).SetTextAlignment(TextAlignment.LEFT);
-                    //    var descriptionCell2 = new Cell().Add(description2).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(5).SetTextAlignment(TextAlignment.LEFT);
-                    //    // Add the description cells to the second row of the table
-                    //    table.AddCell(titleCell);
-                    //    table.AddCell(emptyCell);
-                    //    // Add the images to the table
-                    //    table.AddCell(cell1);
-                    //    table.AddCell(cell2);
-                    //    // Add the description cells to the second row of the table
-                    //    table.AddCell(descriptionDiv1);
-                    //    table.AddCell(descriptionDiv2);
-                    //}
-
                 }
 
                 // Add the table to the document

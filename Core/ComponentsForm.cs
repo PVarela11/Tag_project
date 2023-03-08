@@ -39,9 +39,9 @@ namespace Tåg_project.Core
                 componentAfterImg = null;
                 txtComponent.Clear();
                 txtDescription.Clear();
-                lblImage.Text = "Import component image";
-                lblImportAfterImage.Text = "Import component image";
-                lblImportBeforeImage.Text = "Import component image";
+                lblImage.Text = "Component image";
+                lblImportAfterImage.Text = "Component image\r\nbefore cleaning";
+                lblImportBeforeImage.Text = "Component image\r\nafter cleaning";
             }
         }
 
