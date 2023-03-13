@@ -8,6 +8,7 @@ using iText.Kernel.Pdf.Canvas;
 using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.Pdfa;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -113,24 +114,59 @@ namespace Tåg_project.FileManipulation
 
                 #region First page "Label"
                 //Add label and title to first page
-                document.Add(setTitle(("\n" + "REPORT CONCERNING CLEANING AND DISASSEMBLY OF PCB " + serialNum + "\n\n")).SetFontSize(24).SetFont(font));
+                document.Add(setTitle(("REPORT CONCERNING CLEANING AND DISASSEMBLY OF PCB " + serialNum + "\n\n")).SetFontSize(24).SetFont(font));
                 ImageData im = ImageDataFactory.Create(labelPath);
                 Image image = new Image(im);
-                //image.ScaleToFit(PageSize.A4.GetWidth() / 3, PageSize.A4.GetHeight() / 3);
-                //image.ScaleToFit(200, 200);
+                float docLeftMargin = document.GetLeftMargin();
+                float docRightMargin = document.GetRightMargin();
+                float documentWidth = PageSize.A4.GetWidth() - docLeftMargin - docRightMargin;
+                //image.SetMaxHeight(PageSize.A4.GetHeight() / 2);
+                //image.SetMaxWidth(documentWidth);
+                image.ScaleToFit(documentWidth, (PageSize.A4.GetHeight() / 2));
+                float imageWidth = image.GetImageScaledWidth();
+                //image.ScaleToFit(imageWidth, PageSize.A4.GetHeight() / 2);
+                float imageHeight = image.GetImageScaledHeight();
+                Console.WriteLine(image.GetImageScaledHeight());
+                Console.WriteLine(image.GetImageScaledWidth());
+                float pageTop = PageSize.A4.GetTop();
+                float pageBottom = PageSize.A4.GetBottom();
+                
+
+                if (documentWidth > imageWidth)
+                {
+                    float x = (documentWidth - imageWidth) / 2;
+                }
+                //if (imageWidth < imageHeight)
+                //{
+                image.SetHorizontalAlignment(HorizontalAlignment.CENTER);
+                image.SetMarginLeft(x);
+                //}
+                ////image.ScaleToFit(610, 264);
+                
                 document.Add(image);
-                document.Add(new Paragraph("\n\n\n\n"));
+                //document.Add(new Paragraph("\n\n\n\n"));
 
                 //Draw rectangle in first page for the summary
-                document.Add(new Paragraph("Summary:").SetFont(font).SetBold());
-                var newY = image.GetImageHeight();
-                Rectangle summaryRectangle = new Rectangle(PageSize.A4.GetLeft() + 80, PageSize.A4.GetBottom() + 220, PageSize.A4.GetRight() - 160, 100);
+                //document.Add(new Paragraph("Summary:").SetFont(font).SetBold().SetFontSize(10));
+                
+                if (imageHeight > pageTop)
+                {
+                    imageHeight = PageSize.A4.GetHeight() / 2;
+                }
+                float bellowImg = PageSize.A4.GetTop() - (imageHeight + 80 + 48);
+                
+                
+                Rectangle summaryRectangle = new Rectangle(PageSize.A4.GetLeft() + 80, bellowImg - 200, PageSize.A4.GetRight() - 160, 100);
+                
+                
                 canvas1.Rectangle(summaryRectangle);
                 canvas1.Stroke();
 
+                texts.Add(new Text("Summary:\n").SetFont(font).SetBold());
                 texts.Add(summaryText);
                 //texts.Add(troublesootingText);
                 //texts.Add(repairText);
+                
                 addTextRectangle(canvas1, summaryRectangle, texts);
                 texts.Clear();
 
@@ -280,87 +316,91 @@ namespace Tåg_project.FileManipulation
                 #endregion
 
                 #region Third page "Components"
-                titleCounter++;
-                document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                document.Add(new Paragraph((titleCounter + ".   Components\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
-                InsertComponent(pdf, listaComponentes);
-                //Cleaning
-                document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                titleCounter++;
-                document.Add(new Paragraph((titleCounter + ".   Components Cleaning\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
-                var pageX = pdf.GetPage(pages);
-                var canvasX = new PdfCanvas(pageX);
-
-                // Create a new table with two columns
-                float tableWidth = PageSize.A4.GetWidth() - document.GetLeftMargin() - document.GetRightMargin();
-                //Table table = new Table(UnitValue.CreatePointArray(new float[] { tableWidth / 2, tableWidth / 2 }));
-                var table = new iText.Layout.Element.Table(new float[] { 1, 1 }).UseAllAvailableWidth();
-                table.SetFixedLayout();
-                var emptyCell = new Cell().SetBorder(Border.NO_BORDER);
-                //var resto = listaComponentes.Count() % 3;
-                var compCounter = 0;
-
-                foreach (Component comp in listaComponentes)
+                if (listaComponentes != null)
                 {
-                    if (compCounter == 1 || compCounter == 2)
-                    {
-                        title = new Paragraph(("\n\n" + titleCounter + "." + subtitleCounter + " " + comp.name + " Cleaning\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold();
-                    }
-                    else title = new Paragraph((titleCounter + "." + subtitleCounter + " " + comp.name + " Cleaning\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold();
-                        
-                    // Create two new cells for the descriptions
-                    var titleCell = new Cell().Add(title).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(5).SetTextAlignment(TextAlignment.LEFT);
-
-                    // Create two Image objects
-                    ImageData im1 = ImageDataFactory.Create(comp.componentBeforeImg);
-                    ImageData im2 = ImageDataFactory.Create(comp.componentAfterImg);
+                    titleCounter++;
+                    document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                    document.Add(new Paragraph((titleCounter + "   Components\n\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
+                    document.Add(new Paragraph((titleCounter + "." + subtitleCounter + "  Components List:\n")).SetFont(font).SetFontSize(12).SetMarginTop(0f).SetBold());
+                    InsertComponent(pdf, listaComponentes);
+                    titleCounter++;
+                    //Cleaning
+                    document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                     
-                    imageBefore = new Image(im1);
-                    imageAfter = new Image(im2);
-                    //image.ScaleToFit(175,175);
-                    imageBefore.SetMaxHeight(140);
-                    imageBefore.SetMaxWidth(175);
-                    imageAfter.SetMaxHeight(140);
-                    imageAfter.SetMaxWidth(175);
-                    imageAfter.SetHorizontalAlignment(HorizontalAlignment.RIGHT);
+                    document.Add(new Paragraph((titleCounter + "   Components Cleaning\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
+                    var pageX = pdf.GetPage(pages);
+                    var canvasX = new PdfCanvas(pageX);
 
-                    Cell cell1 = new Cell().Add(imageBefore).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(10);
-                    Cell cell2 = new Cell().Add(imageAfter).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(10);
+                    // Create a new table with two columns
+                    float tableWidth = PageSize.A4.GetWidth() - document.GetLeftMargin() - document.GetRightMargin();
+                    //Table table = new Table(UnitValue.CreatePointArray(new float[] { tableWidth / 2, tableWidth / 2 }));
+                    var table = new iText.Layout.Element.Table(new float[] { 1, 1 }).UseAllAvailableWidth();
+                    table.SetFixedLayout();
+                    var emptyCell = new Cell().SetBorder(Border.NO_BORDER);
+                    //var resto = listaComponentes.Count() % 3;
+                    var compCounter = 0;
 
-                    // Create two Paragraph objects for the descriptions
-                    var description1 = new Paragraph("Figure." + imageCounter + " " + comp.name +" before cleaning").SetFontSize(9).SetFont(font);
-                    imageCounter++;
-                    var description2 = new Paragraph("Figure." + imageCounter + " " + comp.name + " after cleaning").SetFontSize(9).SetFont(font).SetTextAlignment(TextAlignment.RIGHT);
-                    imageCounter++;
-
-                    // Create two new cells for the descriptions
-                    var descriptionCell1 = new Cell().Add(description1).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(5).SetTextAlignment(TextAlignment.LEFT);
-                    var descriptionCell2 = new Cell().Add(description2).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(5).SetTextAlignment(TextAlignment.LEFT);
-                    // Add the description cells to the second row of the table
-                    table.AddCell(titleCell);
-                    table.AddCell(emptyCell);
-                    // Add the images to the table
-                    table.AddCell(cell1);
-                    table.AddCell(cell2);
-                    // Add the description cells to the second row of the table
-                    table.AddCell(descriptionCell1);
-                    table.AddCell(descriptionCell2);
-                    compCounter++;
-                    subtitleCounter++;
-                    if (compCounter == 3)
+                    foreach (Component comp in listaComponentes)
                     {
-                        // If the combined height is greater than the available height, add a new page
-                        document.Add(table);
-                        document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                        table = new iText.Layout.Element.Table(new float[] { 1, 1 }).UseAllAvailableWidth();
-                        table.SetFixedLayout();
-                        compCounter = 0;
+                        if (compCounter == 1 || compCounter == 2)
+                        {
+                            title = new Paragraph(("\n\n" + titleCounter + "." + subtitleCounter + " " + comp.name + " Cleaning\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold();
+                        }
+                        else title = new Paragraph((titleCounter + "." + subtitleCounter + " " + comp.name + " Cleaning\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold();
+
+                        // Create two new cells for the descriptions
+                        var titleCell = new Cell().Add(title).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(5).SetTextAlignment(TextAlignment.LEFT);
+
+                        // Create two Image objects
+                        ImageData im1 = ImageDataFactory.Create(comp.componentBeforeImg);
+                        ImageData im2 = ImageDataFactory.Create(comp.componentAfterImg);
+
+                        imageBefore = new Image(im1);
+                        imageAfter = new Image(im2);
+                        //image.ScaleToFit(175,175);
+                        imageBefore.SetMaxHeight(140);
+                        imageBefore.SetMaxWidth(175);
+                        imageAfter.SetMaxHeight(140);
+                        imageAfter.SetMaxWidth(175);
+                        imageAfter.SetHorizontalAlignment(HorizontalAlignment.RIGHT);
+
+                        Cell cell1 = new Cell().Add(imageBefore).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(10);
+                        Cell cell2 = new Cell().Add(imageAfter).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(10);
+
+                        // Create two Paragraph objects for the descriptions
+                        var description1 = new Paragraph("Figure." + imageCounter + " " + comp.name + " before cleaning").SetFontSize(9).SetFont(font);
+                        imageCounter++;
+                        var description2 = new Paragraph("Figure." + imageCounter + " " + comp.name + " after cleaning").SetFontSize(9).SetFont(font).SetTextAlignment(TextAlignment.RIGHT);
+                        imageCounter++;
+
+                        // Create two new cells for the descriptions
+                        var descriptionCell1 = new Cell().Add(description1).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(5).SetTextAlignment(TextAlignment.LEFT);
+                        var descriptionCell2 = new Cell().Add(description2).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(5).SetTextAlignment(TextAlignment.LEFT);
+                        // Add the description cells to the second row of the table
+                        table.AddCell(titleCell);
+                        table.AddCell(emptyCell);
+                        // Add the images to the table
+                        table.AddCell(cell1);
+                        table.AddCell(cell2);
+                        // Add the description cells to the second row of the table
+                        table.AddCell(descriptionCell1);
+                        table.AddCell(descriptionCell2);
+                        compCounter++;
+                        subtitleCounter++;
+                        if (compCounter == 3)
+                        {
+                            // If the combined height is greater than the available height, add a new page
+                            document.Add(table);
+                            document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                            table = new iText.Layout.Element.Table(new float[] { 1, 1 }).UseAllAvailableWidth();
+                            table.SetFixedLayout();
+                            compCounter = 0;
+                        }
                     }
+
+                    // Add the table to the document
+                    document.Add(table);
                 }
-
-                // Add the table to the document
-                document.Add(table);
-
                 #endregion
 
                 #region after and before clean
@@ -423,6 +463,12 @@ namespace Tåg_project.FileManipulation
             int i = 0;
             Paragraph text;
 
+            foreach (Component comp in listaComponentes)
+            {
+                text = new Paragraph("\0\t\t" + "• " + comp.name);
+                document.Add(text.SetFontSize(9).SetFont(font).SetBold());
+            }
+
             for (i = 0; i < listaComponentes.Count; i++)
             {
                 text = new Paragraph(titleCounter + "." + subtitleCounter + "." + componentCounter + "  " + listaComponentes[i].name);
@@ -455,7 +501,7 @@ namespace Tåg_project.FileManipulation
             foreach (Text text in texts)
             {
                 float width = text.GetText().Length;
-                canvas1.Add(new Paragraph(text).SetFontSize(9).SetFont(font).SetFixedPosition(x,y,rectangle.GetWidth()));
+                canvas1.Add(new Paragraph(text).SetFont(font).SetFixedPosition(x,y,rectangle.GetWidth()));
                 y -= 12;
             }
             //canvas.Rectangle(rectangle);
@@ -523,13 +569,12 @@ namespace Tåg_project.FileManipulation
             // Load the image
             using (MemoryStream memoryStream = new MemoryStream())
             {
-                using (Bitmap original = new Bitmap(Properties.Resources.teste))
+                using (Bitmap original = new Bitmap(Properties.Resources.mc_2))
                 {
                     original.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
                     byte[] imageBytes = memoryStream.ToArray();
                     ImageData image = ImageDataFactory.Create(imageBytes);
-                    pdfCanvas.AddImageAt(image, pageSize.GetLeft() + 80, pageSize.GetTop() - 50, false);
-
+                    pdfCanvas.AddImageAt(image, pageSize.GetLeft() + 80, pageSize.GetTop() - 52, false);
                     // Add the text to the middle
                     float textW = font.GetWidth("Report ", 9);
                     float tx = ((pageSize.GetWidth() - textW) / 2);

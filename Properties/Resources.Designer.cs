@@ -73,9 +73,9 @@ namespace Tåg_project.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap mc {
+        internal static System.Drawing.Bitmap mc_2 {
             get {
-                object obj = ResourceManager.GetObject("mc", resourceCulture);
+                object obj = ResourceManager.GetObject("mc_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -77,13 +77,13 @@ namespace Tåg_project.FileManipulation
             Console.WriteLine(tempPath);
             if(serialNum.Length > 8)
             {
-                serialNum = serialNum.Substring(4);
+                serialNum = serialNum.Substring(8);
             }
             string report = serialNum;
 
             if (!tempPath.Contains(report))
             {
-                path = tempPath + report;
+                path = tempPath + "\\" + report;
             }
             else path = tempPath;
             initialImagesFolder = path + "\\BeforeClean";

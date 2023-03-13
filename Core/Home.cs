@@ -43,6 +43,7 @@ namespace Tåg_project.Core
             {
                 week = "0" + weekNumber;
             }
+            else week = weekNumber.ToString();
             lastTwoDigitsOfYear = date.ToString("yy");
 
             pboxImages.Enabled = false;
@@ -70,7 +71,8 @@ namespace Tåg_project.Core
                 {
                     isImported = true;
                     txtSerialNum.Enabled = false;
-                    txtSerialNum.Text = serialNum.Substring(4);
+                    //txtSerialNum.Text = serialNum.Substring(4);
+                    txtSerialNum.Text = serialNum;
                     cboxClean.Checked = import.isClean; ;
                     isClean = import.isClean;
                     cboxTroubleshoot.Checked = import.troubleshoot;
@@ -124,13 +126,14 @@ namespace Tåg_project.Core
         private void Export()
         {
             //Checks if textbox has data and saves the string as int
-            if (txtSerialNum.Text != "" && import == null)
-            {
-                serialNum = lastTwoDigitsOfYear + week + txtSerialNum.Text;
-                Console.WriteLine(serialNum.ToString());
-            }
+            //if (txtSerialNum.Text != "" && import == null)
+            //{
+            //    //serialNum = lastTwoDigitsOfYear + week + txtSerialNum.Text;
+            //    Console.WriteLine(serialNum.ToString());
+            //}
             if (validateInputs(0))
             {
+                serialNum = txtSerialNum.Text;
                 isClean = cboxClean.Checked;
                 observations = txtObservations.Text;
                 comments = txtComments.Text;
@@ -185,9 +188,9 @@ namespace Tåg_project.Core
         {
             if (page == 0)
             {
-                if (txtSerialNum.TextLength < 4)
+                if (txtSerialNum.TextLength < 8)
                 {
-                    MessageBox.Show("Serial Number should be 4 digits");
+                    MessageBox.Show("Serial Number should be 8 digits");
                     return false;
                 }
                 else if (initialImagesPath.Count == 0)
@@ -222,7 +225,13 @@ namespace Tåg_project.Core
         private void ExportPDF(string p)
         {
             //Export();
-            //serialNum = lastTwoDigitsOfYear + week + txtSerialNum.Text;
+            //if (serialNum == null)
+            //{
+            //    //Console.WriteLine(serialNum);
+            //    MessageBox.Show("Serial number should be 8 digits");
+            //    return;
+            //    //serialNum = lastTwoDigitsOfYear + week + txtSerialNum.Text;
+            //}
             isClean = cboxClean.Checked;
             troubleshoot = cboxTroubleshoot.Checked;
             repair = cboxRepair.Checked;
@@ -379,11 +388,6 @@ namespace Tåg_project.Core
 
             else return;
         }
-
-        //private void cboxComponents_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    txtComponents.Enabled = cboxComponents.Checked;
-        //}
 
         private void btnCreatePDF_Click(object sender, EventArgs e)
         {
