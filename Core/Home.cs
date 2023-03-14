@@ -35,6 +35,7 @@ namespace Tåg_project.Core
         {
             pnlFinal.Width = 0;
             pnlBoxes.Width = 0;
+            pnlComponents.Width = 0;
             lblTopPanel.Text = "Identification";
             DateTime date = DateTime.Now;
             CultureInfo ci = CultureInfo.InvariantCulture;
@@ -211,14 +212,14 @@ namespace Tåg_project.Core
                     return false;
                 }
             }
-            else if (page == 2)
-            {
-                if (finalImagesPath.Count == 0)
-                {
-                    MessageBox.Show("You should import some images of the PCB first");
-                    return false;
-                }
-            }
+            //else if (page == 2)
+            //{
+            //    if (finalImagesPath.Count == 0)
+            //    {
+            //        MessageBox.Show("You should import some images of the PCB first");
+            //        return false;
+            //    }
+            //}
             return true;
         }
 
@@ -452,30 +453,6 @@ namespace Tåg_project.Core
 
         }
 
-        private void btnPrev_Click(object sender, EventArgs e)
-        {
-            if (page == 1)
-            {
-                lblTitle.Visible = true;
-                lblTopPanel.Text = "Identification";
-                btnPrev.Enabled = false;
-                pnlFirst.Width = pnlBoxes.Width;
-                pnlBoxes.Width = pnlFinal.Width = 0;
-                page--;
-            }
-            else if (page == 2)
-            {
-                iconButton1.IconChar = FontAwesome.Sharp.IconChar.Save;
-                iconButton1.Click -= btnCreatePDF_Click;
-                iconButton1.Click += new EventHandler(btnExport_Click);
-                lblTopPanel.Text = "PCB Process";
-                pnlBoxes.Width = pnlFinal.Width;
-                pnlFirst.Width = pnlFinal.Width = 0;
-                page--;
-                btnNext.Enabled = true;
-            }
-        }
-
         private void pboxImages_Click(object sender, EventArgs e)
         {
             if (aux < initialImagesPath.Count - 1)
@@ -526,14 +503,64 @@ namespace Tåg_project.Core
             {
                 lblTopPanel.Text = "Results";
                 page++;
-                iconButton1.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
-                iconButton1.Click -= btnExport_Click;
-                iconButton1.Click += new EventHandler(btnCreatePDF_Click);
+                //iconButton1.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
+                //iconButton1.Click -= btnExport_Click;
+                //iconButton1.Click += new EventHandler(btnCreatePDF_Click);
                 pnlFinal.Width = pnlBoxes.Width;
                 pnlBoxes.Width = 0;
                 pnlFirst.Width = 0;
                 //pnlMiddle.Width = 0;
-                btnNext.Enabled = false;
+                //btnNext.Enabled = false;
+            }
+            else if(page == 2)
+            {
+                lblTopPanel.Text = "Components";
+                page++;
+                btnNext.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
+                btnNext.Click -= btnNext_Click;
+                btnNext.Click += new EventHandler(btnCreatePDF_Click);
+                pnlComponents.Width = pnlFinal.Width;
+                pnlFinal.Width = 0;
+                pnlFirst.Width = 0;
+                pnlBoxes.Width = 0;
+                //btnNext.Enabled = false;
+            }
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (page == 1)
+            {
+                lblTitle.Visible = true;
+                lblTopPanel.Text = "Identification";
+                btnPrev.Enabled = false;
+                pnlFirst.Width = pnlBoxes.Width;
+                pnlBoxes.Width = pnlFinal.Width = 0;
+                page--;
+            }
+            else if (page == 2)
+            {
+                //iconButton1.IconChar = FontAwesome.Sharp.IconChar.Save;
+                //iconButton1.Click -= btnCreatePDF_Click;
+                //iconButton1.Click += new EventHandler(btnExport_Click);
+                lblTopPanel.Text = "PCB Process";
+                pnlBoxes.Width = pnlFinal.Width;
+                pnlFirst.Width = pnlFinal.Width = 0;
+                page--;
+                btnNext.Enabled = true;
+            }
+            else if (page == 3)
+            {
+                btnNext.IconChar = FontAwesome.Sharp.IconChar.Forward;
+                btnNext.Click -= btnCreatePDF_Click;
+                btnNext.Click += new EventHandler(btnNext_Click);
+                lblTopPanel.Text = "Results";
+                pnlFinal.Width = pnlComponents.Width;
+                pnlFirst.Width = 0;
+                pnlComponents.Width = 0;
+                pnlBoxes.Width = 0;
+                page--;
+                btnNext.Enabled = true;
             }
         }
 

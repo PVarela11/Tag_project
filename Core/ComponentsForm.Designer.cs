@@ -31,9 +31,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.Label();
             this.txtDescription = new System.Windows.Forms.TextBox();
-            this.btnClearImage = new System.Windows.Forms.Button();
-            this.btnImportImage = new System.Windows.Forms.Button();
-            this.lblImage = new System.Windows.Forms.Label();
             this.btnNewComponent = new System.Windows.Forms.Button();
             this.btnFinish = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -48,6 +45,9 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.lblImage1 = new System.Windows.Forms.Label();
+            this.lblImage = new System.Windows.Forms.Label();
+            this.btnImportImage = new System.Windows.Forms.Button();
+            this.btnClearImage = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label2
@@ -83,44 +83,6 @@
             this.txtDescription.Size = new System.Drawing.Size(742, 84);
             this.txtDescription.TabIndex = 52;
             this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
-            // 
-            // btnClearImage
-            // 
-            this.btnClearImage.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnClearImage.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearImage.Location = new System.Drawing.Point(47, 220);
-            this.btnClearImage.Margin = new System.Windows.Forms.Padding(2);
-            this.btnClearImage.Name = "btnClearImage";
-            this.btnClearImage.Size = new System.Drawing.Size(118, 28);
-            this.btnClearImage.TabIndex = 56;
-            this.btnClearImage.Text = "Clear";
-            this.btnClearImage.UseVisualStyleBackColor = true;
-            this.btnClearImage.Click += new System.EventHandler(this.btnClearImage_Click);
-            // 
-            // btnImportImage
-            // 
-            this.btnImportImage.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnImportImage.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportImage.Location = new System.Drawing.Point(47, 188);
-            this.btnImportImage.Margin = new System.Windows.Forms.Padding(2);
-            this.btnImportImage.Name = "btnImportImage";
-            this.btnImportImage.Size = new System.Drawing.Size(118, 28);
-            this.btnImportImage.TabIndex = 55;
-            this.btnImportImage.Text = "Import";
-            this.btnImportImage.UseVisualStyleBackColor = true;
-            this.btnImportImage.Click += new System.EventHandler(this.btnImportImage_Click);
-            // 
-            // lblImage
-            // 
-            this.lblImage.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblImage.AutoSize = true;
-            this.lblImage.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblImage.Location = new System.Drawing.Point(43, 148);
-            this.lblImage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblImage.Name = "lblImage";
-            this.lblImage.Size = new System.Drawing.Size(124, 38);
-            this.lblImage.TabIndex = 53;
-            this.lblImage.Text = "Component Image\r\nfrom POV 2";
             // 
             // btnNewComponent
             // 
@@ -185,7 +147,7 @@
             // 
             this.btnClearBeforeImage.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnClearBeforeImage.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearBeforeImage.Location = new System.Drawing.Point(497, 220);
+            this.btnClearBeforeImage.Location = new System.Drawing.Point(441, 220);
             this.btnClearBeforeImage.Margin = new System.Windows.Forms.Padding(2);
             this.btnClearBeforeImage.Name = "btnClearBeforeImage";
             this.btnClearBeforeImage.Size = new System.Drawing.Size(118, 28);
@@ -198,7 +160,7 @@
             // 
             this.btnImportBeforeImage.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportBeforeImage.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportBeforeImage.Location = new System.Drawing.Point(497, 188);
+            this.btnImportBeforeImage.Location = new System.Drawing.Point(441, 188);
             this.btnImportBeforeImage.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportBeforeImage.Name = "btnImportBeforeImage";
             this.btnImportBeforeImage.Size = new System.Drawing.Size(118, 28);
@@ -212,7 +174,7 @@
             this.lblImportBeforeImage.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblImportBeforeImage.AutoSize = true;
             this.lblImportBeforeImage.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblImportBeforeImage.Location = new System.Drawing.Point(495, 148);
+            this.lblImportBeforeImage.Location = new System.Drawing.Point(437, 148);
             this.lblImportBeforeImage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblImportBeforeImage.Name = "lblImportBeforeImage";
             this.lblImportBeforeImage.Size = new System.Drawing.Size(123, 38);
@@ -261,7 +223,7 @@
             // 
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(220, 220);
+            this.button1.Location = new System.Drawing.Point(48, 220);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(118, 28);
@@ -273,7 +235,7 @@
             // 
             this.button2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(220, 188);
+            this.button2.Location = new System.Drawing.Point(48, 188);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(118, 28);
@@ -286,12 +248,50 @@
             this.lblImage1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblImage1.AutoSize = true;
             this.lblImage1.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblImage1.Location = new System.Drawing.Point(216, 148);
+            this.lblImage1.Location = new System.Drawing.Point(44, 148);
             this.lblImage1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblImage1.Name = "lblImage1";
             this.lblImage1.Size = new System.Drawing.Size(124, 38);
             this.lblImage1.TabIndex = 68;
             this.lblImage1.Text = "Component Image\r\nfrom POV 1";
+            // 
+            // lblImage
+            // 
+            this.lblImage.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblImage.AutoSize = true;
+            this.lblImage.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblImage.Location = new System.Drawing.Point(238, 148);
+            this.lblImage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblImage.Name = "lblImage";
+            this.lblImage.Size = new System.Drawing.Size(124, 38);
+            this.lblImage.TabIndex = 53;
+            this.lblImage.Text = "Component Image\r\nfrom POV 2";
+            // 
+            // btnImportImage
+            // 
+            this.btnImportImage.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnImportImage.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImportImage.Location = new System.Drawing.Point(242, 188);
+            this.btnImportImage.Margin = new System.Windows.Forms.Padding(2);
+            this.btnImportImage.Name = "btnImportImage";
+            this.btnImportImage.Size = new System.Drawing.Size(118, 28);
+            this.btnImportImage.TabIndex = 55;
+            this.btnImportImage.Text = "Import";
+            this.btnImportImage.UseVisualStyleBackColor = true;
+            this.btnImportImage.Click += new System.EventHandler(this.btnImportImage_Click);
+            // 
+            // btnClearImage
+            // 
+            this.btnClearImage.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnClearImage.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearImage.Location = new System.Drawing.Point(242, 220);
+            this.btnClearImage.Margin = new System.Windows.Forms.Padding(2);
+            this.btnClearImage.Name = "btnClearImage";
+            this.btnClearImage.Size = new System.Drawing.Size(118, 28);
+            this.btnClearImage.TabIndex = 56;
+            this.btnClearImage.Text = "Clear";
+            this.btnClearImage.UseVisualStyleBackColor = true;
+            this.btnClearImage.Click += new System.EventHandler(this.btnClearImage_Click);
             // 
             // ComponentsForm
             // 
@@ -335,9 +335,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblDescription;
         private System.Windows.Forms.TextBox txtDescription;
-        private System.Windows.Forms.Button btnClearImage;
-        private System.Windows.Forms.Button btnImportImage;
-        private System.Windows.Forms.Label lblImage;
         private System.Windows.Forms.Button btnNewComponent;
         private System.Windows.Forms.Button btnFinish;
         private System.Windows.Forms.Button btnCancel;
@@ -352,5 +349,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label lblImage1;
+        private System.Windows.Forms.Label lblImage;
+        private System.Windows.Forms.Button btnImportImage;
+        private System.Windows.Forms.Button btnClearImage;
     }
 }

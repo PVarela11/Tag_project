@@ -29,6 +29,7 @@ namespace Tåg_project.FileManipulation
         Text label, value, cleanText, troublesootingText, repairText, newT, summaryText;
         List<Text> texts = new List<Text>();
         int componentCounter = 1, titleCounter = 1, subtitleCounter = 1, imageCounter = 1, pages = 1;
+        float docLeftMargin, docRightMargin, documentWidth;
         Image imageBefore, imageAfter;
         Paragraph title;
         public string serialNum { get; set; }
@@ -61,7 +62,7 @@ namespace Tåg_project.FileManipulation
             finalImages = finalImagesPath.ToList();
             if (summary!= null)
             {
-                summaryText = new Text(summary).SetFont(font);
+                summaryText = new Text(summary).SetFont(font).SetFontSize(10);
             }
             if (clean)
             {
@@ -117,9 +118,9 @@ namespace Tåg_project.FileManipulation
                 document.Add(setTitle(("REPORT CONCERNING CLEANING AND DISASSEMBLY OF PCB " + serialNum + "\n\n")).SetFontSize(24).SetFont(font));
                 ImageData im = ImageDataFactory.Create(labelPath);
                 Image image = new Image(im);
-                float docLeftMargin = document.GetLeftMargin();
-                float docRightMargin = document.GetRightMargin();
-                float documentWidth = PageSize.A4.GetWidth() - docLeftMargin - docRightMargin;
+                docLeftMargin = document.GetLeftMargin();
+                docRightMargin = document.GetRightMargin();
+                documentWidth = PageSize.A4.GetWidth() - docLeftMargin - docRightMargin;
                 //image.SetMaxHeight(PageSize.A4.GetHeight() / 2);
                 //image.SetMaxWidth(documentWidth);
                 image.ScaleToFit(documentWidth, (PageSize.A4.GetHeight() / 2));
@@ -320,16 +321,17 @@ namespace Tåg_project.FileManipulation
                 {
                     titleCounter++;
                     document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                    document.Add(new Paragraph((titleCounter + "   Components\n\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
+                    document.Add(new Paragraph((titleCounter + "   Components\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
                     document.Add(new Paragraph((titleCounter + "." + subtitleCounter + "  Components List:\n")).SetFont(font).SetFontSize(12).SetMarginTop(0f).SetBold());
                     InsertComponent(pdf, listaComponentes);
                     titleCounter++;
                     //Cleaning
                     document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                    
-                    document.Add(new Paragraph((titleCounter + "   Components Cleaning\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
+                    pdf.AddNewPage();
+                    pages++;
                     var pageX = pdf.GetPage(pages);
                     var canvasX = new PdfCanvas(pageX);
+                    document.Add(new Paragraph((titleCounter + "   Components Cleaning\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
 
                     // Create a new table with two columns
                     float tableWidth = PageSize.A4.GetWidth() - document.GetLeftMargin() - document.GetRightMargin();
@@ -404,46 +406,46 @@ namespace Tåg_project.FileManipulation
                 #endregion
 
                 #region after and before clean
-                document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                document.Add(setTitle("Before Cleaning").SetFont(font));
-                if (initialImages.Count > 6)
-                {
-                    insertImg(initialImages.Take(6).ToList());
-                    initialImages.RemoveRange(0, 6);
-                }
-                else
-                {
-                    insertImg(initialImages);
-                    initialImages.Clear();
-                }
-
-
-                document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                document.Add(setTitle("After Cleaning").SetFont(font));
-                if (finalImages.Count > 6)
-                {
-                    insertImg(finalImages.Take(6).ToList());
-                    finalImages.RemoveRange(0, 6);
-                }
-                else
-                {
-                    insertImg(finalImages);
-                    finalImages.Clear();
-                }
-
-                if (initialImages.Count > 0)
-                {
-                    document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                    document.Add(setTitle("More before cleaning images").SetFont(font));
-                    insertImg(initialImages);
-                }
-
-                if (finalImages.Count > 0)
-                {
-                    document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                    document.Add(setTitle("More after cleaning images").SetFont(font));
-                    insertImg(finalImages);
-                }
+                //document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                //document.Add(setTitle("Before Cleaning").SetFont(font));
+                //if (initialImages.Count > 6)
+                //{
+                //    insertImg(initialImages.Take(6).ToList());
+                //    initialImages.RemoveRange(0, 6);
+                //}
+                //else
+                //{
+                //    insertImg(initialImages);
+                //    initialImages.Clear();
+                //}
+                //
+                //
+                //document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                //document.Add(setTitle("After Cleaning").SetFont(font));
+                //if (finalImages.Count > 6)
+                //{
+                //    insertImg(finalImages.Take(6).ToList());
+                //    finalImages.RemoveRange(0, 6);
+                //}
+                //else
+                //{
+                //    insertImg(finalImages);
+                //    finalImages.Clear();
+                //}
+                //
+                //if (initialImages.Count > 0)
+                //{
+                //    document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                //    document.Add(setTitle("More before cleaning images").SetFont(font));
+                //    insertImg(initialImages);
+                //}
+                //
+                //if (finalImages.Count > 0)
+                //{
+                //    document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                //    document.Add(setTitle("More after cleaning images").SetFont(font));
+                //    insertImg(finalImages);
+                //}
                 #endregion
 
                 document.Close();
@@ -465,21 +467,24 @@ namespace Tåg_project.FileManipulation
 
             foreach (Component comp in listaComponentes)
             {
-                text = new Paragraph("\0\t\t" + "• " + comp.name);
-                document.Add(text.SetFontSize(9).SetFont(font).SetBold());
+                text = new Paragraph("\0\t\t" + "• Component " + componentCounter + " - " + comp.name);
+                document.Add(text.SetFontSize(12).SetFont(font));
+                componentCounter++;
             }
-
+            document.Add(new Paragraph("\n"));
+            componentCounter = 1;
             for (i = 0; i < listaComponentes.Count; i++)
             {
                 text = new Paragraph(titleCounter + "." + subtitleCounter + "." + componentCounter + "  " + listaComponentes[i].name);
                 document.Add(text.SetFontSize(9).SetFont(font).SetBold());
                 text = new Paragraph(listaComponentes[i].description);
                 document.Add(text.SetFontSize(8).SetFont(font).SetMarginTop(0f));
-                ImageData im = ImageDataFactory.Create(listaComponentes[i].componentImg);
+                ImageData im = ImageDataFactory.Create(listaComponentes[i].componentBeforeImg);
                 Image image = new Image(im);
                 //image.ScaleToFit(175,175);
                 image.SetMaxHeight(140);
                 image.SetMaxWidth(175);
+                image.ScaleToFit(documentWidth, (PageSize.A4.GetHeight() / 2));
                 document.Add(image);
                 text = new Paragraph("Figure " + imageCounter + ".  " + listaComponentes[i].name);
                 document.Add(text.SetFontSize(9).SetFont(font));
