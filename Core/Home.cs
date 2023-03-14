@@ -54,10 +54,10 @@ namespace Tåg_project.Core
 
         private void UpdateDesign()
         {
-            if(initialImagesPath.Count>0)
-            lblImages.Text = initialImagesPath.Count.ToString() + "image(s) imported" ;
-            if(finalImagesPath.Count>0)
-            lblFinalImages.Text = finalImagesPath.Count.ToString() + "image(s) imported";
+            //if(initialImagesPath.Count>0)
+            //lblImages.Text = initialImagesPath.Count.ToString() + "image(s) imported" ;
+            //if(finalImagesPath.Count>0)
+            //lblFinalImages.Text = finalImagesPath.Count.ToString() + "image(s) imported";
         }
 
         #region FileManipulation
@@ -84,7 +84,7 @@ namespace Tåg_project.Core
                     cboxResult1.Checked = import.result1;
                     cboxResult2.Checked = import.result2;
                     cboxResult3.Checked = import.result3;
-                    lblImages.Text = initialImagesPath.Count.ToString();
+                    //lblImages.Text = initialImagesPath.Count.ToString();
                     initialImagesPath.Clear();
                     initialImagesPath = import.initialImagesPath;
                     finalImagesPath.Clear();
@@ -97,12 +97,12 @@ namespace Tåg_project.Core
                     {
                         pboxImages.Enabled = true;
                         pboxImages.ImageLocation = initialImagesPath[0];
-                        lblImages.Text = initialImagesPath.Count.ToString() + "image(s) imported";
+                        //lblImages.Text = initialImagesPath.Count.ToString() + "image(s) imported";
                     }
                     if (finalImagesPath.Count > 0)
                     {
                         pboxFinalImages.Enabled = true;
-                        lblFinalImages.Text = finalImagesPath.Count.ToString() + "image(s) imported";
+                        //lblFinalImages.Text = finalImagesPath.Count.ToString() + "image(s) imported";
                         pboxFinalImages.ImageLocation = finalImagesPath[0];
                     }
                     if (import.components.Count > 0)
@@ -374,7 +374,7 @@ namespace Tåg_project.Core
                     //finalImagesCount += imgCount;
                     pboxFinalImages.ImageLocation = finalImagesPath[0];
                     pboxFinalImages.Enabled = true;
-                    lblFinalImages.Text = finalImagesPath.Count.ToString() + " images imported";
+                    //lblFinalImages.Text = finalImagesPath.Count.ToString() + " images imported";
                 }
                 else if (name == "btnImportImage")
                 {
@@ -382,7 +382,7 @@ namespace Tåg_project.Core
                     initialImagesPath.AddRange(listAux);
                     //initialImagesCount += imgCount;
                     pboxImages.ImageLocation = initialImagesPath[0];
-                    lblImages.Text = initialImagesPath.Count.ToString() + " images imported";
+                    //lblImages.Text = initialImagesPath.Count.ToString() + " images imported";
                     pboxImages.Enabled = true;
                 }
             }
@@ -433,9 +433,9 @@ namespace Tåg_project.Core
                 pboxImages.BackColor = Color.Transparent;
                 pboxImages.Enabled = false;
                 pboxImages.BackColor = System.Drawing.Color.FromArgb(119, 155, 230);
-                pboxImages.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
+                //pboxImages.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
                 aux = 0;
-                lblImages.Text = "Import PCB Image";
+                //lblImages.Text = "Import PCB Image";
                 //TODO:
                 //deleteImg()
             }
@@ -446,9 +446,9 @@ namespace Tåg_project.Core
                 pboxFinalImages.Image = null;
                 pboxFinalImages.BackColor = System.Drawing.Color.FromArgb(119, 156, 230);
                 pboxFinalImages.BackColor = Color.Transparent;
-                pboxFinalImages.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
+                //pboxFinalImages.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
                 aux1 = 0;
-                lblFinalImages.Text = "Import PCB Image";
+                //lblFinalImages.Text = "Import PCB Image";
             }
 
         }
