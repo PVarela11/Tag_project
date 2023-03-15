@@ -1,10 +1,7 @@
-﻿using iText.Layout.Element;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using Tåg_project.FileManipulation;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -14,7 +11,10 @@ namespace Tåg_project.Core
     public partial class Home : Form
     {
         Import import;
-        string path, week, serialNum, lastTwoDigitsOfYear, tempPath, observations, comments, process, labelPath, summary;
+        string path, week, serialNum, lastTwoDigitsOfYear, tempPath, observations, comments, process, labelPath, summary,
+            componentBeforeImg1, componentBeforeImg2, componentBeforeImg3, componentAfterImg1, componentAfterImg2, componentAfterImg3,
+            componentName, componentDescription;
+        List<Component> componentsList = new List<Component>();
         bool isClean, troubleshoot, repair, result1, result2, result3;
         bool isImported = false, isExported = false;
         int aux = 0, aux1 = 0, page = 0;
@@ -47,8 +47,8 @@ namespace Tåg_project.Core
             else week = weekNumber.ToString();
             lastTwoDigitsOfYear = date.ToString("yy");
 
-            pboxImages.Enabled = false;
-            pboxFinalImages.Enabled = false;
+            //pboxImages.Enabled = false;
+            //pboxFinalImages.Enabled = false;
             btnPrev.Enabled = false;
         }
 
@@ -72,7 +72,6 @@ namespace Tåg_project.Core
                 {
                     isImported = true;
                     txtSerialNum.Enabled = false;
-                    //txtSerialNum.Text = serialNum.Substring(4);
                     txtSerialNum.Text = serialNum;
                     cboxClean.Checked = import.isClean; ;
                     isClean = import.isClean;
@@ -84,31 +83,18 @@ namespace Tåg_project.Core
                     cboxResult1.Checked = import.result1;
                     cboxResult2.Checked = import.result2;
                     cboxResult3.Checked = import.result3;
-                    //lblImages.Text = initialImagesPath.Count.ToString();
-                    initialImagesPath.Clear();
-                    initialImagesPath = import.initialImagesPath;
-                    finalImagesPath.Clear();
-                    finalImagesPath = import.finalImagesPath;
                     labelPath = import.labelPath;
                     lblCaminho.Text = "Imported " + Path.GetFileName(labelPath);
                     summary = import.summary;
                     txtSummary.Text = summary;
-                    if (initialImagesPath.Count > 0)
-                    {
-                        pboxImages.Enabled = true;
-                        pboxImages.ImageLocation = initialImagesPath[0];
-                        //lblImages.Text = initialImagesPath.Count.ToString() + "image(s) imported";
-                    }
-                    if (finalImagesPath.Count > 0)
-                    {
-                        pboxFinalImages.Enabled = true;
-                        //lblFinalImages.Text = finalImagesPath.Count.ToString() + "image(s) imported";
-                        pboxFinalImages.ImageLocation = finalImagesPath[0];
-                    }
+
                     if (import.components.Count > 0)
                     {
-                        listaComponentes = import.components;
-                        lblComponent.Text  = listaComponentes.Count.ToString() + " components imported";
+                        componentsList = import.components;
+                        foreach (Component comp in componentsList)
+                        {
+                            listBoxComponents.Items.Add(comp.name);
+                        }
                     }
                 }
                 else
@@ -171,7 +157,7 @@ namespace Tåg_project.Core
                         isImported,
                         summary,
                         labelPath,
-                        listaComponentes
+                        componentsList
                         );
 
                     path = export.path;
@@ -187,31 +173,32 @@ namespace Tåg_project.Core
 
         private bool validateInputs(int page)
         {
-            if (page == 0)
-            {
-                if (txtSerialNum.TextLength < 8)
-                {
-                    MessageBox.Show("Serial Number should be 8 digits");
-                    return false;
-                }
-                else if (initialImagesPath.Count == 0)
-                {
-                    MessageBox.Show("You should import some images of the PCB first");
-                    return false;
-                }else if (labelPath==null)
-                {
-                    MessageBox.Show("You should import the label of PCB first");
-                    return false;
-                }
-            }
-            else if (page == 1)
-            {
-                if (txtProcess.TextLength == 0)
-                {
-                    MessageBox.Show("You should write something about the work done");
-                    return false;
-                }
-            }
+            //if (page == 0)
+            //{
+            //    if (txtSerialNum.TextLength < 8)
+            //    {
+            //        MessageBox.Show("Serial Number should be 8 digits");
+            //        return false;
+            //    }
+            //    //else if (initialImagesPath.Count == 0)
+            //    //{
+            //    //    MessageBox.Show("You should import some images of the PCB first");
+            //    //    return false;
+            //    //}
+            //    else if (labelPath==null)
+            //    {
+            //        MessageBox.Show("You should import the label of PCB first");
+            //        return false;
+            //    }
+            //}
+            //else if (page == 1)
+            //{
+            //    if (txtProcess.TextLength == 0)
+            //    {
+            //        MessageBox.Show("You should write something about the work done");
+            //        return false;
+            //    }
+            //}
             //else if (page == 2)
             //{
             //    if (finalImagesPath.Count == 0)
@@ -260,70 +247,63 @@ namespace Tåg_project.Core
                 repair,
                 summary,
                 labelPath,
-                listaComponentes
+                componentsList
                 );
             return;
         }
         #endregion
 
         #region Design controls actions
+
         private void btnAddComponent_Click(object sender, EventArgs e)
         {
-            using (ComponentsForm formComponent = new ComponentsForm())
+            componentName = comboComponents.Text;
+            componentDescription = txtDescription.Text;
+            if (componentName != "" && componentDescription != "" && componentAfterImg1 != null && componentBeforeImg1 != null)
             {
-                if (formComponent.ShowDialog() == DialogResult.OK)
+                if (!listBoxComponents.Items.Contains(comboComponents.Text))
                 {
-                    if (listaComponentes == null)
-                    {
-                        listaComponentes = formComponent.componentsList;
-                        if (!(listaComponentes.Count == 0))
-                        {
-                            lblComponent.Text = listaComponentes.Count.ToString() + " components imported";
-                        }
-                    }
-                    else
-                    {
-                        listaComponentes.AddRange(formComponent.componentsList);
-                        lblComponent.Text = listaComponentes.Count.ToString() + " components imported";
-                    }
-
+                    componentsList.Add(new Component(componentName, componentBeforeImg1, componentBeforeImg2, componentBeforeImg3, componentAfterImg1, componentAfterImg2, componentAfterImg3, componentDescription));
+                    listBoxComponents.Items.Add(comboComponents.Text);
+                    ClearComponentPanel();
                 }
+                else
+                {
+                    Component componentToFind = componentsList.Find(x => x.name == componentName);
+                    componentToFind.description = componentDescription;
+                    componentToFind.componentBeforeImage1 = componentBeforeImg1;
+                    componentToFind.componentBeforeImage2 = componentBeforeImg2;
+                    componentToFind.componentBeforeImage3 = componentBeforeImg3;
+                    componentToFind.componentAfterImage1 = componentAfterImg1;
+                    componentToFind.componentAfterImage2 = componentAfterImg2;
+                    componentToFind.componentAfterImage3 = componentAfterImg3;
+                }
+                
             }
         }
 
-        private void btnClearComponents_Click(object sender, EventArgs e)
+        private void ClearComponentPanel()
         {
-            string folder = path + "\\Components";
-            DirectoryInfo dir;
-            if (isImported)
-            {
-                if (listaComponentes.Count > 0)
-                {
-                    dir = new DirectoryInfo(folder);
-                    dir.Attributes = dir.Attributes & ~FileAttributes.ReadOnly;
-                    dir.Delete(true);
-                    listaComponentes.Clear();
-                    lblComponent.Text = "No components added yet";
-                }
-            }
-            else if (isExported)
-            {
-                if (listaComponentes.Count > 0)
-                {
-                    dir = new DirectoryInfo(folder);
-                    dir.Attributes = dir.Attributes & ~FileAttributes.ReadOnly;
-                    dir.Delete(true);
-                    listaComponentes.Clear();
-                    lblComponent.Text = "No components added yet";
-                }
-            }
-            else
-            {
-                listaComponentes.Clear();
-                lblComponent.Text = "No components added yet";
-            }
-
+            //Clear variables
+            componentDescription = "";
+            componentName = "";
+            componentBeforeImg1 = null;
+            componentBeforeImg2 = null;
+            componentBeforeImg3 = null;
+            componentAfterImg1 = null;
+            componentAfterImg2 = null;
+            componentAfterImg3 = null;
+            //Clear controls
+            comboComponents.Text = "";
+            txtDescription.Text = "";
+            btnImportAfter1.Text = "Add image";
+            btnImportAfter2.Text = "Add image";
+            btnImportAfter3.Text = "Add image";
+            btnImportBefore1.Text = "Add image";
+            btnImportBefore2.Text = "Add image";
+            btnImportBefore3.Text = "Add image";
         }
+
         private void lblTroubleshoot_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ShowFile.OpenFile("Troubleshooting.pdf");
@@ -338,55 +318,71 @@ namespace Tåg_project.Core
             Export();
         }
 
-        private void btnImportLabel_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Select Valid Document(*.png; *.jpeg; *.jpg)|*.png; *.jpeg; *.jpg";
-            dialog.Multiselect = false;
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                lblCaminho.Text = "Imported " + dialog.FileName;
-                labelPath = dialog.FileName;
-            }
-            else return;
-        }
-
         private void btnImportImage_Click(object sender, EventArgs e)
         {
-            listAux.Clear();
-            string name = (sender as Button).Name;
+            //listAux.Clear();
+            string btnName = (sender as System.Windows.Forms.Button).Name;
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Select Valid Document(*.png; *.jpeg; *.jpg)|*.png; *.jpeg; *.jpg";
-            dialog.Multiselect = true;
-            int imgCount = 0;
+            //dialog.Multiselect = true;
+            //int imgCount = 0;
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                foreach (string fileName in dialog.FileNames)
+                //foreach (string fileName in dialog.FileNames)
+                //{
+                //    // do something with path
+                //    listAux.Add(fileName);
+                //    imgCount++;
+                //}
+                if (btnName == "btnImportBefore1")
                 {
-                    // do something with path
-                    listAux.Add(fileName);
-                    imgCount++;
-                }
-                if (name == "btnImportFinalImg")
-                {
+                    componentBeforeImg1 = dialog.FileName;
+                    btnImportBefore1.Text = "Image imported";
                     //pboxFinalImages.BackColor = System.Drawing.Color.FromArgb(119, 156, 230);
-                    finalImagesPath.AddRange(listAux);
+                    //finalImagesPath.AddRange(listAux);
                     //finalImagesCount += imgCount;
-                    pboxFinalImages.ImageLocation = finalImagesPath[0];
-                    pboxFinalImages.Enabled = true;
+                    //pboxFinalImages.ImageLocation = finalImagesPath[0];
+                    //pboxFinalImages.Enabled = true;
                     //lblFinalImages.Text = finalImagesPath.Count.ToString() + " images imported";
                 }
-                else if (name == "btnImportImage")
+                else if (btnName == "btnImportBefore2")
                 {
+                    btnImportBefore2.Text = "Image imported";
+                    componentBeforeImg2 = dialog.FileName;
                     //pboxImages.BackColor = System.Drawing.Color.FromArgb(119, 155, 230);
-                    initialImagesPath.AddRange(listAux);
+                    //initialImagesPath.AddRange(listAux);
                     //initialImagesCount += imgCount;
-                    pboxImages.ImageLocation = initialImagesPath[0];
+                    //pboxImages.ImageLocation = initialImagesPath[0];
                     //lblImages.Text = initialImagesPath.Count.ToString() + " images imported";
-                    pboxImages.Enabled = true;
+                    //pboxImages.Enabled = true;
+                }
+                else if (btnName == "btnImportBefore3")
+                {
+                    btnImportBefore3.Text = "Image imported";
+                    componentBeforeImg3 = dialog.FileName;
+                }
+                else if (btnName == "btnImportAfter1")
+                {
+                    btnImportAfter1.Text = "Image imported";
+                    componentAfterImg1 = dialog.FileName;
+                }
+                else if (btnName == "btnImportAfter2")
+                {
+                    btnImportAfter2.Text = "Image imported";
+                    componentAfterImg2 = dialog.FileName;
+                }
+                else if (btnName == "btnImportAfter3")
+                {
+                    btnImportAfter3.Text = "Image imported";
+                    componentAfterImg3 = dialog.FileName;
+                }
+                else if (btnName == "btnImportLabel")
+                {
+                    lblCaminho.Text = "Imported " + dialog.FileName;
+                    labelPath = dialog.FileName;
                 }
             }
-
+        
             else return;
         }
 
@@ -423,62 +419,95 @@ namespace Tåg_project.Core
             }
         }
 
-        private void btnClearImg_Click(object sender, EventArgs e)
+        //private void btnClearImg_Click(object sender, EventArgs e)
+        //{
+        //    if ((sender as Button).Name == "btnClearImage")
+        //    {
+        //        initialImagesPath.Clear();
+        //        //pboxImages.Enabled = false;
+        //        //pboxImages.Image = null;
+        //        //pboxImages.BackColor = Color.Transparent;
+        //        //pboxImages.Enabled = false;
+        //        //pboxImages.BackColor = System.Drawing.Color.FromArgb(119, 155, 230);
+        //        //pboxImages.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
+        //        aux = 0;
+        //        //lblImages.Text = "Import PCB Image";
+        //        //TODO:
+        //        //deleteImg()
+        //    }
+        //    else if ((sender as Button).Name == "btnClearFinalImage")
+        //    {
+        //        finalImagesPath.Clear();
+        //        //pboxFinalImages.Enabled = false;
+        //        //pboxFinalImages.Image = null;
+        //        //pboxFinalImages.BackColor = System.Drawing.Color.FromArgb(119, 156, 230);
+        //        //pboxFinalImages.BackColor = Color.Transparent;
+        //        ////pboxFinalImages.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
+        //        aux1 = 0;
+        //        //lblFinalImages.Text = "Import PCB Image";
+        //    }
+        //
+        //}
+
+        //private void pboxImages_Click(object sender, EventArgs e)
+        //{
+        //    if (aux < initialImagesPath.Count - 1)
+        //    {
+        //        aux++;
+        //        //pboxImages.ImageLocation = initialImagesPath[aux];
+        //    }
+        //    else
+        //    {
+        //        aux = 0;
+        //        //pboxImages.ImageLocation = initialImagesPath[aux];
+        //    }
+        //
+        //}
+
+        private void listBoxComponent_Click(object sender, EventArgs e)
         {
-            if ((sender as Button).Name == "btnClearImage")
+            string temp = listBoxComponents.SelectedItem.ToString();
+            if (listBoxComponents.SelectedIndex >= 0)
             {
-                initialImagesPath.Clear();
-                pboxImages.Enabled = false;
-                pboxImages.Image = null;
-                pboxImages.BackColor = Color.Transparent;
-                pboxImages.Enabled = false;
-                pboxImages.BackColor = System.Drawing.Color.FromArgb(119, 155, 230);
-                //pboxImages.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
-                aux = 0;
-                //lblImages.Text = "Import PCB Image";
-                //TODO:
-                //deleteImg()
-            }
-            else if ((sender as Button).Name == "btnClearFinalImage")
-            {
-                finalImagesPath.Clear();
-                pboxFinalImages.Enabled = false;
-                pboxFinalImages.Image = null;
-                pboxFinalImages.BackColor = System.Drawing.Color.FromArgb(119, 156, 230);
-                pboxFinalImages.BackColor = Color.Transparent;
-                //pboxFinalImages.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
-                aux1 = 0;
-                //lblFinalImages.Text = "Import PCB Image";
-            }
-
-        }
-
-        private void pboxImages_Click(object sender, EventArgs e)
-        {
-            if (aux < initialImagesPath.Count - 1)
-            {
-                aux++;
-                pboxImages.ImageLocation = initialImagesPath[aux];
-            }
-            else
-            {
-                aux = 0;
-                pboxImages.ImageLocation = initialImagesPath[aux];
-            }
-
-        }
-
-        private void pboxFinalImages_Click(object sender, EventArgs e)
-        {
-            if (aux1 < finalImagesPath.Count - 1)
-            {
-                aux1++;
-                pboxFinalImages.ImageLocation = finalImagesPath[aux1];
-            }
-            else
-            {
-                aux1 = 0;
-                pboxFinalImages.ImageLocation = finalImagesPath[aux1];
+                //MessageBox.Show(listBoxComponents.SelectedItem.ToString());
+                foreach (Component comp in componentsList)
+                {
+                    if(comp.name == temp)
+                    {
+                        comboComponents.Text = comp.name;
+                        txtDescription.Text = comp.description;
+                        if(comp.componentBeforeImage1 != null)
+                        {
+                            componentBeforeImg1 = comp.componentBeforeImage1;
+                            btnImportBefore1.Text = "Image imported";
+                        }
+                        if (comp.componentBeforeImage2 != null)
+                        {
+                            componentBeforeImg2 = comp.componentBeforeImage2;
+                            btnImportBefore2.Text = "Image imported";
+                        }
+                        if (comp.componentBeforeImage3 != null)
+                        {
+                            componentBeforeImg3 = comp.componentBeforeImage3;
+                            btnImportBefore3.Text = "Image imported";
+                        }
+                        if (comp.componentAfterImage1 != null)
+                        {
+                            componentAfterImg1 = comp.componentAfterImage1;
+                            btnImportAfter1.Text = "Image imported";
+                        }
+                        if (comp.componentAfterImage2 != null)
+                        {
+                            componentAfterImg2 = comp.componentAfterImage2;
+                            btnImportAfter2.Text = "Image imported";
+                        }
+                        if (comp.componentAfterImage3 != null)
+                        {
+                            componentAfterImg3 = comp.componentAfterImage3;
+                            btnImportAfter3.Text = "Image imported";
+                        }
+                    }
+                }
             }
         }
 
@@ -569,6 +598,17 @@ namespace Tåg_project.Core
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void listBoxComponents_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
+            {
+                if (listBoxComponents.SelectedIndex >= 0)
+                {
+                    listBoxComponents.Items.RemoveAt(listBoxComponents.SelectedIndex);
+                }
             }
         }
 

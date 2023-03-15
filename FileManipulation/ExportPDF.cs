@@ -354,8 +354,8 @@ namespace Tåg_project.FileManipulation
                         var titleCell = new Cell().Add(title).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(5).SetTextAlignment(TextAlignment.LEFT);
 
                         // Create two Image objects
-                        ImageData im1 = ImageDataFactory.Create(comp.componentBeforeImg);
-                        ImageData im2 = ImageDataFactory.Create(comp.componentAfterImg);
+                        ImageData im1 = ImageDataFactory.Create(comp.componentBeforeImage1);
+                        ImageData im2 = ImageDataFactory.Create(comp.componentAfterImage1);
 
                         imageBefore = new Image(im1);
                         imageAfter = new Image(im2);
@@ -479,7 +479,7 @@ namespace Tåg_project.FileManipulation
                 document.Add(text.SetFontSize(9).SetFont(font).SetBold());
                 text = new Paragraph(listaComponentes[i].description);
                 document.Add(text.SetFontSize(8).SetFont(font).SetMarginTop(0f));
-                ImageData im = ImageDataFactory.Create(listaComponentes[i].componentBeforeImg);
+                ImageData im = ImageDataFactory.Create(listaComponentes[i].componentAfterImage1);
                 Image image = new Image(im);
                 //image.ScaleToFit(175,175);
                 image.SetMaxHeight(140);

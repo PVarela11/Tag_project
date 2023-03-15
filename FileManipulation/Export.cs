@@ -83,7 +83,7 @@ namespace Tåg_project.FileManipulation
 
             if (!tempPath.Contains(report))
             {
-                path = tempPath + "\\" + report;
+                path = tempPath + report;
             }
             else path = tempPath;
             initialImagesFolder = path + "\\BeforeClean";
@@ -91,9 +91,6 @@ namespace Tåg_project.FileManipulation
             labelImagesFolder = path + "\\Label";
 
             componentsFolder = path + "\\Components";
-            componentsImagesFolder = componentsFolder +"\\ComponentImage\\";
-            componentsBeforeImagesFolder = componentsFolder + "\\ComponentBeforeClean\\";
-            componentsAfterImagesFolder = componentsFolder + "\\ComponentAfterClean\\";
             string componentsCSVPath = componentsFolder + "/components.csv";
 
             // Create a list of data to be converted to CSV
@@ -276,33 +273,37 @@ namespace Tåg_project.FileManipulation
             List<string> aux = new List<string>();
             foreach (Component comp in components)
             {
-                aux.Add(comp.componentImg);
-                aux.Add(comp.componentBeforeImg);
-                aux.Add(comp.componentAfterImg);
+                aux.Add(comp.componentBeforeImage1);
+                aux.Add(comp.componentBeforeImage2);
+                aux.Add(comp.componentBeforeImage3);
+                aux.Add(comp.componentAfterImage1);
+                aux.Add(comp.componentAfterImage2);
+                aux.Add(comp.componentAfterImage3);
                 string folder = componentsFolder + "\\" + comp.name;
                 if (!Directory.Exists(folder))
                 {
                     di = Directory.CreateDirectory(folder);
                 }
                createImg(aux);
-                aux.Clear();
-                InsertImages(comp, folder);
+               InsertImages(comp, folder, aux);
+               aux.Clear();
             }
             
         }
 
-        private void InsertImages(Component comp, string folder)
+        private void InsertImages(Component comp, string folder, List<string> aux)
         {
             string imgPath;
             string fileExtension;
-            for(int i=0; i<=2; i++)
+            deleteOldImages(folder, aux);
+            for(int i=0; i<=5; i++)
             {
                 if (i==0)
                 {
-                    fileExtension = Path.GetExtension(comp.componentImg);
-                    imgPath = folder + "/ComponentIMG" + fileExtension;
+                    fileExtension = Path.GetExtension(comp.componentBeforeImage1);
+                    imgPath = folder + "/ComponentBeforeIMG1" + fileExtension;
                     //deleteOldImages(newPath, imagesList);
-                    if (!CheckIfImageExists(folder, "ComponentIMG"+fileExtension))
+                    if (!CheckIfImageExists(folder, "ComponentBeforeIMG1" + fileExtension))
                     {
                         using (FileStream stream = new FileStream(imgPath, FileMode.Create))
                         {
@@ -313,9 +314,9 @@ namespace Tåg_project.FileManipulation
                 }
                 else if (i == 1)
                 {
-                    fileExtension = Path.GetExtension(comp.componentBeforeImg);
-                    imgPath = folder + "/ComponentBeforeIMG" + fileExtension;
-                    if (!CheckIfImageExists(folder, "ComponentBeforeIMG" + fileExtension))
+                    fileExtension = Path.GetExtension(comp.componentAfterImage1);
+                    imgPath = folder + "/ComponentAfterIMG1" + fileExtension;
+                    if (!CheckIfImageExists(folder, "ComponentAfterIMG1" + fileExtension))
                     {
                         using (FileStream stream = new FileStream(imgPath, FileMode.Create))
                         {
@@ -323,11 +324,47 @@ namespace Tåg_project.FileManipulation
                         }
                     }
                 }
-                else if (i == 2)
+                else if (i == 2 && comp.componentBeforeImage2 != null)
                 {
-                    fileExtension = Path.GetExtension(comp.componentAfterImg);
-                    imgPath = folder + "/ComponentAfterIMG" + fileExtension;
-                    if (!CheckIfImageExists(folder, "ComponentAfterIMG" + fileExtension))
+                    fileExtension = Path.GetExtension(comp.componentBeforeImage2);
+                    imgPath = folder + "/ComponentBeforeIMG2" + fileExtension;
+                    if (!CheckIfImageExists(folder, "ComponentBeforeIMG2" + fileExtension))
+                    {
+                        using (FileStream stream = new FileStream(imgPath, FileMode.Create))
+                        {
+                            images[2].Save(stream, ImageFormat.Jpeg);
+                        }
+                    }
+                }
+                else if (i == 3 && comp.componentAfterImage2 != null)
+                {
+                    fileExtension = Path.GetExtension(comp.componentBeforeImage2);
+                    imgPath = folder + "/ComponentAfterIMG2" + fileExtension;
+                    if (!CheckIfImageExists(folder, "ComponentAfterIMG2" + fileExtension))
+                    {
+                        using (FileStream stream = new FileStream(imgPath, FileMode.Create))
+                        {
+                            images[2].Save(stream, ImageFormat.Jpeg);
+                        }
+                    }
+                }
+                else if (i == 4 && comp.componentBeforeImage3 != null)
+                {
+                    fileExtension = Path.GetExtension(comp.componentBeforeImage2);
+                    imgPath = folder + "/ComponentBeforeIMG3" + fileExtension;
+                    if (!CheckIfImageExists(folder, "ComponentBeforeIMG3" + fileExtension))
+                    {
+                        using (FileStream stream = new FileStream(imgPath, FileMode.Create))
+                        {
+                            images[2].Save(stream, ImageFormat.Jpeg);
+                        }
+                    }
+                }
+                else if (i == 5 && comp.componentAfterImage3 != null)
+                {
+                    fileExtension = Path.GetExtension(comp.componentBeforeImage2);
+                    imgPath = folder + "/ComponentAfterIMG3" + fileExtension;
+                    if (!CheckIfImageExists(folder, "ComponentAfterIMG3" + fileExtension))
                     {
                         using (FileStream stream = new FileStream(imgPath, FileMode.Create))
                         {
@@ -368,7 +405,7 @@ namespace Tåg_project.FileManipulation
             if (File.Exists(imagePath))
             {
                 Console.WriteLine("The image already exists");
-                return true;
+                return false;
             }
             return false;
         }
@@ -446,9 +483,12 @@ namespace Tåg_project.FileManipulation
             {
                 try
                 {
-                    imgName = Path.GetFileName(imgPath[0]);
-                    Console.WriteLine(imgName);
-                    image = new Bitmap(imgPath[0]);
+                    if (imgPath[0] != null)
+                    {
+                        imgName = Path.GetFileName(imgPath[0]);
+                        Console.WriteLine(imgName);
+                        image = new Bitmap(imgPath[0]);
+                    }
                 }
                 catch (System.IO.FileNotFoundException)
                 {
@@ -463,8 +503,11 @@ namespace Tåg_project.FileManipulation
                     images = new List<Image>();
                     for (int i = 0; i < imgPath.Count; i++)
                     {
-                        image = new Bitmap(imgPath[i]);
-                        images.Add(image);
+                        if (imgPath[i] != null)
+                        {
+                            image = new Bitmap(imgPath[i]);
+                            images.Add(image);
+                        }
                     }
                 }
                 catch (System.IO.FileNotFoundException)

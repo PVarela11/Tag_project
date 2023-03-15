@@ -82,7 +82,7 @@
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(742, 84);
             this.txtDescription.TabIndex = 52;
-            this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
+            //this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
             // 
             // btnNewComponent
             // 
@@ -95,7 +95,7 @@
             this.btnNewComponent.TabIndex = 57;
             this.btnNewComponent.Text = "Add new";
             this.btnNewComponent.UseVisualStyleBackColor = true;
-            this.btnNewComponent.Click += new System.EventHandler(this.btnNewComponent_Click);
+            //this.btnNewComponent.Click += new System.EventHandler(this.btnNewComponent_Click);
             // 
             // btnFinish
             // 
@@ -108,7 +108,7 @@
             this.btnFinish.TabIndex = 58;
             this.btnFinish.Text = "Finish";
             this.btnFinish.UseVisualStyleBackColor = true;
-            this.btnFinish.Click += new System.EventHandler(this.btnFinish_Click);
+            //this.btnFinish.Click += new System.EventHandler(this.btnFinish_Click);
             // 
             // btnCancel
             // 
@@ -154,7 +154,7 @@
             this.btnClearBeforeImage.TabIndex = 64;
             this.btnClearBeforeImage.Text = "Clear";
             this.btnClearBeforeImage.UseVisualStyleBackColor = true;
-            this.btnClearBeforeImage.Click += new System.EventHandler(this.btnClearImage_Click);
+            //this.btnClearBeforeImage.Click += new System.EventHandler(this.btnClearImage_Click);
             // 
             // btnImportBeforeImage
             // 
@@ -167,7 +167,7 @@
             this.btnImportBeforeImage.TabIndex = 63;
             this.btnImportBeforeImage.Text = "Import";
             this.btnImportBeforeImage.UseVisualStyleBackColor = true;
-            this.btnImportBeforeImage.Click += new System.EventHandler(this.btnImportImage_Click);
+            //this.btnImportBeforeImage.Click += new System.EventHandler(this.btnImportImage_Click);
             // 
             // lblImportBeforeImage
             // 
@@ -192,7 +192,7 @@
             this.btnClearAfterImage.TabIndex = 67;
             this.btnClearAfterImage.Text = "Clear";
             this.btnClearAfterImage.UseVisualStyleBackColor = true;
-            this.btnClearAfterImage.Click += new System.EventHandler(this.btnClearImage_Click);
+            //this.btnClearAfterImage.Click += new System.EventHandler(this.btnClearImage_Click);
             // 
             // btnImportAfterImage
             // 
@@ -205,7 +205,7 @@
             this.btnImportAfterImage.TabIndex = 66;
             this.btnImportAfterImage.Text = "Import";
             this.btnImportAfterImage.UseVisualStyleBackColor = true;
-            this.btnImportAfterImage.Click += new System.EventHandler(this.btnImportImage_Click);
+            //this.btnImportAfterImage.Click += new System.EventHandler(this.btnImportImage_Click);
             // 
             // lblImportAfterImage
             // 
@@ -278,7 +278,7 @@
             this.btnImportImage.TabIndex = 55;
             this.btnImportImage.Text = "Import";
             this.btnImportImage.UseVisualStyleBackColor = true;
-            this.btnImportImage.Click += new System.EventHandler(this.btnImportImage_Click);
+            //this.btnImportImage.Click += new System.EventHandler(this.btnImportImage_Click);
             // 
             // btnClearImage
             // 
@@ -291,7 +291,7 @@
             this.btnClearImage.TabIndex = 56;
             this.btnClearImage.Text = "Clear";
             this.btnClearImage.UseVisualStyleBackColor = true;
-            this.btnClearImage.Click += new System.EventHandler(this.btnClearImage_Click);
+            //this.btnClearImage.Click += new System.EventHandler(this.btnClearImage_Click);
             // 
             // ComponentsForm
             // 

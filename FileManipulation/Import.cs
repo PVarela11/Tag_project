@@ -91,15 +91,15 @@ namespace Tåg_project.FileManipulation
                     }
                     else if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".jpeg")
                     {
-                        if (file.Contains("\\AfterClean"))
-                        {
-                            finalImagesPath.Add(file);
-                        }
-                        else if (file.Contains("\\BeforeClean"))
-                        {
-                            initialImagesPath.Add(file);
-                        }
-                        else if (file.Contains("\\Label"))
+                        //if (file.Contains("\\AfterClean"))
+                        //{
+                        //    finalImagesPath.Add(file);
+                        //}
+                        //else if (file.Contains("\\BeforeClean"))
+                        //{
+                        //    initialImagesPath.Add(file);
+                        //}
+                        if (file.Contains("\\Label"))
                         {
                             labelPath = file;
                         }
@@ -177,17 +177,29 @@ namespace Tåg_project.FileManipulation
                 string fileExtension = Path.GetExtension(file);
                 if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".jpeg")
                 {
-                    if (file.Contains("ComponentAfterIMG"))
+                    if (file.Contains("ComponentBeforeIMG1"))
                     {
-                        component.componentAfterImg = file;
+                        component.componentBeforeImage1 = file;
                     }
-                    else if (file.Contains("ComponentBeforeIMG"))
+                    else if (file.Contains("ComponentBeforeIMG2"))
                     {
-                        component.componentBeforeImg = file;
+                        component.componentBeforeImage2 = file;
                     }
-                    else if (file.Contains("ComponentIMG"))
+                    else if (file.Contains("ComponentBeforeIMG3"))
                     {
-                        component.componentImg = file;
+                        component.componentBeforeImage3 = file;
+                    }
+                    else if (file.Contains("ComponentAfterIMG1"))
+                    {
+                        component.componentAfterImage1 = file;
+                    }
+                    else if (file.Contains("ComponentAfterIMG2"))
+                    {
+                        component.componentAfterImage2 = file;
+                    }
+                    else if (file.Contains("ComponentAfterIMG3"))
+                    {
+                        component.componentAfterImage3 = file;
                     }
                 }
             }
