@@ -191,9 +191,9 @@
             this.pnlComponents.Controls.Add(this.txtDescription);
             this.pnlComponents.Controls.Add(this.lblDescription);
             this.pnlComponents.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlComponents.Location = new System.Drawing.Point(26, 62);
+            this.pnlComponents.Location = new System.Drawing.Point(12, 62);
             this.pnlComponents.Name = "pnlComponents";
-            this.pnlComponents.Size = new System.Drawing.Size(798, 437);
+            this.pnlComponents.Size = new System.Drawing.Size(812, 437);
             this.pnlComponents.TabIndex = 1;
             // 
             // label4
@@ -201,7 +201,7 @@
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label4.Location = new System.Drawing.Point(437, 69);
+            this.label4.Location = new System.Drawing.Point(444, 69);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(96, 19);
@@ -213,7 +213,7 @@
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label3.Location = new System.Drawing.Point(266, 69);
+            this.label3.Location = new System.Drawing.Point(273, 69);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(108, 19);
@@ -224,7 +224,7 @@
             // 
             this.btnImportBefore2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportBefore2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportBefore2.Location = new System.Drawing.Point(258, 129);
+            this.btnImportBefore2.Location = new System.Drawing.Point(265, 129);
             this.btnImportBefore2.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportBefore2.Name = "btnImportBefore2";
             this.btnImportBefore2.Size = new System.Drawing.Size(119, 28);
@@ -237,7 +237,7 @@
             // 
             this.btnImportBefore3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportBefore3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportBefore3.Location = new System.Drawing.Point(258, 161);
+            this.btnImportBefore3.Location = new System.Drawing.Point(265, 161);
             this.btnImportBefore3.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportBefore3.Name = "btnImportBefore3";
             this.btnImportBefore3.Size = new System.Drawing.Size(119, 28);
@@ -250,7 +250,7 @@
             // 
             this.btnImportAfter1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportAfter1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportAfter1.Location = new System.Drawing.Point(425, 97);
+            this.btnImportAfter1.Location = new System.Drawing.Point(432, 97);
             this.btnImportAfter1.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportAfter1.Name = "btnImportAfter1";
             this.btnImportAfter1.Size = new System.Drawing.Size(119, 28);
@@ -263,7 +263,7 @@
             // 
             this.btnImportAfter2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportAfter2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportAfter2.Location = new System.Drawing.Point(425, 129);
+            this.btnImportAfter2.Location = new System.Drawing.Point(432, 129);
             this.btnImportAfter2.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportAfter2.Name = "btnImportAfter2";
             this.btnImportAfter2.Size = new System.Drawing.Size(119, 28);
@@ -276,7 +276,7 @@
             // 
             this.btnImportAfter3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportAfter3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportAfter3.Location = new System.Drawing.Point(425, 161);
+            this.btnImportAfter3.Location = new System.Drawing.Point(432, 161);
             this.btnImportAfter3.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportAfter3.Name = "btnImportAfter3";
             this.btnImportAfter3.Size = new System.Drawing.Size(119, 28);
@@ -289,7 +289,7 @@
             // 
             this.btnImportBefore1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportBefore1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportBefore1.Location = new System.Drawing.Point(258, 97);
+            this.btnImportBefore1.Location = new System.Drawing.Point(265, 97);
             this.btnImportBefore1.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportBefore1.Name = "btnImportBefore1";
             this.btnImportBefore1.Size = new System.Drawing.Size(119, 28);
@@ -302,7 +302,7 @@
             // 
             this.btnAddComponent.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnAddComponent.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddComponent.Location = new System.Drawing.Point(340, 302);
+            this.btnAddComponent.Location = new System.Drawing.Point(347, 302);
             this.btnAddComponent.Margin = new System.Windows.Forms.Padding(2);
             this.btnAddComponent.Name = "btnAddComponent";
             this.btnAddComponent.Size = new System.Drawing.Size(119, 28);
@@ -341,7 +341,7 @@
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label2.Location = new System.Drawing.Point(337, 2);
+            this.label2.Location = new System.Drawing.Point(344, 2);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(125, 19);
@@ -354,7 +354,7 @@
             this.txtDescription.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDescription.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtDescription.Location = new System.Drawing.Point(24, 225);
+            this.txtDescription.Location = new System.Drawing.Point(31, 225);
             this.txtDescription.Margin = new System.Windows.Forms.Padding(2);
             this.txtDescription.Multiline = true;
             this.txtDescription.Name = "txtDescription";
@@ -386,7 +386,7 @@
             this.pnlFirst.Location = new System.Drawing.Point(0, 62);
             this.pnlFirst.Margin = new System.Windows.Forms.Padding(2);
             this.pnlFirst.Name = "pnlFirst";
-            this.pnlFirst.Size = new System.Drawing.Size(6, 437);
+            this.pnlFirst.Size = new System.Drawing.Size(0, 437);
             this.pnlFirst.TabIndex = 20;
             // 
             // lblCaminho
@@ -394,7 +394,7 @@
             this.lblCaminho.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblCaminho.AutoSize = true;
             this.lblCaminho.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblCaminho.Location = new System.Drawing.Point(-384, 170);
+            this.lblCaminho.Location = new System.Drawing.Point(-387, 170);
             this.lblCaminho.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCaminho.Name = "lblCaminho";
             this.lblCaminho.Size = new System.Drawing.Size(197, 19);
@@ -406,7 +406,7 @@
             this.label13.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label13.Location = new System.Drawing.Point(-385, 235);
+            this.label13.Location = new System.Drawing.Point(-388, 235);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(70, 19);
@@ -419,7 +419,7 @@
             this.txtSummary.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtSummary.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtSummary.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtSummary.Location = new System.Drawing.Point(-382, 258);
+            this.txtSummary.Location = new System.Drawing.Point(-385, 258);
             this.txtSummary.Margin = new System.Windows.Forms.Padding(2);
             this.txtSummary.Multiline = true;
             this.txtSummary.Name = "txtSummary";
@@ -431,7 +431,7 @@
             // 
             this.btnImportLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportLabel.Location = new System.Drawing.Point(-382, 191);
+            this.btnImportLabel.Location = new System.Drawing.Point(-385, 191);
             this.btnImportLabel.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportLabel.Name = "btnImportLabel";
             this.btnImportLabel.Size = new System.Drawing.Size(118, 28);
@@ -448,7 +448,7 @@
             this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.lblTitle.Size = new System.Drawing.Size(6, 95);
+            this.lblTitle.Size = new System.Drawing.Size(0, 95);
             this.lblTitle.TabIndex = 20;
             this.lblTitle.Text = resources.GetString("lblTitle.Text");
             // 
@@ -457,7 +457,7 @@
             this.lblSerialNum.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblSerialNum.AutoSize = true;
             this.lblSerialNum.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblSerialNum.Location = new System.Drawing.Point(-386, 109);
+            this.lblSerialNum.Location = new System.Drawing.Point(-389, 109);
             this.lblSerialNum.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSerialNum.Name = "lblSerialNum";
             this.lblSerialNum.Size = new System.Drawing.Size(98, 19);
@@ -467,7 +467,7 @@
             // txtSerialNum
             // 
             this.txtSerialNum.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtSerialNum.Location = new System.Drawing.Point(-382, 130);
+            this.txtSerialNum.Location = new System.Drawing.Point(-385, 130);
             this.txtSerialNum.Margin = new System.Windows.Forms.Padding(2);
             this.txtSerialNum.MaxLength = 8;
             this.txtSerialNum.Name = "txtSerialNum";
@@ -497,7 +497,7 @@
             this.pnlBoxes.Controls.Add(this.cboxTroubleshoot);
             this.pnlBoxes.Controls.Add(this.cboxClean);
             this.pnlBoxes.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlBoxes.Location = new System.Drawing.Point(6, 62);
+            this.pnlBoxes.Location = new System.Drawing.Point(-8, 62);
             this.pnlBoxes.Margin = new System.Windows.Forms.Padding(2);
             this.pnlBoxes.Name = "pnlBoxes";
             this.pnlBoxes.Size = new System.Drawing.Size(10, 437);
@@ -728,7 +728,7 @@
             this.pnlFinal.Controls.Add(this.lblComponent);
             this.pnlFinal.Controls.Add(this.btnAddComponent1213);
             this.pnlFinal.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlFinal.Location = new System.Drawing.Point(16, 62);
+            this.pnlFinal.Location = new System.Drawing.Point(2, 62);
             this.pnlFinal.Margin = new System.Windows.Forms.Padding(2);
             this.pnlFinal.Name = "pnlFinal";
             this.pnlFinal.Size = new System.Drawing.Size(10, 437);

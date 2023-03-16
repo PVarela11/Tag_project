@@ -143,8 +143,6 @@ namespace Tåg_project.Core
                     Export export = new Export(
                         serialNum,
                         isClean,
-                        initialImagesPath,
-                        finalImagesPath,
                         path,
                         observations,
                         comments,
@@ -173,13 +171,14 @@ namespace Tåg_project.Core
 
         private bool validateInputs(int page)
         {
-            //if (page == 0)
-            //{
-            //    if (txtSerialNum.TextLength < 8)
-            //    {
-            //        MessageBox.Show("Serial Number should be 8 digits");
-            //        return false;
-            //    }
+            if (page == 0)
+            {
+                if (txtSerialNum.TextLength < 8)
+                {
+                    MessageBox.Show("Serial Number should be 8 digits");
+                    return false;
+                }
+            }
             //    //else if (initialImagesPath.Count == 0)
             //    //{
             //    //    MessageBox.Show("You should import some images of the PCB first");
@@ -277,6 +276,7 @@ namespace Tåg_project.Core
                     componentToFind.componentAfterImage1 = componentAfterImg1;
                     componentToFind.componentAfterImage2 = componentAfterImg2;
                     componentToFind.componentAfterImage3 = componentAfterImg3;
+                    ClearComponentPanel();
                 }
                 
             }
@@ -466,45 +466,57 @@ namespace Tåg_project.Core
 
         private void listBoxComponent_Click(object sender, EventArgs e)
         {
-            string temp = listBoxComponents.SelectedItem.ToString();
-            if (listBoxComponents.SelectedIndex >= 0)
+            if (listBoxComponents.SelectedItem != null)
             {
-                //MessageBox.Show(listBoxComponents.SelectedItem.ToString());
-                foreach (Component comp in componentsList)
+                string temp = listBoxComponents.SelectedItem.ToString();
+                if (listBoxComponents.SelectedIndex >= 0)
                 {
-                    if(comp.name == temp)
+                    //MessageBox.Show(listBoxComponents.SelectedItem.ToString());
+                    foreach (Component comp in componentsList)
                     {
-                        comboComponents.Text = comp.name;
-                        txtDescription.Text = comp.description;
-                        if(comp.componentBeforeImage1 != null)
+                        if (comp.name == temp)
                         {
-                            componentBeforeImg1 = comp.componentBeforeImage1;
-                            btnImportBefore1.Text = "Image imported";
-                        }
-                        if (comp.componentBeforeImage2 != null)
-                        {
-                            componentBeforeImg2 = comp.componentBeforeImage2;
-                            btnImportBefore2.Text = "Image imported";
-                        }
-                        if (comp.componentBeforeImage3 != null)
-                        {
-                            componentBeforeImg3 = comp.componentBeforeImage3;
-                            btnImportBefore3.Text = "Image imported";
-                        }
-                        if (comp.componentAfterImage1 != null)
-                        {
-                            componentAfterImg1 = comp.componentAfterImage1;
-                            btnImportAfter1.Text = "Image imported";
-                        }
-                        if (comp.componentAfterImage2 != null)
-                        {
-                            componentAfterImg2 = comp.componentAfterImage2;
-                            btnImportAfter2.Text = "Image imported";
-                        }
-                        if (comp.componentAfterImage3 != null)
-                        {
-                            componentAfterImg3 = comp.componentAfterImage3;
-                            btnImportAfter3.Text = "Image imported";
+                            comboComponents.Text = comp.name;
+                            txtDescription.Text = comp.description;
+                            if (comp.componentBeforeImage1 != null)
+                            {
+                                componentBeforeImg1 = comp.componentBeforeImage1;
+                                btnImportBefore1.Text = "Image imported";
+                            }
+                            else btnImportBefore1.Text = "Add image";
+                            if (comp.componentBeforeImage2 != null)
+                            {
+                                componentBeforeImg2 = comp.componentBeforeImage2;
+                                btnImportBefore2.Text = "Image imported";
+                            }
+                            else btnImportBefore2.Text = "Add image";
+                            if (comp.componentBeforeImage3 != null)
+                            {
+                                componentBeforeImg3 = comp.componentBeforeImage3;
+                                btnImportBefore3.Text = "Image imported";
+                            }
+                            else btnImportBefore3.Text = "Add image";
+                            if (comp.componentAfterImage1 != null)
+                            {
+                                componentAfterImg1 = comp.componentAfterImage1;
+                                btnImportAfter1.Text = "Image imported";
+                            }
+                            else
+                                btnImportAfter1.Text = "Add image";
+                            if (comp.componentAfterImage2 != null)
+                            {
+                                componentAfterImg2 = comp.componentAfterImage2;
+                                btnImportAfter2.Text = "Image imported";
+                            }
+                            else
+                                btnImportAfter2.Text = "Add image";
+                            if (comp.componentAfterImage3 != null)
+                            {
+                                componentAfterImg3 = comp.componentAfterImage3;
+                                btnImportAfter3.Text = "Image imported";
+                            }
+                            else
+                                btnImportAfter3.Text = "Add image";
                         }
                     }
                 }
