@@ -11,12 +11,15 @@ namespace Tåg_project.Core
     public partial class Home : Form
     {
         Import import;
-        string path, week, serialNum, lastTwoDigitsOfYear, tempPath, observations, comments, process, labelPath, summary,
-            componentBeforeImg1, componentBeforeImg2, componentBeforeImg3, componentAfterImg1, componentAfterImg2, componentAfterImg3,
+        string path, serialNum, tempPath, observations, comments, process, labelPath, summary,
+            componentBeforeFrontImg1, componentBeforeBackImg1, componentBeforeFrontImg2, componentBeforeBackImg2, componentBeforeFrontImg3, componentBeforeBackImg3,
+            componentAfterFrontImg1, componentAfterBackImg1, componentAfterFrontImg2, componentAfterBackImg2, componentAfterFrontImg3, componentAfterBackImg3,
             componentName, componentDescription;
         List<Component> componentsList = new List<Component>();
         bool isClean, troubleshoot, repair, result1, result2, result3;
+
         bool isImported = false, isExported = false;
+
         int aux = 0, aux1 = 0, page = 0;
         List<Component> listaComponentes;
         List<string> initialImagesPath = new List<string>(), listAux = new List<string>(), finalImagesPath = new List<string>();
@@ -37,15 +40,23 @@ namespace Tåg_project.Core
             pnlBoxes.Width = 0;
             pnlComponents.Width = 0;
             lblTopPanel.Text = "Identification";
-            DateTime date = DateTime.Now;
-            CultureInfo ci = CultureInfo.InvariantCulture;
-            int weekNumber = ci.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
-            if (weekNumber < 10)
-            {
-                week = "0" + weekNumber;
-            }
-            else week = weekNumber.ToString();
-            lastTwoDigitsOfYear = date.ToString("yy");
+            btnImportAfterBack2.Enabled = false;
+            btnImportAfterBack3.Enabled = false;
+            btnImportAfterFront2.Enabled = false;
+            btnImportAfterFront3.Enabled = false;
+            btnImportBeforeBack2.Enabled = false;
+            btnImportBeforeBack3.Enabled = false;
+            btnImportBeforeFront2.Enabled = false;
+            btnImportBeforeFront3.Enabled = false;
+            //DateTime date = DateTime.Now;
+            //CultureInfo ci = CultureInfo.InvariantCulture;
+            //int weekNumber = ci.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+            //if (weekNumber < 10)
+            //{
+            //    week = "0" + weekNumber;
+            //}
+            //else week = weekNumber.ToString();
+            //lastTwoDigitsOfYear = date.ToString("yy");
 
             //pboxImages.Enabled = false;
             //pboxFinalImages.Enabled = false;
@@ -258,11 +269,17 @@ namespace Tåg_project.Core
         {
             componentName = comboComponents.Text;
             componentDescription = txtDescription.Text;
-            if (componentName != "" && componentDescription != "" && componentAfterImg1 != null && componentBeforeImg1 != null)
+            if (componentName != "" && componentDescription != "" && componentAfterFrontImg1 != null && componentAfterBackImg1 != null && 
+                componentBeforeFrontImg1 != null && componentBeforeBackImg1 != null)
             {
                 if (!listBoxComponents.Items.Contains(comboComponents.Text))
                 {
-                    componentsList.Add(new Component(componentName, componentBeforeImg1, componentBeforeImg2, componentBeforeImg3, componentAfterImg1, componentAfterImg2, componentAfterImg3, componentDescription));
+                    componentsList.Add(new Component(componentName, 
+                        componentBeforeFrontImg1, componentBeforeFrontImg2, componentBeforeFrontImg3,
+                        componentBeforeBackImg1, componentBeforeBackImg2, componentBeforeBackImg3,
+                        componentAfterFrontImg1, componentAfterFrontImg2, componentAfterFrontImg3,
+                        componentAfterBackImg1, componentAfterBackImg2, componentAfterBackImg3,
+                        componentDescription));
                     listBoxComponents.Items.Add(comboComponents.Text);
                     ClearComponentPanel();
                 }
@@ -270,12 +287,19 @@ namespace Tåg_project.Core
                 {
                     Component componentToFind = componentsList.Find(x => x.name == componentName);
                     componentToFind.description = componentDescription;
-                    componentToFind.componentBeforeImage1 = componentBeforeImg1;
-                    componentToFind.componentBeforeImage2 = componentBeforeImg2;
-                    componentToFind.componentBeforeImage3 = componentBeforeImg3;
-                    componentToFind.componentAfterImage1 = componentAfterImg1;
-                    componentToFind.componentAfterImage2 = componentAfterImg2;
-                    componentToFind.componentAfterImage3 = componentAfterImg3;
+                    componentToFind.componentBeforeFrontImage1 = componentBeforeFrontImg1;
+                    componentToFind.componentBeforeFrontImage2 = componentBeforeFrontImg2;
+                    componentToFind.componentBeforeFrontImage3 = componentBeforeFrontImg3;
+                    componentToFind.componentBeforeBackImage1 = componentBeforeBackImg1;
+                    componentToFind.componentBeforeBackImage2 = componentBeforeBackImg2;
+                    componentToFind.componentBeforeBackImage3 = componentBeforeBackImg3;
+                    componentToFind.componentAfterFrontImage1 = componentAfterFrontImg1;
+                    componentToFind.componentAfterFrontImage2 = componentAfterFrontImg2;
+                    componentToFind.componentAfterFrontImage3 = componentAfterFrontImg3;
+                    componentToFind.componentAfterBackImage1 = componentAfterBackImg1;
+                    componentToFind.componentAfterBackImage2 = componentAfterBackImg2;
+                    componentToFind.componentAfterBackImage3 = componentAfterBackImg3;
+
                     ClearComponentPanel();
                 }
                 
@@ -287,21 +311,33 @@ namespace Tåg_project.Core
             //Clear variables
             componentDescription = "";
             componentName = "";
-            componentBeforeImg1 = null;
-            componentBeforeImg2 = null;
-            componentBeforeImg3 = null;
-            componentAfterImg1 = null;
-            componentAfterImg2 = null;
-            componentAfterImg3 = null;
+            componentBeforeFrontImg1 = null;
+            componentBeforeFrontImg2 = null;
+            componentBeforeFrontImg3 = null;
+            componentAfterFrontImg1 = null;
+            componentAfterFrontImg2 = null;
+            componentAfterFrontImg3 = null;
+            componentBeforeBackImg1 = null;
+            componentBeforeBackImg2 = null;
+            componentBeforeBackImg3 = null;
+            componentAfterBackImg1 = null;
+            componentAfterBackImg2 = null;
+            componentAfterBackImg3 = null;
             //Clear controls
             comboComponents.Text = "";
             txtDescription.Text = "";
-            btnImportAfter1.Text = "Add image";
-            btnImportAfter2.Text = "Add image";
-            btnImportAfter3.Text = "Add image";
-            btnImportBefore1.Text = "Add image";
-            btnImportBefore2.Text = "Add image";
-            btnImportBefore3.Text = "Add image";
+            btnImportAfterFront1.Text = "Add image";
+            btnImportAfterFront2.Text = "Add image";
+            btnImportAfterFront3.Text = "Add image";
+            btnImportBeforeFront1.Text = "Add image";
+            btnImportBeforeFront2.Text = "Add image";
+            btnImportBeforeFront3.Text = "Add image";
+            btnImportAfterBack1.Text = "Add image";
+            btnImportAfterBack2.Text = "Add image";
+            btnImportAfterBack3.Text = "Add image";
+            btnImportBeforeBack1.Text = "Add image";
+            btnImportBeforeBack2.Text = "Add image";
+            btnImportBeforeBack3.Text = "Add image";
         }
 
         private void lblTroubleshoot_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -318,63 +354,115 @@ namespace Tåg_project.Core
             Export();
         }
 
+        private void btnClearImages_Click(object sender, EventArgs e)
+        {
+            string btnName = (sender as System.Windows.Forms.Button).Name;
+            if (btnName == "btnClearBeforeImages")
+            {
+                componentBeforeFrontImg1 = null;
+                componentBeforeFrontImg2 = null;
+                componentBeforeFrontImg3 = null;
+                componentBeforeBackImg1 = null;
+                componentBeforeBackImg2 = null;
+                componentBeforeBackImg3 = null;
+                btnImportBeforeFront1.Text = "Add image";
+                btnImportBeforeFront2.Text = "Add image";
+                btnImportBeforeFront3.Text = "Add image";
+                btnImportBeforeBack1.Text = "Add image";
+                btnImportBeforeBack2.Text = "Add image";
+                btnImportBeforeBack3.Text = "Add image";
+            }
+            else if (btnName == "btnClearAfterImages")
+            {
+                componentAfterFrontImg1 = null;
+                componentAfterFrontImg2 = null;
+                componentAfterFrontImg3 = null;
+                componentAfterBackImg1 = null;
+                componentAfterBackImg2 = null;
+                componentAfterBackImg3 = null;
+                btnImportAfterFront1.Text = "Add image";
+                btnImportAfterFront2.Text = "Add image";
+                btnImportAfterFront3.Text = "Add image";
+                btnImportAfterBack1.Text = "Add image";
+                btnImportAfterBack2.Text = "Add image";
+                btnImportAfterBack3.Text = "Add image";
+            }
+        }
+
         private void btnImportImage_Click(object sender, EventArgs e)
         {
-            //listAux.Clear();
             string btnName = (sender as System.Windows.Forms.Button).Name;
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Select Valid Document(*.png; *.jpeg; *.jpg)|*.png; *.jpeg; *.jpg";
-            //dialog.Multiselect = true;
-            //int imgCount = 0;
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                //foreach (string fileName in dialog.FileNames)
-                //{
-                //    // do something with path
-                //    listAux.Add(fileName);
-                //    imgCount++;
-                //}
-                if (btnName == "btnImportBefore1")
+                if (btnName == "btnImportBeforeFront1")
                 {
-                    componentBeforeImg1 = dialog.FileName;
-                    btnImportBefore1.Text = "Image imported";
-                    //pboxFinalImages.BackColor = System.Drawing.Color.FromArgb(119, 156, 230);
-                    //finalImagesPath.AddRange(listAux);
-                    //finalImagesCount += imgCount;
-                    //pboxFinalImages.ImageLocation = finalImagesPath[0];
-                    //pboxFinalImages.Enabled = true;
-                    //lblFinalImages.Text = finalImagesPath.Count.ToString() + " images imported";
+                    componentBeforeFrontImg1 = dialog.FileName;
+                    btnImportBeforeFront1.Text = "Image imported";
+                    btnImportBeforeFront2.Enabled = true;
                 }
-                else if (btnName == "btnImportBefore2")
+                else if (btnName == "btnImportBeforeFront2")
                 {
-                    btnImportBefore2.Text = "Image imported";
-                    componentBeforeImg2 = dialog.FileName;
-                    //pboxImages.BackColor = System.Drawing.Color.FromArgb(119, 155, 230);
-                    //initialImagesPath.AddRange(listAux);
-                    //initialImagesCount += imgCount;
-                    //pboxImages.ImageLocation = initialImagesPath[0];
-                    //lblImages.Text = initialImagesPath.Count.ToString() + " images imported";
-                    //pboxImages.Enabled = true;
+                    btnImportBeforeFront2.Text = "Image imported";
+                    componentBeforeFrontImg2 = dialog.FileName;
+                    btnImportBeforeFront3.Enabled = true;
                 }
-                else if (btnName == "btnImportBefore3")
+                else if (btnName == "btnImportBeforeFront3")
                 {
-                    btnImportBefore3.Text = "Image imported";
-                    componentBeforeImg3 = dialog.FileName;
+                    btnImportBeforeFront3.Text = "Image imported";
+                    componentBeforeFrontImg3 = dialog.FileName;
                 }
-                else if (btnName == "btnImportAfter1")
+                else if (btnName == "btnImportBeforeBack1")
                 {
-                    btnImportAfter1.Text = "Image imported";
-                    componentAfterImg1 = dialog.FileName;
+                    btnImportBeforeBack1.Text = "Image imported";
+                    componentBeforeBackImg1 = dialog.FileName;
+                    btnImportBeforeBack2.Enabled = true;
                 }
-                else if (btnName == "btnImportAfter2")
+                else if (btnName == "btnImportBeforeBack2")
                 {
-                    btnImportAfter2.Text = "Image imported";
-                    componentAfterImg2 = dialog.FileName;
+                    btnImportBeforeBack2.Text = "Image imported";
+                    componentBeforeBackImg2 = dialog.FileName;
+                    btnImportBeforeBack3.Enabled = true;
                 }
-                else if (btnName == "btnImportAfter3")
+                else if (btnName == "btnImportBeforeBack3")
                 {
-                    btnImportAfter3.Text = "Image imported";
-                    componentAfterImg3 = dialog.FileName;
+                    btnImportBeforeBack3.Text = "Image imported";
+                    componentBeforeBackImg3 = dialog.FileName;
+                }
+                else if (btnName == "btnImportAfterFront1")
+                {
+                    btnImportAfterFront1.Text = "Image imported";
+                    componentAfterFrontImg1 = dialog.FileName;
+                    btnImportAfterFront2.Enabled = true;
+                }
+                else if (btnName == "btnImportAfterFront2")
+                {
+                    btnImportAfterFront2.Text = "Image imported";
+                    componentAfterFrontImg2 = dialog.FileName;
+                    btnImportAfterFront3.Enabled = true;
+                }
+                else if (btnName == "btnImportAfterFront3")
+                {
+                    btnImportAfterFront3.Text = "Image imported";
+                    componentAfterFrontImg3 = dialog.FileName;
+                }
+                else if (btnName == "btnImportAfterBack1")
+                {
+                    btnImportAfterBack1.Text = "Image imported";
+                    componentAfterBackImg1 = dialog.FileName;
+                    btnImportAfterBack2.Enabled = true;
+                }
+                else if (btnName == "btnImportAfterBack2")
+                {
+                    btnImportAfterBack2.Text = "Image imported";
+                    componentAfterBackImg2 = dialog.FileName;
+                    btnImportAfterBack3.Enabled = true;
+                }
+                else if (btnName == "btnImportAfterBack3")
+                {
+                    btnImportAfterBack3.Text = "Image imported";
+                    componentAfterBackImg3 = dialog.FileName;
                 }
                 else if (btnName == "btnImportLabel")
                 {
@@ -478,45 +566,97 @@ namespace Tåg_project.Core
                         {
                             comboComponents.Text = comp.name;
                             txtDescription.Text = comp.description;
-                            if (comp.componentBeforeImage1 != null)
+
+                            if (comp.componentBeforeFrontImage1 != null)
                             {
-                                componentBeforeImg1 = comp.componentBeforeImage1;
-                                btnImportBefore1.Text = "Image imported";
+                                componentBeforeFrontImg1 = comp.componentBeforeFrontImage1;
+                                btnImportBeforeFront1.Text = "Image imported";
+                                btnImportBeforeFront2.Enabled = true;
                             }
-                            else btnImportBefore1.Text = "Add image";
-                            if (comp.componentBeforeImage2 != null)
+                            else btnImportBeforeFront1.Text = "Add image";
+
+                            if (comp.componentBeforeFrontImage2 != null)
                             {
-                                componentBeforeImg2 = comp.componentBeforeImage2;
-                                btnImportBefore2.Text = "Image imported";
+                                componentBeforeFrontImg2 = comp.componentBeforeFrontImage2;
+                                btnImportBeforeFront2.Text = "Image imported";
+                                btnImportBeforeFront3.Enabled = true;
                             }
-                            else btnImportBefore2.Text = "Add image";
-                            if (comp.componentBeforeImage3 != null)
+                            else btnImportBeforeFront2.Text = "Add image";
+                            if (comp.componentBeforeFrontImage3 != null)
                             {
-                                componentBeforeImg3 = comp.componentBeforeImage3;
-                                btnImportBefore3.Text = "Image imported";
+                                componentBeforeBackImg3 = comp.componentBeforeFrontImage3;
+                                btnImportBeforeFront3.Text = "Image imported";
                             }
-                            else btnImportBefore3.Text = "Add image";
-                            if (comp.componentAfterImage1 != null)
+                            else btnImportBeforeFront3.Text = "Add image";
+                            if (comp.componentAfterFrontImage1 != null)
                             {
-                                componentAfterImg1 = comp.componentAfterImage1;
-                                btnImportAfter1.Text = "Image imported";
-                            }
-                            else
-                                btnImportAfter1.Text = "Add image";
-                            if (comp.componentAfterImage2 != null)
-                            {
-                                componentAfterImg2 = comp.componentAfterImage2;
-                                btnImportAfter2.Text = "Image imported";
+                                componentAfterFrontImg1 = comp.componentAfterFrontImage1;
+                                btnImportAfterFront1.Text = "Image imported";
+                                btnImportAfterFront2.Enabled = true;
                             }
                             else
-                                btnImportAfter2.Text = "Add image";
-                            if (comp.componentAfterImage3 != null)
+                                btnImportAfterFront1.Text = "Add image";
+                            if (comp.componentAfterFrontImage2 != null)
                             {
-                                componentAfterImg3 = comp.componentAfterImage3;
-                                btnImportAfter3.Text = "Image imported";
+                                componentAfterFrontImg2 = comp.componentAfterFrontImage2;
+                                btnImportAfterFront2.Text = "Image imported";
+                                btnImportAfterFront3.Enabled = true;
                             }
                             else
-                                btnImportAfter3.Text = "Add image";
+                                btnImportAfterFront2.Text = "Add image";
+                            if (comp.componentAfterFrontImage3 != null)
+                            {
+                                componentAfterFrontImg3 = comp.componentAfterFrontImage3;
+                                btnImportAfterFront3.Text = "Image imported";
+                            }
+                            else
+                                btnImportAfterFront3.Text = "Add image";
+
+
+
+                            if (comp.componentBeforeBackImage1 != null)
+                            {
+                                componentBeforeBackImg1 = comp.componentBeforeBackImage1;
+                                btnImportBeforeBack1.Text = "Image imported";
+                                btnImportBeforeBack2.Enabled = true;
+                            }
+                            else btnImportBeforeBack1.Text = "Add image";
+                            if (comp.componentBeforeBackImage2 != null)
+                            {
+                                componentBeforeBackImg2 = comp.componentBeforeBackImage2;
+                                btnImportBeforeBack2.Text = "Image imported";
+                                btnImportBeforeBack3.Enabled = true;
+                            }
+                            else btnImportBeforeBack2.Text = "Add image";
+                            if (comp.componentBeforeBackImage3 != null)
+                            {
+                                componentBeforeBackImg3 = comp.componentBeforeFrontImage3;
+                                btnImportBeforeBack3.Text = "Image imported";
+                            }
+                            else btnImportBeforeBack3.Text = "Add image";
+                            if (comp.componentAfterBackImage1 != null)
+                            {
+                                componentAfterBackImg1 = comp.componentAfterBackImage1;
+                                btnImportAfterBack1.Text = "Image imported";
+                                btnImportAfterBack2.Enabled = true;
+                            }
+                            else
+                                btnImportAfterBack1.Text = "Add image";
+                            if (comp.componentAfterBackImage2 != null)
+                            {
+                                componentAfterBackImg2 = comp.componentAfterBackImage2;
+                                btnImportAfterBack2.Text = "Image imported";
+                                btnImportAfterBack3.Enabled = true;
+                            }
+                            else
+                                btnImportAfterBack2.Text = "Add image";
+                            if (comp.componentAfterBackImage3 != null)
+                            {
+                                componentAfterBackImg3 = comp.componentAfterBackImage3;
+                                btnImportAfterBack3.Text = "Image imported";
+                            }
+                            else
+                                btnImportAfterBack3.Text = "Add image";
                         }
                     }
                 }
