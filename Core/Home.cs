@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using Tåg_project.FileManipulation;
@@ -20,8 +19,7 @@ namespace Tåg_project.Core
 
         bool isImported = false, isExported = false;
 
-        int aux = 0, aux1 = 0, page = 0;
-        List<Component> listaComponentes;
+        int page = 0;
         List<string> initialImagesPath = new List<string>(), listAux = new List<string>(), finalImagesPath = new List<string>();
         public Home(string tempPath)
         {
@@ -48,31 +46,10 @@ namespace Tåg_project.Core
             btnImportBeforeBack3.Enabled = false;
             btnImportBeforeFront2.Enabled = false;
             btnImportBeforeFront3.Enabled = false;
-            //DateTime date = DateTime.Now;
-            //CultureInfo ci = CultureInfo.InvariantCulture;
-            //int weekNumber = ci.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
-            //if (weekNumber < 10)
-            //{
-            //    week = "0" + weekNumber;
-            //}
-            //else week = weekNumber.ToString();
-            //lastTwoDigitsOfYear = date.ToString("yy");
-
-            //pboxImages.Enabled = false;
-            //pboxFinalImages.Enabled = false;
             btnPrev.Enabled = false;
         }
 
-        private void UpdateDesign()
-        {
-            //if(initialImagesPath.Count>0)
-            //lblImages.Text = initialImagesPath.Count.ToString() + "image(s) imported" ;
-            //if(finalImagesPath.Count>0)
-            //lblFinalImages.Text = finalImagesPath.Count.ToString() + "image(s) imported";
-        }
-
         #region FileManipulation
-        //TODO: import the values from .import to the local variables and create new funcion to update values on UI
         private void importData()
         {
             import = new Import(path);
@@ -123,12 +100,6 @@ namespace Tåg_project.Core
 
         private void Export()
         {
-            //Checks if textbox has data and saves the string as int
-            //if (txtSerialNum.Text != "" && import == null)
-            //{
-            //    //serialNum = lastTwoDigitsOfYear + week + txtSerialNum.Text;
-            //    Console.WriteLine(serialNum.ToString());
-            //}
             if (validateInputs(0))
             {
                 serialNum = txtSerialNum.Text;
@@ -170,7 +141,6 @@ namespace Tåg_project.Core
                         );
 
                     path = export.path;
-                    UpdateDesign();
                     isExported = true;
                 }
                 else
@@ -190,46 +160,11 @@ namespace Tåg_project.Core
                     return false;
                 }
             }
-            //    //else if (initialImagesPath.Count == 0)
-            //    //{
-            //    //    MessageBox.Show("You should import some images of the PCB first");
-            //    //    return false;
-            //    //}
-            //    else if (labelPath==null)
-            //    {
-            //        MessageBox.Show("You should import the label of PCB first");
-            //        return false;
-            //    }
-            //}
-            //else if (page == 1)
-            //{
-            //    if (txtProcess.TextLength == 0)
-            //    {
-            //        MessageBox.Show("You should write something about the work done");
-            //        return false;
-            //    }
-            //}
-            //else if (page == 2)
-            //{
-            //    if (finalImagesPath.Count == 0)
-            //    {
-            //        MessageBox.Show("You should import some images of the PCB first");
-            //        return false;
-            //    }
-            //}
             return true;
         }
 
         private void ExportPDF(string p)
         {
-            //Export();
-            //if (serialNum == null)
-            //{
-            //    //Console.WriteLine(serialNum);
-            //    MessageBox.Show("Serial number should be 8 digits");
-            //    return;
-            //    //serialNum = lastTwoDigitsOfYear + week + txtSerialNum.Text;
-            //}
             isClean = cboxClean.Checked;
             troubleshoot = cboxTroubleshoot.Checked;
             repair = cboxRepair.Checked;
@@ -269,12 +204,12 @@ namespace Tåg_project.Core
         {
             componentName = comboComponents.Text;
             componentDescription = txtDescription.Text;
-            if (componentName != "" && componentDescription != "" && componentAfterFrontImg1 != null && componentAfterBackImg1 != null && 
+            if (componentName != "" && componentDescription != "" && componentAfterFrontImg1 != null && componentAfterBackImg1 != null &&
                 componentBeforeFrontImg1 != null && componentBeforeBackImg1 != null)
             {
                 if (!listBoxComponents.Items.Contains(comboComponents.Text))
                 {
-                    componentsList.Add(new Component(componentName, 
+                    componentsList.Add(new Component(componentName,
                         componentBeforeFrontImg1, componentBeforeFrontImg2, componentBeforeFrontImg3,
                         componentBeforeBackImg1, componentBeforeBackImg2, componentBeforeBackImg3,
                         componentAfterFrontImg1, componentAfterFrontImg2, componentAfterFrontImg3,
@@ -302,8 +237,8 @@ namespace Tåg_project.Core
 
                     ClearComponentPanel();
                 }
-                
             }
+            else MessageBox.Show("You need to insert more data about the component.");
         }
 
         private void ClearComponentPanel()
@@ -371,6 +306,11 @@ namespace Tåg_project.Core
                 btnImportBeforeBack1.Text = "Add image";
                 btnImportBeforeBack2.Text = "Add image";
                 btnImportBeforeBack3.Text = "Add image";
+
+                btnImportBeforeFront2.Enabled = false;
+                btnImportBeforeFront3.Enabled = false;
+                btnImportBeforeBack3.Enabled = false;
+                btnImportBeforeBack2.Enabled = false;
             }
             else if (btnName == "btnClearAfterImages")
             {
@@ -386,6 +326,11 @@ namespace Tåg_project.Core
                 btnImportAfterBack1.Text = "Add image";
                 btnImportAfterBack2.Text = "Add image";
                 btnImportAfterBack3.Text = "Add image";
+
+                btnImportAfterFront2.Enabled = false;
+                btnImportAfterFront3.Enabled = false;
+                btnImportAfterBack3.Enabled = false;
+                btnImportAfterBack2.Enabled = false;
             }
         }
 
@@ -584,7 +529,7 @@ namespace Tåg_project.Core
                             else btnImportBeforeFront2.Text = "Add image";
                             if (comp.componentBeforeFrontImage3 != null)
                             {
-                                componentBeforeBackImg3 = comp.componentBeforeFrontImage3;
+                                componentBeforeFrontImg3 = comp.componentBeforeFrontImage3;
                                 btnImportBeforeFront3.Text = "Image imported";
                             }
                             else btnImportBeforeFront3.Text = "Add image";
@@ -630,7 +575,7 @@ namespace Tåg_project.Core
                             else btnImportBeforeBack2.Text = "Add image";
                             if (comp.componentBeforeBackImage3 != null)
                             {
-                                componentBeforeBackImg3 = comp.componentBeforeFrontImage3;
+                                componentBeforeBackImg3 = comp.componentBeforeBackImage3;
                                 btnImportBeforeBack3.Text = "Image imported";
                             }
                             else btnImportBeforeBack3.Text = "Add image";
@@ -769,6 +714,27 @@ namespace Tåg_project.Core
             if (e.KeyChar == '|')
             {
                 e.Handled = true;
+            }
+        }
+
+        private void txtDescription_TextChanged(object sender, EventArgs e)
+        {
+            // Limit the number of lines to 3
+            int maxLines = 3;
+        
+            // Get the current number of lines
+            int numLines = txtDescription.GetLineFromCharIndex(txtDescription.TextLength) + 1;
+        
+            // If the number of lines exceeds the limit, delete the extra lines
+            if (numLines > maxLines)
+            {
+                int firstCharIndex = txtDescription.GetFirstCharIndexFromLine(maxLines);
+                // Make sure the start index is valid
+                if (firstCharIndex >= 0 && firstCharIndex < txtDescription.TextLength)
+                {
+                    txtDescription.Text = txtDescription.Text.Remove(firstCharIndex);
+                    txtDescription.SelectionStart = txtDescription.TextLength;
+                }
             }
         }
         #endregion

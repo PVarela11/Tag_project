@@ -46,11 +46,13 @@ namespace Tåg_project.FileManipulation
             List<Component> listaComponentes
             )
         {
+            //Add label image path to a list so it can be used by the function
             if (labelPath != null)
             {
                 labelList = new List<string>();
                 labelList.Add(labelPath);
             }
+            //Add components info to list so it can be inserted to the csv file
             if (listaComponentes != null) 
             {
                 components = listaComponentes;
@@ -319,7 +321,7 @@ namespace Tåg_project.FileManipulation
                     {
                         using (FileStream stream = new FileStream(imgPath, FileMode.Create))
                         {
-                            images[0].Save(stream, ImageFormat.Jpeg);
+                            images[i].Save(stream, ImageFormat.Jpeg);
                         }
                     }
 
@@ -332,7 +334,7 @@ namespace Tåg_project.FileManipulation
                     {
                         using (FileStream stream = new FileStream(imgPath, FileMode.Create))
                         {
-                            images[1].Save(stream, ImageFormat.Jpeg);
+                            images[i].Save(stream, ImageFormat.Jpeg);
                         }
                     }
                 }
@@ -344,7 +346,7 @@ namespace Tåg_project.FileManipulation
                     {
                         using (FileStream stream = new FileStream(imgPath, FileMode.Create))
                         {
-                            images[2].Save(stream, ImageFormat.Jpeg);
+                            images[i].Save(stream, ImageFormat.Jpeg);
                         }
                     }
                 }
@@ -356,7 +358,7 @@ namespace Tåg_project.FileManipulation
                     {
                         using (FileStream stream = new FileStream(imgPath, FileMode.Create))
                         {
-                            images[3].Save(stream, ImageFormat.Jpeg);
+                            images[i].Save(stream, ImageFormat.Jpeg);
                         }
                     }
                 }
@@ -368,7 +370,7 @@ namespace Tåg_project.FileManipulation
                     {
                         using (FileStream stream = new FileStream(imgPath, FileMode.Create))
                         {
-                            images[4].Save(stream, ImageFormat.Jpeg);
+                            images[i].Save(stream, ImageFormat.Jpeg);
                         }
                     }
                 }
@@ -380,12 +382,10 @@ namespace Tåg_project.FileManipulation
                     {
                         using (FileStream stream = new FileStream(imgPath, FileMode.Create))
                         {
-                            images[5].Save(stream, ImageFormat.Jpeg);
+                            images[i].Save(stream, ImageFormat.Jpeg);
                         }
                     }
                 }
-
-
                 else if (i == 6 && comp.componentBeforeBackImage1 != null)
                 {
                     fileExtension = Path.GetExtension(comp.componentBeforeBackImage1);
@@ -395,7 +395,7 @@ namespace Tåg_project.FileManipulation
                     {
                         using (FileStream stream = new FileStream(imgPath, FileMode.Create))
                         {
-                            images[6].Save(stream, ImageFormat.Jpeg);
+                            images[i].Save(stream, ImageFormat.Jpeg);
                         }
                     }
 
@@ -408,7 +408,7 @@ namespace Tåg_project.FileManipulation
                     {
                         using (FileStream stream = new FileStream(imgPath, FileMode.Create))
                         {
-                            images[7].Save(stream, ImageFormat.Jpeg);
+                            images[i].Save(stream, ImageFormat.Jpeg);
                         }
                     }
                 }
@@ -420,7 +420,7 @@ namespace Tåg_project.FileManipulation
                     {
                         using (FileStream stream = new FileStream(imgPath, FileMode.Create))
                         {
-                            images[8].Save(stream, ImageFormat.Jpeg);
+                            images[i].Save(stream, ImageFormat.Jpeg);
                         }
                     }
                 }
@@ -432,7 +432,7 @@ namespace Tåg_project.FileManipulation
                     {
                         using (FileStream stream = new FileStream(imgPath, FileMode.Create))
                         {
-                            images[9].Save(stream, ImageFormat.Jpeg);
+                            images[i].Save(stream, ImageFormat.Jpeg);
                         }
                     }
                 }
@@ -444,7 +444,7 @@ namespace Tåg_project.FileManipulation
                     {
                         using (FileStream stream = new FileStream(imgPath, FileMode.Create))
                         {
-                            images[10].Save(stream, ImageFormat.Jpeg);
+                            images[i].Save(stream, ImageFormat.Jpeg);
                         }
                     }
                 }
@@ -456,7 +456,7 @@ namespace Tåg_project.FileManipulation
                     {
                         using (FileStream stream = new FileStream(imgPath, FileMode.Create))
                         {
-                            images[11].Save(stream, ImageFormat.Jpeg);
+                            images[i].Save(stream, ImageFormat.Jpeg);
                         }
                     }
                 }
@@ -508,9 +508,13 @@ namespace Tåg_project.FileManipulation
                 {
                     if (list.Where(a => a != null).Any(a => a.Contains(file)))
                     {
-                        Console.WriteLine("The file is present in the list.");
+                        Console.WriteLine("The file is present in the list.: {0}", file);
                     }
-                    else { File.Delete(file); }
+                    else
+                    {
+                        Console.WriteLine("The file was deleted.: {0}", file);
+                        File.Delete(file); 
+                    }
                     
                 }
             }
@@ -596,6 +600,11 @@ namespace Tåg_project.FileManipulation
                         {
                             image = new Bitmap(imgPath[i]);
                             images.Add(image);
+                        }
+                        else
+                        {
+                            Bitmap placeHolder = new Bitmap(Properties.Resources.image_placeholder);
+                            images.Add(placeHolder);
                         }
                     }
                 }

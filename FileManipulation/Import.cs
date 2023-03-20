@@ -26,7 +26,6 @@ namespace Tåg_project.FileManipulation
 
         public Import(string path)
         {
-            string name, description;
             string[] lines;
             initialImagesPath = new List<string>();
             finalImagesPath = new List<string>();
@@ -59,10 +58,10 @@ namespace Tåg_project.FileManipulation
                                         observations = column.Replace("!r!n", "\r\n");
                                         break;
                                     case 3:
-                                        comments = column.Replace("!r!n", "\r\n"); ;
+                                        comments = column.Replace("!r!n", "\r\n");
                                         break;
                                     case 4:
-                                        process = column.Replace("!r!n", "\r\n"); ;
+                                        process = column.Replace("!r!n", "\r\n");
                                         break;
                                     case 5:
                                         troubleshoot = bool.Parse(column);
@@ -80,7 +79,7 @@ namespace Tåg_project.FileManipulation
                                         result3 = bool.Parse(column);
                                         break;
                                     case 10:
-                                        summary = column.Replace("!r!n", "\r\n"); ;
+                                        summary = column.Replace("!r!n", "\r\n");
                                         break;
 
                                 }
@@ -91,14 +90,6 @@ namespace Tåg_project.FileManipulation
                     }
                     else if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".jpeg")
                     {
-                        //if (file.Contains("\\AfterClean"))
-                        //{
-                        //    finalImagesPath.Add(file);
-                        //}
-                        //else if (file.Contains("\\BeforeClean"))
-                        //{
-                        //    initialImagesPath.Add(file);
-                        //}
                         if (file.Contains("\\Label"))
                         {
                             labelPath = file;
@@ -140,26 +131,22 @@ namespace Tåg_project.FileManipulation
                             switch (counter)
                             {
                                 case 0:
-                                    component.name = column;
-                                    name = column.ToString().Replace("!r!n", "\r\n"); ;
+                                    component.name = column.Replace("!r!n", "\r\n");
                                     break;
 
                                 case 1:
-                                    component.description = column;
-                                    description = column.Replace("!r!n", "\r\n");
+                                    component.description = column.Replace("!r!n", "\r\n");
                                     break;
                             }
                             counter++;
                         }
                         GetImages(component, newPath);
                         counter = 0;
-                        //components.Add(new Component(name, description))
                     }
                 }
             }
             catch (Exception ex)
             {
-                //Console.WriteLine("The process failed: {0}", ex.ToString());
                 Console.WriteLine("Error: " + ex.Message);
                 MessageBox.Show("There was an error with the import of the file");
                 serialNum = null;

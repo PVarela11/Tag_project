@@ -172,12 +172,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Component.cs" />
-    <Compile Include="Core\ComponentsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Core\ComponentsForm.Designer.cs">
-      <DependentUpon>ComponentsForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Core\Home.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,9 +199,6 @@
     <Compile Include="FileManipulation\ShowFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Core\ComponentsForm.resx">
-      <DependentUpon>ComponentsForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Core\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
@@ -245,6 +236,9 @@
     </Content>
     <None Include="Resources\MotionControlLogo.png" />
     <None Include="Resources\mc_2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\image_placeholder.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="Resources\PCB Report Creator User Manual.pdf">
