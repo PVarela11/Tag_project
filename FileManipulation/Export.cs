@@ -18,14 +18,10 @@ namespace Tåg_project.FileManipulation
         DirectoryInfo di;
         List<string[]> componentsData = new List<string[]>();
         public string path { get; set; }
-        public string initialImagesFolder { get; set; }
         public string finalImagesFolder { get; set; }
         public string labelImagesFolder { get; set; }
-
         public string componentsFolder { get; set; }
         public string componentsImagesFolder { get; set; }
-        public string componentsBeforeImagesFolder { get; set; }
-        public string componentsAfterImagesFolder { get; set; }
         public List<string> labelList { get; set; }
         public List<Component> components { get; set; }
         public Export(
@@ -69,13 +65,15 @@ namespace Tåg_project.FileManipulation
             string tempPath = "";
             string tempReportNum = serialNum.Substring(8);
             string subPath = s.Substring(s.Length - 8);
+            //Error prevention on the serial number
             if (tempReportNum != subPath && isNumeric(subPath))
             {
                 tempPath = s.Replace(subPath, tempReportNum);
             }
             else tempPath = s;
             Console.WriteLine(tempPath);
-            if(serialNum.Length > 8)
+            //Error prevention on the serial number
+            if (serialNum.Length > 8)
             {
                 serialNum = serialNum.Substring(8);
             }
@@ -159,34 +157,6 @@ namespace Tåg_project.FileManipulation
                             CreateSubFolders(componentsFolder);
                         }
                     }
-                    //if (Directory.Exists(initialImagesFolder) && (initialImages.Count > 0))
-                    //{
-                    //    createImg(initialImages);
-                    //    WriteImages(initialImages, initialImagesFolder);
-                    //}
-                    //else if (finalImages.Count > 0)
-                    //{
-                    //    // Try to create the directory.
-                    //    di = Directory.CreateDirectory(finalImagesFolder);
-                    //    di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-                    //    //di.Attributes = FileAttributes.Directory | FileAttributes.Normal;
-                    //    createImg(finalImages);
-                    //    WriteImages(finalImages, finalImagesFolder);
-                    //}
-                    //if (Directory.Exists(finalImagesFolder) && (finalImages.Count > 0))
-                    //{
-                    //    createImg(finalImages);
-                    //    WriteImages(finalImages, finalImagesFolder);
-                    //}
-                    //else if (finalImages.Count > 0)
-                    //{
-                    //    // Try to create the directory.
-                    //    di = Directory.CreateDirectory(finalImagesFolder);
-                    //    di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-                    //    //di.Attributes = FileAttributes.Directory | FileAttributes.Normal;
-                    //    createImg(finalImages);
-                    //    WriteImages(finalImages, finalImagesFolder);
-                    //}
                     if (Directory.Exists(labelImagesFolder) && (labelPath != null))
                     {
                             createImg(labelList);
@@ -209,35 +179,6 @@ namespace Tåg_project.FileManipulation
                     Console.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(path));
                     // Write the data to a CSV file
                     WriteCSV(filePath, data);
-                    //if (Directory.Exists(initialImagesFolder) && (initialImages.Count > 0))
-                    //{
-                    //    //Write the image to the folder
-                    //    createImg(initialImages);
-                    //    WriteImages(initialImages, initialImagesFolder);
-                    //}
-                    //else if (initialImages.Count > 0)
-                    //{
-                    //    //Write the image to the folder
-                    //    // Try to create the directory.
-                    //    di = Directory.CreateDirectory(initialImagesFolder);
-                    //    di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-                    //    createImg(initialImages);
-                    //    WriteImages(initialImages, initialImagesFolder);
-                    //}
-                    //
-                    //if (Directory.Exists(finalImagesFolder) && (finalImages.Count > 0))
-                    //{
-                    //    createImg(finalImages);
-                    //    WriteImages(finalImages, finalImagesFolder);
-                    //}
-                    //else if (finalImages.Count > 0)
-                    //{
-                    //    // Try to create the directory.
-                    //    di = Directory.CreateDirectory(finalImagesFolder);
-                    //    di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-                    //    createImg(finalImages);
-                    //    WriteImages(finalImages, finalImagesFolder);
-                    //}
                     if (Directory.Exists(labelImagesFolder) && (labelPath != null))
                     {
                         createImg(labelList);
@@ -273,6 +214,7 @@ namespace Tåg_project.FileManipulation
             System.Windows.MessageBox.Show("File Exported Succesfully!");
         }
 
+        //Create folder for each component
         private void CreateSubFolders(string componentsFolder)
         {
             List<string> aux = new List<string>();
@@ -305,6 +247,7 @@ namespace Tåg_project.FileManipulation
             
         }
 
+        //Insert every component images with the right name
         private void InsertImages(Component comp, string folder, List<string> aux)
         {
             string imgPath;
@@ -463,6 +406,7 @@ namespace Tåg_project.FileManipulation
             }
         }
 
+        //Checks if string is only numbers
         private bool isNumeric(string subPath)
         {
             bool aux = true;
@@ -520,6 +464,7 @@ namespace Tåg_project.FileManipulation
             }
         }
 
+        //For label TODO:Join with createImg
         private void WriteImages(List<string> imagesList, string newPath)
         {
             deleteOldImages(newPath, imagesList);
@@ -553,7 +498,6 @@ namespace Tåg_project.FileManipulation
             }
         }
 
-
         private void WriteCSV(string filePath, List<string[]> data)
         {
             using (StreamWriter sw = new StreamWriter(filePath, false, Encoding.GetEncoding("ISO-8859-1")))
@@ -570,6 +514,7 @@ namespace Tåg_project.FileManipulation
             }
         }
 
+        //Turns paths of inside a list to a list of images
         private void createImg(List<string> imgPath)
         {
             if (imgPath.Count == 1)

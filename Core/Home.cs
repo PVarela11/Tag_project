@@ -17,7 +17,7 @@ namespace Tåg_project.Core
         List<Component> componentsList = new List<Component>();
         bool isClean, troubleshoot, repair, result1, result2, result3;
 
-        bool isImported = false, isExported = false;
+        bool isImported = false;
 
         int page = 0;
         List<string> initialImagesPath = new List<string>(), listAux = new List<string>(), finalImagesPath = new List<string>();
@@ -32,6 +32,8 @@ namespace Tåg_project.Core
             }
         }
 
+        //Disabling image import buttons so the user doesn't enter images in the wrong order
+        //Hidding the panels that will appear later in the application
         private void InitialDesign()
         {
             pnlFinal.Width = 0;
@@ -50,6 +52,7 @@ namespace Tåg_project.Core
         }
 
         #region FileManipulation
+        //Import of all the data inside the previously created folder by the application
         private void importData()
         {
             import = new Import(path);
@@ -98,6 +101,7 @@ namespace Tåg_project.Core
             }
         }
 
+        //Export of all the data inserted by the user into a new or a previously created folder
         private void Export()
         {
             if (validateInputs(0))
@@ -141,7 +145,7 @@ namespace Tåg_project.Core
                         );
 
                     path = export.path;
-                    isExported = true;
+                    //isExported = true;
                 }
                 else
                 {
@@ -150,19 +154,7 @@ namespace Tåg_project.Core
             }
         }
 
-        private bool validateInputs(int page)
-        {
-            if (page == 0)
-            {
-                if (txtSerialNum.TextLength < 8)
-                {
-                    MessageBox.Show("Serial Number should be 8 digits");
-                    return false;
-                }
-            }
-            return true;
-        }
-
+        //Export of the pdf file containing all the information in the app within the specified structure by the program
         private void ExportPDF(string p)
         {
             isClean = cboxClean.Checked;
@@ -279,6 +271,7 @@ namespace Tåg_project.Core
         {
             ShowFile.OpenFile("Troubleshooting.pdf");
         }
+
         private void lblClean_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ShowFile.OpenFile("CleaningOuter.pdf");
@@ -451,51 +444,6 @@ namespace Tåg_project.Core
                 }
             }
         }
-
-        //private void btnClearImg_Click(object sender, EventArgs e)
-        //{
-        //    if ((sender as Button).Name == "btnClearImage")
-        //    {
-        //        initialImagesPath.Clear();
-        //        //pboxImages.Enabled = false;
-        //        //pboxImages.Image = null;
-        //        //pboxImages.BackColor = Color.Transparent;
-        //        //pboxImages.Enabled = false;
-        //        //pboxImages.BackColor = System.Drawing.Color.FromArgb(119, 155, 230);
-        //        //pboxImages.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
-        //        aux = 0;
-        //        //lblImages.Text = "Import PCB Image";
-        //        //TODO:
-        //        //deleteImg()
-        //    }
-        //    else if ((sender as Button).Name == "btnClearFinalImage")
-        //    {
-        //        finalImagesPath.Clear();
-        //        //pboxFinalImages.Enabled = false;
-        //        //pboxFinalImages.Image = null;
-        //        //pboxFinalImages.BackColor = System.Drawing.Color.FromArgb(119, 156, 230);
-        //        //pboxFinalImages.BackColor = Color.Transparent;
-        //        ////pboxFinalImages.IconChar = FontAwesome.Sharp.IconChar.FolderOpen;
-        //        aux1 = 0;
-        //        //lblFinalImages.Text = "Import PCB Image";
-        //    }
-        //
-        //}
-
-        //private void pboxImages_Click(object sender, EventArgs e)
-        //{
-        //    if (aux < initialImagesPath.Count - 1)
-        //    {
-        //        aux++;
-        //        //pboxImages.ImageLocation = initialImagesPath[aux];
-        //    }
-        //    else
-        //    {
-        //        aux = 0;
-        //        //pboxImages.ImageLocation = initialImagesPath[aux];
-        //    }
-        //
-        //}
 
         private void listBoxComponent_Click(object sender, EventArgs e)
         {
@@ -690,14 +638,6 @@ namespace Tåg_project.Core
             }
         }
 
-        private void txtSerialNum_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
         private void listBoxComponents_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
@@ -709,22 +649,34 @@ namespace Tåg_project.Core
             }
         }
 
-        private void txtPreventSeparator(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == '|')
-            {
-                e.Handled = true;
-            }
-        }
+        
 
+        
+        #endregion
+
+        #region Data validation and error prevention
+        //Serial number should be 8 digits
+        private bool validateInputs(int page)
+        {
+            if (page == 0)
+            {
+                if (txtSerialNum.TextLength != 8)
+                {
+                    MessageBox.Show("Serial Number should be 8 digits");
+                    return false;
+                }
+            }
+            return true;
+        }
+        //The limit of lines in the textbox is 3 so the PDF has the right format
         private void txtDescription_TextChanged(object sender, EventArgs e)
         {
             // Limit the number of lines to 3
             int maxLines = 3;
-        
+
             // Get the current number of lines
             int numLines = txtDescription.GetLineFromCharIndex(txtDescription.TextLength) + 1;
-        
+
             // If the number of lines exceeds the limit, delete the extra lines
             if (numLines > maxLines)
             {
@@ -735,6 +687,22 @@ namespace Tåg_project.Core
                     txtDescription.Text = txtDescription.Text.Remove(firstCharIndex);
                     txtDescription.SelectionStart = txtDescription.TextLength;
                 }
+            }
+        }
+        //The separator is used in the csv file so the textbox shouldn't allow it
+        private void txtPreventSeparator(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '|')
+            {
+                e.Handled = true;
+            }
+        }
+        //The serial number cannot contain chars
+        private void txtSerialNum_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
             }
         }
         #endregion

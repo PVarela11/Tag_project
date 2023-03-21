@@ -35,8 +35,9 @@ namespace Tåg_project.FileManipulation
         Image imageBefore1, imageBefore2, imageBefore3, imageBefore4, imageBefore5, imageBefore6,
             imageAfter1, imageAfter2, imageAfter3, imageAfter4, imageAfter5, imageAfter6;
         Paragraph title;
-        byte[] imageBytes;
+        //byte[] imageBytes;
         public string serialNum { get; set; }
+        public bool pageChanged { get; set; }
         Document document;
         PdfFont font = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
         float x; float y;
@@ -125,41 +126,26 @@ namespace Tåg_project.FileManipulation
                 docLeftMargin = document.GetLeftMargin();
                 docRightMargin = document.GetRightMargin();
                 documentWidth = PageSize.A4.GetWidth() - docLeftMargin - docRightMargin;
-                //image.SetMaxHeight(PageSize.A4.GetHeight() / 2);
-                //image.SetMaxWidth(documentWidth);
                 image.ScaleToFit(documentWidth, (PageSize.A4.GetHeight() / 2));
                 float imageWidth = image.GetImageScaledWidth();
-                //image.ScaleToFit(imageWidth, PageSize.A4.GetHeight() / 2);
                 float imageHeight = image.GetImageScaledHeight();
-                Console.WriteLine(image.GetImageScaledHeight());
-                Console.WriteLine(image.GetImageScaledWidth());
                 float pageTop = PageSize.A4.GetTop();
                 float pageBottom = PageSize.A4.GetBottom();
                 
-
                 if (documentWidth > imageWidth)
                 {
                     float x = (documentWidth - imageWidth) / 2;
                 }
-                //if (imageWidth < imageHeight)
-                //{
                 image.SetHorizontalAlignment(HorizontalAlignment.CENTER);
                 image.SetMarginLeft(x);
-                //}
-                ////image.ScaleToFit(610, 264);
                 
                 document.Add(image);
-                //document.Add(new Paragraph("\n\n\n\n"));
-
-                //Draw rectangle in first page for the summary
-                //document.Add(new Paragraph("Summary:").SetFont(font).SetBold().SetFontSize(10));
                 
                 if (imageHeight > pageTop)
                 {
                     imageHeight = PageSize.A4.GetHeight() / 2;
                 }
                 float bellowImg = PageSize.A4.GetTop() - (imageHeight + 80 + 48);
-                
                 
                 Rectangle summaryRectangle = new Rectangle(PageSize.A4.GetLeft() + 80, bellowImg - 200, PageSize.A4.GetRight() - 160, 100);
                 
@@ -333,8 +319,8 @@ namespace Tåg_project.FileManipulation
                     //document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                     //pdf.AddNewPage();
                     pages++;
-                    var pageX = pdf.GetPage(pages);
-                    var canvasX = new PdfCanvas(pageX);
+                    //var pageX = pdf.GetPage(pages);
+                    //var canvasX = new PdfCanvas(pageX);
                     document.Add(new Paragraph(titleCounter + "   Components Cleaning\n\n").SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
                     document.Add(new Paragraph(titleCounter + "." + subtitleCounter +" Before Cleaning\n").SetFont(font).SetFontSize(12).SetMarginTop(0f).SetBold());
 
@@ -506,49 +492,6 @@ namespace Tåg_project.FileManipulation
                     document.Add(new Paragraph(titleCounter + "." + subtitleCounter + " After Cleaning\n").SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
                     AddComponentsAfterCleaning(listaComponentes, table, emptyCell);
                 }
-                #endregion
-
-                #region after and before clean
-                //document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                //document.Add(setTitle("Before Cleaning").SetFont(font));
-                //if (initialImages.Count > 6)
-                //{
-                //    insertImg(initialImages.Take(6).ToList());
-                //    initialImages.RemoveRange(0, 6);
-                //}
-                //else
-                //{
-                //    insertImg(initialImages);
-                //    initialImages.Clear();
-                //}
-                //
-                //
-                //document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                //document.Add(setTitle("After Cleaning").SetFont(font));
-                //if (finalImages.Count > 6)
-                //{
-                //    insertImg(finalImages.Take(6).ToList());
-                //    finalImages.RemoveRange(0, 6);
-                //}
-                //else
-                //{
-                //    insertImg(finalImages);
-                //    finalImages.Clear();
-                //}
-                //
-                //if (initialImages.Count > 0)
-                //{
-                //    document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                //    document.Add(setTitle("More before cleaning images").SetFont(font));
-                //    insertImg(initialImages);
-                //}
-                //
-                //if (finalImages.Count > 0)
-                //{
-                //    document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                //    document.Add(setTitle("More after cleaning images").SetFont(font));
-                //    insertImg(finalImages);
-                //}
                 #endregion
 
                 document.Close();
@@ -738,11 +681,12 @@ namespace Tåg_project.FileManipulation
             return tempImage;
         }
 
+        //Writes a list of all the components and then shows each one
         private void InsertComponent(PdfDocument pdf, List<Component> listaComponentes)
         {
             int i = 0;
             Paragraph text;
-
+            pageChanged = false;
             foreach (Component comp in listaComponentes)
             {
                 text = new Paragraph("\0\t\t" + "• Component " + componentCounter + " - " + comp.name);
@@ -768,7 +712,7 @@ namespace Tåg_project.FileManipulation
                 document.Add(text.SetFontSize(9).SetFont(font));
                 componentCounter++;
                 imageCounter++;
-                if ((i + 1) % 3 == 0 && (i+1)<listaComponentes.Count)
+                if ((i + 1) % 3 == 0 && (i+1)<listaComponentes.Count && !pageChanged)
                 {
                     document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                     pages++;
@@ -830,7 +774,7 @@ namespace Tåg_project.FileManipulation
         }
 
     }
-
+    //Every time a new page is created this function creates a header and a footer
     internal class MyEventHandler : IEventHandler
     {
         private ExportPDF _anotherClassInstance;
@@ -908,6 +852,7 @@ namespace Tåg_project.FileManipulation
                         .EndText();
 
             pdfCanvas.Release();
+            _anotherClassInstance.pageChanged = true;
         }
         public static byte[] ReadFully(Stream input)
         {
