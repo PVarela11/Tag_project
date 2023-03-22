@@ -32,8 +32,9 @@ namespace Tåg_project.FileManipulation
         List<Text> texts = new List<Text>();
         int componentCounter = 1, titleCounter = 1, subtitleCounter = 1, imageCounter = 1, pages = 1;
         float docLeftMargin, docRightMargin, documentWidth;
-        Image imageBefore1, imageBefore2, imageBefore3, imageBefore4, imageBefore5, imageBefore6,
-            imageAfter1, imageAfter2, imageAfter3, imageAfter4, imageAfter5, imageAfter6;
+        Image imageBeforeFront1, imageBeforeFront2, imageBeforeFront3, imageBeforeBack1, imageBeforeBack2, imageBeforeBack3,
+            imageAfterFront1, imageAfterFront2, imageAfterFront3, imageAfterBack1, imageAfterBack2, imageAfterBack3;
+        ImageData im;
         Paragraph title;
         //byte[] imageBytes;
         public string serialNum { get; set; }
@@ -346,67 +347,65 @@ namespace Tåg_project.FileManipulation
                         var titleCell = new Cell().Add(title).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(5).SetTextAlignment(TextAlignment.LEFT);
 
                         // Create six Image objects
-                        ImageData im1 = ImageDataFactory.Create(comp.componentBeforeFrontImage1);
-                        ImageData im4 = ImageDataFactory.Create(comp.componentBeforeBackImage1);
-                        
-
-                        imageBefore1 = new Image(im1);
-                        imageBefore4 = new Image(im4);
+                        im = ImageDataFactory.Create(comp.componentBeforeFrontImage1);
+                        imageBeforeFront1 = new Image(im);
+                        im = ImageDataFactory.Create(comp.componentBeforeBackImage1);
+                        imageBeforeBack1 = new Image(im);
 
                         if (comp.componentBeforeFrontImage2 != null)
                         {
-                            ImageData im2 = ImageDataFactory.Create(comp.componentBeforeFrontImage2);
-                            imageBefore2 = new Image(im2);
+                            im = ImageDataFactory.Create(comp.componentBeforeFrontImage2);
+                            imageBeforeFront2 = new Image(im);
                         }
-                        else imageBefore2 = ResourceImage();
+                        else imageBeforeFront2 = ResourceImage();
 
                         if (comp.componentBeforeFrontImage3 != null)
                         {
-                            ImageData im3 = ImageDataFactory.Create(comp.componentBeforeFrontImage3);
-                            imageBefore3 = new Image(im3);
+                            im = ImageDataFactory.Create(comp.componentBeforeFrontImage3);
+                            imageBeforeFront3 = new Image(im);
                         }
-                        else imageBefore3 = ResourceImage();
+                        else imageBeforeFront3 = ResourceImage();
 
                         if (comp.componentBeforeBackImage2 != null)
                         {
-                            ImageData im5 = ImageDataFactory.Create(comp.componentBeforeBackImage2);
-                            imageBefore5 = new Image(im5);
+                            im = ImageDataFactory.Create(comp.componentBeforeBackImage2);
+                            imageBeforeBack2 = new Image(im);
                         }
-                        else imageBefore5 = ResourceImage();
+                        else imageBeforeBack2 = ResourceImage();
 
                         if (comp.componentBeforeBackImage3 != null)
                         {
-                            ImageData im6 = ImageDataFactory.Create(comp.componentBeforeBackImage3);
-                            imageBefore6 = new Image(im6);
+                            im = ImageDataFactory.Create(comp.componentBeforeBackImage3);
+                            imageBeforeBack3 = new Image(im);
                         }
-                        else imageBefore6 = ResourceImage();
+                        else imageBeforeBack3 = ResourceImage();
 
                         //image.ScaleToFit(175,175);
 
-                        imageBefore1.SetMaxHeight(140);
-                        imageBefore1.SetMaxWidth(175);
-                        imageBefore2.SetMaxHeight(140);
-                        imageBefore2.SetMaxWidth(175);
-                        imageBefore2.SetHorizontalAlignment(HorizontalAlignment.RIGHT);
+                        imageBeforeFront1.SetMaxHeight(140);
+                        imageBeforeFront1.SetMaxWidth(175);
+                        imageBeforeBack1.SetMaxHeight(140);
+                        imageBeforeBack1.SetMaxWidth(175);
+                        imageBeforeBack1.SetHorizontalAlignment(HorizontalAlignment.RIGHT);
 
-                        imageBefore3.SetMaxHeight(140);
-                        imageBefore3.SetMaxWidth(175);
-                        imageBefore4.SetMaxHeight(140);
-                        imageBefore4.SetMaxWidth(175);
-                        imageBefore4.SetHorizontalAlignment(HorizontalAlignment.RIGHT);
+                        imageBeforeFront2.SetMaxHeight(140);
+                        imageBeforeFront2.SetMaxWidth(175);
+                        imageBeforeBack2.SetMaxHeight(140);
+                        imageBeforeBack2.SetMaxWidth(175);
+                        imageBeforeBack2.SetHorizontalAlignment(HorizontalAlignment.RIGHT);
 
-                        imageBefore5.SetMaxHeight(140);
-                        imageBefore5.SetMaxWidth(175);
-                        imageBefore6.SetMaxHeight(140);
-                        imageBefore6.SetMaxWidth(175);
-                        imageBefore6.SetHorizontalAlignment(HorizontalAlignment.RIGHT);
+                        imageBeforeFront3.SetMaxHeight(140);
+                        imageBeforeFront3.SetMaxWidth(175);
+                        imageBeforeBack3.SetMaxHeight(140);
+                        imageBeforeBack3.SetMaxWidth(175);
+                        imageBeforeBack3.SetHorizontalAlignment(HorizontalAlignment.RIGHT);
 
-                        Cell cell1 = new Cell().Add(imageBefore1).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(10);
-                        Cell cell2 = new Cell().Add(imageBefore2).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(10);
-                        Cell cell3 = new Cell().Add(imageBefore3).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(10);
-                        Cell cell4 = new Cell().Add(imageBefore4).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(10);
-                        Cell cell5 = new Cell().Add(imageBefore5).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(10);
-                        Cell cell6 = new Cell().Add(imageBefore6).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(10);
+                        Cell cell1 = new Cell().Add(imageBeforeFront1).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(10);
+                        Cell cell2 = new Cell().Add(imageBeforeBack1).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(10);
+                        Cell cell3 = new Cell().Add(imageBeforeFront2).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(10);
+                        Cell cell4 = new Cell().Add(imageBeforeBack2).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(10);
+                        Cell cell5 = new Cell().Add(imageBeforeFront3).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(10);
+                        Cell cell6 = new Cell().Add(imageBeforeBack3).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(10);
 
                         // Create six Paragraph objects for the descriptions
                         var description1 = new Paragraph("Figure." + imageCounter + " " + comp.name + " before cleaning front side\n\n").SetFontSize(9).SetFont(font);
@@ -460,23 +459,6 @@ namespace Tåg_project.FileManipulation
 
                         componentCounter++;
                         subtitleCounter++;
-                        //if (compCounter == 3 && compCounter)
-                        //{
-                        //    if(compCounter >= listaComponentes.Count)
-                        //    {
-                        //        document.Add(table);
-                        //    }
-                        //    else
-                        //    {
-                        //        // If the combined height is greater than the available height, add a new page
-                        //        document.Add(table);
-                        //        document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                        //        table = new iText.Layout.Element.Table(new float[] { 1, 1 }).UseAllAvailableWidth();
-                        //        table.SetFixedLayout();
-                        //        compCounter = 0;
-                        //    }
-                        //}
-                        // Add the table to the document
                         document.Add(table);
                         if(componentCounter < listaComponentes.Count)
                         {
@@ -522,67 +504,65 @@ namespace Tåg_project.FileManipulation
                 var titleCell = new Cell().Add(title).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(5).SetTextAlignment(TextAlignment.LEFT);
 
                 // Create six Image objects
-                ImageData im1 = ImageDataFactory.Create(comp.componentAfterFrontImage1);
-                ImageData im4 = ImageDataFactory.Create(comp.componentAfterBackImage1);
-
-
-                imageAfter1 = new Image(im1);
-                imageAfter4 = new Image(im4);
+                im = ImageDataFactory.Create(comp.componentAfterFrontImage1);
+                imageAfterFront1 = new Image(im);
+                im = ImageDataFactory.Create(comp.componentAfterBackImage1);
+                imageAfterBack1 = new Image(im);
 
                 if (comp.componentAfterFrontImage2 != null)
                 {
-                    ImageData im2 = ImageDataFactory.Create(comp.componentAfterFrontImage2);
-                    imageAfter2 = new Image(im2);
+                    im = ImageDataFactory.Create(comp.componentAfterFrontImage2);
+                    imageAfterFront2 = new Image(im);
                 }
-                else imageAfter2 = ResourceImage();
+                else imageAfterFront2 = ResourceImage();
 
                 if (comp.componentAfterFrontImage3 != null)
                 {
-                    ImageData im3 = ImageDataFactory.Create(comp.componentAfterFrontImage3);
-                    imageAfter3 = new Image(im3);
+                    im = ImageDataFactory.Create(comp.componentAfterFrontImage3);
+                    imageAfterFront3 = new Image(im);
                 }
-                else imageAfter3 = ResourceImage();
+                else imageAfterFront3 = ResourceImage();
 
                 if (comp.componentAfterBackImage2 != null)
                 {
-                    ImageData im5 = ImageDataFactory.Create(comp.componentAfterBackImage2);
-                    imageAfter5 = new Image(im5);
+                    im = ImageDataFactory.Create(comp.componentAfterBackImage2);
+                    imageAfterBack2 = new Image(im);
                 }
-                else imageAfter5 = ResourceImage();
+                else imageAfterBack2 = ResourceImage();
 
                 if (comp.componentAfterBackImage3 != null)
                 {
-                    ImageData im6 = ImageDataFactory.Create(comp.componentAfterBackImage3);
-                    imageAfter6 = new Image(im6);
+                    im = ImageDataFactory.Create(comp.componentAfterBackImage3);
+                    imageAfterBack3 = new Image(im);
                 }
-                else imageAfter6 = ResourceImage();
+                else imageAfterBack3 = ResourceImage();
 
                 //image.ScaleToFit(175,175);
 
-                imageAfter1.SetMaxHeight(140);
-                imageAfter1.SetMaxWidth(175);
-                imageAfter2.SetMaxHeight(140);
-                imageAfter2.SetMaxWidth(175);
-                imageAfter2.SetHorizontalAlignment(HorizontalAlignment.RIGHT);
+                imageAfterFront1.SetMaxHeight(140);
+                imageAfterFront1.SetMaxWidth(175);
+                imageAfterBack1.SetMaxHeight(140);
+                imageAfterBack1.SetMaxWidth(175);
+                imageAfterBack1.SetHorizontalAlignment(HorizontalAlignment.RIGHT);
 
-                imageAfter3.SetMaxHeight(140);
-                imageAfter3.SetMaxWidth(175);
-                imageAfter4.SetMaxHeight(140);
-                imageAfter4.SetMaxWidth(175);
-                imageAfter4.SetHorizontalAlignment(HorizontalAlignment.RIGHT);
+                imageAfterFront2.SetMaxHeight(140);
+                imageAfterFront2.SetMaxWidth(175);
+                imageAfterBack2.SetMaxHeight(140);
+                imageAfterBack2.SetMaxWidth(175);
+                imageAfterBack2.SetHorizontalAlignment(HorizontalAlignment.RIGHT);
 
-                imageAfter5.SetMaxHeight(140);
-                imageAfter5.SetMaxWidth(175);
-                imageAfter6.SetMaxHeight(140);
-                imageAfter6.SetMaxWidth(175);
-                imageAfter6.SetHorizontalAlignment(HorizontalAlignment.RIGHT);
+                imageAfterFront3.SetMaxHeight(140);
+                imageAfterFront3.SetMaxWidth(175);
+                imageAfterBack3.SetMaxHeight(140);
+                imageAfterBack3.SetMaxWidth(175);
+                imageAfterBack3.SetHorizontalAlignment(HorizontalAlignment.RIGHT);
 
-                Cell cell1 = new Cell().Add(imageAfter1).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(10);
-                Cell cell2 = new Cell().Add(imageAfter2).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(10);
-                Cell cell3 = new Cell().Add(imageAfter3).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(10);
-                Cell cell4 = new Cell().Add(imageAfter4).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(10);
-                Cell cell5 = new Cell().Add(imageAfter5).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(10);
-                Cell cell6 = new Cell().Add(imageAfter6).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(10);
+                Cell cell1 = new Cell().Add(imageAfterFront1).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(10);
+                Cell cell2 = new Cell().Add(imageAfterBack1).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(10);
+                Cell cell3 = new Cell().Add(imageAfterFront2).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(10);
+                Cell cell4 = new Cell().Add(imageAfterBack2).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(10);
+                Cell cell5 = new Cell().Add(imageAfterFront3).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingRight(10);
+                Cell cell6 = new Cell().Add(imageAfterBack3).SetWidth(UnitValue.CreatePercentValue(50)).SetBorder(Border.NO_BORDER).SetPaddingLeft(10);
 
                 // Create six Paragraph objects for the descriptions
                 var description1 = new Paragraph("Figure." + imageCounter + " " + comp.name + " After cleaning front side").SetFontSize(9).SetFont(font);
@@ -636,22 +616,6 @@ namespace Tåg_project.FileManipulation
 
                 componentCounter++;
                 subtitleCounter++;
-                //if (compCounter == 3 && compCounter)
-                //{
-                //    if(compCounter >= listaComponentes.Count)
-                //    {
-                //        document.Add(table);
-                //    }
-                //    else
-                //    {
-                //        // If the combined height is greater than the available height, add a new page
-                //        document.Add(table);
-                //        document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                //        table = new iText.Layout.Element.Table(new float[] { 1, 1 }).UseAllAvailableWidth();
-                //        table.SetFixedLayout();
-                //        compCounter = 0;
-                //    }
-                //}
                 // Add the table to the document
                 document.Add(table);
                 if (componentCounter < listaComponentes.Count)

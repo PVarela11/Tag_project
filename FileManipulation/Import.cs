@@ -33,11 +33,13 @@ namespace Tåg_project.FileManipulation
             try
             {
                 string[] files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
+                //Search all filed in the path
                 foreach (string file in files)
                 {
                     Console.WriteLine(file);
                     // Do something with the file
                     string fileExtension = Path.GetExtension(file);
+                    //Get the data from the csv file
                     if (fileExtension == ".csv" && file.Contains("data"))
                     {
                         lines = File.ReadAllLines(file, Encoding.GetEncoding("iso-8859-1"));
@@ -88,6 +90,7 @@ namespace Tåg_project.FileManipulation
 
                         }
                     }
+                    //Get the images from the folder label
                     else if (fileExtension == ".jpg" || fileExtension == ".png" || fileExtension == ".jpeg")
                     {
                         if (file.Contains("\\Label"))
@@ -113,12 +116,7 @@ namespace Tåg_project.FileManipulation
                 counter = 0;
                 string teste = path + "\\Components\\components.csv";
                 string newPath = path + "\\Components";
-                //string[] files = Directory.GetFiles(newPath, "*.*", SearchOption.AllDirectories);
-                //foreach (string file in files)
-                //{
-                //    string fileExtension = Path.GetExtension(file);
-                //    if (fileExtension == ".csv")
-                //    {
+                //Get the components data
                 if (File.Exists(teste))
                 {
                     lines = File.ReadAllLines(teste, Encoding.GetEncoding("iso-8859-1"));
@@ -155,6 +153,7 @@ namespace Tåg_project.FileManipulation
             finally { }
         }
 
+        //Get all the images related to each component
         private void GetImages(Component component, string newPath)
         {
             string newPath2 = newPath + "\\" + component.name;
