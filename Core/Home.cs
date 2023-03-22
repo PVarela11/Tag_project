@@ -655,7 +655,7 @@ namespace Tåg_project.Core
         #endregion
 
         #region Data validation and error prevention
-        //Serial number should be 8 digits
+        //Serial number should be 8 digits and label image should be imported
         private bool validateInputs(int page)
         {
             if (page == 0)
@@ -663,6 +663,10 @@ namespace Tåg_project.Core
                 if (txtSerialNum.TextLength != 8)
                 {
                     MessageBox.Show("Serial Number should be 8 digits");
+                    return false;
+                }else if (labelPath == null)
+                {
+                    MessageBox.Show("Label image wasn't imported");
                     return false;
                 }
             }

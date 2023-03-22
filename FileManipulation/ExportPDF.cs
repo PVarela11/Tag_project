@@ -162,11 +162,12 @@ namespace Tåg_project.FileManipulation
                 texts.Clear();
 
                 document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+                pages++;
                 #endregion
 
                 #region Second page "Info"
-                pdf.AddNewPage();
-                pages++;
+                //pdf.AddNewPage();
+
                 var page2 = pdf.GetPage(2);
                 var canvas = new PdfCanvas(page2);
 
