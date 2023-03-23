@@ -16,7 +16,6 @@ namespace Tåg_project.Core
             componentName, componentDescription;
         List<Component> componentsList = new List<Component>();
         bool isClean, troubleshoot, repair, result1, result2, result3;
-
         bool isImported = false;
 
         int page = 0;

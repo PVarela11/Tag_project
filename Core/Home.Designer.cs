@@ -102,7 +102,7 @@
             // 
             // pnlTop
             // 
-            this.pnlTop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(29)))), ((int)(((byte)(61)))));
+            this.pnlTop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(38)))), ((int)(((byte)(44)))));
             this.pnlTop.Controls.Add(this.btnSave);
             this.pnlTop.Controls.Add(this.btnNext);
             this.pnlTop.Controls.Add(this.btnPrev);
@@ -124,7 +124,7 @@
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.ForeColor = System.Drawing.Color.DarkCyan;
             this.btnSave.IconChar = FontAwesome.Sharp.IconChar.FloppyDisk;
-            this.btnSave.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(214)))), ((int)(((byte)(10)))));
+            this.btnSave.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(232)))), ((int)(((byte)(18)))));
             this.btnSave.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnSave.Location = new System.Drawing.Point(740, 0);
             this.btnSave.Margin = new System.Windows.Forms.Padding(2);
@@ -144,7 +144,7 @@
             this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNext.ForeColor = System.Drawing.Color.DarkCyan;
             this.btnNext.IconChar = FontAwesome.Sharp.IconChar.Forward;
-            this.btnNext.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(214)))), ((int)(((byte)(10)))));
+            this.btnNext.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(232)))), ((int)(((byte)(18)))));
             this.btnNext.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnNext.Location = new System.Drawing.Point(782, 0);
             this.btnNext.Margin = new System.Windows.Forms.Padding(2);
@@ -163,7 +163,7 @@
             this.btnPrev.FlatAppearance.BorderSize = 0;
             this.btnPrev.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPrev.IconChar = FontAwesome.Sharp.IconChar.Backward;
-            this.btnPrev.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(214)))), ((int)(((byte)(10)))));
+            this.btnPrev.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(232)))), ((int)(((byte)(18)))));
             this.btnPrev.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnPrev.Location = new System.Drawing.Point(0, 0);
             this.btnPrev.Margin = new System.Windows.Forms.Padding(2);
@@ -188,7 +188,7 @@
             // 
             // pnlComponents
             // 
-            this.pnlComponents.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(155)))), ((int)(((byte)(231)))));
+            this.pnlComponents.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(124)))), ((int)(((byte)(144)))));
             this.pnlComponents.Controls.Add(this.btnClearAfterImages);
             this.pnlComponents.Controls.Add(this.btnClearBeforeImages);
             this.pnlComponents.Controls.Add(this.tableLayoutPanel2);
@@ -202,21 +202,21 @@
             this.pnlComponents.Controls.Add(this.txtDescription);
             this.pnlComponents.Controls.Add(this.lblDescription);
             this.pnlComponents.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlComponents.Location = new System.Drawing.Point(14, 62);
+            this.pnlComponents.Location = new System.Drawing.Point(4, 62);
             this.pnlComponents.Name = "pnlComponents";
-            this.pnlComponents.Size = new System.Drawing.Size(810, 469);
+            this.pnlComponents.Size = new System.Drawing.Size(820, 469);
             this.pnlComponents.TabIndex = 1;
             // 
             // btnClearAfterImages
             // 
             this.btnClearAfterImages.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnClearAfterImages.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnClearAfterImages.Location = new System.Drawing.Point(779, 131);
+            this.btnClearAfterImages.Location = new System.Drawing.Point(506, 218);
             this.btnClearAfterImages.Margin = new System.Windows.Forms.Padding(2);
             this.btnClearAfterImages.Name = "btnClearAfterImages";
-            this.btnClearAfterImages.Size = new System.Drawing.Size(36, 100);
+            this.btnClearAfterImages.Size = new System.Drawing.Size(279, 26);
             this.btnClearAfterImages.TabIndex = 105;
-            this.btnClearAfterImages.Text = "C\r\nL\r\nE\r\nA\r\nR";
+            this.btnClearAfterImages.Text = "CLEAR";
             this.btnClearAfterImages.UseVisualStyleBackColor = true;
             this.btnClearAfterImages.Click += new System.EventHandler(this.btnClearImages_Click);
             // 
@@ -224,12 +224,12 @@
             // 
             this.btnClearBeforeImages.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnClearBeforeImages.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnClearBeforeImages.Location = new System.Drawing.Point(4, 131);
+            this.btnClearBeforeImages.Location = new System.Drawing.Point(115, 220);
             this.btnClearBeforeImages.Margin = new System.Windows.Forms.Padding(2);
             this.btnClearBeforeImages.Name = "btnClearBeforeImages";
-            this.btnClearBeforeImages.Size = new System.Drawing.Size(36, 100);
+            this.btnClearBeforeImages.Size = new System.Drawing.Size(270, 24);
             this.btnClearBeforeImages.TabIndex = 104;
-            this.btnClearBeforeImages.Text = "C\r\nL\r\nE\r\nA\r\nR";
+            this.btnClearBeforeImages.Text = "CLEAR";
             this.btnClearBeforeImages.UseVisualStyleBackColor = true;
             this.btnClearBeforeImages.Click += new System.EventHandler(this.btnClearImages_Click);
             // 
@@ -237,10 +237,10 @@
             // 
             this.tableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel2.ColumnCount = 4;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26F));
             this.tableLayoutPanel2.Controls.Add(this.label14, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label15, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.btnImportAfterFront3, 3, 0);
@@ -249,12 +249,13 @@
             this.tableLayoutPanel2.Controls.Add(this.btnImportAfterBack2, 2, 1);
             this.tableLayoutPanel2.Controls.Add(this.btnImportAfterBack1, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.btnImportAfterFront1, 1, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(423, 131);
+            this.tableLayoutPanel2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(423, 121);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(359, 100);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(365, 96);
             this.tableLayoutPanel2.TabIndex = 103;
             // 
             // label14
@@ -262,7 +263,7 @@
             this.label14.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label14.Location = new System.Drawing.Point(8, 15);
+            this.label14.Location = new System.Drawing.Point(3, 14);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(74, 19);
@@ -274,7 +275,7 @@
             this.label15.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label15.Location = new System.Drawing.Point(11, 65);
+            this.label15.Location = new System.Drawing.Point(6, 62);
             this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(68, 19);
@@ -285,10 +286,10 @@
             // 
             this.btnImportAfterFront3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportAfterFront3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportAfterFront3.Location = new System.Drawing.Point(270, 11);
+            this.btnImportAfterFront3.Location = new System.Drawing.Point(271, 3);
             this.btnImportAfterFront3.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportAfterFront3.Name = "btnImportAfterFront3";
-            this.btnImportAfterFront3.Size = new System.Drawing.Size(86, 28);
+            this.btnImportAfterFront3.Size = new System.Drawing.Size(91, 42);
             this.btnImportAfterFront3.TabIndex = 93;
             this.btnImportAfterFront3.Text = "Add image";
             this.btnImportAfterFront3.UseVisualStyleBackColor = true;
@@ -298,10 +299,10 @@
             // 
             this.btnImportAfterBack3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportAfterBack3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportAfterBack3.Location = new System.Drawing.Point(270, 60);
+            this.btnImportAfterBack3.Location = new System.Drawing.Point(271, 50);
             this.btnImportAfterBack3.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportAfterBack3.Name = "btnImportAfterBack3";
-            this.btnImportAfterBack3.Size = new System.Drawing.Size(86, 28);
+            this.btnImportAfterBack3.Size = new System.Drawing.Size(91, 43);
             this.btnImportAfterBack3.TabIndex = 98;
             this.btnImportAfterBack3.Text = "Add image";
             this.btnImportAfterBack3.UseVisualStyleBackColor = true;
@@ -311,10 +312,10 @@
             // 
             this.btnImportAfterFront2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportAfterFront2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportAfterFront2.Location = new System.Drawing.Point(181, 11);
+            this.btnImportAfterFront2.Location = new System.Drawing.Point(177, 3);
             this.btnImportAfterFront2.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportAfterFront2.Name = "btnImportAfterFront2";
-            this.btnImportAfterFront2.Size = new System.Drawing.Size(84, 28);
+            this.btnImportAfterFront2.Size = new System.Drawing.Size(89, 42);
             this.btnImportAfterFront2.TabIndex = 94;
             this.btnImportAfterFront2.Text = "Add image";
             this.btnImportAfterFront2.UseVisualStyleBackColor = true;
@@ -324,10 +325,10 @@
             // 
             this.btnImportAfterBack2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportAfterBack2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportAfterBack2.Location = new System.Drawing.Point(181, 60);
+            this.btnImportAfterBack2.Location = new System.Drawing.Point(177, 50);
             this.btnImportAfterBack2.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportAfterBack2.Name = "btnImportAfterBack2";
-            this.btnImportAfterBack2.Size = new System.Drawing.Size(84, 28);
+            this.btnImportAfterBack2.Size = new System.Drawing.Size(89, 43);
             this.btnImportAfterBack2.TabIndex = 99;
             this.btnImportAfterBack2.Text = "Add image";
             this.btnImportAfterBack2.UseVisualStyleBackColor = true;
@@ -337,10 +338,10 @@
             // 
             this.btnImportAfterBack1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportAfterBack1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportAfterBack1.Location = new System.Drawing.Point(92, 60);
+            this.btnImportAfterBack1.Location = new System.Drawing.Point(83, 50);
             this.btnImportAfterBack1.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportAfterBack1.Name = "btnImportAfterBack1";
-            this.btnImportAfterBack1.Size = new System.Drawing.Size(84, 28);
+            this.btnImportAfterBack1.Size = new System.Drawing.Size(89, 43);
             this.btnImportAfterBack1.TabIndex = 100;
             this.btnImportAfterBack1.Text = "Add image";
             this.btnImportAfterBack1.UseVisualStyleBackColor = true;
@@ -350,10 +351,10 @@
             // 
             this.btnImportAfterFront1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportAfterFront1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportAfterFront1.Location = new System.Drawing.Point(92, 11);
+            this.btnImportAfterFront1.Location = new System.Drawing.Point(83, 3);
             this.btnImportAfterFront1.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportAfterFront1.Name = "btnImportAfterFront1";
-            this.btnImportAfterFront1.Size = new System.Drawing.Size(84, 28);
+            this.btnImportAfterFront1.Size = new System.Drawing.Size(89, 42);
             this.btnImportAfterFront1.TabIndex = 95;
             this.btnImportAfterFront1.Text = "Add image";
             this.btnImportAfterFront1.UseVisualStyleBackColor = true;
@@ -361,12 +362,13 @@
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26F));
             this.tableLayoutPanel1.Controls.Add(this.btnImportBeforeFront3, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnImportBeforeBack3, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnImportBeforeBack2, 2, 1);
@@ -375,12 +377,12 @@
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnImportBeforeFront1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnImportBeforeBack1, 1, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(50, 131);
+            this.tableLayoutPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(35, 119);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(353, 100);
             this.tableLayoutPanel1.TabIndex = 102;
             // 
@@ -388,10 +390,10 @@
             // 
             this.btnImportBeforeFront3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportBeforeFront3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportBeforeFront3.Location = new System.Drawing.Point(267, 11);
+            this.btnImportBeforeFront3.Location = new System.Drawing.Point(262, 3);
             this.btnImportBeforeFront3.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportBeforeFront3.Name = "btnImportBeforeFront3";
-            this.btnImportBeforeFront3.Size = new System.Drawing.Size(83, 28);
+            this.btnImportBeforeFront3.Size = new System.Drawing.Size(88, 44);
             this.btnImportBeforeFront3.TabIndex = 96;
             this.btnImportBeforeFront3.Text = "Add image";
             this.btnImportBeforeFront3.UseVisualStyleBackColor = true;
@@ -401,10 +403,10 @@
             // 
             this.btnImportBeforeBack3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportBeforeBack3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportBeforeBack3.Location = new System.Drawing.Point(267, 60);
+            this.btnImportBeforeBack3.Location = new System.Drawing.Point(262, 52);
             this.btnImportBeforeBack3.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportBeforeBack3.Name = "btnImportBeforeBack3";
-            this.btnImportBeforeBack3.Size = new System.Drawing.Size(83, 28);
+            this.btnImportBeforeBack3.Size = new System.Drawing.Size(88, 45);
             this.btnImportBeforeBack3.TabIndex = 101;
             this.btnImportBeforeBack3.Text = "Add image";
             this.btnImportBeforeBack3.UseVisualStyleBackColor = true;
@@ -414,10 +416,10 @@
             // 
             this.btnImportBeforeBack2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportBeforeBack2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportBeforeBack2.Location = new System.Drawing.Point(179, 60);
+            this.btnImportBeforeBack2.Location = new System.Drawing.Point(171, 52);
             this.btnImportBeforeBack2.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportBeforeBack2.Name = "btnImportBeforeBack2";
-            this.btnImportBeforeBack2.Size = new System.Drawing.Size(83, 28);
+            this.btnImportBeforeBack2.Size = new System.Drawing.Size(86, 45);
             this.btnImportBeforeBack2.TabIndex = 102;
             this.btnImportBeforeBack2.Text = "Add image";
             this.btnImportBeforeBack2.UseVisualStyleBackColor = true;
@@ -427,10 +429,10 @@
             // 
             this.btnImportBeforeFront2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportBeforeFront2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportBeforeFront2.Location = new System.Drawing.Point(179, 11);
+            this.btnImportBeforeFront2.Location = new System.Drawing.Point(171, 3);
             this.btnImportBeforeFront2.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportBeforeFront2.Name = "btnImportBeforeFront2";
-            this.btnImportBeforeFront2.Size = new System.Drawing.Size(83, 28);
+            this.btnImportBeforeFront2.Size = new System.Drawing.Size(86, 44);
             this.btnImportBeforeFront2.TabIndex = 97;
             this.btnImportBeforeFront2.Text = "Add image";
             this.btnImportBeforeFront2.UseVisualStyleBackColor = true;
@@ -441,7 +443,7 @@
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label5.Location = new System.Drawing.Point(10, 65);
+            this.label5.Location = new System.Drawing.Point(5, 65);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(68, 19);
@@ -453,10 +455,10 @@
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label6.Location = new System.Drawing.Point(7, 15);
+            this.label6.Location = new System.Drawing.Point(16, 6);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(74, 19);
+            this.label6.Size = new System.Drawing.Size(46, 38);
             this.label6.TabIndex = 101;
             this.label6.Text = "Front Side:";
             // 
@@ -464,10 +466,10 @@
             // 
             this.btnImportBeforeFront1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportBeforeFront1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportBeforeFront1.Location = new System.Drawing.Point(91, 11);
+            this.btnImportBeforeFront1.Location = new System.Drawing.Point(80, 3);
             this.btnImportBeforeFront1.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportBeforeFront1.Name = "btnImportBeforeFront1";
-            this.btnImportBeforeFront1.Size = new System.Drawing.Size(83, 28);
+            this.btnImportBeforeFront1.Size = new System.Drawing.Size(86, 44);
             this.btnImportBeforeFront1.TabIndex = 92;
             this.btnImportBeforeFront1.Text = "Add image";
             this.btnImportBeforeFront1.UseVisualStyleBackColor = true;
@@ -477,10 +479,10 @@
             // 
             this.btnImportBeforeBack1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnImportBeforeBack1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportBeforeBack1.Location = new System.Drawing.Point(91, 60);
+            this.btnImportBeforeBack1.Location = new System.Drawing.Point(80, 52);
             this.btnImportBeforeBack1.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportBeforeBack1.Name = "btnImportBeforeBack1";
-            this.btnImportBeforeBack1.Size = new System.Drawing.Size(83, 28);
+            this.btnImportBeforeBack1.Size = new System.Drawing.Size(86, 45);
             this.btnImportBeforeBack1.TabIndex = 103;
             this.btnImportBeforeBack1.Text = "Add image";
             this.btnImportBeforeBack1.UseVisualStyleBackColor = true;
@@ -490,11 +492,11 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label4.Location = new System.Drawing.Point(585, 99);
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 14F);
+            this.label4.Location = new System.Drawing.Point(581, 91);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(96, 19);
+            this.label4.Size = new System.Drawing.Size(134, 25);
             this.label4.TabIndex = 99;
             this.label4.Text = "After cleaning:";
             // 
@@ -502,11 +504,11 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label3.Location = new System.Drawing.Point(191, 99);
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 14F);
+            this.label3.Location = new System.Drawing.Point(174, 91);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(108, 19);
+            this.label3.Size = new System.Drawing.Size(151, 25);
             this.label3.TabIndex = 98;
             this.label3.Text = "Before Cleaning:";
             // 
@@ -514,7 +516,7 @@
             // 
             this.btnAddComponent.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnAddComponent.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddComponent.Location = new System.Drawing.Point(346, 370);
+            this.btnAddComponent.Location = new System.Drawing.Point(351, 370);
             this.btnAddComponent.Margin = new System.Windows.Forms.Padding(2);
             this.btnAddComponent.Name = "btnAddComponent";
             this.btnAddComponent.Size = new System.Drawing.Size(119, 28);
@@ -553,7 +555,7 @@
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label2.Location = new System.Drawing.Point(365, 15);
+            this.label2.Location = new System.Drawing.Point(370, 15);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(125, 19);
@@ -566,7 +568,7 @@
             this.txtDescription.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDescription.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtDescription.Location = new System.Drawing.Point(30, 279);
+            this.txtDescription.Location = new System.Drawing.Point(35, 279);
             this.txtDescription.Margin = new System.Windows.Forms.Padding(2);
             this.txtDescription.MaxLength = 260;
             this.txtDescription.Multiline = true;
@@ -588,7 +590,7 @@
             // 
             // pnlFirst
             // 
-            this.pnlFirst.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(155)))), ((int)(((byte)(231)))));
+            this.pnlFirst.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(124)))), ((int)(((byte)(144)))));
             this.pnlFirst.Controls.Add(this.lblCaminho);
             this.pnlFirst.Controls.Add(this.label13);
             this.pnlFirst.Controls.Add(this.txtSummary);
@@ -644,6 +646,8 @@
             // btnImportLabel
             // 
             this.btnImportLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnImportLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(232)))), ((int)(((byte)(18)))));
+            this.btnImportLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnImportLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImportLabel.Location = new System.Drawing.Point(-385, 207);
             this.btnImportLabel.Margin = new System.Windows.Forms.Padding(2);
@@ -651,7 +655,7 @@
             this.btnImportLabel.Size = new System.Drawing.Size(118, 28);
             this.btnImportLabel.TabIndex = 54;
             this.btnImportLabel.Text = "Import";
-            this.btnImportLabel.UseVisualStyleBackColor = true;
+            this.btnImportLabel.UseVisualStyleBackColor = false;
             this.btnImportLabel.Click += new System.EventHandler(this.btnImportImage_Click);
             // 
             // lblTitle
@@ -691,7 +695,7 @@
             // 
             // pnlBoxes
             // 
-            this.pnlBoxes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(155)))), ((int)(((byte)(231)))));
+            this.pnlBoxes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(124)))), ((int)(((byte)(144)))));
             this.pnlBoxes.Controls.Add(this.label10);
             this.pnlBoxes.Controls.Add(this.txtComments);
             this.pnlBoxes.Controls.Add(this.label1);
@@ -699,7 +703,7 @@
             this.pnlBoxes.Controls.Add(this.label7);
             this.pnlBoxes.Controls.Add(this.txtProcess);
             this.pnlBoxes.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlBoxes.Location = new System.Drawing.Point(-6, 62);
+            this.pnlBoxes.Location = new System.Drawing.Point(-16, 62);
             this.pnlBoxes.Margin = new System.Windows.Forms.Padding(2);
             this.pnlBoxes.Name = "pnlBoxes";
             this.pnlBoxes.Size = new System.Drawing.Size(10, 469);
@@ -782,7 +786,7 @@
             // 
             // pnlFinal
             // 
-            this.pnlFinal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(119)))), ((int)(((byte)(155)))), ((int)(((byte)(231)))));
+            this.pnlFinal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(124)))), ((int)(((byte)(144)))));
             this.pnlFinal.Controls.Add(this.cboxResult2);
             this.pnlFinal.Controls.Add(this.label12);
             this.pnlFinal.Controls.Add(this.label11);
@@ -796,7 +800,7 @@
             this.pnlFinal.Controls.Add(this.cboxTroubleshoot);
             this.pnlFinal.Controls.Add(this.cboxClean);
             this.pnlFinal.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlFinal.Location = new System.Drawing.Point(4, 62);
+            this.pnlFinal.Location = new System.Drawing.Point(-6, 62);
             this.pnlFinal.Margin = new System.Windows.Forms.Padding(2);
             this.pnlFinal.Name = "pnlFinal";
             this.pnlFinal.Size = new System.Drawing.Size(10, 469);

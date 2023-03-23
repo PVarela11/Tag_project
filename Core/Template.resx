@@ -201,6 +201,9 @@
   <data name="pnlMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
+  <data name="iconButton1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 97</value>
+  </data>
   <data name="&gt;&gt;iconButton2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
@@ -234,8 +237,8 @@
   <data name="&gt;&gt;iconButton4.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="iconButton1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 97</value>
+  <data name="&gt;&gt;iconButton1.Type" xml:space="preserve">
+    <value>FontAwesome.Sharp.IconButton, FontAwesome.Sharp, Version=6.2.1.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f</value>
   </data>
   <data name="$this.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -284,9 +287,6 @@
   </data>
   <data name="pnlSide.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 721</value>
-  </data>
-  <data name="&gt;&gt;iconButton1.Type" xml:space="preserve">
-    <value>FontAwesome.Sharp.IconButton, FontAwesome.Sharp, Version=6.2.1.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f</value>
   </data>
   <data name="iconButton1.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
