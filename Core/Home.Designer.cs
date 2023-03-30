@@ -64,13 +64,15 @@
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.lblDescription = new System.Windows.Forms.Label();
             this.pnlFirst = new System.Windows.Forms.Panel();
+            this.txt2DigitSerialNum = new System.Windows.Forms.TextBox();
+            this.lblSerialNumDash = new System.Windows.Forms.Label();
             this.lblCaminho = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.txtSummary = new System.Windows.Forms.TextBox();
             this.btnImportLabel = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblSerialNum = new System.Windows.Forms.Label();
-            this.txtSerialNum = new System.Windows.Forms.TextBox();
+            this.txt6DigitSerialNum = new System.Windows.Forms.TextBox();
             this.pnlBoxes = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
             this.txtComments = new System.Windows.Forms.TextBox();
@@ -202,16 +204,16 @@
             this.pnlComponents.Controls.Add(this.txtDescription);
             this.pnlComponents.Controls.Add(this.lblDescription);
             this.pnlComponents.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlComponents.Location = new System.Drawing.Point(4, 62);
+            this.pnlComponents.Location = new System.Drawing.Point(814, 62);
             this.pnlComponents.Name = "pnlComponents";
-            this.pnlComponents.Size = new System.Drawing.Size(820, 469);
+            this.pnlComponents.Size = new System.Drawing.Size(10, 469);
             this.pnlComponents.TabIndex = 1;
             // 
             // btnClearAfterImages
             // 
             this.btnClearAfterImages.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnClearAfterImages.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnClearAfterImages.Location = new System.Drawing.Point(506, 218);
+            this.btnClearAfterImages.Location = new System.Drawing.Point(101, 218);
             this.btnClearAfterImages.Margin = new System.Windows.Forms.Padding(2);
             this.btnClearAfterImages.Name = "btnClearAfterImages";
             this.btnClearAfterImages.Size = new System.Drawing.Size(279, 26);
@@ -224,7 +226,7 @@
             // 
             this.btnClearBeforeImages.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnClearBeforeImages.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnClearBeforeImages.Location = new System.Drawing.Point(115, 220);
+            this.btnClearBeforeImages.Location = new System.Drawing.Point(-290, 220);
             this.btnClearBeforeImages.Margin = new System.Windows.Forms.Padding(2);
             this.btnClearBeforeImages.Name = "btnClearBeforeImages";
             this.btnClearBeforeImages.Size = new System.Drawing.Size(270, 24);
@@ -493,7 +495,7 @@
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.label4.Location = new System.Drawing.Point(581, 91);
+            this.label4.Location = new System.Drawing.Point(176, 91);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(134, 25);
@@ -505,7 +507,7 @@
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.label3.Location = new System.Drawing.Point(174, 91);
+            this.label3.Location = new System.Drawing.Point(-231, 91);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(151, 25);
@@ -516,7 +518,7 @@
             // 
             this.btnAddComponent.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnAddComponent.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddComponent.Location = new System.Drawing.Point(351, 370);
+            this.btnAddComponent.Location = new System.Drawing.Point(-54, 370);
             this.btnAddComponent.Margin = new System.Windows.Forms.Padding(2);
             this.btnAddComponent.Name = "btnAddComponent";
             this.btnAddComponent.Size = new System.Drawing.Size(119, 28);
@@ -555,7 +557,7 @@
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label2.Location = new System.Drawing.Point(370, 15);
+            this.label2.Location = new System.Drawing.Point(-35, 15);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(125, 19);
@@ -568,7 +570,7 @@
             this.txtDescription.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDescription.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtDescription.Location = new System.Drawing.Point(35, 279);
+            this.txtDescription.Location = new System.Drawing.Point(-370, 279);
             this.txtDescription.Margin = new System.Windows.Forms.Padding(2);
             this.txtDescription.MaxLength = 260;
             this.txtDescription.Multiline = true;
@@ -591,26 +593,49 @@
             // pnlFirst
             // 
             this.pnlFirst.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(124)))), ((int)(((byte)(144)))));
+            this.pnlFirst.Controls.Add(this.txt2DigitSerialNum);
+            this.pnlFirst.Controls.Add(this.lblSerialNumDash);
             this.pnlFirst.Controls.Add(this.lblCaminho);
             this.pnlFirst.Controls.Add(this.label13);
             this.pnlFirst.Controls.Add(this.txtSummary);
             this.pnlFirst.Controls.Add(this.btnImportLabel);
             this.pnlFirst.Controls.Add(this.lblTitle);
             this.pnlFirst.Controls.Add(this.lblSerialNum);
-            this.pnlFirst.Controls.Add(this.txtSerialNum);
+            this.pnlFirst.Controls.Add(this.txt6DigitSerialNum);
             this.pnlFirst.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlFirst.Location = new System.Drawing.Point(0, 62);
             this.pnlFirst.Margin = new System.Windows.Forms.Padding(2);
             this.pnlFirst.Name = "pnlFirst";
-            this.pnlFirst.Size = new System.Drawing.Size(0, 469);
+            this.pnlFirst.Size = new System.Drawing.Size(794, 469);
             this.pnlFirst.TabIndex = 20;
+            // 
+            // txt2DigitSerialNum
+            // 
+            this.txt2DigitSerialNum.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txt2DigitSerialNum.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txt2DigitSerialNum.Location = new System.Drawing.Point(99, 146);
+            this.txt2DigitSerialNum.MaxLength = 2;
+            this.txt2DigitSerialNum.Name = "txt2DigitSerialNum";
+            this.txt2DigitSerialNum.Size = new System.Drawing.Size(25, 25);
+            this.txt2DigitSerialNum.TabIndex = 60;
+            // 
+            // lblSerialNumDash
+            // 
+            this.lblSerialNumDash.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblSerialNumDash.AutoSize = true;
+            this.lblSerialNumDash.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblSerialNumDash.Location = new System.Drawing.Point(78, 149);
+            this.lblSerialNumDash.Name = "lblSerialNumDash";
+            this.lblSerialNumDash.Size = new System.Drawing.Size(15, 19);
+            this.lblSerialNumDash.TabIndex = 59;
+            this.lblSerialNumDash.Text = "-";
             // 
             // lblCaminho
             // 
             this.lblCaminho.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblCaminho.AutoSize = true;
             this.lblCaminho.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblCaminho.Location = new System.Drawing.Point(-387, 186);
+            this.lblCaminho.Location = new System.Drawing.Point(10, 186);
             this.lblCaminho.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCaminho.Name = "lblCaminho";
             this.lblCaminho.Size = new System.Drawing.Size(197, 19);
@@ -622,7 +647,7 @@
             this.label13.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label13.Location = new System.Drawing.Point(-388, 251);
+            this.label13.Location = new System.Drawing.Point(9, 251);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(70, 19);
@@ -635,7 +660,7 @@
             this.txtSummary.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtSummary.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtSummary.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtSummary.Location = new System.Drawing.Point(-385, 274);
+            this.txtSummary.Location = new System.Drawing.Point(12, 274);
             this.txtSummary.Margin = new System.Windows.Forms.Padding(2);
             this.txtSummary.Multiline = true;
             this.txtSummary.Name = "txtSummary";
@@ -649,7 +674,7 @@
             this.btnImportLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(232)))), ((int)(((byte)(18)))));
             this.btnImportLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnImportLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportLabel.Location = new System.Drawing.Point(-385, 207);
+            this.btnImportLabel.Location = new System.Drawing.Point(12, 207);
             this.btnImportLabel.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportLabel.Name = "btnImportLabel";
             this.btnImportLabel.Size = new System.Drawing.Size(118, 28);
@@ -666,7 +691,7 @@
             this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.lblTitle.Size = new System.Drawing.Size(0, 95);
+            this.lblTitle.Size = new System.Drawing.Size(794, 95);
             this.lblTitle.TabIndex = 20;
             this.lblTitle.Text = resources.GetString("lblTitle.Text");
             // 
@@ -675,23 +700,24 @@
             this.lblSerialNum.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblSerialNum.AutoSize = true;
             this.lblSerialNum.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblSerialNum.Location = new System.Drawing.Point(-389, 125);
+            this.lblSerialNum.Location = new System.Drawing.Point(11, 119);
             this.lblSerialNum.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSerialNum.Name = "lblSerialNum";
-            this.lblSerialNum.Size = new System.Drawing.Size(98, 19);
+            this.lblSerialNum.Size = new System.Drawing.Size(92, 19);
             this.lblSerialNum.TabIndex = 4;
-            this.lblSerialNum.Text = "Serial Number:";
+            this.lblSerialNum.Text = "Unit Number:";
             // 
-            // txtSerialNum
+            // txt6DigitSerialNum
             // 
-            this.txtSerialNum.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtSerialNum.Location = new System.Drawing.Point(-385, 146);
-            this.txtSerialNum.Margin = new System.Windows.Forms.Padding(2);
-            this.txtSerialNum.MaxLength = 8;
-            this.txtSerialNum.Name = "txtSerialNum";
-            this.txtSerialNum.Size = new System.Drawing.Size(119, 20);
-            this.txtSerialNum.TabIndex = 3;
-            this.txtSerialNum.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSerialNum_KeyPress);
+            this.txt6DigitSerialNum.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txt6DigitSerialNum.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txt6DigitSerialNum.Location = new System.Drawing.Point(14, 146);
+            this.txt6DigitSerialNum.Margin = new System.Windows.Forms.Padding(2);
+            this.txt6DigitSerialNum.MaxLength = 6;
+            this.txt6DigitSerialNum.Name = "txt6DigitSerialNum";
+            this.txt6DigitSerialNum.Size = new System.Drawing.Size(55, 25);
+            this.txt6DigitSerialNum.TabIndex = 3;
+            this.txt6DigitSerialNum.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSerialNum_KeyPress);
             // 
             // pnlBoxes
             // 
@@ -703,7 +729,7 @@
             this.pnlBoxes.Controls.Add(this.label7);
             this.pnlBoxes.Controls.Add(this.txtProcess);
             this.pnlBoxes.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlBoxes.Location = new System.Drawing.Point(-16, 62);
+            this.pnlBoxes.Location = new System.Drawing.Point(794, 62);
             this.pnlBoxes.Margin = new System.Windows.Forms.Padding(2);
             this.pnlBoxes.Name = "pnlBoxes";
             this.pnlBoxes.Size = new System.Drawing.Size(10, 469);
@@ -800,7 +826,7 @@
             this.pnlFinal.Controls.Add(this.cboxTroubleshoot);
             this.pnlFinal.Controls.Add(this.cboxClean);
             this.pnlFinal.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlFinal.Location = new System.Drawing.Point(-6, 62);
+            this.pnlFinal.Location = new System.Drawing.Point(804, 62);
             this.pnlFinal.Margin = new System.Windows.Forms.Padding(2);
             this.pnlFinal.Name = "pnlFinal";
             this.pnlFinal.Size = new System.Drawing.Size(10, 469);
@@ -888,6 +914,7 @@
             this.lblTroubleshoot.TabIndex = 66;
             this.lblTroubleshoot.TabStop = true;
             this.lblTroubleshoot.Text = "Was the board troubleshooting following the instructions ?";
+            this.lblTroubleshoot.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblTroubleshoot_LinkClicked);
             // 
             // lblClean
             // 
@@ -901,6 +928,7 @@
             this.lblClean.TabIndex = 67;
             this.lblClean.TabStop = true;
             this.lblClean.Text = "Was the board clean following the instructions ?";
+            this.lblClean.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblClean_LinkClicked);
             // 
             // label8
             // 
@@ -995,7 +1023,7 @@
         private System.Windows.Forms.Button btnImportLabel;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblSerialNum;
-        private System.Windows.Forms.TextBox txtSerialNum;
+        private System.Windows.Forms.TextBox txt6DigitSerialNum;
         private System.Windows.Forms.Panel pnlBoxes;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtComments;
@@ -1044,5 +1072,7 @@
         private System.Windows.Forms.CheckBox cboxRepair;
         private System.Windows.Forms.CheckBox cboxTroubleshoot;
         private System.Windows.Forms.CheckBox cboxClean;
+        private System.Windows.Forms.TextBox txt2DigitSerialNum;
+        private System.Windows.Forms.Label lblSerialNumDash;
     }
 }

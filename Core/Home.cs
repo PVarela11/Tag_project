@@ -61,8 +61,10 @@ namespace Tåg_project.Core
                 if (serialNum.Length == 8)
                 {
                     isImported = true;
-                    txtSerialNum.Enabled = false;
-                    txtSerialNum.Text = serialNum;
+                    txt6DigitSerialNum.Enabled = false;
+                    txt6DigitSerialNum.Text = serialNum.Substring(0,6);
+                    txt2DigitSerialNum.Enabled = false;
+                    txt2DigitSerialNum.Text = serialNum.Substring(6, 2);
                     cboxClean.Checked = import.isClean; ;
                     isClean = import.isClean;
                     cboxTroubleshoot.Checked = import.troubleshoot;
@@ -105,7 +107,7 @@ namespace Tåg_project.Core
         {
             if (validateInputs(0))
             {
-                serialNum = txtSerialNum.Text;
+                serialNum = txt6DigitSerialNum.Text + txt2DigitSerialNum.Text;
                 isClean = cboxClean.Checked;
                 observations = txtObservations.Text;
                 comments = txtComments.Text;
@@ -659,9 +661,9 @@ namespace Tåg_project.Core
         {
             if (page == 0)
             {
-                if (txtSerialNum.TextLength != 8)
+                if (txt6DigitSerialNum.TextLength != 6 && txt2DigitSerialNum.TextLength != 2)
                 {
-                    MessageBox.Show("Serial Number should be 8 digits");
+                    MessageBox.Show("The unit number is not in the right format!\nMake sure there are 6 numbers in the left and 2 in the right.");
                     return false;
                 }else if (labelPath == null)
                 {

@@ -95,8 +95,8 @@ namespace Tåg_project.FileManipulation
                 repairText = new Text("The PCB wasn't repaired").SetFont(font);
             }
 
-            serialNum = sNum;
-            string outputPath = path + "\\Report_" + serialNum + ".pdf";
+            string outputPath = path + "\\Report_" + sNum + ".pdf";
+            serialNum = sNum.Substring(0,5) + "-" + sNum.Substring(5,2);
             #endregion
 
             try
