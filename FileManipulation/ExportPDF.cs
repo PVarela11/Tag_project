@@ -44,8 +44,6 @@ namespace Tåg_project.FileManipulation
         float x; float y;
         public ExportPDF(
             string path,
-            List<string> initialImagesPath,
-            List<string> finalImagesPath,
             string sNum,
             bool clean,
             bool troubleshoot,
@@ -62,10 +60,6 @@ namespace Tåg_project.FileManipulation
             )
         {
             #region init vars
-            List<string> initialImages = new List<string>();
-            List<string> finalImages = new List<string>();
-            initialImages = initialImagesPath.ToList();
-            finalImages = finalImagesPath.ToList();
             if (summary!= null)
             {
                 summaryText = new Text(summary).SetFont(font).SetFontSize(10);
@@ -309,7 +303,7 @@ namespace Tåg_project.FileManipulation
                 #endregion
 
                 #region Third page "Components"
-                if (listaComponentes.Count > 0)
+                if (listaComponentes.Count > 0 && checkComponents(listaComponentes))
                 {
                     titleCounter++;
                     document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
@@ -483,10 +477,23 @@ namespace Tåg_project.FileManipulation
             }
             catch (Exception ex)
             {
+                document.Close();
                 MessageBox.Show(ex.Message);
                 Console.WriteLine("The process failed: {0}", ex.ToString());
             }
             finally { }
+        }
+
+        private bool checkComponents(List<Component> listaComponentes)
+        {
+            foreach(Component comp in listaComponentes)
+            {
+                if(comp.componentBeforeFrontImage1 == null || comp.componentAfterFrontImage1 == null)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void AddComponentsAfterCleaning(List<Component> listaComponentes, iText.Layout.Element.Table table, Cell emptyCell)

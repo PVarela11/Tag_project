@@ -15,11 +15,11 @@ namespace Tåg_project.Core
             componentAfterFrontImg1, componentAfterBackImg1, componentAfterFrontImg2, componentAfterBackImg2, componentAfterFrontImg3, componentAfterBackImg3,
             componentName, componentDescription;
         List<Component> componentsList = new List<Component>();
-        bool isClean, troubleshoot, repair, result1, result2, result3;
+        bool isClean, troubleshoot, repair, result1, result2, result3, goodState, damaged, notFunctional;
         bool isImported = false;
-
         int page = 0;
         List<string> initialImagesPath = new List<string>(), listAux = new List<string>(), finalImagesPath = new List<string>();
+
         public Home(string tempPath)
         {
             InitializeComponent();
@@ -48,6 +48,9 @@ namespace Tåg_project.Core
             btnImportBeforeFront2.Enabled = false;
             btnImportBeforeFront3.Enabled = false;
             btnPrev.Enabled = false;
+            goodState = false;
+            damaged = false;
+            notFunctional = false;
         }
 
         #region FileManipulation
@@ -171,8 +174,6 @@ namespace Tåg_project.Core
 
             ExportPDF pdf = new ExportPDF(
                 p,
-                initialImagesPath,
-                finalImagesPath,
                 serialNum,
                 isClean,
                 troubleshoot,
@@ -192,7 +193,74 @@ namespace Tåg_project.Core
         #endregion
 
         #region Design controls actions
-
+        private void checkedListBoxState_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            // Uncheck all other items except the current one being checked
+            for (int i = 0; i < checkedListBoxState.Items.Count; ++i)
+            {
+                if (i != e.Index)
+                {
+                    checkedListBoxState.SetItemChecked(i, false);
+                }
+            }
+        }
+        private void checkedListBoxState_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (checkedListBoxState.SelectedIndex == 0)
+            {
+                goodState = true;
+                notFunctional = false;
+                damaged = false;
+            }
+            else if (checkedListBoxState.SelectedIndex == 1)
+            {
+                goodState = false;
+                notFunctional = false;
+                damaged = true;
+            }
+            else if (checkedListBoxState.SelectedIndex == 2)
+            {
+                goodState = false;
+                notFunctional = true;
+                damaged = false;
+            }
+        }
+        private void btnCatalog_Click(object sender, EventArgs e)
+        {
+            Component component = new Component();
+            if (!listBoxCatalog.Items.Contains(txtComboCatalog.Text))
+            {
+                listBoxCatalog.Items.Add(txtComboCatalog.Text);
+                component.name = txtComboCatalog.Text;
+                component.quantity = txtComponentQuantity.Text;
+                component.state = checkedListBoxState.SelectedItem.ToString();
+                component.location = txtComponentLocation.Text;
+                component.componentBeforeFrontImage1 = componentBeforeFrontImg1;
+                component.componentBeforeFrontImage2 = componentBeforeFrontImg2;
+                component.componentBeforeFrontImage3 = componentBeforeFrontImg3;
+                component.componentBeforeBackImage1 = componentBeforeBackImg1;
+                component.componentBeforeBackImage2 = componentBeforeBackImg2;
+                component.componentBeforeBackImage3 = componentBeforeBackImg3;
+                listBoxComponents.Items.Add(comboComponents.Text);
+                componentsList.Add(component);
+                ClearComponentPanel();
+            }
+            else
+            {
+                Component componentToFind = componentsList.Find(x => x.name == txtComboCatalog.Text);
+                componentToFind.name = txtComboCatalog.Text;
+                componentToFind.quantity = txtComponentQuantity.Text;
+                componentToFind.state = checkedListBoxState.SelectedItem.ToString();
+                componentToFind.location = txtComponentLocation.Text;
+                componentToFind.componentBeforeFrontImage1 = componentBeforeFrontImg1;
+                componentToFind.componentBeforeFrontImage2 = componentBeforeFrontImg2;
+                componentToFind.componentBeforeFrontImage3 = componentBeforeFrontImg3;
+                componentToFind.componentBeforeBackImage1 = componentBeforeBackImg1;
+                componentToFind.componentBeforeBackImage2 = componentBeforeBackImg2;
+                componentToFind.componentBeforeBackImage3 = componentBeforeBackImg3;
+                ClearComponentPanel();
+            }
+        }
         private void btnAddComponent_Click(object sender, EventArgs e)
         {
             componentName = comboComponents.Text;
@@ -641,11 +709,15 @@ namespace Tåg_project.Core
 
         private void listBoxComponents_KeyDown(object sender, KeyEventArgs e)
         {
+            string listBoxName = (sender as System.Windows.Forms.ListBox).Name;
             if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
             {
-                if (listBoxComponents.SelectedIndex >= 0)
+                if (listBoxName == "listBoxComponents" && listBoxComponents.SelectedIndex >= 0)
                 {
                     listBoxComponents.Items.RemoveAt(listBoxComponents.SelectedIndex);
+                }else if (listBoxName == "listBoxCatalog" && listBoxCatalog.SelectedIndex >= 0)
+                {
+                    listBoxCatalog.Items.RemoveAt(listBoxCatalog.SelectedIndex);
                 }
             }
         }

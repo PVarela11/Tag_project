@@ -23,6 +23,9 @@ namespace Tåg_project
         public string componentAfterBackImage2 { get; set; }
         public string componentAfterBackImage3 { get; set; }
         public string description { get; set; }
+        public string quantity { get; set; }
+        public string state { get; set; }
+        public string location { get; set; }
 
         public Component(string name, 
             string componentBeforeFrontImage1, string componentBeforeFrontImage2, string componentBeforeFrontImage3,
