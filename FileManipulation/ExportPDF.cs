@@ -467,10 +467,11 @@ namespace Tåg_project.FileManipulation
                     componentCounter = 0;
                     document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                     document.Add(new Paragraph(titleCounter + "." + subtitleCounter + " After Cleaning\n").SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
-                    AddComponentsAfterCleaning(listaComponentes, table, emptyCell);
+                    //AddComponentsAfterCleaning(listaComponentes, table, emptyCell);
                 }
                 #endregion
 
+                
                 document.Close();
                 MessageBox.Show("PDF Created on" + outputPath);
                 ShowFile.OpenFile(outputPath);
@@ -488,7 +489,7 @@ namespace Tåg_project.FileManipulation
         {
             foreach(Component comp in listaComponentes)
             {
-                if(comp.componentBeforeFrontImage1 == null || comp.componentAfterFrontImage1 == null)
+                if(comp.componentBeforeFrontImage1 == null && comp.componentAfterFrontImage1 == null)
                 {
                     return false;
                 }
@@ -661,7 +662,7 @@ namespace Tåg_project.FileManipulation
             pageChanged = false;
             foreach (Component comp in listaComponentes)
             {
-                text = new Paragraph("\0\t\t" + "• Component " + componentCounter + " - " + comp.name);
+                text = new Paragraph("\0\t\t" + "• Component " + componentCounter + " - " + serialNum + "-" + comp.name);
                 document.Add(text.SetFontSize(12).SetFont(font));
                 componentCounter++;
             }
@@ -671,9 +672,10 @@ namespace Tåg_project.FileManipulation
             {
                 text = new Paragraph(titleCounter + "." + subtitleCounter + "." + componentCounter + "  " + listaComponentes[i].name);
                 document.Add(text.SetFontSize(9).SetFont(font).SetBold());
-                text = new Paragraph(listaComponentes[i].description);
+                //text = new Paragraph(listaComponentes[i].description);
+                text = new Paragraph(listaComponentes[i].location);
                 document.Add(text.SetFontSize(8).SetFont(font).SetMarginTop(0f));
-                ImageData im = ImageDataFactory.Create(listaComponentes[i].componentAfterFrontImage1);
+                ImageData im = ImageDataFactory.Create(listaComponentes[i].componentBeforeFrontImage1);
                 Image image = new Image(im);
                 //image.ScaleToFit(175,175);
                 image.SetMaxHeight(140);

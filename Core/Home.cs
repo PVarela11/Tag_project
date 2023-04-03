@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using Tåg_project.FileManipulation;
+using CheckBox = System.Windows.Forms.CheckBox;
+using ListBox = System.Windows.Forms.ListBox;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Tåg_project.Core
@@ -13,13 +16,12 @@ namespace Tåg_project.Core
         string path, serialNum, tempPath, observations, comments, process, labelPath, summary,
             componentBeforeFrontImg1, componentBeforeBackImg1, componentBeforeFrontImg2, componentBeforeBackImg2, componentBeforeFrontImg3, componentBeforeBackImg3,
             componentAfterFrontImg1, componentAfterBackImg1, componentAfterFrontImg2, componentAfterBackImg2, componentAfterFrontImg3, componentAfterBackImg3,
-            componentName, componentDescription;
+            componentName, componentDescription, page;
         List<Component> componentsList = new List<Component>();
-        bool isClean, troubleshoot, repair, result1, result2, result3, goodState, damaged, notFunctional;
+        bool isClean, troubleshoot, result1, result2, result3, storage, cleaning, repairing, upgrade;
         bool isImported = false;
-        int page = 0;
         List<string> initialImagesPath = new List<string>(), listAux = new List<string>(), finalImagesPath = new List<string>();
-
+        int lastSelectedIndex = -1, state; // initialize to an invalid inde
         public Home(string tempPath)
         {
             InitializeComponent();
@@ -35,10 +37,12 @@ namespace Tåg_project.Core
         //Hidding the panels that will appear later in the application
         private void InitialDesign()
         {
-            pnlFinal.Width = 0;
-            pnlBoxes.Width = 0;
-            pnlComponents.Width = 0;
-            lblTopPanel.Text = "Identification";
+            pnlCatalog.Width = 0;
+            pnlTroubleshoot.Width = 0;
+            pnlRepair.Width = 0;
+            pnlCleaning.Width = 0;
+            page = "Identification";
+            lblTopPanel.Text = page;
             btnImportAfterBack2.Enabled = false;
             btnImportAfterBack3.Enabled = false;
             btnImportAfterFront2.Enabled = false;
@@ -48,10 +52,49 @@ namespace Tåg_project.Core
             btnImportBeforeFront2.Enabled = false;
             btnImportBeforeFront3.Enabled = false;
             btnPrev.Enabled = false;
-            goodState = false;
-            damaged = false;
-            notFunctional = false;
         }
+        #region General Functions
+        private void ClearComponentPanel()
+        {
+            //Clear variables
+            componentDescription = "";
+            componentName = "";
+            componentBeforeFrontImg1 = null;
+            componentBeforeFrontImg2 = null;
+            componentBeforeFrontImg3 = null;
+            componentAfterFrontImg1 = null;
+            componentAfterFrontImg2 = null;
+            componentAfterFrontImg3 = null;
+            componentBeforeBackImg1 = null;
+            componentBeforeBackImg2 = null;
+            componentBeforeBackImg3 = null;
+            componentAfterBackImg1 = null;
+            componentAfterBackImg2 = null;
+            componentAfterBackImg3 = null;
+            //Clear controls
+            comboComponents.Text = "";
+            txtDescription.Text = "";
+            txtComboCatalog.Text = "";
+            txtComponentQuantity.Text = "";
+            txtComponentLocation.Text = "";
+            checkedListBoxState.SelectedIndex = -1;
+            checkedListBoxState.SetItemChecked(0, false);
+            checkedListBoxState.SetItemChecked(1, false);
+            checkedListBoxState.SetItemChecked(2, false);
+            btnImportAfterFront1.Text = "Add image";
+            btnImportAfterFront2.Text = "Add image";
+            btnImportAfterFront3.Text = "Add image";
+            btnImportBeforeFront1.Text = "Add image";
+            btnImportBeforeFront2.Text = "Add image";
+            btnImportBeforeFront3.Text = "Add image";
+            btnImportAfterBack1.Text = "Add image";
+            btnImportAfterBack2.Text = "Add image";
+            btnImportAfterBack3.Text = "Add image";
+            btnImportBeforeBack1.Text = "Add image";
+            btnImportBeforeBack2.Text = "Add image";
+            btnImportBeforeBack3.Text = "Add image";
+        }
+        #endregion
 
         #region FileManipulation
         //Import of all the data inside the previously created folder by the application
@@ -108,7 +151,7 @@ namespace Tåg_project.Core
         //Export of all the data inserted by the user into a new or a previously created folder
         private void Export()
         {
-            if (validateInputs(0))
+            if (validateInputs("Identification"))
             {
                 serialNum = txt6DigitSerialNum.Text + txt2DigitSerialNum.Text;
                 isClean = cboxClean.Checked;
@@ -116,7 +159,7 @@ namespace Tåg_project.Core
                 comments = txtComments.Text;
                 process = txtProcess.Text;
                 troubleshoot = cboxTroubleshoot.Checked;
-                repair = cboxRepair.Checked;
+                repairing = cboxRepair.Checked;
                 result1 = cboxResult1.Checked;
                 result2 = cboxResult2.Checked;
                 result3 = cboxResult3.Checked;
@@ -138,7 +181,7 @@ namespace Tåg_project.Core
                         comments,
                         process,
                         troubleshoot,
-                        repair,
+                        repairing,
                         result1,
                         result2,
                         result3,
@@ -163,7 +206,7 @@ namespace Tåg_project.Core
         {
             isClean = cboxClean.Checked;
             troubleshoot = cboxTroubleshoot.Checked;
-            repair = cboxRepair.Checked;
+            repairing = cboxRepair.Checked;
             observations = txtObservations.Text;
             comments = txtComments.Text;
             process = txtProcess.Text;
@@ -183,7 +226,7 @@ namespace Tåg_project.Core
                 result1,
                 result2,
                 result3,
-                repair,
+                repairing,
                 summary,
                 labelPath,
                 componentsList
@@ -193,6 +236,104 @@ namespace Tåg_project.Core
         #endregion
 
         #region Design controls actions
+        private void cBoxIdentification_CheckedChanged(object sender, EventArgs e)
+        {
+            string processName = (sender as CheckBox).Name;
+            if (processName == "cBoxUpgrade")
+            {
+                if (upgrade)
+                {
+                    upgrade = false;
+                }
+                else upgrade = true;
+            }
+            else if (processName == "cBoxCleaning")
+            {
+                if (cleaning)
+                {
+                    cleaning = false;
+                }
+                else cleaning = true;
+            }
+            else if (processName == "cBoxRepairing")
+            {
+                if (repairing)
+                {
+                    repairing = false;
+                }
+                else repairing = true;
+            }
+            else if (processName == "cBoxStorage")
+            {
+                if (storage)
+                {
+                    storage = false;
+                }
+                else storage = true;
+            }
+        }
+
+        #region Panel Catalog
+        private void listBoxCatalogComponent_Click(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                int index = listBoxCatalog.IndexFromPoint(e.Location);
+                if (index != ListBox.NoMatches)
+                {
+                    string name = listBoxCatalog.Items[index].ToString();
+                    Component componentToFind = componentsList.Find(x => x.name == name);
+                    txtComboCatalog.Text = name;
+                    txtComponentQuantity.Text = componentToFind.quantity;
+                    txtComponentLocation.Text = componentToFind.location;
+                    //checkedListBoxState.SelectedIndex = componentToFind.state;
+                    checkedListBoxState.SetItemChecked(componentToFind.state, true);
+                    if (componentToFind.componentBeforeFrontImage1 != null)
+                    {
+                        componentBeforeFrontImg1 = componentToFind.componentBeforeFrontImage1;
+                        btnImportBeforeFront1.Text = "Image imported";
+                        btnImportBeforeFront2.Enabled = true;
+                    }
+                    else btnImportBeforeFront1.Text = "Add image";
+
+                    if (componentToFind.componentBeforeFrontImage2 != null)
+                    {
+                        componentBeforeFrontImg2 = componentToFind.componentBeforeFrontImage2;
+                        btnImportBeforeFront2.Text = "Image imported";
+                        btnImportBeforeFront3.Enabled = true;
+                    }
+                    else btnImportBeforeFront2.Text = "Add image";
+
+                    if (componentToFind.componentBeforeFrontImage3 != null)
+                    {
+                        componentBeforeFrontImg3 = componentToFind.componentBeforeFrontImage3;
+                        btnImportBeforeFront3.Text = "Image imported";
+                    }
+                    else btnImportBeforeFront3.Text = "Add image";
+
+                    if (componentToFind.componentBeforeBackImage1 != null)
+                    {
+                        componentBeforeBackImg1 = componentToFind.componentBeforeBackImage1;
+                        btnImportBeforeBack1.Text = "Image imported";
+                        btnImportBeforeBack2.Enabled = true;
+                    }
+                    else btnImportBeforeBack1.Text = "Add image";
+                    if (componentToFind.componentBeforeBackImage2 != null)
+                    {
+                        componentBeforeBackImg2 = componentToFind.componentBeforeBackImage2;
+                        btnImportBeforeBack2.Text = "Image imported";
+                        btnImportBeforeBack3.Enabled = true;
+                    }
+                    else btnImportBeforeBack2.Text = "Add image";
+                    if (componentToFind.componentBeforeBackImage3 != null)
+                    {
+                        componentBeforeBackImg3 = componentToFind.componentBeforeBackImage3;
+                        btnImportBeforeBack3.Text = "Image imported";
+                    }
+                    else btnImportBeforeBack3.Text = "Add image";
+                }
+            }
+        }
         private void checkedListBoxState_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             // Uncheck all other items except the current one being checked
@@ -208,59 +349,73 @@ namespace Tåg_project.Core
         {
             if (checkedListBoxState.SelectedIndex == 0)
             {
-                goodState = true;
-                notFunctional = false;
-                damaged = false;
+                state = 0;
+                checkedListBoxState.SelectedIndexChanged -= checkedListBoxState_SelectedIndexChanged; // temporarily disable the event handler
+                checkedListBoxState.SelectedIndex = lastSelectedIndex; // reset the selected index to the previous value
+                checkedListBoxState.SelectedIndexChanged += checkedListBoxState_SelectedIndexChanged; // re-enable the event handler
             }
             else if (checkedListBoxState.SelectedIndex == 1)
             {
-                goodState = false;
-                notFunctional = false;
-                damaged = true;
+                state = 1;
+                checkedListBoxState.SelectedIndexChanged -= checkedListBoxState_SelectedIndexChanged; // temporarily disable the event handler
+                checkedListBoxState.SelectedIndex = lastSelectedIndex; // reset the selected index to the previous value
+                checkedListBoxState.SelectedIndexChanged += checkedListBoxState_SelectedIndexChanged; // re-enable the event handler
             }
             else if (checkedListBoxState.SelectedIndex == 2)
             {
-                goodState = false;
-                notFunctional = true;
-                damaged = false;
-            }
-        }
-        private void btnCatalog_Click(object sender, EventArgs e)
-        {
-            Component component = new Component();
-            if (!listBoxCatalog.Items.Contains(txtComboCatalog.Text))
-            {
-                listBoxCatalog.Items.Add(txtComboCatalog.Text);
-                component.name = txtComboCatalog.Text;
-                component.quantity = txtComponentQuantity.Text;
-                component.state = checkedListBoxState.SelectedItem.ToString();
-                component.location = txtComponentLocation.Text;
-                component.componentBeforeFrontImage1 = componentBeforeFrontImg1;
-                component.componentBeforeFrontImage2 = componentBeforeFrontImg2;
-                component.componentBeforeFrontImage3 = componentBeforeFrontImg3;
-                component.componentBeforeBackImage1 = componentBeforeBackImg1;
-                component.componentBeforeBackImage2 = componentBeforeBackImg2;
-                component.componentBeforeBackImage3 = componentBeforeBackImg3;
-                listBoxComponents.Items.Add(comboComponents.Text);
-                componentsList.Add(component);
-                ClearComponentPanel();
+                state = 2;
+                checkedListBoxState.SelectedIndexChanged -= checkedListBoxState_SelectedIndexChanged; // temporarily disable the event handler
+                checkedListBoxState.SelectedIndex = lastSelectedIndex; // reset the selected index to the previous value
+                checkedListBoxState.SelectedIndexChanged += checkedListBoxState_SelectedIndexChanged; // re-enable the event handler
             }
             else
             {
-                Component componentToFind = componentsList.Find(x => x.name == txtComboCatalog.Text);
-                componentToFind.name = txtComboCatalog.Text;
-                componentToFind.quantity = txtComponentQuantity.Text;
-                componentToFind.state = checkedListBoxState.SelectedItem.ToString();
-                componentToFind.location = txtComponentLocation.Text;
-                componentToFind.componentBeforeFrontImage1 = componentBeforeFrontImg1;
-                componentToFind.componentBeforeFrontImage2 = componentBeforeFrontImg2;
-                componentToFind.componentBeforeFrontImage3 = componentBeforeFrontImg3;
-                componentToFind.componentBeforeBackImage1 = componentBeforeBackImg1;
-                componentToFind.componentBeforeBackImage2 = componentBeforeBackImg2;
-                componentToFind.componentBeforeBackImage3 = componentBeforeBackImg3;
-                ClearComponentPanel();
+                state = 0;
+                lastSelectedIndex = -1;
             }
         }
+        private void btnCatalogAddComponent_Click(object sender, EventArgs e)
+        {
+            if (txtComboCatalog.Text != "" && txtComponentQuantity.Text != "" && componentBeforeFrontImg1 != null && componentBeforeBackImg1 != null)
+            {
+                Component component = new Component();
+                if (!listBoxCatalog.Items.Contains(txtComboCatalog.Text))
+                {
+                    listBoxCatalog.Items.Add(txtComboCatalog.Text);
+                    component.name = txtComboCatalog.Text;
+                    component.quantity = txtComponentQuantity.Text;
+                    component.state = state;
+                    component.location = txtComponentLocation.Text;
+                    component.componentBeforeFrontImage1 = componentBeforeFrontImg1;
+                    component.componentBeforeFrontImage2 = componentBeforeFrontImg2;
+                    component.componentBeforeFrontImage3 = componentBeforeFrontImg3;
+                    component.componentBeforeBackImage1 = componentBeforeBackImg1;
+                    component.componentBeforeBackImage2 = componentBeforeBackImg2;
+                    component.componentBeforeBackImage3 = componentBeforeBackImg3;
+                    listBoxComponents.Items.Add(comboComponents.Text);
+                    componentsList.Add(component);
+                    ClearComponentPanel();
+                }
+                else
+                {
+                    Component componentToFind = componentsList.Find(x => x.name == txtComboCatalog.Text);
+                    componentToFind.name = txtComboCatalog.Text;
+                    componentToFind.quantity = txtComponentQuantity.Text;
+                    componentToFind.state = checkedListBoxState.CheckedIndices[0];
+                    componentToFind.location = txtComponentLocation.Text;
+                    componentToFind.componentBeforeFrontImage1 = componentBeforeFrontImg1;
+                    componentToFind.componentBeforeFrontImage2 = componentBeforeFrontImg2;
+                    componentToFind.componentBeforeFrontImage3 = componentBeforeFrontImg3;
+                    componentToFind.componentBeforeBackImage1 = componentBeforeBackImg1;
+                    componentToFind.componentBeforeBackImage2 = componentBeforeBackImg2;
+                    componentToFind.componentBeforeBackImage3 = componentBeforeBackImg3;
+                    ClearComponentPanel();
+                }
+            }
+            else MessageBox.Show("You need to insert more data about the component.");
+        }
+        #endregion
+
         private void btnAddComponent_Click(object sender, EventArgs e)
         {
             componentName = comboComponents.Text;
@@ -302,40 +457,6 @@ namespace Tåg_project.Core
             else MessageBox.Show("You need to insert more data about the component.");
         }
 
-        private void ClearComponentPanel()
-        {
-            //Clear variables
-            componentDescription = "";
-            componentName = "";
-            componentBeforeFrontImg1 = null;
-            componentBeforeFrontImg2 = null;
-            componentBeforeFrontImg3 = null;
-            componentAfterFrontImg1 = null;
-            componentAfterFrontImg2 = null;
-            componentAfterFrontImg3 = null;
-            componentBeforeBackImg1 = null;
-            componentBeforeBackImg2 = null;
-            componentBeforeBackImg3 = null;
-            componentAfterBackImg1 = null;
-            componentAfterBackImg2 = null;
-            componentAfterBackImg3 = null;
-            //Clear controls
-            comboComponents.Text = "";
-            txtDescription.Text = "";
-            btnImportAfterFront1.Text = "Add image";
-            btnImportAfterFront2.Text = "Add image";
-            btnImportAfterFront3.Text = "Add image";
-            btnImportBeforeFront1.Text = "Add image";
-            btnImportBeforeFront2.Text = "Add image";
-            btnImportBeforeFront3.Text = "Add image";
-            btnImportAfterBack1.Text = "Add image";
-            btnImportAfterBack2.Text = "Add image";
-            btnImportAfterBack3.Text = "Add image";
-            btnImportBeforeBack1.Text = "Add image";
-            btnImportBeforeBack2.Text = "Add image";
-            btnImportBeforeBack3.Text = "Add image";
-        }
-
         private void lblTroubleshoot_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ShowFile.OpenFile("Troubleshooting.pdf");
@@ -353,47 +474,7 @@ namespace Tåg_project.Core
 
         private void btnClearImages_Click(object sender, EventArgs e)
         {
-            string btnName = (sender as System.Windows.Forms.Button).Name;
-            if (btnName == "btnClearBeforeImages")
-            {
-                componentBeforeFrontImg1 = null;
-                componentBeforeFrontImg2 = null;
-                componentBeforeFrontImg3 = null;
-                componentBeforeBackImg1 = null;
-                componentBeforeBackImg2 = null;
-                componentBeforeBackImg3 = null;
-                btnImportBeforeFront1.Text = "Add image";
-                btnImportBeforeFront2.Text = "Add image";
-                btnImportBeforeFront3.Text = "Add image";
-                btnImportBeforeBack1.Text = "Add image";
-                btnImportBeforeBack2.Text = "Add image";
-                btnImportBeforeBack3.Text = "Add image";
-
-                btnImportBeforeFront2.Enabled = false;
-                btnImportBeforeFront3.Enabled = false;
-                btnImportBeforeBack3.Enabled = false;
-                btnImportBeforeBack2.Enabled = false;
-            }
-            else if (btnName == "btnClearAfterImages")
-            {
-                componentAfterFrontImg1 = null;
-                componentAfterFrontImg2 = null;
-                componentAfterFrontImg3 = null;
-                componentAfterBackImg1 = null;
-                componentAfterBackImg2 = null;
-                componentAfterBackImg3 = null;
-                btnImportAfterFront1.Text = "Add image";
-                btnImportAfterFront2.Text = "Add image";
-                btnImportAfterFront3.Text = "Add image";
-                btnImportAfterBack1.Text = "Add image";
-                btnImportAfterBack2.Text = "Add image";
-                btnImportAfterBack3.Text = "Add image";
-
-                btnImportAfterFront2.Enabled = false;
-                btnImportAfterFront3.Enabled = false;
-                btnImportAfterBack3.Enabled = false;
-                btnImportAfterBack2.Enabled = false;
-            }
+            ClearComponentPanel();
         }
 
         private void btnImportImage_Click(object sender, EventArgs e)
@@ -483,7 +564,7 @@ namespace Tåg_project.Core
 
         private void btnCreatePDF_Click(object sender, EventArgs e)
         {
-            if (validateInputs(0) && validateInputs(2))
+            if (validateInputs("Identification"))
             {
                 if (path == null || !isImported)
                 {
@@ -628,82 +709,170 @@ namespace Tåg_project.Core
         private void btnNext_Click(object sender, EventArgs e)
         {
             lblClean.Visible = true;
-            if (page == 0 && validateInputs(page))
+            if (page == "Identification" && validateInputs(page))
             {
+                page = "Catalog";
                 lblTitle.Visible = false;
-                lblTopPanel.Text = "PCB Process";
-                page++;
+                lblTopPanel.Text = page;
+                pnlCatalog.Width = pnlIdentification.Width;
+                pnlIdentification.Width = 0;
+                pnlRepair.Width = 0;
+                pnlTroubleshoot.Width = 0;
+                pnlCleaning.Width = 0;
                 btnPrev.Enabled = true;
-                pnlBoxes.Width = pnlFirst.Width;
-                //pnlMiddle.Width = pnlFirst.Width;
-                pnlFinal.Width = 0;
-                pnlFirst.Width = 0;
-                //pnlMiddle.Width = 0;
-                btnPrev.Enabled = true;
+                //If cleaning is not selected change the next button to export pdf button
+                if (!cleaning)
+                {
+                    ChangeNextToExport();
+                    //ChangeButtonNext();
+                    //btnNext.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
+                    //btnNext.Click -= btnNext_Click;
+                    //btnNext.Click -= btnCreatePDF_Click;
+                    //btnNext.Click += new EventHandler(btnCreatePDF_Click);
+                }
+            }
+            else if (page == "Catalog")
+            {
+                page="Cleaning";
+                lblTopPanel.Text = page;
+                pnlCleaning.Width = pnlCatalog.Width;
+                pnlIdentification.Width = 0;
+                pnlRepair.Width = 0;
+                pnlTroubleshoot.Width = 0;
+                pnlCatalog.Width = 0;
+                //if (!troubleshoot)
+                //{
+                //    btnNext.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
+                //    btnNext.Click -= btnNext_Click;
+                //    btnNext.Click -= btnCreatePDF_Click;
+                //    btnNext.Click += new EventHandler(btnCreatePDF_Click);
+                //}
+            }
+            else if (page == "Cleaning")
+            {
+                page = "Troubleshoot";
+                lblTopPanel.Text = page;
+                pnlTroubleshoot.Width = pnlCleaning.Width;
+                pnlIdentification.Width = 0;
+                pnlRepair.Width = 0;
+                pnlCleaning.Width = 0;
+                pnlCatalog.Width = 0;
+                if (!repairing)
+                {
+                    ChangeNextToExport();
+                    //btnNext.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
+                    //btnNext.Click -= btnNext_Click;
+                    //btnNext.Click -= btnCreatePDF_Click;
+                    //btnNext.Click += new EventHandler(btnCreatePDF_Click);
+                }
+            }
+            else if(page == "Troubleshoot")
+            {
+                page = "Repair";
+                lblTopPanel.Text = page;
+                pnlRepair.Width = pnlTroubleshoot.Width;
+                pnlIdentification.Width = 0;
+                pnlTroubleshoot.Width = 0;
+                pnlCleaning.Width = 0;
+                pnlCatalog.Width = 0;
 
+                //btnNext.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
+                //btnNext.Click -= btnNext_Click;
+                //btnNext.Click -= btnCreatePDF_Click;
+                //btnNext.Click += new EventHandler(btnCreatePDF_Click);
+                ChangeNextToExport();
+                //if (!repairing)
+                //{
+                //    btnNext.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
+                //    btnNext.Click -= btnNext_Click;
+                //    btnNext.Click -= btnCreatePDF_Click;
+                //    btnNext.Click += new EventHandler(btnCreatePDF_Click);
+                //}
             }
-            else if (page == 1)
-            {
-                lblTopPanel.Text = "Results";
-                page++;
-                //iconButton1.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
-                //iconButton1.Click -= btnExport_Click;
-                //iconButton1.Click += new EventHandler(btnCreatePDF_Click);
-                pnlFinal.Width = pnlBoxes.Width;
-                pnlBoxes.Width = 0;
-                pnlFirst.Width = 0;
-                //pnlMiddle.Width = 0;
-                //btnNext.Enabled = false;
-            }
-            else if(page == 2)
-            {
-                lblTopPanel.Text = "Components";
-                page++;
-                btnNext.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
-                btnNext.Click -= btnNext_Click;
-                btnNext.Click += new EventHandler(btnCreatePDF_Click);
-                pnlComponents.Width = pnlFinal.Width;
-                pnlFinal.Width = 0;
-                pnlFirst.Width = 0;
-                pnlBoxes.Width = 0;
-                //btnNext.Enabled = false;
-            }
+        }
+
+        private void ChangeNextToExport()
+        {
+            btnNext.IconChar = FontAwesome.Sharp.IconChar.FilePdf;
+            btnNext.Click -= btnNext_Click;
+            btnNext.Click -= btnCreatePDF_Click;
+            btnNext.Click += new EventHandler(btnCreatePDF_Click);
+        }
+        private void ChangeExportToNext()
+        {
+            btnNext.IconChar = FontAwesome.Sharp.IconChar.Forward;
+            btnNext.Click -= btnNext_Click;
+            btnNext.Click -= btnCreatePDF_Click;
+            btnNext.Click += new EventHandler(btnNext_Click);
         }
 
         private void btnPrev_Click(object sender, EventArgs e)
         {
-            if (page == 1)
+            if (page == "Catalog")
             {
+                page = "Identification";
                 lblTitle.Visible = true;
-                lblTopPanel.Text = "Identification";
+                lblTopPanel.Text = page;
                 btnPrev.Enabled = false;
-                pnlFirst.Width = pnlBoxes.Width;
-                pnlBoxes.Width = pnlFinal.Width = 0;
-                page--;
+                pnlIdentification.Width = pnlCatalog.Width;
+                pnlCatalog.Width = 0;
+                pnlRepair.Width = 0;
+                pnlTroubleshoot.Width = 0;
+                pnlCleaning.Width = 0;
+                ChangeExportToNext();
+                    //btnNext.IconChar = FontAwesome.Sharp.IconChar.Forward;
+                    //btnNext.Click -= btnCreatePDF_Click;
+                    //btnNext.Click -= btnNext_Click;
+                    //btnNext.Click += new EventHandler(btnNext_Click);
+                
             }
-            else if (page == 2)
+            else if (page == "Cleaning")
             {
-                //iconButton1.IconChar = FontAwesome.Sharp.IconChar.Save;
-                //iconButton1.Click -= btnCreatePDF_Click;
-                //iconButton1.Click += new EventHandler(btnExport_Click);
-                lblTopPanel.Text = "PCB Process";
-                pnlBoxes.Width = pnlFinal.Width;
-                pnlFirst.Width = pnlFinal.Width = 0;
-                page--;
-                btnNext.Enabled = true;
+                page = "Catalog";
+                lblTopPanel.Text = page;
+                pnlCatalog.Width = pnlCleaning.Width;
+                pnlIdentification.Width = 0;
+                pnlRepair.Width = 0;
+                pnlTroubleshoot.Width = 0;
+                pnlCleaning.Width = 0;
+                ChangeExportToNext();
+                //btnNext.IconChar = FontAwesome.Sharp.IconChar.Forward;
+                //btnNext.Click -= btnCreatePDF_Click;
+                //btnNext.Click -= btnNext_Click;
+                //btnNext.Click += new EventHandler(btnNext_Click);
+
             }
-            else if (page == 3)
+            else if (page == "Troubleshoot")
             {
-                btnNext.IconChar = FontAwesome.Sharp.IconChar.Forward;
-                btnNext.Click -= btnCreatePDF_Click;
-                btnNext.Click += new EventHandler(btnNext_Click);
-                lblTopPanel.Text = "Results";
-                pnlFinal.Width = pnlComponents.Width;
-                pnlFirst.Width = 0;
-                pnlComponents.Width = 0;
-                pnlBoxes.Width = 0;
-                page--;
-                btnNext.Enabled = true;
+                page = "Cleaning";
+                lblTopPanel.Text = page;
+                
+                pnlCleaning.Width = pnlTroubleshoot.Width;
+                pnlIdentification.Width = 0;
+                pnlRepair.Width = 0;
+                pnlTroubleshoot.Width = 0;
+                pnlCatalog.Width = 0;
+                ChangeExportToNext();
+                //btnNext.IconChar = FontAwesome.Sharp.IconChar.Forward;
+                //btnNext.Click -= btnCreatePDF_Click;
+                //btnNext.Click -= btnNext_Click;
+                //btnNext.Click += new EventHandler(btnNext_Click);
+            }
+            else if (page == "Repair")
+            {
+                page = "Troubleshoot";
+                lblTopPanel.Text = page;
+
+                pnlTroubleshoot.Width = pnlRepair.Width;
+                pnlIdentification.Width = 0;
+                pnlRepair.Width = 0;
+                pnlCleaning.Width = 0;
+                pnlCatalog.Width = 0;
+                ChangeExportToNext();
+                //btnNext.IconChar = FontAwesome.Sharp.IconChar.Forward;
+                //btnNext.Click -= btnCreatePDF_Click;
+                //btnNext.Click -= btnNext_Click;
+                //btnNext.Click += new EventHandler(btnNext_Click);
             }
         }
 
@@ -721,17 +890,13 @@ namespace Tåg_project.Core
                 }
             }
         }
-
-        
-
-        
         #endregion
 
         #region Data validation and error prevention
         //Serial number should be 8 digits and label image should be imported
-        private bool validateInputs(int page)
+        private bool validateInputs(string page)
         {
-            if (page == 0)
+            if (page == "Identification")
             {
                 if (txt6DigitSerialNum.TextLength != 6 && txt2DigitSerialNum.TextLength != 2)
                 {
@@ -742,6 +907,10 @@ namespace Tåg_project.Core
                     MessageBox.Show("Label image wasn't imported");
                     return false;
                 }
+            }
+            if (serialNum == null)
+            {
+                serialNum = txt6DigitSerialNum.Text + txt2DigitSerialNum.Text;
             }
             return true;
         }

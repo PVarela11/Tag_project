@@ -57,14 +57,14 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.btnCatalog = new System.Windows.Forms.Button();
-            this.pnlFirst = new System.Windows.Forms.Panel();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.pnlIdentification = new System.Windows.Forms.Panel();
+            this.cBoxCleaning = new System.Windows.Forms.CheckBox();
+            this.cBoxRepairing = new System.Windows.Forms.CheckBox();
+            this.cBoxUpgrade = new System.Windows.Forms.CheckBox();
             this.txt6DigitSerialNum = new System.Windows.Forms.TextBox();
             this.lblSerialNum = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.cBoxStorage = new System.Windows.Forms.CheckBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label16 = new System.Windows.Forms.Label();
             this.lblSerialNumDash = new System.Windows.Forms.Label();
@@ -74,14 +74,14 @@
             this.btnImportLabel = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.txt2DigitSerialNum = new System.Windows.Forms.TextBox();
-            this.pnlBoxes = new System.Windows.Forms.Panel();
+            this.pnlRepair = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
             this.txtComments = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtObservations = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtProcess = new System.Windows.Forms.TextBox();
-            this.pnlFinal = new System.Windows.Forms.Panel();
+            this.pnlTroubleshoot = new System.Windows.Forms.Panel();
             this.cboxResult2 = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -94,7 +94,7 @@
             this.cboxRepair = new System.Windows.Forms.CheckBox();
             this.cboxTroubleshoot = new System.Windows.Forms.CheckBox();
             this.cboxClean = new System.Windows.Forms.CheckBox();
-            this.pnlComponents = new System.Windows.Forms.Panel();
+            this.pnlCleaning = new System.Windows.Forms.Panel();
             this.btnClearAfterImages = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label14 = new System.Windows.Forms.Label();
@@ -115,10 +115,10 @@
             this.pnlTop.SuspendLayout();
             this.pnlCatalog.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.pnlFirst.SuspendLayout();
-            this.pnlBoxes.SuspendLayout();
-            this.pnlFinal.SuspendLayout();
-            this.pnlComponents.SuspendLayout();
+            this.pnlIdentification.SuspendLayout();
+            this.pnlRepair.SuspendLayout();
+            this.pnlTroubleshoot.SuspendLayout();
+            this.pnlCleaning.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -227,22 +227,23 @@
             this.pnlCatalog.Controls.Add(this.btnCatalog);
             this.pnlCatalog.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlCatalog.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.pnlCatalog.Location = new System.Drawing.Point(814, 62);
+            this.pnlCatalog.Location = new System.Drawing.Point(5, 62);
             this.pnlCatalog.Name = "pnlCatalog";
-            this.pnlCatalog.Size = new System.Drawing.Size(10, 469);
+            this.pnlCatalog.Size = new System.Drawing.Size(819, 469);
             this.pnlCatalog.TabIndex = 1;
             // 
             // btnClearBeforeImages
             // 
             this.btnClearBeforeImages.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnClearBeforeImages.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.btnClearBeforeImages.Location = new System.Drawing.Point(-192, 379);
+            this.btnClearBeforeImages.Location = new System.Drawing.Point(212, 379);
             this.btnClearBeforeImages.Margin = new System.Windows.Forms.Padding(2);
             this.btnClearBeforeImages.Name = "btnClearBeforeImages";
             this.btnClearBeforeImages.Size = new System.Drawing.Size(182, 32);
             this.btnClearBeforeImages.TabIndex = 107;
             this.btnClearBeforeImages.Text = "Clear";
             this.btnClearBeforeImages.UseVisualStyleBackColor = true;
+            this.btnClearBeforeImages.Click += new System.EventHandler(this.btnClearImages_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -263,7 +264,7 @@
             this.tableLayoutPanel1.Controls.Add(this.btnImportBeforeFront1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnImportBeforeBack1, 1, 1);
             this.tableLayoutPanel1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(-363, 274);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(41, 274);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -378,7 +379,7 @@
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label3.Location = new System.Drawing.Point(-367, 242);
+            this.label3.Location = new System.Drawing.Point(37, 242);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(108, 19);
@@ -390,7 +391,7 @@
             this.label22.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label22.Location = new System.Drawing.Point(-360, 141);
+            this.label22.Location = new System.Drawing.Point(44, 141);
             this.label22.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(125, 19);
@@ -402,7 +403,7 @@
             this.label21.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label21.Location = new System.Drawing.Point(-360, 76);
+            this.label21.Location = new System.Drawing.Point(44, 76);
             this.label21.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(64, 19);
@@ -413,7 +414,7 @@
             // 
             this.txtComponentLocation.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtComponentLocation.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtComponentLocation.Location = new System.Drawing.Point(-356, 98);
+            this.txtComponentLocation.Location = new System.Drawing.Point(48, 98);
             this.txtComponentLocation.Name = "txtComponentLocation";
             this.txtComponentLocation.Size = new System.Drawing.Size(187, 25);
             this.txtComponentLocation.TabIndex = 99;
@@ -430,7 +431,7 @@
             "Good State",
             "Damaged",
             "Not functional"});
-            this.checkedListBoxState.Location = new System.Drawing.Point(-356, 165);
+            this.checkedListBoxState.Location = new System.Drawing.Point(48, 165);
             this.checkedListBoxState.Name = "checkedListBoxState";
             this.checkedListBoxState.Size = new System.Drawing.Size(120, 60);
             this.checkedListBoxState.TabIndex = 98;
@@ -442,7 +443,7 @@
             this.label20.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label20.Location = new System.Drawing.Point(-189, 21);
+            this.label20.Location = new System.Drawing.Point(215, 21);
             this.label20.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(66, 19);
@@ -453,7 +454,7 @@
             // 
             this.txtComponentQuantity.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtComponentQuantity.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtComponentQuantity.Location = new System.Drawing.Point(-185, 43);
+            this.txtComponentQuantity.Location = new System.Drawing.Point(219, 43);
             this.txtComponentQuantity.Name = "txtComponentQuantity";
             this.txtComponentQuantity.Size = new System.Drawing.Size(62, 25);
             this.txtComponentQuantity.TabIndex = 96;
@@ -464,11 +465,13 @@
             this.listBoxCatalog.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.listBoxCatalog.FormattingEnabled = true;
             this.listBoxCatalog.ItemHeight = 17;
-            this.listBoxCatalog.Location = new System.Drawing.Point(126, 67);
+            this.listBoxCatalog.Location = new System.Drawing.Point(530, 67);
             this.listBoxCatalog.MultiColumn = true;
             this.listBoxCatalog.Name = "listBoxCatalog";
             this.listBoxCatalog.Size = new System.Drawing.Size(265, 344);
             this.listBoxCatalog.TabIndex = 95;
+            this.listBoxCatalog.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listBoxComponents_KeyDown);
+            this.listBoxCatalog.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBoxCatalogComponent_Click);
             // 
             // txtComboCatalog
             // 
@@ -488,7 +491,7 @@
             "10 Breacker",
             "11 Wires",
             "12 Styrdon"});
-            this.txtComboCatalog.Location = new System.Drawing.Point(-356, 43);
+            this.txtComboCatalog.Location = new System.Drawing.Point(48, 43);
             this.txtComboCatalog.Name = "txtComboCatalog";
             this.txtComboCatalog.Size = new System.Drawing.Size(152, 25);
             this.txtComboCatalog.TabIndex = 94;
@@ -498,7 +501,7 @@
             this.label18.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label18.Location = new System.Drawing.Point(122, 43);
+            this.label18.Location = new System.Drawing.Point(526, 43);
             this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(165, 19);
@@ -510,7 +513,7 @@
             this.label19.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label19.Location = new System.Drawing.Point(-360, 21);
+            this.label19.Location = new System.Drawing.Point(44, 21);
             this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(91, 19);
@@ -523,82 +526,85 @@
             this.btnCatalog.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(232)))), ((int)(((byte)(18)))));
             this.btnCatalog.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnCatalog.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCatalog.Location = new System.Drawing.Point(-363, 379);
+            this.btnCatalog.Location = new System.Drawing.Point(41, 379);
             this.btnCatalog.Margin = new System.Windows.Forms.Padding(2);
             this.btnCatalog.Name = "btnCatalog";
             this.btnCatalog.Size = new System.Drawing.Size(166, 32);
             this.btnCatalog.TabIndex = 91;
             this.btnCatalog.Text = "Add Component";
             this.btnCatalog.UseVisualStyleBackColor = false;
-            this.btnCatalog.Click += new System.EventHandler(this.btnCatalog_Click);
+            this.btnCatalog.Click += new System.EventHandler(this.btnCatalogAddComponent_Click);
             // 
-            // pnlFirst
+            // pnlIdentification
             // 
-            this.pnlFirst.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(124)))), ((int)(((byte)(144)))));
-            this.pnlFirst.Controls.Add(this.checkBox5);
-            this.pnlFirst.Controls.Add(this.checkBox4);
-            this.pnlFirst.Controls.Add(this.checkBox3);
-            this.pnlFirst.Controls.Add(this.txt6DigitSerialNum);
-            this.pnlFirst.Controls.Add(this.lblSerialNum);
-            this.pnlFirst.Controls.Add(this.label17);
-            this.pnlFirst.Controls.Add(this.checkBox1);
-            this.pnlFirst.Controls.Add(this.dateTimePicker1);
-            this.pnlFirst.Controls.Add(this.label16);
-            this.pnlFirst.Controls.Add(this.lblSerialNumDash);
-            this.pnlFirst.Controls.Add(this.lblCaminho);
-            this.pnlFirst.Controls.Add(this.label13);
-            this.pnlFirst.Controls.Add(this.txtSummary);
-            this.pnlFirst.Controls.Add(this.btnImportLabel);
-            this.pnlFirst.Controls.Add(this.lblTitle);
-            this.pnlFirst.Controls.Add(this.txt2DigitSerialNum);
-            this.pnlFirst.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlFirst.Location = new System.Drawing.Point(0, 62);
-            this.pnlFirst.Margin = new System.Windows.Forms.Padding(2);
-            this.pnlFirst.Name = "pnlFirst";
-            this.pnlFirst.Size = new System.Drawing.Size(784, 469);
-            this.pnlFirst.TabIndex = 24;
+            this.pnlIdentification.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(124)))), ((int)(((byte)(144)))));
+            this.pnlIdentification.Controls.Add(this.cBoxCleaning);
+            this.pnlIdentification.Controls.Add(this.cBoxRepairing);
+            this.pnlIdentification.Controls.Add(this.cBoxUpgrade);
+            this.pnlIdentification.Controls.Add(this.txt6DigitSerialNum);
+            this.pnlIdentification.Controls.Add(this.lblSerialNum);
+            this.pnlIdentification.Controls.Add(this.label17);
+            this.pnlIdentification.Controls.Add(this.cBoxStorage);
+            this.pnlIdentification.Controls.Add(this.dateTimePicker1);
+            this.pnlIdentification.Controls.Add(this.label16);
+            this.pnlIdentification.Controls.Add(this.lblSerialNumDash);
+            this.pnlIdentification.Controls.Add(this.lblCaminho);
+            this.pnlIdentification.Controls.Add(this.label13);
+            this.pnlIdentification.Controls.Add(this.txtSummary);
+            this.pnlIdentification.Controls.Add(this.btnImportLabel);
+            this.pnlIdentification.Controls.Add(this.lblTitle);
+            this.pnlIdentification.Controls.Add(this.txt2DigitSerialNum);
+            this.pnlIdentification.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlIdentification.Location = new System.Drawing.Point(0, 62);
+            this.pnlIdentification.Margin = new System.Windows.Forms.Padding(2);
+            this.pnlIdentification.Name = "pnlIdentification";
+            this.pnlIdentification.Size = new System.Drawing.Size(0, 469);
+            this.pnlIdentification.TabIndex = 24;
             // 
-            // checkBox5
+            // cBoxCleaning
             // 
-            this.checkBox5.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.checkBox5.Location = new System.Drawing.Point(486, 149);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(81, 23);
-            this.checkBox5.TabIndex = 68;
-            this.checkBox5.Text = "Cleaning";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.cBoxCleaning.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cBoxCleaning.AutoSize = true;
+            this.cBoxCleaning.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cBoxCleaning.Location = new System.Drawing.Point(94, 149);
+            this.cBoxCleaning.Name = "cBoxCleaning";
+            this.cBoxCleaning.Size = new System.Drawing.Size(81, 23);
+            this.cBoxCleaning.TabIndex = 68;
+            this.cBoxCleaning.Text = "Cleaning";
+            this.cBoxCleaning.UseVisualStyleBackColor = true;
+            this.cBoxCleaning.CheckedChanged += new System.EventHandler(this.cBoxIdentification_CheckedChanged);
             // 
-            // checkBox4
+            // cBoxRepairing
             // 
-            this.checkBox4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.checkBox4.Location = new System.Drawing.Point(486, 175);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(85, 23);
-            this.checkBox4.TabIndex = 67;
-            this.checkBox4.Text = "Repairing";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.cBoxRepairing.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cBoxRepairing.AutoSize = true;
+            this.cBoxRepairing.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cBoxRepairing.Location = new System.Drawing.Point(94, 175);
+            this.cBoxRepairing.Name = "cBoxRepairing";
+            this.cBoxRepairing.Size = new System.Drawing.Size(85, 23);
+            this.cBoxRepairing.TabIndex = 67;
+            this.cBoxRepairing.Text = "Repairing";
+            this.cBoxRepairing.UseVisualStyleBackColor = true;
+            this.cBoxRepairing.CheckedChanged += new System.EventHandler(this.cBoxIdentification_CheckedChanged);
             // 
-            // checkBox3
+            // cBoxUpgrade
             // 
-            this.checkBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.checkBox3.Location = new System.Drawing.Point(486, 202);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(81, 23);
-            this.checkBox3.TabIndex = 66;
-            this.checkBox3.Text = "Upgrade";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.cBoxUpgrade.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cBoxUpgrade.AutoSize = true;
+            this.cBoxUpgrade.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cBoxUpgrade.Location = new System.Drawing.Point(94, 202);
+            this.cBoxUpgrade.Name = "cBoxUpgrade";
+            this.cBoxUpgrade.Size = new System.Drawing.Size(81, 23);
+            this.cBoxUpgrade.TabIndex = 66;
+            this.cBoxUpgrade.Text = "Upgrade";
+            this.cBoxUpgrade.UseVisualStyleBackColor = true;
+            this.cBoxUpgrade.CheckedChanged += new System.EventHandler(this.cBoxIdentification_CheckedChanged);
             // 
             // txt6DigitSerialNum
             // 
             this.txt6DigitSerialNum.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txt6DigitSerialNum.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txt6DigitSerialNum.Location = new System.Drawing.Point(19, 112);
+            this.txt6DigitSerialNum.Location = new System.Drawing.Point(-373, 112);
             this.txt6DigitSerialNum.Margin = new System.Windows.Forms.Padding(2);
             this.txt6DigitSerialNum.MaxLength = 6;
             this.txt6DigitSerialNum.Name = "txt6DigitSerialNum";
@@ -610,7 +616,7 @@
             this.lblSerialNum.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblSerialNum.AutoSize = true;
             this.lblSerialNum.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblSerialNum.Location = new System.Drawing.Point(15, 91);
+            this.lblSerialNum.Location = new System.Drawing.Point(-377, 91);
             this.lblSerialNum.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSerialNum.Name = "lblSerialNum";
             this.lblSerialNum.Size = new System.Drawing.Size(92, 19);
@@ -622,29 +628,30 @@
             this.label17.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label17.Location = new System.Drawing.Point(482, 97);
+            this.label17.Location = new System.Drawing.Point(90, 97);
             this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(48, 19);
             this.label17.TabIndex = 64;
             this.label17.Text = "Order:";
             // 
-            // checkBox1
+            // cBoxStorage
             // 
-            this.checkBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.checkBox1.Location = new System.Drawing.Point(486, 125);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(75, 23);
-            this.checkBox1.TabIndex = 63;
-            this.checkBox1.Text = "Storage";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cBoxStorage.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cBoxStorage.AutoSize = true;
+            this.cBoxStorage.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cBoxStorage.Location = new System.Drawing.Point(94, 125);
+            this.cBoxStorage.Name = "cBoxStorage";
+            this.cBoxStorage.Size = new System.Drawing.Size(75, 23);
+            this.cBoxStorage.TabIndex = 63;
+            this.cBoxStorage.Text = "Storage";
+            this.cBoxStorage.UseVisualStyleBackColor = true;
+            this.cBoxStorage.CheckedChanged += new System.EventHandler(this.cBoxIdentification_CheckedChanged);
             // 
             // dateTimePicker1
             // 
             this.dateTimePicker1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.dateTimePicker1.Location = new System.Drawing.Point(248, 124);
+            this.dateTimePicker1.Location = new System.Drawing.Point(-144, 124);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(143, 20);
             this.dateTimePicker1.TabIndex = 2;
@@ -654,7 +661,7 @@
             this.label16.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label16.Location = new System.Drawing.Point(244, 97);
+            this.label16.Location = new System.Drawing.Point(-148, 97);
             this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(84, 19);
@@ -666,7 +673,7 @@
             this.lblSerialNumDash.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblSerialNumDash.AutoSize = true;
             this.lblSerialNumDash.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblSerialNumDash.Location = new System.Drawing.Point(73, 115);
+            this.lblSerialNumDash.Location = new System.Drawing.Point(-319, 115);
             this.lblSerialNumDash.Name = "lblSerialNumDash";
             this.lblSerialNumDash.Size = new System.Drawing.Size(15, 19);
             this.lblSerialNumDash.TabIndex = 59;
@@ -677,7 +684,7 @@
             this.lblCaminho.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblCaminho.AutoSize = true;
             this.lblCaminho.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblCaminho.Location = new System.Drawing.Point(15, 149);
+            this.lblCaminho.Location = new System.Drawing.Point(-377, 149);
             this.lblCaminho.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCaminho.Name = "lblCaminho";
             this.lblCaminho.Size = new System.Drawing.Size(197, 19);
@@ -689,7 +696,7 @@
             this.label13.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label13.Location = new System.Drawing.Point(18, 246);
+            this.label13.Location = new System.Drawing.Point(-374, 246);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(70, 19);
@@ -702,7 +709,7 @@
             this.txtSummary.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtSummary.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtSummary.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtSummary.Location = new System.Drawing.Point(19, 274);
+            this.txtSummary.Location = new System.Drawing.Point(-373, 274);
             this.txtSummary.Margin = new System.Windows.Forms.Padding(2);
             this.txtSummary.Multiline = true;
             this.txtSummary.Name = "txtSummary";
@@ -715,13 +722,14 @@
             this.btnImportLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(232)))), ((int)(((byte)(18)))));
             this.btnImportLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnImportLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportLabel.Location = new System.Drawing.Point(19, 177);
+            this.btnImportLabel.Location = new System.Drawing.Point(-373, 177);
             this.btnImportLabel.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportLabel.Name = "btnImportLabel";
             this.btnImportLabel.Size = new System.Drawing.Size(118, 28);
             this.btnImportLabel.TabIndex = 3;
             this.btnImportLabel.Text = "Import";
             this.btnImportLabel.UseVisualStyleBackColor = false;
+            this.btnImportLabel.Click += new System.EventHandler(this.btnImportImage_Click);
             // 
             // lblTitle
             // 
@@ -731,7 +739,7 @@
             this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Padding = new System.Windows.Forms.Padding(0, 15, 0, 0);
-            this.lblTitle.Size = new System.Drawing.Size(784, 95);
+            this.lblTitle.Size = new System.Drawing.Size(0, 95);
             this.lblTitle.TabIndex = 20;
             this.lblTitle.Text = resources.GetString("lblTitle.Text");
             // 
@@ -739,27 +747,27 @@
             // 
             this.txt2DigitSerialNum.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txt2DigitSerialNum.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txt2DigitSerialNum.Location = new System.Drawing.Point(94, 113);
+            this.txt2DigitSerialNum.Location = new System.Drawing.Point(-298, 113);
             this.txt2DigitSerialNum.MaxLength = 2;
             this.txt2DigitSerialNum.Name = "txt2DigitSerialNum";
             this.txt2DigitSerialNum.Size = new System.Drawing.Size(25, 25);
             this.txt2DigitSerialNum.TabIndex = 1;
             // 
-            // pnlBoxes
+            // pnlRepair
             // 
-            this.pnlBoxes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(124)))), ((int)(((byte)(144)))));
-            this.pnlBoxes.Controls.Add(this.label10);
-            this.pnlBoxes.Controls.Add(this.txtComments);
-            this.pnlBoxes.Controls.Add(this.label1);
-            this.pnlBoxes.Controls.Add(this.txtObservations);
-            this.pnlBoxes.Controls.Add(this.label7);
-            this.pnlBoxes.Controls.Add(this.txtProcess);
-            this.pnlBoxes.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlBoxes.Location = new System.Drawing.Point(784, 62);
-            this.pnlBoxes.Margin = new System.Windows.Forms.Padding(2);
-            this.pnlBoxes.Name = "pnlBoxes";
-            this.pnlBoxes.Size = new System.Drawing.Size(10, 469);
-            this.pnlBoxes.TabIndex = 26;
+            this.pnlRepair.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(124)))), ((int)(((byte)(144)))));
+            this.pnlRepair.Controls.Add(this.label10);
+            this.pnlRepair.Controls.Add(this.txtComments);
+            this.pnlRepair.Controls.Add(this.label1);
+            this.pnlRepair.Controls.Add(this.txtObservations);
+            this.pnlRepair.Controls.Add(this.label7);
+            this.pnlRepair.Controls.Add(this.txtProcess);
+            this.pnlRepair.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnlRepair.Location = new System.Drawing.Point(-817, 62);
+            this.pnlRepair.Margin = new System.Windows.Forms.Padding(2);
+            this.pnlRepair.Name = "pnlRepair";
+            this.pnlRepair.Size = new System.Drawing.Size(10, 469);
+            this.pnlRepair.TabIndex = 26;
             // 
             // label10
             // 
@@ -836,27 +844,27 @@
             this.txtProcess.Size = new System.Drawing.Size(664, 87);
             this.txtProcess.TabIndex = 51;
             // 
-            // pnlFinal
+            // pnlTroubleshoot
             // 
-            this.pnlFinal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(124)))), ((int)(((byte)(144)))));
-            this.pnlFinal.Controls.Add(this.cboxResult2);
-            this.pnlFinal.Controls.Add(this.label12);
-            this.pnlFinal.Controls.Add(this.label11);
-            this.pnlFinal.Controls.Add(this.label9);
-            this.pnlFinal.Controls.Add(this.cboxResult3);
-            this.pnlFinal.Controls.Add(this.cboxResult1);
-            this.pnlFinal.Controls.Add(this.lblTroubleshoot);
-            this.pnlFinal.Controls.Add(this.lblClean);
-            this.pnlFinal.Controls.Add(this.label8);
-            this.pnlFinal.Controls.Add(this.cboxRepair);
-            this.pnlFinal.Controls.Add(this.cboxTroubleshoot);
-            this.pnlFinal.Controls.Add(this.cboxClean);
-            this.pnlFinal.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlFinal.Location = new System.Drawing.Point(794, 62);
-            this.pnlFinal.Margin = new System.Windows.Forms.Padding(2);
-            this.pnlFinal.Name = "pnlFinal";
-            this.pnlFinal.Size = new System.Drawing.Size(10, 469);
-            this.pnlFinal.TabIndex = 25;
+            this.pnlTroubleshoot.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(124)))), ((int)(((byte)(144)))));
+            this.pnlTroubleshoot.Controls.Add(this.cboxResult2);
+            this.pnlTroubleshoot.Controls.Add(this.label12);
+            this.pnlTroubleshoot.Controls.Add(this.label11);
+            this.pnlTroubleshoot.Controls.Add(this.label9);
+            this.pnlTroubleshoot.Controls.Add(this.cboxResult3);
+            this.pnlTroubleshoot.Controls.Add(this.cboxResult1);
+            this.pnlTroubleshoot.Controls.Add(this.lblTroubleshoot);
+            this.pnlTroubleshoot.Controls.Add(this.lblClean);
+            this.pnlTroubleshoot.Controls.Add(this.label8);
+            this.pnlTroubleshoot.Controls.Add(this.cboxRepair);
+            this.pnlTroubleshoot.Controls.Add(this.cboxTroubleshoot);
+            this.pnlTroubleshoot.Controls.Add(this.cboxClean);
+            this.pnlTroubleshoot.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnlTroubleshoot.Location = new System.Drawing.Point(-807, 62);
+            this.pnlTroubleshoot.Margin = new System.Windows.Forms.Padding(2);
+            this.pnlTroubleshoot.Name = "pnlTroubleshoot";
+            this.pnlTroubleshoot.Size = new System.Drawing.Size(10, 469);
+            this.pnlTroubleshoot.TabIndex = 25;
             // 
             // cboxResult2
             // 
@@ -999,29 +1007,29 @@
             this.cboxClean.TabIndex = 63;
             this.cboxClean.UseVisualStyleBackColor = true;
             // 
-            // pnlComponents
+            // pnlCleaning
             // 
-            this.pnlComponents.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(124)))), ((int)(((byte)(144)))));
-            this.pnlComponents.Controls.Add(this.btnClearAfterImages);
-            this.pnlComponents.Controls.Add(this.tableLayoutPanel2);
-            this.pnlComponents.Controls.Add(this.label4);
-            this.pnlComponents.Controls.Add(this.btnAddComponent);
-            this.pnlComponents.Controls.Add(this.listBoxComponents);
-            this.pnlComponents.Controls.Add(this.comboComponents);
-            this.pnlComponents.Controls.Add(this.label2);
-            this.pnlComponents.Controls.Add(this.txtDescription);
-            this.pnlComponents.Controls.Add(this.lblDescription);
-            this.pnlComponents.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlComponents.Location = new System.Drawing.Point(804, 62);
-            this.pnlComponents.Name = "pnlComponents";
-            this.pnlComponents.Size = new System.Drawing.Size(10, 469);
-            this.pnlComponents.TabIndex = 23;
+            this.pnlCleaning.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(124)))), ((int)(((byte)(144)))));
+            this.pnlCleaning.Controls.Add(this.btnClearAfterImages);
+            this.pnlCleaning.Controls.Add(this.tableLayoutPanel2);
+            this.pnlCleaning.Controls.Add(this.label4);
+            this.pnlCleaning.Controls.Add(this.btnAddComponent);
+            this.pnlCleaning.Controls.Add(this.listBoxComponents);
+            this.pnlCleaning.Controls.Add(this.comboComponents);
+            this.pnlCleaning.Controls.Add(this.label2);
+            this.pnlCleaning.Controls.Add(this.txtDescription);
+            this.pnlCleaning.Controls.Add(this.lblDescription);
+            this.pnlCleaning.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnlCleaning.Location = new System.Drawing.Point(-797, 62);
+            this.pnlCleaning.Name = "pnlCleaning";
+            this.pnlCleaning.Size = new System.Drawing.Size(802, 469);
+            this.pnlCleaning.TabIndex = 23;
             // 
             // btnClearAfterImages
             // 
             this.btnClearAfterImages.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnClearAfterImages.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnClearAfterImages.Location = new System.Drawing.Point(101, 218);
+            this.btnClearAfterImages.Location = new System.Drawing.Point(497, 218);
             this.btnClearAfterImages.Margin = new System.Windows.Forms.Padding(2);
             this.btnClearAfterImages.Name = "btnClearAfterImages";
             this.btnClearAfterImages.Size = new System.Drawing.Size(279, 26);
@@ -1161,7 +1169,7 @@
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.label4.Location = new System.Drawing.Point(176, 91);
+            this.label4.Location = new System.Drawing.Point(572, 91);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(134, 25);
@@ -1172,7 +1180,7 @@
             // 
             this.btnAddComponent.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnAddComponent.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddComponent.Location = new System.Drawing.Point(-54, 370);
+            this.btnAddComponent.Location = new System.Drawing.Point(342, 370);
             this.btnAddComponent.Margin = new System.Windows.Forms.Padding(2);
             this.btnAddComponent.Name = "btnAddComponent";
             this.btnAddComponent.Size = new System.Drawing.Size(119, 28);
@@ -1214,7 +1222,7 @@
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label2.Location = new System.Drawing.Point(-35, 15);
+            this.label2.Location = new System.Drawing.Point(361, 15);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(125, 19);
@@ -1227,7 +1235,7 @@
             this.txtDescription.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDescription.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtDescription.Location = new System.Drawing.Point(-370, 279);
+            this.txtDescription.Location = new System.Drawing.Point(26, 279);
             this.txtDescription.Margin = new System.Windows.Forms.Padding(2);
             this.txtDescription.MaxLength = 260;
             this.txtDescription.Multiline = true;
@@ -1251,10 +1259,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(824, 531);
-            this.Controls.Add(this.pnlFirst);
-            this.Controls.Add(this.pnlBoxes);
-            this.Controls.Add(this.pnlFinal);
-            this.Controls.Add(this.pnlComponents);
+            this.Controls.Add(this.pnlIdentification);
+            this.Controls.Add(this.pnlRepair);
+            this.Controls.Add(this.pnlTroubleshoot);
+            this.Controls.Add(this.pnlCleaning);
             this.Controls.Add(this.pnlCatalog);
             this.Controls.Add(this.pnlTop);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1267,14 +1275,14 @@
             this.pnlCatalog.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.pnlFirst.ResumeLayout(false);
-            this.pnlFirst.PerformLayout();
-            this.pnlBoxes.ResumeLayout(false);
-            this.pnlBoxes.PerformLayout();
-            this.pnlFinal.ResumeLayout(false);
-            this.pnlFinal.PerformLayout();
-            this.pnlComponents.ResumeLayout(false);
-            this.pnlComponents.PerformLayout();
+            this.pnlIdentification.ResumeLayout(false);
+            this.pnlIdentification.PerformLayout();
+            this.pnlRepair.ResumeLayout(false);
+            this.pnlRepair.PerformLayout();
+            this.pnlTroubleshoot.ResumeLayout(false);
+            this.pnlTroubleshoot.PerformLayout();
+            this.pnlCleaning.ResumeLayout(false);
+            this.pnlCleaning.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
@@ -1297,14 +1305,14 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Button btnCatalog;
-        private System.Windows.Forms.Panel pnlFirst;
-        private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.Panel pnlIdentification;
+        private System.Windows.Forms.CheckBox cBoxCleaning;
+        private System.Windows.Forms.CheckBox cBoxRepairing;
+        private System.Windows.Forms.CheckBox cBoxUpgrade;
         private System.Windows.Forms.TextBox txt6DigitSerialNum;
         private System.Windows.Forms.Label lblSerialNum;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox cBoxStorage;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label lblSerialNumDash;
@@ -1314,14 +1322,14 @@
         private System.Windows.Forms.Button btnImportLabel;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.TextBox txt2DigitSerialNum;
-        private System.Windows.Forms.Panel pnlBoxes;
+        private System.Windows.Forms.Panel pnlRepair;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtComments;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtObservations;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtProcess;
-        private System.Windows.Forms.Panel pnlFinal;
+        private System.Windows.Forms.Panel pnlTroubleshoot;
         private System.Windows.Forms.CheckBox cboxResult2;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
@@ -1334,7 +1342,7 @@
         private System.Windows.Forms.CheckBox cboxRepair;
         private System.Windows.Forms.CheckBox cboxTroubleshoot;
         private System.Windows.Forms.CheckBox cboxClean;
-        private System.Windows.Forms.Panel pnlComponents;
+        private System.Windows.Forms.Panel pnlCleaning;
         private System.Windows.Forms.Button btnClearAfterImages;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label label14;
