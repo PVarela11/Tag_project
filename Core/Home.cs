@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -16,12 +17,12 @@ namespace Tåg_project.Core
         string path, serialNum, tempPath, observations, comments, process, labelPath, summary,
             componentBeforeFrontImg1, componentBeforeBackImg1, componentBeforeFrontImg2, componentBeforeBackImg2, componentBeforeFrontImg3, componentBeforeBackImg3,
             componentAfterFrontImg1, componentAfterBackImg1, componentAfterFrontImg2, componentAfterBackImg2, componentAfterFrontImg3, componentAfterBackImg3,
-            componentName, componentDescription, page;
+            componentName, componentDescription, page, arrivalDate;
         List<Component> componentsList = new List<Component>();
         bool isClean, troubleshoot, result1, result2, result3, storage, cleaning, repairing, upgrade;
         bool isImported = false;
         List<string> initialImagesPath = new List<string>(), listAux = new List<string>(), finalImagesPath = new List<string>();
-        int lastSelectedIndex = -1, state; // initialize to an invalid inde
+        int lastSelectedIndex = -1, state; // initialize to an invalid index
         public Home(string tempPath)
         {
             InitializeComponent();
@@ -37,6 +38,7 @@ namespace Tåg_project.Core
         //Hidding the panels that will appear later in the application
         private void InitialDesign()
         {
+            dateTimePicker.Value = DateTime.Now;
             pnlCatalog.Width = 0;
             pnlTroubleshoot.Width = 0;
             pnlRepair.Width = 0;
@@ -126,12 +128,27 @@ namespace Tåg_project.Core
                     summary = import.summary;
                     txtSummary.Text = summary;
 
+                    cBoxStorage.Checked = import.storage;
+                    cBoxCleaning.Checked = import.cleaning;
+                    cBoxRepairing.Checked = import.repairing;
+                    cBoxUpgrade.Checked = import.upgrade;
+                    arrivalDate = import.arrivalDate;
+                    try
+                    {
+                        dateTimePicker.Value = System.DateTime.Parse(arrivalDate);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error import the arrival date");
+                    }
                     if (import.components.Count > 0)
                     {
                         componentsList = import.components;
+                        componentsList.Sort(new NameComparer());
                         foreach (Component comp in componentsList)
                         {
                             listBoxComponents.Items.Add(comp.name);
+                            listBoxCatalog.Items.Add(comp.name);
                         }
                     }
                 }
@@ -188,7 +205,12 @@ namespace Tåg_project.Core
                         isImported,
                         summary,
                         labelPath,
-                        componentsList
+                        componentsList,
+                        storage,
+                        cleaning,
+                        repairing,
+                        upgrade,
+                        arrivalDate
                         );
 
                     path = export.path;
@@ -229,13 +251,23 @@ namespace Tåg_project.Core
                 repairing,
                 summary,
                 labelPath,
-                componentsList
+                componentsList,
+                storage,
+                cleaning,
+                repairing,
+                upgrade,
+                arrivalDate
                 );
             return;
         }
         #endregion
 
         #region Design controls actions
+        #region Identification
+        private void dateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            arrivalDate = dateTimePicker.Value.ToString("D");
+        }
         private void cBoxIdentification_CheckedChanged(object sender, EventArgs e)
         {
             string processName = (sender as CheckBox).Name;
@@ -272,7 +304,7 @@ namespace Tåg_project.Core
                 else storage = true;
             }
         }
-
+        #endregion
         #region Panel Catalog
         private void listBoxCatalogComponent_Click(object sender, MouseEventArgs e)
         {
@@ -376,7 +408,8 @@ namespace Tåg_project.Core
         }
         private void btnCatalogAddComponent_Click(object sender, EventArgs e)
         {
-            if (txtComboCatalog.Text != "" && txtComponentQuantity.Text != "" && componentBeforeFrontImg1 != null && componentBeforeBackImg1 != null)
+            if (txtComboCatalog.Text != "" && txtComponentQuantity.Text != "" && componentBeforeFrontImg1 != null && componentBeforeBackImg1 != null
+                && txtComponentQuantity.Text != "" && txtComponentLocation.Text != "" && checkedListBoxState.CheckedItems.Count == 1)
             {
                 Component component = new Component();
                 if (!listBoxCatalog.Items.Contains(txtComboCatalog.Text))
@@ -401,7 +434,7 @@ namespace Tåg_project.Core
                     Component componentToFind = componentsList.Find(x => x.name == txtComboCatalog.Text);
                     componentToFind.name = txtComboCatalog.Text;
                     componentToFind.quantity = txtComponentQuantity.Text;
-                    componentToFind.state = checkedListBoxState.CheckedIndices[0];
+                    componentToFind.state = state;
                     componentToFind.location = txtComponentLocation.Text;
                     componentToFind.componentBeforeFrontImage1 = componentBeforeFrontImg1;
                     componentToFind.componentBeforeFrontImage2 = componentBeforeFrontImg2;
@@ -415,7 +448,9 @@ namespace Tåg_project.Core
             else MessageBox.Show("You need to insert more data about the component.");
         }
         #endregion
+        #region Cleaning
 
+        #endregion
         private void btnAddComponent_Click(object sender, EventArgs e)
         {
             componentName = comboComponents.Text;
@@ -731,7 +766,7 @@ namespace Tåg_project.Core
                     //btnNext.Click += new EventHandler(btnCreatePDF_Click);
                 }
             }
-            else if (page == "Catalog")
+            else if (page == "Catalog" && validateInputs(page))
             {
                 page="Cleaning";
                 lblTopPanel.Text = page;
@@ -898,13 +933,29 @@ namespace Tåg_project.Core
         {
             if (page == "Identification")
             {
-                if (txt6DigitSerialNum.TextLength != 6 && txt2DigitSerialNum.TextLength != 2)
+                if (txt6DigitSerialNum.TextLength != 6 || txt2DigitSerialNum.TextLength != 2)
                 {
                     MessageBox.Show("The unit number is not in the right format!\nMake sure there are 6 numbers in the left and 2 in the right.");
                     return false;
                 }else if (labelPath == null)
                 {
-                    MessageBox.Show("Label image wasn't imported");
+                    MessageBox.Show("Label image wasn't imported.");
+                    return false;
+                }else if(arrivalDate == null)
+                {
+                    MessageBox.Show("Please edit the arrival date.");
+                    return false;
+                }else if(!storage && !cleaning && !repairing && !upgrade)
+                {
+                    MessageBox.Show("Please define what is the order.");
+                    return false;
+                }
+            }
+            else if(page == "Catalog")
+            {
+                if (componentsList.Count < 1)
+                {
+                    MessageBox.Show("Please catalog at least 1 component");
                     return false;
                 }
             }
@@ -946,7 +997,7 @@ namespace Tåg_project.Core
         //The serial number cannot contain chars
         private void txtSerialNum_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) || e.KeyChar == '|')
             {
                 e.Handled = true;
             }

@@ -28,7 +28,7 @@ namespace Tåg_project.FileManipulation
 {
     internal class ExportPDF
     {
-        Text label, value, cleanText, troublesootingText, repairText, newT, summaryText;
+        Text label, value, cleanText, troublesootingText, repairText, newT, summaryText, storageText, repairingText, cleaningText, upgradeText;
         List<Text> texts = new List<Text>();
         int componentCounter = 1, titleCounter = 1, subtitleCounter = 1, imageCounter = 1, pages = 1;
         float docLeftMargin, docRightMargin, documentWidth;
@@ -56,10 +56,30 @@ namespace Tåg_project.FileManipulation
             bool repair,
             string summary,
             string labelPath,
-            List<Component> listaComponentes
-            )
+            List<Component> listaComponentes,
+            bool storage,
+            bool cleaning,
+            bool repairing,
+            bool upgrade,
+            string arrivalTime)
         {
             #region init vars
+            if (storage)
+            {
+                storageText = new Text("The order was to store the components").SetFont(font);
+            }
+            if (cleaning)
+            {
+                cleaningText = new Text("The order was to clean the components").SetFont(font);
+            }
+            if (repairing)
+            {
+                repairingText = new Text("The order was to repair the components").SetFont(font);
+            }
+            if (upgrade)
+            {
+                upgradeText = new Text("The order was to upgraded the components").SetFont(font);
+            }
             if (summary!= null)
             {
                 summaryText = new Text(summary).SetFont(font).SetFontSize(10);
@@ -193,7 +213,7 @@ namespace Tåg_project.FileManipulation
                 addTextRectangle(canvas, rectangle0, texts);
                 texts.Clear();
 
-                Paragraph newParagraph = new Paragraph("What was done:").SetFont(font).SetBold();
+                Paragraph newParagraph = new Paragraph("Order:").SetFont(font).SetBold();
                 newParagraph.SetMarginTop(rectangle0.GetHeight() + 9);
                 document.Add(newParagraph);
                 float height0 = rectangle0.GetHeight() + 30;
@@ -202,12 +222,16 @@ namespace Tåg_project.FileManipulation
                 canvas.Stroke();
 
                 string[] items = process.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-                foreach (string item in items)
-                {
-                    newT = new Text(item);
-                    texts.Add(newT);
-                }
+                //foreach (string item in items)
+                //{
+                //    newT = new Text(item);
+                //    texts.Add(newT);
+                //}
                 items = null;
+                texts.Add(storageText);
+                texts.Add(cleaningText);
+                texts.Add(repairingText);
+                texts.Add(upgradeText);
                 addTextRectangle(canvas, rectangle, texts);
                 texts.Clear();
 
@@ -221,12 +245,13 @@ namespace Tåg_project.FileManipulation
 
 
                 items = observations.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-                foreach (string item in items)
-                {
-                    newT = new Text(item);
-                    texts.Add(newT);
-                }
+                //foreach (string item in items)
+                //{
+                //    newT = new Text(item);
+                //    texts.Add(newT);
+                //}
                 items = null;
+                texts.Add(new Text(arrivalTime.ToString()));
                 addTextRectangle(canvas, rectangle2, texts);
                 texts.Clear();
 
@@ -269,7 +294,7 @@ namespace Tåg_project.FileManipulation
                 canvas.Stroke();
                 canvas.BeginText().SetFontAndSize(PdfFontFactory.CreateFont(StandardFonts.HELVETICA), 9)
                 .MoveText(rect.GetLeft() + 25, rect.GetBottom()+2)
-                .ShowText("Repair made without the guarantie that the board works")
+                .ShowText("Repair made without the guarantee that the board works")
                 .EndText();
                 //canvas.Release();
 
@@ -703,9 +728,12 @@ namespace Tåg_project.FileManipulation
             float y = rectangle.GetTop() - 20;
             foreach (Text text in texts)
             {
-                float width = text.GetText().Length;
-                canvas1.Add(new Paragraph(text).SetFont(font).SetFixedPosition(x,y,rectangle.GetWidth()));
-                y -= 12;
+                if (text != null)
+                {
+                    float width = text.GetText().Length;
+                    canvas1.Add(new Paragraph(text).SetFont(font).SetFixedPosition(x, y, rectangle.GetWidth()));
+                    y -= 12;
+                }
             }
             //canvas.Rectangle(rectangle);
             canvas.Stroke();

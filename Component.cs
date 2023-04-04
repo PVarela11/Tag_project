@@ -54,4 +54,12 @@ namespace Tåg_project
         {
         }
     }
+    // Define a custom comparer that compares the Name property of the objects
+    class NameComparer : IComparer<Component>
+    {
+        public int Compare(Component x, Component y)
+        {
+            return x.name.CompareTo(y.name);
+        }
+    }
 }

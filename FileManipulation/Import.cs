@@ -23,6 +23,11 @@ namespace Tåg_project.FileManipulation
         public string summary { get; set; }
         public string labelPath { get; set; }
         public List<Component> components { get; set; }
+        public bool storage { get; set; }
+        public bool cleaning { get; set; }
+        public bool repairing { get; set; }
+        public bool upgrade { get; set; }
+        public string arrivalDate { get; set; }
 
         public Import(string path)
         {
@@ -83,7 +88,21 @@ namespace Tåg_project.FileManipulation
                                     case 10:
                                         summary = column.Replace("!r!n", "\r\n");
                                         break;
-
+                                    case 11:
+                                        storage = Convert.ToBoolean(column);
+                                        break;
+                                    case 12:
+                                        cleaning = bool.Parse(column);
+                                        break;
+                                    case 13:
+                                         repairing = bool.Parse(column);
+                                        break;
+                                    case 14:
+                                        upgrade = bool.Parse(column);
+                                        break;
+                                    case 15:
+                                        arrivalDate = column;
+                                        break;
                                 }
                                 counter++;
                             }
@@ -132,8 +151,17 @@ namespace Tåg_project.FileManipulation
                                     component.name = column.Replace("!r!n", "\r\n");
                                     break;
 
+                                //case 1:
+                                //    component.description = column.Replace("!r!n", "\r\n");
+                                //    break;
                                 case 1:
-                                    component.description = column.Replace("!r!n", "\r\n");
+                                    component.quantity = column.Replace("!r!n", "\r\n");
+                                    break;
+                                case 2:
+                                    component.location = column.Replace("!r!n", "\r\n");
+                                    break;
+                                case 3:
+                                    component.state = Int16.Parse(column);
                                     break;
                             }
                             counter++;

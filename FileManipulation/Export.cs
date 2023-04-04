@@ -40,7 +40,12 @@ namespace Tåg_project.FileManipulation
             string summary,
             string labelPath,
             List<Component> listaComponentes
-            )
+,
+            bool storage,
+            bool cleaning,
+            bool repairing,
+            bool upgrade,
+            string arrivalDate)
         {
             //Add label image path to a list so it can be used by the function
             if (labelPath != null)
@@ -57,7 +62,10 @@ namespace Tåg_project.FileManipulation
                     var x = new string[]
                     {
                         comp.name,
-                        comp.description,
+                        //comp.description,
+                        comp.quantity,
+                        comp.location,
+                        comp.state.ToString(),
                     };
                     componentsData.Add(x);
                 }
@@ -112,6 +120,11 @@ namespace Tåg_project.FileManipulation
                     result2.ToString(),
                     result3.ToString(),
                     summary,
+                    storage.ToString(),
+                    cleaning.ToString(),
+                    repairing.ToString(),
+                    upgrade.ToString(),
+                    arrivalDate.ToString(),
                 },
             };
             // Specify the directory you want to manipulate.

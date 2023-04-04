@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Tåg_project.Core;
 using Tåg_project.Properties;
