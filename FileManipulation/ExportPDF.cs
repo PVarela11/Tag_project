@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Permissions;
 using System.Windows.Documents;
 using Tåg_project.Properties;
 using Canvas = iText.Layout.Canvas;
@@ -38,6 +39,7 @@ namespace Tåg_project.FileManipulation
         Paragraph title;
         //byte[] imageBytes;
         public string serialNum { get; set; }
+        List<string> componentStates = new List<string>(new string[]{"Good state","Damaged","Not functional"});
         public bool pageChanged { get; set; }
         Document document;
         PdfFont font = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
@@ -82,7 +84,7 @@ namespace Tåg_project.FileManipulation
             }
             if (summary!= null)
             {
-                summaryText = new Text(summary).SetFont(font).SetFontSize(10);
+                summaryText = new Text(summary).SetFont(font);
             }
             if (clean)
             {
@@ -162,19 +164,30 @@ namespace Tåg_project.FileManipulation
                 }
                 float bellowImg = PageSize.A4.GetTop() - (imageHeight + 80 + 48);
                 
-                Rectangle summaryRectangle = new Rectangle(PageSize.A4.GetLeft() + 80, bellowImg - 200, PageSize.A4.GetRight() - 160, 100);
+                Rectangle summaryRectangle = new Rectangle(PageSize.A4.GetLeft() + 80, bellowImg - 230, PageSize.A4.GetRight() - 160, 150);
                 
                 
                 canvas1.Rectangle(summaryRectangle);
                 canvas1.Stroke();
 
-                texts.Add(new Text("Summary:\n").SetFont(font).SetBold());
-                texts.Add(summaryText);
+                //texts.Add(cleanText);
                 //texts.Add(troublesootingText);
                 //texts.Add(repairText);
-                
+
+                texts.Add(new Text("Summary:\n").SetFont(font).SetBold());
+                texts.Add(new Text("AOLAOLAOLAOLAOLAOLAOLAOLAOLAOLAOLAO "));
+                texts.Add(new Text("AOLAOLAOLAOLAOLAOLAOLAOLAOLAOLAOLAO "));
+                texts.Add(new Text("AOLAOLAOLAOLAOLAOLAOLAOLAOLAOLAOLAO "));
+                texts.Add(new Text("AOLAOLAOLAOLAOLAOLAOLAOLAOLAOLAOLAO "));
+                //texts.Add(summaryText);
+
+                //texts.Add(troublesootingText);
+                //texts.Add(repairText);
+
+
                 addTextRectangle(canvas1, summaryRectangle, texts);
                 texts.Clear();
+
 
                 document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                 pages++;
@@ -327,15 +340,18 @@ namespace Tåg_project.FileManipulation
                 canvas.Release();
                 #endregion
 
-                #region Third page "Components"
+                
                 if (listaComponentes.Count > 0 && checkComponents(listaComponentes))
                 {
+                    #region Third page "Catalog"
                     titleCounter++;
                     document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                    document.Add(new Paragraph((titleCounter + "   Components\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
-                    document.Add(new Paragraph((titleCounter + "." + subtitleCounter + "  Components List:\n")).SetFont(font).SetFontSize(12).SetMarginTop(0f).SetBold());
+                    document.Add(new Paragraph((titleCounter + "   Catalog\n")).SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
+                    document.Add(new Paragraph((titleCounter + "." + subtitleCounter + "  Components Information:\n")).SetFont(font).SetFontSize(12).SetMarginTop(0f).SetBold());
                     InsertComponent(pdf, listaComponentes);
                     titleCounter++;
+                    #endregion
+                    #region Cleaning
                     //Cleaning
                     //document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                     //pdf.AddNewPage();
@@ -493,10 +509,8 @@ namespace Tåg_project.FileManipulation
                     document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
                     document.Add(new Paragraph(titleCounter + "." + subtitleCounter + " After Cleaning\n").SetFont(font).SetFontSize(14).SetMarginTop(0f).SetBold());
                     //AddComponentsAfterCleaning(listaComponentes, table, emptyCell);
+                    #endregion
                 }
-                #endregion
-
-                
                 document.Close();
                 MessageBox.Show("PDF Created on" + outputPath);
                 ShowFile.OpenFile(outputPath);
@@ -682,41 +696,60 @@ namespace Tåg_project.FileManipulation
         //Writes a list of all the components and then shows each one
         private void InsertComponent(PdfDocument pdf, List<Component> listaComponentes)
         {
-            int i = 0;
+            //int i = 0;
             Paragraph text;
             pageChanged = false;
             foreach (Component comp in listaComponentes)
             {
                 text = new Paragraph("\0\t\t" + "• Component " + componentCounter + " - " + serialNum + "-" + comp.name);
-                document.Add(text.SetFontSize(12).SetFont(font));
-                componentCounter++;
+                document.Add(text.SetFontSize(12).SetFont(font).SetBold());
+
+                label = new Text("\0\t\t\t" + "Units: ").SetFontSize(12).SetFont(font);
+                value = new Text(comp.quantity).SetFontSize(12).SetFont(font).SetBold();
+                text = new Paragraph();
+                text.Add(label).Add(value);
+                document.Add(text);
+
+                label = new Text("\0\t\t\t" + "Location: ").SetFontSize(12).SetFont(font);
+                value = new Text(comp.location).SetFontSize(12).SetFont(font).SetBold();
+                text = new Paragraph();
+                text.Add(label).Add(value);
+                document.Add(text);
+
+                label = new Text("\0\t\t\t" + "Component state: ").SetFontSize(12).SetFont(font);
+                value = new Text(componentStates[comp.state]).SetFontSize(12).SetFont(font).SetBold();
+                text = new Paragraph();
+                text.Add(label).Add(value);
+                document.Add(text);
+
+                componentCounter++;            
             }
-            document.Add(new Paragraph("\n"));
-            componentCounter = 1;
-            for (i = 0; i < listaComponentes.Count; i++)
-            {
-                text = new Paragraph(titleCounter + "." + subtitleCounter + "." + componentCounter + "  " + listaComponentes[i].name);
-                document.Add(text.SetFontSize(9).SetFont(font).SetBold());
-                //text = new Paragraph(listaComponentes[i].description);
-                text = new Paragraph(listaComponentes[i].location);
-                document.Add(text.SetFontSize(8).SetFont(font).SetMarginTop(0f));
-                ImageData im = ImageDataFactory.Create(listaComponentes[i].componentBeforeFrontImage1);
-                Image image = new Image(im);
-                //image.ScaleToFit(175,175);
-                image.SetMaxHeight(140);
-                image.SetMaxWidth(175);
-                image.ScaleToFit(documentWidth, (PageSize.A4.GetHeight() / 2));
-                document.Add(image);
-                text = new Paragraph("Figure " + imageCounter + ".  " + listaComponentes[i].name);
-                document.Add(text.SetFontSize(9).SetFont(font));
-                componentCounter++;
-                imageCounter++;
-                if ((i + 1) % 3 == 0 && (i+1)<listaComponentes.Count && !pageChanged)
-                {
-                    document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
-                    pages++;
-                }
-            }
+            //document.Add(new Paragraph("\n"));
+            //componentCounter = 1;
+            //for (i = 0; i < listaComponentes.Count; i++)
+            //{
+            //    text = new Paragraph(titleCounter + "." + subtitleCounter + "." + componentCounter + "  " + listaComponentes[i].name);
+            //    document.Add(text.SetFontSize(9).SetFont(font).SetBold());
+            //    //text = new Paragraph(listaComponentes[i].description);
+            //    text = new Paragraph(listaComponentes[i].location);
+            //    document.Add(text.SetFontSize(8).SetFont(font).SetMarginTop(0f));
+            //    ImageData im = ImageDataFactory.Create(listaComponentes[i].componentBeforeFrontImage1);
+            //    Image image = new Image(im);
+            //    //image.ScaleToFit(175,175);
+            //    image.SetMaxHeight(140);
+            //    image.SetMaxWidth(175);
+            //    image.ScaleToFit(documentWidth, (PageSize.A4.GetHeight() / 2));
+            //    document.Add(image);
+            //    text = new Paragraph("Figure " + imageCounter + ".  " + listaComponentes[i].name);
+            //    document.Add(text.SetFontSize(9).SetFont(font));
+            //    componentCounter++;
+            //    imageCounter++;
+            //    if ((i + 1) % 3 == 0 && (i+1)<listaComponentes.Count && !pageChanged)
+            //    {
+            //        document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            //        pages++;
+            //    }
+            //}
             document.Add(new AreaBreak(AreaBreakType.NEXT_PAGE));
             pages++;
         }
@@ -724,15 +757,15 @@ namespace Tåg_project.FileManipulation
         private void addTextRectangle(PdfCanvas canvas, Rectangle rectangle, List<Text> texts)
         {
             var canvas1 = new Canvas(canvas, rectangle);
-            float x = rectangle.GetLeft() + 10;
+            float x = rectangle.GetLeft() + 5;
             float y = rectangle.GetTop() - 20;
             foreach (Text text in texts)
             {
                 if (text != null)
                 {
-                    float width = text.GetText().Length;
-                    canvas1.Add(new Paragraph(text).SetFont(font).SetFixedPosition(x, y, rectangle.GetWidth()));
-                    y -= 12;
+                    //float width = text.GetText().Length;
+                    canvas1.Add(new Paragraph(text).SetFont(font).SetFixedPosition(x, y, rectangle.GetWidth() - 10));
+                    y -= 20;
                 }
             }
             //canvas.Rectangle(rectangle);
