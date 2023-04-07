@@ -58,6 +58,7 @@
             this.label19 = new System.Windows.Forms.Label();
             this.btnCatalog = new System.Windows.Forms.Button();
             this.pnlIdentification = new System.Windows.Forms.Panel();
+            this.pBoxLabel = new FontAwesome.Sharp.IconPictureBox();
             this.cBoxCleaning = new System.Windows.Forms.CheckBox();
             this.cBoxRepairing = new System.Windows.Forms.CheckBox();
             this.cBoxUpgrade = new System.Windows.Forms.CheckBox();
@@ -116,6 +117,7 @@
             this.pnlCatalog.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.pnlIdentification.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxLabel)).BeginInit();
             this.pnlRepair.SuspendLayout();
             this.pnlTroubleshoot.SuspendLayout();
             this.pnlCleaning.SuspendLayout();
@@ -540,6 +542,7 @@
             // pnlIdentification
             // 
             this.pnlIdentification.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(124)))), ((int)(((byte)(144)))));
+            this.pnlIdentification.Controls.Add(this.pBoxLabel);
             this.pnlIdentification.Controls.Add(this.cBoxCleaning);
             this.pnlIdentification.Controls.Add(this.cBoxRepairing);
             this.pnlIdentification.Controls.Add(this.cBoxUpgrade);
@@ -563,12 +566,28 @@
             this.pnlIdentification.Size = new System.Drawing.Size(784, 469);
             this.pnlIdentification.TabIndex = 24;
             // 
+            // pBoxLabel
+            // 
+            this.pBoxLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pBoxLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(124)))), ((int)(((byte)(144)))));
+            this.pBoxLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(232)))), ((int)(((byte)(18)))));
+            this.pBoxLabel.IconChar = FontAwesome.Sharp.IconChar.FileImage;
+            this.pBoxLabel.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(232)))), ((int)(((byte)(18)))));
+            this.pBoxLabel.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.pBoxLabel.IconSize = 126;
+            this.pBoxLabel.Location = new System.Drawing.Point(387, 185);
+            this.pBoxLabel.Name = "pBoxLabel";
+            this.pBoxLabel.Size = new System.Drawing.Size(139, 126);
+            this.pBoxLabel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pBoxLabel.TabIndex = 69;
+            this.pBoxLabel.TabStop = false;
+            // 
             // cBoxCleaning
             // 
             this.cBoxCleaning.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cBoxCleaning.AutoSize = true;
             this.cBoxCleaning.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cBoxCleaning.Location = new System.Drawing.Point(486, 149);
+            this.cBoxCleaning.Location = new System.Drawing.Point(44, 214);
             this.cBoxCleaning.Name = "cBoxCleaning";
             this.cBoxCleaning.Size = new System.Drawing.Size(81, 23);
             this.cBoxCleaning.TabIndex = 68;
@@ -581,7 +600,7 @@
             this.cBoxRepairing.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cBoxRepairing.AutoSize = true;
             this.cBoxRepairing.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cBoxRepairing.Location = new System.Drawing.Point(486, 175);
+            this.cBoxRepairing.Location = new System.Drawing.Point(44, 246);
             this.cBoxRepairing.Name = "cBoxRepairing";
             this.cBoxRepairing.Size = new System.Drawing.Size(85, 23);
             this.cBoxRepairing.TabIndex = 67;
@@ -594,7 +613,7 @@
             this.cBoxUpgrade.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cBoxUpgrade.AutoSize = true;
             this.cBoxUpgrade.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cBoxUpgrade.Location = new System.Drawing.Point(486, 202);
+            this.cBoxUpgrade.Location = new System.Drawing.Point(44, 278);
             this.cBoxUpgrade.Name = "cBoxUpgrade";
             this.cBoxUpgrade.Size = new System.Drawing.Size(81, 23);
             this.cBoxUpgrade.TabIndex = 66;
@@ -606,7 +625,7 @@
             // 
             this.txt6DigitSerialNum.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txt6DigitSerialNum.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txt6DigitSerialNum.Location = new System.Drawing.Point(19, 112);
+            this.txt6DigitSerialNum.Location = new System.Drawing.Point(44, 115);
             this.txt6DigitSerialNum.Margin = new System.Windows.Forms.Padding(2);
             this.txt6DigitSerialNum.MaxLength = 6;
             this.txt6DigitSerialNum.Name = "txt6DigitSerialNum";
@@ -619,7 +638,7 @@
             this.lblSerialNum.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblSerialNum.AutoSize = true;
             this.lblSerialNum.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblSerialNum.Location = new System.Drawing.Point(15, 91);
+            this.lblSerialNum.Location = new System.Drawing.Point(40, 94);
             this.lblSerialNum.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSerialNum.Name = "lblSerialNum";
             this.lblSerialNum.Size = new System.Drawing.Size(92, 19);
@@ -631,7 +650,7 @@
             this.label17.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label17.Location = new System.Drawing.Point(482, 97);
+            this.label17.Location = new System.Drawing.Point(40, 163);
             this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(48, 19);
@@ -643,7 +662,7 @@
             this.cBoxStorage.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cBoxStorage.AutoSize = true;
             this.cBoxStorage.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cBoxStorage.Location = new System.Drawing.Point(486, 125);
+            this.cBoxStorage.Location = new System.Drawing.Point(44, 185);
             this.cBoxStorage.Name = "cBoxStorage";
             this.cBoxStorage.Size = new System.Drawing.Size(75, 23);
             this.cBoxStorage.TabIndex = 63;
@@ -655,7 +674,7 @@
             // 
             this.dateTimePicker.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dateTimePicker.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.dateTimePicker.Location = new System.Drawing.Point(248, 124);
+            this.dateTimePicker.Location = new System.Drawing.Point(362, 119);
             this.dateTimePicker.Name = "dateTimePicker";
             this.dateTimePicker.Size = new System.Drawing.Size(180, 25);
             this.dateTimePicker.TabIndex = 2;
@@ -667,7 +686,7 @@
             this.label16.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label16.Location = new System.Drawing.Point(244, 97);
+            this.label16.Location = new System.Drawing.Point(358, 97);
             this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(84, 19);
@@ -679,7 +698,7 @@
             this.lblSerialNumDash.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblSerialNumDash.AutoSize = true;
             this.lblSerialNumDash.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblSerialNumDash.Location = new System.Drawing.Point(73, 115);
+            this.lblSerialNumDash.Location = new System.Drawing.Point(98, 118);
             this.lblSerialNumDash.Name = "lblSerialNumDash";
             this.lblSerialNumDash.Size = new System.Drawing.Size(15, 19);
             this.lblSerialNumDash.TabIndex = 59;
@@ -690,7 +709,7 @@
             this.lblCaminho.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblCaminho.AutoSize = true;
             this.lblCaminho.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblCaminho.Location = new System.Drawing.Point(15, 149);
+            this.lblCaminho.Location = new System.Drawing.Point(358, 163);
             this.lblCaminho.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCaminho.Name = "lblCaminho";
             this.lblCaminho.Size = new System.Drawing.Size(197, 19);
@@ -702,7 +721,7 @@
             this.label13.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.label13.Location = new System.Drawing.Point(18, 306);
+            this.label13.Location = new System.Drawing.Point(18, 339);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(70, 19);
@@ -715,11 +734,12 @@
             this.txtSummary.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtSummary.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtSummary.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtSummary.Location = new System.Drawing.Point(19, 339);
+            this.txtSummary.Location = new System.Drawing.Point(19, 361);
             this.txtSummary.Margin = new System.Windows.Forms.Padding(2);
+            this.txtSummary.MaxLength = 355;
             this.txtSummary.Multiline = true;
             this.txtSummary.Name = "txtSummary";
-            this.txtSummary.Size = new System.Drawing.Size(747, 108);
+            this.txtSummary.Size = new System.Drawing.Size(747, 86);
             this.txtSummary.TabIndex = 4;
             this.txtSummary.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPreventSeparator);
             // 
@@ -729,7 +749,7 @@
             this.btnImportLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(232)))), ((int)(((byte)(18)))));
             this.btnImportLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnImportLabel.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportLabel.Location = new System.Drawing.Point(19, 177);
+            this.btnImportLabel.Location = new System.Drawing.Point(395, 316);
             this.btnImportLabel.Margin = new System.Windows.Forms.Padding(2);
             this.btnImportLabel.Name = "btnImportLabel";
             this.btnImportLabel.Size = new System.Drawing.Size(118, 28);
@@ -754,7 +774,7 @@
             // 
             this.txt2DigitSerialNum.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txt2DigitSerialNum.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txt2DigitSerialNum.Location = new System.Drawing.Point(94, 113);
+            this.txt2DigitSerialNum.Location = new System.Drawing.Point(119, 116);
             this.txt2DigitSerialNum.MaxLength = 2;
             this.txt2DigitSerialNum.Name = "txt2DigitSerialNum";
             this.txt2DigitSerialNum.Size = new System.Drawing.Size(25, 25);
@@ -1275,6 +1295,7 @@
             this.tableLayoutPanel1.PerformLayout();
             this.pnlIdentification.ResumeLayout(false);
             this.pnlIdentification.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxLabel)).EndInit();
             this.pnlRepair.ResumeLayout(false);
             this.pnlRepair.PerformLayout();
             this.pnlTroubleshoot.ResumeLayout(false);
@@ -1372,5 +1393,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListBox listBoxAfterCleaning;
+        private FontAwesome.Sharp.IconPictureBox pBoxLabel;
     }
 }

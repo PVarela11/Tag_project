@@ -125,6 +125,7 @@ namespace Tåg_project.Core
                     cboxResult3.Checked = import.result3;
                     labelPath = import.labelPath;
                     lblCaminho.Text = "Imported " + Path.GetFileName(labelPath);
+                    pBoxLabel.ImageLocation = labelPath;
                     summary = import.summary;
                     txtSummary.Text = summary;
 
@@ -429,7 +430,7 @@ namespace Tåg_project.Core
                     component.componentBeforeBackImage1 = componentBeforeBackImg1;
                     component.componentBeforeBackImage2 = componentBeforeBackImg2;
                     component.componentBeforeBackImage3 = componentBeforeBackImg3;
-                    listBoxCatalog.Items.Add(txtComboCatalog.Text);
+                    //listBoxCatalog.Items.Add(txtComboCatalog.Text);
                     listBoxCleaning.Items.Add(txtComboCatalog.Text);
 
                     componentsList.Add(component);
@@ -544,119 +545,119 @@ namespace Tåg_project.Core
             listBoxCleaning.SelectedIndex = -1;
         }
 
-        private void listBoxCleaningComponent_Click(object sender, MouseEventArgs e)
-        {
-
-            
-
-            if (listBoxCleaning.SelectedItem != null)
-            {
-                string temp = listBoxCleaning.SelectedItem.ToString();
-                if (listBoxCleaning.SelectedIndex >= 0)
-                {
-                    //MessageBox.Show(listBoxComponents.SelectedItem.ToString());
-                    foreach (Component comp in componentsList)
-                    {
-                        if (comp.name == temp)
-                        {
-                            txtComboCatalog.Text = comp.name;
-                            txtDescription.Text = comp.description;
-
-                            if (comp.componentBeforeFrontImage1 != null)
-                            {
-                                componentBeforeFrontImg1 = comp.componentBeforeFrontImage1;
-                                btnImportBeforeFront1.Text = "Image imported";
-                                btnImportBeforeFront2.Enabled = true;
-                            }
-                            else btnImportBeforeFront1.Text = "Add image";
-
-                            if (comp.componentBeforeFrontImage2 != null)
-                            {
-                                componentBeforeFrontImg2 = comp.componentBeforeFrontImage2;
-                                btnImportBeforeFront2.Text = "Image imported";
-                                btnImportBeforeFront3.Enabled = true;
-                            }
-                            else btnImportBeforeFront2.Text = "Add image";
-                            if (comp.componentBeforeFrontImage3 != null)
-                            {
-                                componentBeforeFrontImg3 = comp.componentBeforeFrontImage3;
-                                btnImportBeforeFront3.Text = "Image imported";
-                            }
-                            else btnImportBeforeFront3.Text = "Add image";
-                            if (comp.componentAfterFrontImage1 != null)
-                            {
-                                componentAfterFrontImg1 = comp.componentAfterFrontImage1;
-                                btnImportAfterFront1.Text = "Image imported";
-                                btnImportAfterFront2.Enabled = true;
-                            }
-                            else
-                                btnImportAfterFront1.Text = "Add image";
-                            if (comp.componentAfterFrontImage2 != null)
-                            {
-                                componentAfterFrontImg2 = comp.componentAfterFrontImage2;
-                                btnImportAfterFront2.Text = "Image imported";
-                                btnImportAfterFront3.Enabled = true;
-                            }
-                            else
-                                btnImportAfterFront2.Text = "Add image";
-                            if (comp.componentAfterFrontImage3 != null)
-                            {
-                                componentAfterFrontImg3 = comp.componentAfterFrontImage3;
-                                btnImportAfterFront3.Text = "Image imported";
-                            }
-                            else
-                                btnImportAfterFront3.Text = "Add image";
-
-
-
-                            if (comp.componentBeforeBackImage1 != null)
-                            {
-                                componentBeforeBackImg1 = comp.componentBeforeBackImage1;
-                                btnImportBeforeBack1.Text = "Image imported";
-                                btnImportBeforeBack2.Enabled = true;
-                            }
-                            else btnImportBeforeBack1.Text = "Add image";
-                            if (comp.componentBeforeBackImage2 != null)
-                            {
-                                componentBeforeBackImg2 = comp.componentBeforeBackImage2;
-                                btnImportBeforeBack2.Text = "Image imported";
-                                btnImportBeforeBack3.Enabled = true;
-                            }
-                            else btnImportBeforeBack2.Text = "Add image";
-                            if (comp.componentBeforeBackImage3 != null)
-                            {
-                                componentBeforeBackImg3 = comp.componentBeforeBackImage3;
-                                btnImportBeforeBack3.Text = "Image imported";
-                            }
-                            else btnImportBeforeBack3.Text = "Add image";
-                            if (comp.componentAfterBackImage1 != null)
-                            {
-                                componentAfterBackImg1 = comp.componentAfterBackImage1;
-                                btnImportAfterBack1.Text = "Image imported";
-                                btnImportAfterBack2.Enabled = true;
-                            }
-                            else
-                                btnImportAfterBack1.Text = "Add image";
-                            if (comp.componentAfterBackImage2 != null)
-                            {
-                                componentAfterBackImg2 = comp.componentAfterBackImage2;
-                                btnImportAfterBack2.Text = "Image imported";
-                                btnImportAfterBack3.Enabled = true;
-                            }
-                            else
-                                btnImportAfterBack2.Text = "Add image";
-                            if (comp.componentAfterBackImage3 != null)
-                            {
-                                componentAfterBackImg3 = comp.componentAfterBackImage3;
-                                btnImportAfterBack3.Text = "Image imported";
-                            }
-                            else
-                                btnImportAfterBack3.Text = "Add image";
-                        }
-                    }
-                }
-            }
-        }
+        //private void listBoxCleaningComponent_Click(object sender, MouseEventArgs e)
+        //{
+        //
+        //    
+        //
+        //    if (listBoxCleaning.SelectedItem != null)
+        //    {
+        //        string temp = listBoxCleaning.SelectedItem.ToString();
+        //        if (listBoxCleaning.SelectedIndex >= 0)
+        //        {
+        //            //MessageBox.Show(listBoxComponents.SelectedItem.ToString());
+        //            foreach (Component comp in componentsList)
+        //            {
+        //                if (comp.name == temp)
+        //                {
+        //                    txtComboCatalog.Text = comp.name;
+        //                    txtDescription.Text = comp.description;
+        //
+        //                    if (comp.componentBeforeFrontImage1 != null)
+        //                    {
+        //                        componentBeforeFrontImg1 = comp.componentBeforeFrontImage1;
+        //                        btnImportBeforeFront1.Text = "Image imported";
+        //                        btnImportBeforeFront2.Enabled = true;
+        //                    }
+        //                    else btnImportBeforeFront1.Text = "Add image";
+        //
+        //                    if (comp.componentBeforeFrontImage2 != null)
+        //                    {
+        //                        componentBeforeFrontImg2 = comp.componentBeforeFrontImage2;
+        //                        btnImportBeforeFront2.Text = "Image imported";
+        //                        btnImportBeforeFront3.Enabled = true;
+        //                    }
+        //                    else btnImportBeforeFront2.Text = "Add image";
+        //                    if (comp.componentBeforeFrontImage3 != null)
+        //                    {
+        //                        componentBeforeFrontImg3 = comp.componentBeforeFrontImage3;
+        //                        btnImportBeforeFront3.Text = "Image imported";
+        //                    }
+        //                    else btnImportBeforeFront3.Text = "Add image";
+        //                    if (comp.componentAfterFrontImage1 != null)
+        //                    {
+        //                        componentAfterFrontImg1 = comp.componentAfterFrontImage1;
+        //                        btnImportAfterFront1.Text = "Image imported";
+        //                        btnImportAfterFront2.Enabled = true;
+        //                    }
+        //                    else
+        //                        btnImportAfterFront1.Text = "Add image";
+        //                    if (comp.componentAfterFrontImage2 != null)
+        //                    {
+        //                        componentAfterFrontImg2 = comp.componentAfterFrontImage2;
+        //                        btnImportAfterFront2.Text = "Image imported";
+        //                        btnImportAfterFront3.Enabled = true;
+        //                    }
+        //                    else
+        //                        btnImportAfterFront2.Text = "Add image";
+        //                    if (comp.componentAfterFrontImage3 != null)
+        //                    {
+        //                        componentAfterFrontImg3 = comp.componentAfterFrontImage3;
+        //                        btnImportAfterFront3.Text = "Image imported";
+        //                    }
+        //                    else
+        //                        btnImportAfterFront3.Text = "Add image";
+        //
+        //
+        //
+        //                    if (comp.componentBeforeBackImage1 != null)
+        //                    {
+        //                        componentBeforeBackImg1 = comp.componentBeforeBackImage1;
+        //                        btnImportBeforeBack1.Text = "Image imported";
+        //                        btnImportBeforeBack2.Enabled = true;
+        //                    }
+        //                    else btnImportBeforeBack1.Text = "Add image";
+        //                    if (comp.componentBeforeBackImage2 != null)
+        //                    {
+        //                        componentBeforeBackImg2 = comp.componentBeforeBackImage2;
+        //                        btnImportBeforeBack2.Text = "Image imported";
+        //                        btnImportBeforeBack3.Enabled = true;
+        //                    }
+        //                    else btnImportBeforeBack2.Text = "Add image";
+        //                    if (comp.componentBeforeBackImage3 != null)
+        //                    {
+        //                        componentBeforeBackImg3 = comp.componentBeforeBackImage3;
+        //                        btnImportBeforeBack3.Text = "Image imported";
+        //                    }
+        //                    else btnImportBeforeBack3.Text = "Add image";
+        //                    if (comp.componentAfterBackImage1 != null)
+        //                    {
+        //                        componentAfterBackImg1 = comp.componentAfterBackImage1;
+        //                        btnImportAfterBack1.Text = "Image imported";
+        //                        btnImportAfterBack2.Enabled = true;
+        //                    }
+        //                    else
+        //                        btnImportAfterBack1.Text = "Add image";
+        //                    if (comp.componentAfterBackImage2 != null)
+        //                    {
+        //                        componentAfterBackImg2 = comp.componentAfterBackImage2;
+        //                        btnImportAfterBack2.Text = "Image imported";
+        //                        btnImportAfterBack3.Enabled = true;
+        //                    }
+        //                    else
+        //                        btnImportAfterBack2.Text = "Add image";
+        //                    if (comp.componentAfterBackImage3 != null)
+        //                    {
+        //                        componentAfterBackImg3 = comp.componentAfterBackImage3;
+        //                        btnImportAfterBack3.Text = "Image imported";
+        //                    }
+        //                    else
+        //                        btnImportAfterBack3.Text = "Add image";
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
         private void btnCleanComponent_Click(object sender, EventArgs e)
         {
             componentName = listBoxCleaning.SelectedItem.ToString();
@@ -782,6 +783,7 @@ namespace Tåg_project.Core
                 {
                     lblCaminho.Text = "Imported " + dialog.FileName;
                     labelPath = dialog.FileName;
+                    pBoxLabel.ImageLocation = labelPath;
                 }
             }
         
@@ -1071,7 +1073,7 @@ namespace Tåg_project.Core
         //The separator is used in the csv file so the textbox shouldn't allow it
         private void txtPreventSeparator(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == '|')
+            if (e.KeyChar == '|' || e.KeyChar == (char)13)
             {
                 e.Handled = true;
             }
